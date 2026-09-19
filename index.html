@@ -14,6 +14,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Futuristic HUD Telemetry Bar -->
+    <div class="hud-telemetry-bar">
+        <div class="hud-telemetry-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> QUANTUM_ONLINE</span>
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SAC_RVRJC // GNT_AP</span>
+            <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
+        </div>
+        <div class="hud-telemetry-right">
+            <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
+            <span class="hud-tag"><strong>ORBIT:</strong> AY 2025–2026</span>
+            <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
+        </div>
+    </div>
+
     <!-- Ambient Floating Glows -->
     <div class="ambient-glow-wrapper">
         <div class="ambient-orb orb-1"></div>
@@ -60,7 +74,7 @@
         </div>
     </header>
 
-    <!-- Hero Section with Canvas Particle Network -->
+    <!-- Hero Section with Canvas Particle Network & Shockwave Energy -->
     <section class="hero" id="home">
         <canvas id="heroCanvas" class="hero-canvas"></canvas>
         <div class="hero-background">
@@ -77,7 +91,7 @@
                     <span>R.V.R. &amp; J.C. COLLEGE OF ENGINEERING · EC &amp; CCAC</span>
                     <span class="badge-live">AY 2025–2026</span>
                 </div>
-                <h1 class="hero-title">Where Culture Meets <span class="gradient-text">Creativity</span></h1>
+                <h1 class="hero-title">Where Culture Meets <span class="gradient-text cyber-decode">Creativity</span></h1>
                 <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Talent &amp; Collaboration</p>
                 <p class="hero-description">We are the heartbeat of campus life, orchestrating unforgettable experiences that celebrate diversity, foster extraordinary talent, and build lifelong connections.</p>
                 <div class="hero-buttons">
@@ -124,21 +138,21 @@
         <div class="container">
             <div class="section-header">
                 <div class="kicker-pill"><span class="dot"></span> 01 / EXPLORE THE PORTAL</div>
-                <h2 class="section-title">Navigate Campus Life</h2>
+                <h2 class="section-title cyber-decode">Navigate Campus Life</h2>
                 <div class="title-underline"></div>
                 <p class="section-description">Step into our dynamic ecosystem of cultural fests, student-led initiatives, artistic showcases, and leadership opportunities.</p>
             </div>
 
             <div class="portal-grid">
                 <!-- Card 1: About Us -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">🏛️</div>
                             <span class="portal-badge">Our Mission</span>
                         </div>
                         <div class="portal-kicker">FOUNDATION &amp; HISTORY</div>
-                        <h3 class="portal-card-title">About EC &amp; CCAC</h3>
+                        <h3 class="portal-card-title cyber-decode">About EC &amp; CCAC</h3>
                         <p class="portal-card-desc">The heartbeat of student life at RVR&amp;JCCE. Discover our vision, leadership philosophy, animated stats, and community fostering extraordinary talent.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">50+ Events</span>
@@ -153,14 +167,14 @@
                 </div>
 
                 <!-- Card 2: Flagship Events -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">🎭</div>
                             <span class="portal-badge">Celebrations</span>
                         </div>
                         <div class="portal-kicker">CALENDAR &amp; PERFORMANCES</div>
-                        <h3 class="portal-card-title">Flagship Events &amp; Fests</h3>
+                        <h3 class="portal-card-title cyber-decode">Flagship Events &amp; Fests</h3>
                         <p class="portal-card-desc">From Cultural Fest and Club Waltz to Battle of the Bands and Art Expos. Filter by category and access detailed guidelines and event coordinators.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Cultural Fests</span>
@@ -175,14 +189,14 @@
                 </div>
 
                 <!-- Card 3: SICO Initiatives -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">🚀</div>
                             <span class="portal-badge">Outreach</span>
                         </div>
                         <div class="portal-kicker">COMMUNITY &amp; IMPACT</div>
-                        <h3 class="portal-card-title">SICO Initiatives</h3>
+                        <h3 class="portal-card-title cyber-decode">SICO Initiatives</h3>
                         <p class="portal-card-desc">Student Initiatives &amp; Community Outreach. Translate visionary ideas into tangible community impact through our Ideate • Collaborate • Impact framework.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Social Impact</span>
@@ -197,14 +211,14 @@
                 </div>
 
                 <!-- Card 4: Reports & Publications -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">📊</div>
                             <span class="portal-badge">Archives</span>
                         </div>
                         <div class="portal-kicker">RECORDS &amp; ACHIEVEMENTS</div>
-                        <h3 class="portal-card-title">Reports &amp; Archives</h3>
+                        <h3 class="portal-card-title cyber-decode">Reports &amp; Archives</h3>
                         <p class="portal-card-desc">Official documentation, annual activity reports (PDF), milestone retrospectives, and event highlights organized by academic year.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Annual Reports</span>
@@ -219,14 +233,14 @@
                 </div>
 
                 <!-- Card 5: Student Coordinators -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">👥</div>
                             <span class="portal-badge">Leadership</span>
                         </div>
                         <div class="portal-kicker">STUDENT MINDS</div>
-                        <h3 class="portal-card-title">Student Coordinators</h3>
+                        <h3 class="portal-card-title cyber-decode">Student Coordinators</h3>
                         <p class="portal-card-desc">Meet the dynamic student coordinators and leaders who steer committee logistics, marketing, event operations, and creative vision.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Core Coordinators</span>
@@ -241,14 +255,14 @@
                 </div>
 
                 <!-- Card 6: Visual Stories & Gallery -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">📸</div>
                             <span class="portal-badge">Memories</span>
                         </div>
                         <div class="portal-kicker">MOMENTS IN FOCUS</div>
-                        <h3 class="portal-card-title">Visual Stories &amp; Gallery</h3>
+                        <h3 class="portal-card-title cyber-decode">Visual Stories &amp; Gallery</h3>
                         <p class="portal-card-desc">A curated photographic journey through cultural galas, live concerts, dance nights, art expos, and athletic triumphs at RVR&amp;JCCE.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">High-Res Photos</span>
@@ -263,14 +277,14 @@
                 </div>
 
                 <!-- Card 7: Contact & FAQ Hub -->
-                <div class="portal-card">
-                    <div>
+                <div class="portal-card tilt-card cyber-card">
+                    <div class="tilt-inner">
                         <div class="portal-card-header">
                             <div class="portal-icon">💬</div>
                             <span class="portal-badge">Support</span>
                         </div>
                         <div class="portal-kicker">CONNECT &amp; HELP</div>
-                        <h3 class="portal-card-title">Contact &amp; FAQ Hub</h3>
+                        <h3 class="portal-card-title cyber-decode">Contact &amp; FAQ Hub</h3>
                         <p class="portal-card-desc">Have questions about joining the committee, On-Duty (OD) attendance, or new club proposals? Get in touch with our SAC team or view instant answers.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Official Email</span>
@@ -286,13 +300,13 @@
             </div>
 
             <!-- Spotlight CTA Banner -->
-            <div class="portal-cta-banner">
-                <div class="portal-cta-content">
+            <div class="portal-cta-banner tilt-card cyber-card">
+                <div class="portal-cta-content tilt-inner">
                     <div class="portal-kicker">JOIN THE MOVEMENT</div>
-                    <h3 class="portal-cta-title">Ready to Leave Your Mark on Campus?</h3>
+                    <h3 class="portal-cta-title cyber-decode">Ready to Leave Your Mark on Campus?</h3>
                     <p class="portal-cta-desc">Be part of over 1,000 active students driving the cultural and creative renaissance at R.V.R. &amp; J.C. College of Engineering. Propose new clubs, lead initiatives, and showcase your passion.</p>
                 </div>
-                <div class="portal-cta-actions">
+                <div class="portal-cta-actions tilt-inner">
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
                        class="btn btn-primary"
                        target="_blank"
@@ -308,6 +322,42 @@
             </div>
         </div>
     </section>
+
+    <!-- Floating Cyber HUD Controls (Audio Synth + Command Palette Trigger) -->
+    <div class="hud-floating-controls">
+        <button class="hud-ctrl-btn" id="hudAudioToggle" aria-label="Toggle Futuristic Audio Synth">
+            <div class="hud-sound-bars">
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+            </div>
+            <span class="hud-audio-text">AUDIO: OFF</span>
+        </button>
+        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Command Palette">
+            <span>⚡ TELEPORT</span>
+            <kbd class="hud-kbd-key">Ctrl + K</kbd>
+        </button>
+    </div>
+
+    <!-- Command Palette HUD Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="cmd-palette">
+            <div class="cmd-search-box">
+                <span class="cmd-search-icon">⚡</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Teleport anywhere (e.g. Events, SICO, Reports, Team, Gallery)..." autocomplete="off" spellcheck="false">
+                <kbd class="hud-kbd-key">ESC</kbd>
+            </div>
+            <div class="cmd-results" id="cmdResults">
+                <!-- Results rendered dynamically by script.js -->
+            </div>
+            <div class="cmd-footer">
+                <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
+                <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
+                <span>EC &amp; CCAC SICO HUD v2.6</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Floating Back to Top Button with SVG Progress Ring -->
     <button class="back-to-top" id="backToTop" aria-label="Back to Top">

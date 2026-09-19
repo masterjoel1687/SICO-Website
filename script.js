@@ -84,8 +84,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 particles[i].update();
                 particles[i].draw();
             }
+            // Update and draw shockwaves
+            for (let s = shockwaves.length - 1; s >= 0; s--) {
+                shockwaves[s].update();
+                shockwaves[s].draw();
+                if (shockwaves[s].opacity <= 0) {
+                    shockwaves.splice(s, 1);
+                }
+            }
+
             requestAnimationFrame(animateCanvas);
         }
+
+        let shockwaves = [];
+        class Shockwave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 5;
+                this.maxRadius = 260;
+                this.opacity = 0.85;
+                this.speed = 9;
+            }
+            update() {
+                this.radius += this.speed;
+                this.opacity = Math.max(0, 0.85 * (1 - this.radius / this.maxRadius));
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(0, 242, 254, ${this.opacity})`;
+                ctx.lineWidth = 2;
+                ctx.shadowColor = '#00f2fe';
+                ctx.shadowBlur = 12;
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+        }
+
         animateCanvas();
 
         const heroSection = document.getElementById('home');
@@ -98,6 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.addEventListener('mouseleave', () => {
                 heroMouse.x = null;
                 heroMouse.y = null;
+            });
+            heroSection.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                shockwaves.push(new Shockwave(e.clientX - rect.left, e.clientY - rect.top));
+                if (typeof playSynthSound === 'function') playSynthSound('teleport');
             });
         }
 
@@ -715,11 +756,324 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.event-card, .feature-card, .report-preview-card, .stat-item, .gallery-item, .pillar-step, .faq-item').forEach(el => {
+    document.querySelectorAll('.event-card, .feature-card, .report-preview-card, .stat-item, .gallery-item, .pillar-step, .faq-item, .portal-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(25px)';
         el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
         fadeObserver.observe(el);
     });
+
+    // -------------------------------------------------------------
+    // 15. PROCEDURAL WEB AUDIO SYNTHESIZER (ZERO-DEPENDENCY)
+    // -------------------------------------------------------------
+    let audioCtx = null;
+    let audioEnabled = localStorage.getItem('ec_hud_audio') === 'true';
+
+    function initAudio() {
+        if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                audioCtx = new AudioContext();
+            }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playSynthSound(type) {
+        if (!audioEnabled || !audioCtx) return;
+        try {
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'blip') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(1100, now);
+                osc.frequency.exponentialRampToValueAtTime(1760, now + 0.04);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                osc.start(now);
+                osc.stop(now + 0.04);
+            } else if (type === 'click') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(220, now + 0.07);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                osc.start(now);
+                osc.stop(now + 0.07);
+            } else if (type === 'teleport') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.18);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                osc.start(now);
+                osc.stop(now + 0.2);
+            }
+        } catch (e) {
+            // Silently ignore audio context restrictions
+        }
+    }
+
+    const audioToggleBtn = document.getElementById('hudAudioToggle');
+    function updateAudioUI() {
+        if (!audioToggleBtn) return;
+        const textSpan = audioToggleBtn.querySelector('.hud-audio-text');
+        if (audioEnabled) {
+            audioToggleBtn.classList.add('active');
+            if (textSpan) textSpan.textContent = 'AUDIO: ON';
+        } else {
+            audioToggleBtn.classList.remove('active');
+            if (textSpan) textSpan.textContent = 'AUDIO: OFF';
+        }
+    }
+    updateAudioUI();
+
+    if (audioToggleBtn) {
+        audioToggleBtn.addEventListener('click', () => {
+            initAudio();
+            audioEnabled = !audioEnabled;
+            localStorage.setItem('ec_hud_audio', audioEnabled);
+            updateAudioUI();
+            if (audioEnabled) playSynthSound('click');
+        });
+    }
+
+    // Attach sound to interactive elements
+    document.querySelectorAll('.nav-link, .btn, .portal-card, .filter-btn, .cmd-item, .social-link').forEach(el => {
+        el.addEventListener('mouseenter', () => playSynthSound('blip'));
+        el.addEventListener('click', () => playSynthSound('click'));
+    });
+
+    // -------------------------------------------------------------
+    // 16. MATRIX CYBER TEXT SCRAMBLE / DECODER
+    // -------------------------------------------------------------
+    const glyphs = '01#@$%&▲▶◆░▒▓█XYZABC2026';
+    function decodeText(element) {
+        const originalText = element.getAttribute('data-original-text') || element.innerText;
+        element.setAttribute('data-original-text', originalText);
+        let iteration = 0;
+        const speed = 25;
+        clearInterval(element._decodeInterval);
+
+        element._decodeInterval = setInterval(() => {
+            element.innerText = originalText
+                .split('')
+                .map((char, index) => {
+                    if (index < iteration) {
+                        return originalText[index];
+                    }
+                    if (char === ' ') return ' ';
+                    return glyphs[Math.floor(Math.random() * glyphs.length)];
+                })
+                .join('');
+
+            if (iteration >= originalText.length) {
+                clearInterval(element._decodeInterval);
+            }
+            iteration += 1 / 2;
+        }, speed);
+    }
+
+    document.querySelectorAll('.cyber-decode').forEach(el => {
+        decodeText(el);
+        el.addEventListener('mouseenter', () => decodeText(el));
+    });
+
+    // -------------------------------------------------------------
+    // 17. REAL-TIME 3D CARD TILT & SPECULAR GLARE
+    // -------------------------------------------------------------
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card');
+        tiltCards.forEach(card => {
+            let glare = card.querySelector('.tilt-glare');
+            if (!glare) {
+                glare = document.createElement('div');
+                glare.className = 'tilt-glare';
+                card.appendChild(glare);
+            }
+
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotX = ((y - centerY) / centerY) * -8;
+                const rotY = ((x - centerX) / centerX) * 8;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
+                glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.22), transparent 60%)`;
+                glare.style.opacity = '1';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
+                glare.style.opacity = '0';
+            });
+        });
+    }
+
+    // -------------------------------------------------------------
+    // 18. FUTURISTIC COMMAND PALETTE HUD (Ctrl + K)
+    // -------------------------------------------------------------
+    const cmdOverlay = document.getElementById('cmdPaletteOverlay');
+    const cmdInput = document.getElementById('cmdInput');
+    const cmdResults = document.getElementById('cmdResults');
+    const cmdTriggerBtn = document.getElementById('hudCmdTrigger');
+
+    const cmdDestinations = [
+        { title: 'Home / Portal Gateway', sub: 'Interactive dashboard & category hub', url: 'index.html', icon: '⚡', category: 'Portal' },
+        { title: 'About EC & CCAC', sub: 'Mission, vision, and dynamic statistics', url: 'about.html', icon: '🏛️', category: 'About' },
+        { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Events' },
+        { title: 'SICO Community Outreach', sub: 'Student initiatives & 3-pillar roadmap', url: 'sico.html', icon: '🚀', category: 'SICO' },
+        { title: 'Reports & Archives', sub: 'Annual documentation and academic year reports', url: 'reports.html', icon: '📊', category: 'Reports' },
+        { title: 'Student Coordinators', sub: 'Core leadership and coordinator directory', url: 'team.html', icon: '👥', category: 'Team' },
+        { title: 'Visual Stories & Gallery', sub: 'High-resolution photographic memories', url: 'gallery.html', icon: '📸', category: 'Gallery' },
+        { title: 'Contact & FAQ Hub', sub: 'Campus location, helpline, and answers', url: 'contact.html', icon: '💬', category: 'Contact' },
+        { title: 'Register for SICO 2025–26', sub: 'Official registration form', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Register', external: true },
+        { title: 'Cultural Fest 2026', sub: 'Premier arts and cultural celebration', url: 'events.html', icon: '🎪', category: 'Events' },
+        { title: 'Club Waltz Night', sub: 'Annual dance gala and choreo competition', url: 'events.html', icon: '💃', category: 'Events' },
+        { title: 'Battle of the Bands', sub: 'Inter-college musical faceoff', url: 'events.html', icon: '🎸', category: 'Events' }
+    ];
+
+    let activeCmdIndex = 0;
+    let filteredCmds = [...cmdDestinations];
+
+    function renderCmdResults() {
+        if (!cmdResults) return;
+        cmdResults.innerHTML = '';
+        if (filteredCmds.length === 0) {
+            cmdResults.innerHTML = `<div style="padding: 24px; text-align: center; color: #64748b; font-family: var(--font-mono);">NO TELEPORT DESTINATIONS FOUND</div>`;
+            return;
+        }
+
+        filteredCmds.forEach((item, idx) => {
+            const a = document.createElement('a');
+            a.className = `cmd-item ${idx === activeCmdIndex ? 'active' : ''}`;
+            a.href = item.url;
+            if (item.external) {
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+            }
+            a.innerHTML = `
+                <div class="cmd-item-left">
+                    <span class="cmd-item-icon">${item.icon}</span>
+                    <div>
+                        <div class="cmd-item-title">${item.title}</div>
+                        <div class="cmd-item-sub">${item.sub}</div>
+                    </div>
+                </div>
+                <span class="cmd-badge">${item.category}</span>
+            `;
+            a.addEventListener('mouseenter', () => {
+                activeCmdIndex = idx;
+                updateActiveCmdItem();
+                playSynthSound('blip');
+            });
+            a.addEventListener('click', () => {
+                playSynthSound('teleport');
+                closeCmdPalette();
+            });
+            cmdResults.appendChild(a);
+        });
+    }
+
+    function updateActiveCmdItem() {
+        const items = cmdResults.querySelectorAll('.cmd-item');
+        items.forEach((item, idx) => {
+            if (idx === activeCmdIndex) {
+                item.classList.add('active');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    function openCmdPalette() {
+        if (!cmdOverlay) return;
+        cmdOverlay.classList.add('active');
+        if (cmdInput) {
+            cmdInput.value = '';
+            cmdInput.focus();
+        }
+        filteredCmds = [...cmdDestinations];
+        activeCmdIndex = 0;
+        renderCmdResults();
+        playSynthSound('teleport');
+    }
+
+    function closeCmdPalette() {
+        if (!cmdOverlay) return;
+        cmdOverlay.classList.remove('active');
+    }
+
+    if (cmdTriggerBtn) {
+        cmdTriggerBtn.addEventListener('click', openCmdPalette);
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (cmdOverlay && cmdOverlay.classList.contains('active')) {
+                closeCmdPalette();
+            } else {
+                openCmdPalette();
+            }
+        } else if (e.key === 'Escape' && cmdOverlay && cmdOverlay.classList.contains('active')) {
+            closeCmdPalette();
+        }
+    });
+
+    if (cmdOverlay) {
+        cmdOverlay.addEventListener('click', (e) => {
+            if (e.target === cmdOverlay) closeCmdPalette();
+        });
+    }
+
+    if (cmdInput) {
+        cmdInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            filteredCmds = cmdDestinations.filter(d => 
+                d.title.toLowerCase().includes(query) || 
+                d.sub.toLowerCase().includes(query) || 
+                d.category.toLowerCase().includes(query)
+            );
+            activeCmdIndex = 0;
+            renderCmdResults();
+        });
+
+        cmdInput.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                activeCmdIndex = (activeCmdIndex + 1) % filteredCmds.length;
+                updateActiveCmdItem();
+                playSynthSound('blip');
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                activeCmdIndex = (activeCmdIndex - 1 + filteredCmds.length) % filteredCmds.length;
+                updateActiveCmdItem();
+                playSynthSound('blip');
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (filteredCmds[activeCmdIndex]) {
+                    playSynthSound('teleport');
+                    const target = filteredCmds[activeCmdIndex];
+                    if (target.external) {
+                        window.open(target.url, '_blank');
+                    } else {
+                        window.location.href = target.url;
+                    }
+                    closeCmdPalette();
+                }
+            }
+        });
+    }
 
 });
