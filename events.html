@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flagship Events | EC &amp; CCAC - RVR&amp;JCCE</title>
+    <meta name="description" content="Explore cultural fests, music concerts, dance battles, art expos, and literary events at RVR &amp; JC College of Engineering.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Floating Glows -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        <div class="ambient-orb orb-4"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link active">Events</a>
+                <a href="sico.html" class="nav-link">Sico</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn-nav-cta"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register SICO</span>
+                    <i>↗</i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="page-banner-content">
+                <div class="kicker-pill"><span class="dot"></span> 02 / CAMPUS HIGHLIGHTS</div>
+                <h1 class="page-banner-title">Flagship <span class="gradient-text">Events &amp; Fests</span></h1>
+                <p class="page-banner-subtitle">Discover our premier calendar of celebrations, performances, exhibitions, and competitions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events-list">
+        <div class="container">
+            <div class="section-header">
+                <div class="filter-tabs-wrapper">
+                    <div class="filter-tabs" id="eventFilters">
+                        <button class="filter-btn active" data-filter="all">All Events</button>
+                        <button class="filter-btn" data-filter="cultural">Cultural</button>
+                        <button class="filter-btn" data-filter="dance">Dance</button>
+                        <button class="filter-btn" data-filter="art">Art &amp; Design</button>
+                        <button class="filter-btn" data-filter="music">Music</button>
+                        <button class="filter-btn" data-filter="literature">Literature</button>
+                        <button class="filter-btn" data-filter="cinema">Cinema</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Cultural Fest -->
+                <div class="event-card cultural" data-category="cultural"
+                     data-title="Cultural Fest"
+                     data-date="3 Days of Extravaganza"
+                     data-venue="Main Open Air Auditorium"
+                     data-coordinators="M Aravind Kumar, A Bhavagna"
+                     data-highlights="120+ Performers, Theme Nights, Dance &amp; Singing Clubs"
+                     data-rules="Open to all enrolled students. Preliminary auditions required for solo acts. College ID card mandatory.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Cultural Fest/Screenshot 2025-11-27 130859.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Cultural</div>
+                            <span class="event-badge-tag">Flagship</span>
+                        </div>
+                        <h3 class="event-title">Cultural Fest</h3>
+                        <p class="event-description">A vibrant celebration of diversity featuring music, dance, drama, and art from various cultures. Join us for three days of non-stop entertainment and cultural exchange.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">120+ Performers</span>
+                            <span class="highlight-pill">Theme Nights</span>
+                            <span class="highlight-pill">Clubs Showcase</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Elevating the Talent of the Students</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Club Waltz -->
+                <div class="event-card dance" data-category="dance"
+                     data-title="Club Waltz"
+                     data-date="Annual Dance Gala"
+                     data-venue="Student Activities Center"
+                     data-coordinators="M Leeladhar, P Shanmukha Sai"
+                     data-highlights="Live Bands, Partner Choreography, Ballroom Workshops"
+                     data-rules="Dress code: Formal/Black-tie. Partners can register together or pair up during orientation workshops.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Club Waltz/WhatsApp Image 2025-12-01 at 20.49.47_e7db48e5.jpg');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Dance</div>
+                            <span class="event-badge-tag">Gala Night</span>
+                        </div>
+                        <h3 class="event-title">Club Waltz</h3>
+                        <p class="event-description">An elegant evening of dance, music, and networking. Showcase your moves and connect with fellow students in a sophisticated atmosphere.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Live Bands</span>
+                            <span class="highlight-pill">Partner Choreography</span>
+                            <span class="highlight-pill">Ballroom Workshops</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Black-tie ambience with modern flair</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Art Expo -->
+                <div class="event-card art" data-category="art"
+                     data-title="Art &amp; Design Expo"
+                     data-date="2-Day Exhibition"
+                     data-venue="Design Gallery &amp; Atrium"
+                     data-coordinators="A Yeswanth Chandra, K Sahithya"
+                     data-highlights="Immersive Galleries, Student Showcases, Hands-on Studios"
+                     data-rules="Submissions accepted across traditional, digital, 3D and mixed media. All original artworks eligible for jury awards.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Art Expo/DSC_0697.JPG');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Art &amp; Design</div>
+                            <span class="event-badge-tag">Exhibition</span>
+                        </div>
+                        <h3 class="event-title">Art &amp; Design Expo</h3>
+                        <p class="event-description">A showcase of student creativity featuring paintings, sculptures, digital art, and installations. Celebrate the artistic talent within our community.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Immersive Galleries</span>
+                            <span class="highlight-pill">Student Showcases</span>
+                            <span class="highlight-pill">Hands-on Studios</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Curated walkthroughs and live critiques</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Music Festival -->
+                <div class="event-card music" data-category="music"
+                     data-title="Music Festival"
+                     data-date="All-Day Concert"
+                     data-venue="SAC Amphitheatre"
+                     data-coordinators="M Vamsi, Sk Hussen"
+                     data-highlights="Headliner Acts, Open-Mic Stage, Food Village"
+                     data-rules="Battle of the Bands allows 15 mins stage time per team. Acoustic and electric setups supported.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Music Festival/IMG_0846.JPG');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Music</div>
+                            <span class="event-badge-tag">Live Fest</span>
+                        </div>
+                        <h3 class="event-title">Music Festival</h3>
+                        <p class="event-description">A day-long celebration of music featuring performances by student bands, solo artists, and guest musicians. Food, fun, and fantastic tunes!</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Headliner Acts</span>
+                            <span class="highlight-pill">Open-Mic Stage</span>
+                            <span class="highlight-pill">Food Village</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Sunset sessions followed by neon nights</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Literary Fest -->
+                <div class="event-card literature" data-category="literature"
+                     data-title="Literary Fest"
+                     data-date="2-Day Forum"
+                     data-venue="Library Seminar Hall"
+                     data-coordinators="G Sobha Serena, Sk Sohail"
+                     data-highlights="Poetry Slams, Writing Labs, Guest Authors"
+                     data-rules="Original essays, stories, and spoken-word poetry submissions. Plagiarism results in immediate disqualification.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Literary Fest/Screenshot 2025-12-04 141405.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Literature</div>
+                            <span class="event-badge-tag">Symposium</span>
+                        </div>
+                        <h3 class="event-title">Literary Fest</h3>
+                        <p class="event-description">A celebration of words, ideas, and creativity featuring poetry readings, book discussions, writing workshops, and author interactions.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Poetry Slams</span>
+                            <span class="highlight-pill">Writing Labs</span>
+                            <span class="highlight-pill">Guest Authors</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Bibliophile corners &amp; twilight readings</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Film Night -->
+                <div class="event-card cinema" data-category="cinema"
+                     data-title="Film Screening Night"
+                     data-date="Evening Gala"
+                     data-venue="Main Audi-Visual Theatre"
+                     data-coordinators="M Aravind Kumar, Sk Sohail"
+                     data-highlights="Student Premieres, Critics Panel, Audience Awards"
+                     data-rules="Short films under 15 minutes. Must include English subtitles. Original compositions or licensed soundtrack required.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Film Night/Screenshot 2025-12-01 095657.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Cinema</div>
+                            <span class="event-badge-tag">Screening</span>
+                        </div>
+                        <h3 class="event-title">Film Screening Night</h3>
+                        <p class="event-description">An evening of cinematic excellence featuring student-made short films, documentaries, and an interactive Q&amp;A session with filmmakers.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Student Premieres</span>
+                            <span class="highlight-pill">Critics Panel</span>
+                            <span class="highlight-pill">Audience Awards</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Red-carpet arrivals &amp; spotlight moments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Detail Modal -->
+    <div class="event-modal-backdrop" id="eventModal">
+        <div class="event-modal-container">
+            <button class="event-modal-close" id="eventModalClose" aria-label="Close modal">&times;</button>
+            <div class="event-modal-header">
+                <span class="event-modal-badge" id="modalCategory">Cultural</span>
+                <h3 class="event-modal-title" id="modalTitle">Cultural Fest</h3>
+                <div class="event-modal-meta">
+                    <div><span>📅 Date:</span> <strong id="modalDate">3 Days</strong></div>
+                    <div><span>📍 Venue:</span> <strong id="modalVenue">Auditorium</strong></div>
+                </div>
+            </div>
+            <div class="event-modal-body">
+                <div class="modal-section">
+                    <h4>About the Event</h4>
+                    <p id="modalDesc">Detailed description goes here.</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Highlights</h4>
+                    <p id="modalHighlights">Highlights</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Participation Guidelines</h4>
+                    <p id="modalRules">Rules</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Student Leads</h4>
+                    <p id="modalCoordinators">Coordinators</p>
+                </div>
+            </div>
+            <div class="event-modal-footer">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn btn-primary"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register Now</span>
+                    <i>↗</i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <svg class="progress-ring" width="48" height="48">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+            <defs>
+                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe"/>
+                    <stop offset="50%" stop-color="#7768e5"/>
+                    <stop offset="100%" stop-color="#fc6441"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EC &amp; CCAC</h3>
+                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="sico.html">SICO Portal</a></li>
+                        <li><a href="reports.html">Reports &amp; Archives</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Address</h4>
+                    <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

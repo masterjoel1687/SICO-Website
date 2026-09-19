@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC &amp; CCAC | Extracurricular &amp; Co-Curricular Activities Committee - RVR&amp;JCCE</title>
+    <meta name="description" content="Extracurricular &amp; Co-Curricular Activities Committee &amp; SICO - Where Culture Meets Creativity at RVR &amp; JC College of Engineering.">
+    
+    <!-- Preconnect & Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Floating Glows -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        <div class="ambient-orb orb-4"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Floating Pill Header with Sticky Navigation -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="sico.html" class="nav-link">Sico</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn-nav-cta"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register SICO</span>
+                    <i>↗</i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Canvas Particle Network -->
+    <section class="hero" id="home">
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
+        <div class="hero-background">
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <span class="pulse-dot"></span>
+                    <span>R.V.R. &amp; J.C. COLLEGE OF ENGINEERING · EC &amp; CCAC</span>
+                    <span class="badge-live">AY 2025–2026</span>
+                </div>
+                <h1 class="hero-title">Where Culture Meets <span class="gradient-text">Creativity</span></h1>
+                <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Talent &amp; Collaboration</p>
+                <p class="hero-description">We are the heartbeat of campus life, orchestrating unforgettable experiences that celebrate diversity, foster extraordinary talent, and build lifelong connections.</p>
+                <div class="hero-buttons">
+                    <a href="events.html" class="btn btn-primary">
+                        <span>Explore Events</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                       class="btn btn-secondary"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <span>Register for SICO</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <a href="#portal-hub" class="scroll-indicator" aria-label="Scroll to Portal Hub">
+            <div class="mouse"></div>
+        </a>
+    </section>
+
+    <!-- Running Ticker Ribbon -->
+    <div class="ticker-ribbon">
+        <div class="ticker-track">
+            <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
+            <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
+            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2025–2026</span>
+            <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
+            <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
+            <!-- Repeat loop -->
+            <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
+            <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
+            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2025–2026</span>
+            <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
+            <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
+        </div>
+    </div>
+
+    <!-- Portal Hub & Category Navigation Gateway -->
+    <section class="portal-hub" id="portal-hub">
+        <div class="container">
+            <div class="section-header">
+                <div class="kicker-pill"><span class="dot"></span> 01 / EXPLORE THE PORTAL</div>
+                <h2 class="section-title">Navigate Campus Life</h2>
+                <div class="title-underline"></div>
+                <p class="section-description">Step into our dynamic ecosystem of cultural fests, student-led initiatives, artistic showcases, and leadership opportunities.</p>
+            </div>
+
+            <div class="portal-grid">
+                <!-- Card 1: About Us -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">🏛️</div>
+                            <span class="portal-badge">Our Mission</span>
+                        </div>
+                        <div class="portal-kicker">FOUNDATION &amp; HISTORY</div>
+                        <h3 class="portal-card-title">About EC &amp; CCAC</h3>
+                        <p class="portal-card-desc">The heartbeat of student life at RVR&amp;JCCE. Discover our vision, leadership philosophy, animated stats, and community fostering extraordinary talent.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">50+ Events</span>
+                            <span class="portal-tag">1000+ Students</span>
+                            <span class="portal-tag">13+ Clubs</span>
+                        </div>
+                    </div>
+                    <a href="about.html" class="portal-card-cta">
+                        <span>Explore Our Story</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 2: Flagship Events -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">🎭</div>
+                            <span class="portal-badge">Celebrations</span>
+                        </div>
+                        <div class="portal-kicker">CALENDAR &amp; PERFORMANCES</div>
+                        <h3 class="portal-card-title">Flagship Events &amp; Fests</h3>
+                        <p class="portal-card-desc">From Cultural Fest and Club Waltz to Battle of the Bands and Art Expos. Filter by category and access detailed guidelines and event coordinators.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">Cultural Fests</span>
+                            <span class="portal-tag">Dance Galas</span>
+                            <span class="portal-tag">Music Festivals</span>
+                        </div>
+                    </div>
+                    <a href="events.html" class="portal-card-cta">
+                        <span>Explore Event Calendar</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 3: SICO Initiatives -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">🚀</div>
+                            <span class="portal-badge">Outreach</span>
+                        </div>
+                        <div class="portal-kicker">COMMUNITY &amp; IMPACT</div>
+                        <h3 class="portal-card-title">SICO Initiatives</h3>
+                        <p class="portal-card-desc">Student Initiatives &amp; Community Outreach. Translate visionary ideas into tangible community impact through our Ideate • Collaborate • Impact framework.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">Social Impact</span>
+                            <span class="portal-tag">Proposal Guide</span>
+                            <span class="portal-tag">3-Pillar Roadmap</span>
+                        </div>
+                    </div>
+                    <a href="sico.html" class="portal-card-cta">
+                        <span>Discover Initiatives</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 4: Reports & Publications -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">📊</div>
+                            <span class="portal-badge">Archives</span>
+                        </div>
+                        <div class="portal-kicker">RECORDS &amp; ACHIEVEMENTS</div>
+                        <h3 class="portal-card-title">Reports &amp; Archives</h3>
+                        <p class="portal-card-desc">Official documentation, annual activity reports (PDF), milestone retrospectives, and event highlights organized by academic year.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">Annual Reports</span>
+                            <span class="portal-tag">Event Summaries</span>
+                            <span class="portal-tag">AY 2023–2026</span>
+                        </div>
+                    </div>
+                    <a href="reports.html" class="portal-card-cta">
+                        <span>Access Reports</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 5: Student Coordinators -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">👥</div>
+                            <span class="portal-badge">Leadership</span>
+                        </div>
+                        <div class="portal-kicker">STUDENT MINDS</div>
+                        <h3 class="portal-card-title">Student Coordinators</h3>
+                        <p class="portal-card-desc">Meet the dynamic student coordinators and leaders who steer committee logistics, marketing, event operations, and creative vision.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">Core Coordinators</span>
+                            <span class="portal-tag">Faculty Guidance</span>
+                            <span class="portal-tag">Leadership</span>
+                        </div>
+                    </div>
+                    <a href="team.html" class="portal-card-cta">
+                        <span>Meet The Coordinators</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 6: Visual Stories & Gallery -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">📸</div>
+                            <span class="portal-badge">Memories</span>
+                        </div>
+                        <div class="portal-kicker">MOMENTS IN FOCUS</div>
+                        <h3 class="portal-card-title">Visual Stories &amp; Gallery</h3>
+                        <p class="portal-card-desc">A curated photographic journey through cultural galas, live concerts, dance nights, art expos, and athletic triumphs at RVR&amp;JCCE.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">High-Res Photos</span>
+                            <span class="portal-tag">Category Filters</span>
+                            <span class="portal-tag">Full Lightbox</span>
+                        </div>
+                    </div>
+                    <a href="gallery.html" class="portal-card-cta">
+                        <span>View Photo Gallery</span>
+                        <i>→</i>
+                    </a>
+                </div>
+
+                <!-- Card 7: Contact & FAQ Hub -->
+                <div class="portal-card">
+                    <div>
+                        <div class="portal-card-header">
+                            <div class="portal-icon">💬</div>
+                            <span class="portal-badge">Support</span>
+                        </div>
+                        <div class="portal-kicker">CONNECT &amp; HELP</div>
+                        <h3 class="portal-card-title">Contact &amp; FAQ Hub</h3>
+                        <p class="portal-card-desc">Have questions about joining the committee, On-Duty (OD) attendance, or new club proposals? Get in touch with our SAC team or view instant answers.</p>
+                        <div class="portal-tags">
+                            <span class="portal-tag">Official Email</span>
+                            <span class="portal-tag">Direct Helpline</span>
+                            <span class="portal-tag">FAQ Accordion</span>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="portal-card-cta">
+                        <span>Get In Touch &amp; FAQ</span>
+                        <i>→</i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Spotlight CTA Banner -->
+            <div class="portal-cta-banner">
+                <div class="portal-cta-content">
+                    <div class="portal-kicker">JOIN THE MOVEMENT</div>
+                    <h3 class="portal-cta-title">Ready to Leave Your Mark on Campus?</h3>
+                    <p class="portal-cta-desc">Be part of over 1,000 active students driving the cultural and creative renaissance at R.V.R. &amp; J.C. College of Engineering. Propose new clubs, lead initiatives, and showcase your passion.</p>
+                </div>
+                <div class="portal-cta-actions">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                       class="btn btn-primary"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        <span>Register for SICO</span>
+                        <i>↗</i>
+                    </a>
+                    <a href="events.html" class="btn btn-secondary">
+                        <span>Explore Calendar</span>
+                        <i>→</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Back to Top Button with SVG Progress Ring -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <svg class="progress-ring" width="48" height="48">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+            <defs>
+                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe"/>
+                    <stop offset="50%" stop-color="#7768e5"/>
+                    <stop offset="100%" stop-color="#fc6441"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EC &amp; CCAC</h3>
+                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="sico.html">SICO Initiatives</a></li>
+                        <li><a href="reports.html">Reports &amp; Archives</a></li>
+                        <li><a href="team.html">Student Coordinators</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact &amp; FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/c/RVRJCCollegeofEngineering" class="footer-social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Address</h4>
+                    <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

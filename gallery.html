@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery &amp; Visual Stories | EC &amp; CCAC - RVR&amp;JCCE</title>
+    <meta name="description" content="Explore photographic moments and visual stories from cultural fests, dance galas, art expos, music festivals, and sports at RVR &amp; JC College of Engineering.">
+    
+    <!-- Preconnect & Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Floating Glows -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        <div class="ambient-orb orb-4"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="sico.html" class="nav-link">Sico</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="gallery.html" class="nav-link active">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn-nav-cta"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register SICO</span>
+                    <i>↗</i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="page-banner-content">
+                <div class="kicker-pill"><span class="dot"></span> 06 / VISUAL STORIES &amp; MEMORIES</div>
+                <h1 class="page-banner-title">Moments &amp; <span class="gradient-text">Memories</span></h1>
+                <p class="page-banner-subtitle">A photographic journey celebrating culture, art, music, dance, sports, and vibrant campus life at R.V.R. &amp; J.C. College of Engineering.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section with Category Filter -->
+    <section class="gallery" id="gallery-grid-section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 2.5rem;">
+                <!-- Gallery Filter Tabs -->
+                <div class="filter-tabs-wrapper">
+                    <div class="filter-tabs" id="galleryFilters">
+                        <button class="filter-btn active" data-filter="all">All Photos</button>
+                        <button class="filter-btn" data-filter="cultural">Cultural</button>
+                        <button class="filter-btn" data-filter="dance">Dance</button>
+                        <button class="filter-btn" data-filter="art">Art &amp; Design</button>
+                        <button class="filter-btn" data-filter="music">Music</button>
+                        <button class="filter-btn" data-filter="literature">Literature</button>
+                        <button class="filter-btn" data-filter="sports">Sports</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-category="art" data-caption="Art &amp; Design Expo">
+                    <div class="gallery-image">
+                        <img src="gallery/Art Expo/DSC_0697.JPG" alt="Art &amp; Design Expo photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Art &amp; Design Expo</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dance" data-caption="Club Waltz Night">
+                    <div class="gallery-image">
+                        <img src="gallery/Club Waltz/WhatsApp Image 2025-12-01 at 20.49.47_e7db48e5.jpg" alt="Club Waltz photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Club Waltz Night</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="cultural" data-caption="Cultural Fest">
+                    <div class="gallery-image">
+                        <img src="gallery/Cultural Fest/Screenshot 2025-11-27 130859.png" alt="Cultural Fest photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Cultural Fest</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="cultural" data-caption="Film Screening Night">
+                    <div class="gallery-image">
+                        <img src="gallery/Film Night/Screenshot 2025-12-01 095657.png" alt="Film Night photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Film Screening Night</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="music" data-caption="Live Music Festival">
+                    <div class="gallery-image">
+                        <img src="gallery/Music Festival/IMG_0846.JPG" alt="Music Festival photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Live Music Festival</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="literature" data-caption="Literary Fest">
+                    <div class="gallery-image">
+                        <img src="gallery/Literary Fest/Screenshot 2025-12-04 141405.png" alt="Literary Fest photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Literary Fest</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="sports" data-caption="Inter-College Sports">
+                    <div class="gallery-image">
+                        <img src="gallery/Sports/sports-1.jpg" alt="Sports photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Inter-College Sports</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="sports" data-caption="Athletic Champions">
+                    <div class="gallery-image">
+                        <img src="gallery/Sports/sports.jpg" alt="Athletic Champions photo" loading="lazy">
+                    </div>
+                    <div class="gallery-overlay">
+                        <span class="gallery-caption">Athletic Champions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal with Next/Previous Controls -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose" aria-label="Close Lightbox">&times;</span>
+        <button class="lightbox-nav-btn prev" id="lightboxPrev" aria-label="Previous Image">‹</button>
+        <button class="lightbox-nav-btn next" id="lightboxNext" aria-label="Next Image">›</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image" id="lightboxImage"></div>
+            <div class="lightbox-footer">
+                <div class="lightbox-caption" id="lightboxCaption"></div>
+                <div class="lightbox-counter" id="lightboxCounter">1 / 8</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Back to Top Button with SVG Progress Ring -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <svg class="progress-ring" width="48" height="48">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+            <defs>
+                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe"/>
+                    <stop offset="50%" stop-color="#7768e5"/>
+                    <stop offset="100%" stop-color="#fc6441"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EC &amp; CCAC</h3>
+                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="sico.html">SICO Initiatives</a></li>
+                        <li><a href="reports.html">Reports &amp; Archives</a></li>
+                        <li><a href="team.html">Student Coordinators</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/c/RVRJCCollegeofEngineering" class="footer-social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Address</h4>
+                    <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
