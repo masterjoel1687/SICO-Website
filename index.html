@@ -17,13 +17,13 @@
     <!-- Futuristic HUD Telemetry Bar -->
     <div class="hud-telemetry-bar">
         <div class="hud-telemetry-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> QUANTUM_ONLINE</span>
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SAC_RVRJC // GNT_AP</span>
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> TEAM_ONLINE</span>
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SICO_RVRJC // GNT_AP</span>
             <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
         </div>
         <div class="hud-telemetry-right">
             <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
-            <span class="hud-tag"><strong>ORBIT:</strong> AY 2025–2026</span>
+            <span class="hud-tag"><strong>ORBIT:</strong> AY 2026–2027</span>
             <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
         </div>
     </div>
@@ -88,8 +88,8 @@
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <span class="pulse-dot"></span>
-                    <span>R.V.R. &amp; J.C. COLLEGE OF ENGINEERING · EC &amp; CCAC</span>
-                    <span class="badge-live">AY 2025–2026</span>
+                    <span>SICO_RVRJC · EC &amp; CCAC</span>
+                    <span class="badge-live">AY 2026–2027</span>
                 </div>
                 <h1 class="hero-title">Where Culture Meets <span class="gradient-text cyber-decode">Creativity</span></h1>
                 <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Talent &amp; Collaboration</p>
@@ -107,6 +107,52 @@
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     </a>
                 </div>
+
+                <!-- Live Flagship Fest Hologram Countdown HUD Widget -->
+                <div class="hud-countdown-widget" id="festCountdown">
+                    <div class="countdown-header">
+                        <div class="countdown-title-wrap">
+                            <span class="countdown-beacon"></span>
+                            <span class="countdown-title">INNOVEX 2026 FEST // COMMENCING IN: 09 Oct 2026</span>
+                            <span class="countdown-target">ANNUAL CULTURAL &amp; LITERARY FEST</span>
+                        </div>
+                        <div class="countdown-telemetry">
+                            <span>TELEMETRY_SYNC: <strong style="color:var(--accent-cyan)">ACTIVE</strong></span>
+                            <span>FREQ: <strong>432.08 MHz</strong></span>
+                        </div>
+                    </div>
+                    <div class="countdown-grid">
+                        <div class="countdown-segment">
+                            <span class="countdown-number" id="cdDays">00</span>
+                            <span class="countdown-label">DAYS</span>
+                        </div>
+                        <div class="countdown-segment">
+                            <span class="countdown-number" id="cdHours">00</span>
+                            <span class="countdown-label">HOURS</span>
+                        </div>
+                        <div class="countdown-segment">
+                            <span class="countdown-number" id="cdMins">00</span>
+                            <span class="countdown-label">MINS</span>
+                        </div>
+                        <div class="countdown-segment">
+                            <span class="countdown-number" id="cdSecs">00</span>
+                            <span class="countdown-label">SECS</span>
+                        </div>
+                        <div class="countdown-segment segment-ms">
+                            <span class="countdown-number" id="cdMs">00</span>
+                            <span class="countdown-label">HUNDREDTHS</span>
+                        </div>
+                    </div>
+                    <div class="countdown-footer">
+                        <div class="countdown-status">
+                            <span>STATUS: STAGE READY // 50+ EVENTS // 13 CLUBS</span>
+                        </div>
+                        <a href="events.html" class="countdown-link">
+                            <span>VIEW FEST LINEUP &amp; SCHEDULE</span>
+                            <i>→</i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <a href="#portal-hub" class="scroll-indicator" aria-label="Scroll to Portal Hub">
@@ -120,14 +166,14 @@
             <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
-            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2025–2026</span>
+            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
             <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
             <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
             <!-- Repeat loop -->
             <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
-            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2025–2026</span>
+            <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
             <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
             <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
         </div>
@@ -153,7 +199,7 @@
                         </div>
                         <div class="portal-kicker">FOUNDATION &amp; HISTORY</div>
                         <h3 class="portal-card-title cyber-decode">About EC &amp; CCAC</h3>
-                        <p class="portal-card-desc">The heartbeat of student life at RVR&amp;JCCE. Discover our vision, leadership philosophy, animated stats, and community fostering extraordinary talent.</p>
+                        <p class="portal-card-desc">The heartbeat of student life at SICO_RVRJC. Discover our vision, leadership philosophy, animated stats, and community fostering extraordinary talent.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">50+ Events</span>
                             <span class="portal-tag">1000+ Students</span>
@@ -323,7 +369,7 @@
         </div>
     </section>
 
-    <!-- Floating Cyber HUD Controls (Audio Synth + Command Palette Trigger) -->
+    <!-- Floating Cyber HUD Controls (Audio Synth + Theme Selector + Command Palette Trigger) -->
     <div class="hud-floating-controls">
         <button class="hud-ctrl-btn" id="hudAudioToggle" aria-label="Toggle Futuristic Audio Synth">
             <div class="hud-sound-bars">
@@ -334,6 +380,41 @@
             </div>
             <span class="hud-audio-text">AUDIO: OFF</span>
         </button>
+        <div class="hud-theme-selector">
+            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Cyber HUD Theme">
+                <span>🎨 THEME: <strong id="hudThemeLabel" style="color:var(--accent-cyan)">OBSIDIAN</strong></span>
+            </button>
+            <div class="hud-theme-dropdown" id="hudThemeDropdown">
+                <button class="hud-theme-opt active" data-set-theme="obsidian">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-obsidian"></span>
+                        <span>Quantum Obsidian</span>
+                    </div>
+                    <span class="hud-kbd-key">DEFAULT</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="matrix">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-matrix"></span>
+                        <span>Matrix Emerald</span>
+                    </div>
+                    <span class="hud-kbd-key">GREEN</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="cyberpunk">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-cyberpunk"></span>
+                        <span>Cyberpunk 2077</span>
+                    </div>
+                    <span class="hud-kbd-key">NEON</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="frost">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-frost"></span>
+                        <span>Hyper Frost</span>
+                    </div>
+                    <span class="hud-kbd-key">ARCTIC</span>
+                </button>
+            </div>
+        </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Command Palette">
             <span>⚡ TELEPORT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>

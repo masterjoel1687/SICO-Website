@@ -16,6 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const particleCount = window.innerWidth < 768 ? 30 : 65;
         const maxDist = 110;
         let heroMouse = { x: null, y: null, radius: 140 };
+        let warpSpeed = 1;
+
+        window.triggerWarpSpeed = function() {
+            warpSpeed = 5.5;
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    shockwaves.push(new Shockwave(
+                        Math.random() * width,
+                        Math.random() * height,
+                        colors[Math.floor(Math.random() * colors.length)]
+                    ));
+                }, i * 140);
+            }
+            playSynthSound('teleport');
+        };
 
         const colors = ['rgba(0, 242, 254, ', 'rgba(119, 104, 229, ', 'rgba(252, 100, 65, '];
 
@@ -31,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             update() {
-                this.x += this.vx;
-                this.y += this.vy;
+                this.x += this.vx * warpSpeed;
+                this.y += this.vy * warpSpeed;
 
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
@@ -64,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
+
+            if (warpSpeed > 1) {
+                warpSpeed = Math.max(1, warpSpeed * 0.97);
+            }
 
             // Connect nearby particles
             for (let i = 0; i < particles.length; i++) {
@@ -886,16 +905,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 17. REAL-TIME 3D CARD TILT & SPECULAR GLARE
+    // 17. REAL-TIME 3D CARD TILT, SPECULAR GLARE & HOLOGRAPHIC FOIL
     // -------------------------------------------------------------
     if (window.matchMedia('(pointer: fine)').matches) {
-        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card');
+        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card, .stat-card, .feature-card, .event-card, .team-card');
         tiltCards.forEach(card => {
             let glare = card.querySelector('.tilt-glare');
             if (!glare) {
                 glare = document.createElement('div');
                 glare.className = 'tilt-glare';
                 card.appendChild(glare);
+            }
+
+            let foil = card.querySelector('.hologram-foil');
+            if (!foil) {
+                foil = document.createElement('div');
+                foil.className = 'hologram-foil';
+                card.appendChild(foil);
+            }
+
+            let scanline = card.querySelector('.laser-scanline');
+            if (!scanline) {
+                scanline = document.createElement('div');
+                scanline.className = 'laser-scanline';
+                card.appendChild(scanline);
             }
 
             card.addEventListener('mousemove', (e) => {
@@ -910,6 +943,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
                 glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.22), transparent 60%)`;
                 glare.style.opacity = '1';
+
+                const angle = Math.round((Math.atan2(y - centerY, x - centerX) * 180) / Math.PI + 180);
+                foil.style.background = `linear-gradient(${angle}deg, transparent 15%, rgba(0, 242, 254, 0.35) 35%, rgba(119, 104, 229, 0.35) 48%, rgba(245, 87, 108, 0.4) 62%, rgba(248, 202, 77, 0.35) 75%, transparent 88%)`;
             });
 
             card.addEventListener('mouseleave', () => {
@@ -920,7 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 18. FUTURISTIC COMMAND PALETTE HUD (Ctrl + K)
+    // 18. FUTURISTIC COMMAND PALETTE & CYBER TERMINAL (Ctrl + K)
     // -------------------------------------------------------------
     const cmdOverlay = document.getElementById('cmdPaletteOverlay');
     const cmdInput = document.getElementById('cmdInput');
@@ -939,7 +975,15 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Register for SICO 2025–26', sub: 'Official registration form', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Register', external: true },
         { title: 'Cultural Fest 2026', sub: 'Premier arts and cultural celebration', url: 'events.html', icon: '🎪', category: 'Events' },
         { title: 'Club Waltz Night', sub: 'Annual dance gala and choreo competition', url: 'events.html', icon: '💃', category: 'Events' },
-        { title: 'Battle of the Bands', sub: 'Inter-college musical faceoff', url: 'events.html', icon: '🎸', category: 'Events' }
+        { title: 'Battle of the Bands', sub: 'Inter-college musical faceoff', url: 'events.html', icon: '🎸', category: 'Events' },
+        // Cyber Terminal Commands
+        { title: 'theme matrix', sub: 'Command: Switch to Matrix Emerald Green theme', action: () => setTheme('matrix'), icon: '🟢', category: 'Terminal' },
+        { title: 'theme cyberpunk', sub: 'Command: Switch to Cyberpunk 2077 Neon theme', action: () => setTheme('cyberpunk'), icon: '🟡', category: 'Terminal' },
+        { title: 'theme frost', sub: 'Command: Switch to Hyper Frost Arctic Blue theme', action: () => setTheme('frost'), icon: '🔵', category: 'Terminal' },
+        { title: 'theme obsidian', sub: 'Command: Switch to Quantum Obsidian (Default) theme', action: () => setTheme('obsidian'), icon: '🟣', category: 'Terminal' },
+        { title: 'sound toggle', sub: 'Command: Toggle futuristic synthesizer audio', action: () => { if (audioToggleBtn) audioToggleBtn.click(); }, icon: '🔊', category: 'Terminal' },
+        { title: 'warp speed', sub: 'Command: Trigger hyper-drive particle acceleration', action: () => { if (window.triggerWarpSpeed) window.triggerWarpSpeed(); }, icon: '🚀', category: 'Terminal' },
+        { title: 'fest countdown', sub: 'Command: Scroll to Flagship Fest Live Countdown HUD', action: () => { const el = document.getElementById('festCountdown'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, icon: '⏱️', category: 'Terminal' }
     ];
 
     let activeCmdIndex = 0;
@@ -956,7 +1000,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredCmds.forEach((item, idx) => {
             const a = document.createElement('a');
             a.className = `cmd-item ${idx === activeCmdIndex ? 'active' : ''}`;
-            a.href = item.url;
+            a.href = item.url || '#';
             if (item.external) {
                 a.target = '_blank';
                 a.rel = 'noopener noreferrer';
@@ -976,9 +1020,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateActiveCmdItem();
                 playSynthSound('blip');
             });
-            a.addEventListener('click', () => {
-                playSynthSound('teleport');
-                closeCmdPalette();
+            a.addEventListener('click', (e) => {
+                if (item.action) {
+                    e.preventDefault();
+                    item.action();
+                    closeCmdPalette();
+                } else {
+                    playSynthSound('teleport');
+                    closeCmdPalette();
+                }
             });
             cmdResults.appendChild(a);
         });
@@ -1063,17 +1113,131 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (e.key === 'Enter') {
                 e.preventDefault();
                 if (filteredCmds[activeCmdIndex]) {
-                    playSynthSound('teleport');
                     const target = filteredCmds[activeCmdIndex];
-                    if (target.external) {
+                    if (target.action) {
+                        target.action();
+                    } else if (target.external) {
+                        playSynthSound('teleport');
                         window.open(target.url, '_blank');
                     } else {
+                        playSynthSound('teleport');
                         window.location.href = target.url;
                     }
                     closeCmdPalette();
                 }
             }
         });
+    }
+
+    // -------------------------------------------------------------
+    // 19. 4-MODE CYBER HUD THEME MANAGER
+    // -------------------------------------------------------------
+    const themeTrigger = document.getElementById('hudThemeTrigger');
+    const themeDropdown = document.getElementById('hudThemeDropdown');
+    const themeLabel = document.getElementById('hudThemeLabel');
+    const themeOpts = document.querySelectorAll('.hud-theme-opt');
+
+    const themeDisplayNames = {
+        'obsidian': 'OBSIDIAN',
+        'matrix': 'MATRIX',
+        'cyberpunk': 'CYBERPUNK',
+        'frost': 'FROST'
+    };
+
+    function setTheme(themeName, playSound = true) {
+        if (!themeName || themeName === 'obsidian') {
+            document.documentElement.removeAttribute('data-theme');
+            document.body.removeAttribute('data-theme');
+            themeName = 'obsidian';
+        } else {
+            document.documentElement.setAttribute('data-theme', themeName);
+            document.body.setAttribute('data-theme', themeName);
+        }
+
+        localStorage.setItem('sico_cyber_theme', themeName);
+
+        if (themeLabel) {
+            themeLabel.textContent = themeDisplayNames[themeName] || 'OBSIDIAN';
+        }
+
+        themeOpts.forEach(opt => {
+            if (opt.getAttribute('data-set-theme') === themeName) {
+                opt.classList.add('active');
+            } else {
+                opt.classList.remove('active');
+            }
+        });
+
+        if (playSound) {
+            playSynthSound('blip');
+        }
+    }
+
+    // Initialize stored theme
+    const savedTheme = localStorage.getItem('sico_cyber_theme') || 'obsidian';
+    setTheme(savedTheme, false);
+
+    if (themeTrigger && themeDropdown) {
+        themeTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeDropdown.classList.toggle('active');
+            playSynthSound('blip');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!themeTrigger.contains(e.target) && !themeDropdown.contains(e.target)) {
+                themeDropdown.classList.remove('active');
+            }
+        });
+    }
+
+    themeOpts.forEach(opt => {
+        opt.addEventListener('click', () => {
+            const targetTheme = opt.getAttribute('data-set-theme');
+            setTheme(targetTheme, true);
+            if (themeDropdown) {
+                themeDropdown.classList.remove('active');
+            }
+        });
+    });
+
+    // -------------------------------------------------------------
+    // 20. LIVE FLAGSHIP FEST HOLOGRAM COUNTDOWN HUD TICKER
+    // -------------------------------------------------------------
+    const cdDays = document.getElementById('cdDays');
+    const cdHours = document.getElementById('cdHours');
+    const cdMins = document.getElementById('cdMins');
+    const cdSecs = document.getElementById('cdSecs');
+    const cdMs = document.getElementById('cdMs');
+
+    if (cdDays && cdHours && cdMins && cdSecs) {
+        // Target: Annual Flagship Fest (March 15, 2026, 09:00:00 IST)
+        let festTarget = new Date('2026-03-15T09:00:00+05:30').getTime();
+        if (Date.now() > festTarget) {
+            festTarget = Date.now() + 180 * 24 * 60 * 60 * 1000;
+        }
+
+        function updateFestCountdown() {
+            const now = Date.now();
+            const diff = Math.max(0, festTarget - now);
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / (1000 * 60)) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+            const ms = Math.floor((diff % 1000) / 10);
+
+            cdDays.textContent = String(days).padStart(2, '0');
+            cdHours.textContent = String(hours).padStart(2, '0');
+            cdMins.textContent = String(mins).padStart(2, '0');
+            cdSecs.textContent = String(secs).padStart(2, '0');
+            if (cdMs) {
+                cdMs.textContent = String(ms).padStart(2, '0');
+            }
+        }
+
+        updateFestCountdown();
+        setInterval(updateFestCountdown, 30);
     }
 
 });

@@ -398,7 +398,7 @@
         </div>
     </footer>
 
-    <!-- Floating Cyber HUD Controls (Audio Synth + Command Palette Trigger) -->
+    <!-- Floating Cyber HUD Controls (Audio Synth + Theme Selector + Command Palette Trigger) -->
     <div class="hud-floating-controls">
         <button class="hud-ctrl-btn" id="hudAudioToggle" aria-label="Toggle Futuristic Audio Synth">
             <div class="hud-sound-bars">
@@ -409,6 +409,41 @@
             </div>
             <span class="hud-audio-text">AUDIO: OFF</span>
         </button>
+        <div class="hud-theme-selector">
+            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Cyber HUD Theme">
+                <span>🎨 THEME: <strong id="hudThemeLabel" style="color:var(--accent-cyan)">OBSIDIAN</strong></span>
+            </button>
+            <div class="hud-theme-dropdown" id="hudThemeDropdown">
+                <button class="hud-theme-opt active" data-set-theme="obsidian">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-obsidian"></span>
+                        <span>Quantum Obsidian</span>
+                    </div>
+                    <span class="hud-kbd-key">DEFAULT</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="matrix">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-matrix"></span>
+                        <span>Matrix Emerald</span>
+                    </div>
+                    <span class="hud-kbd-key">GREEN</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="cyberpunk">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-cyberpunk"></span>
+                        <span>Cyberpunk 2077</span>
+                    </div>
+                    <span class="hud-kbd-key">NEON</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="frost">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-frost"></span>
+                        <span>Hyper Frost</span>
+                    </div>
+                    <span class="hud-kbd-key">ARCTIC</span>
+                </button>
+            </div>
+        </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Command Palette">
             <span>⚡ TELEPORT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>

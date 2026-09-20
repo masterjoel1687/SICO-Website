@@ -14,6 +14,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Futuristic HUD Telemetry Bar -->
+    <div class="hud-telemetry-bar">
+        <div class="hud-telemetry-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> QUANTUM_ONLINE</span>
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SAC_RVRJC // GNT_AP</span>
+            <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
+        </div>
+        <div class="hud-telemetry-right">
+            <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
+            <span class="hud-tag"><strong>ORBIT:</strong> AY 2025–2026</span>
+            <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
+        </div>
+    </div>
+
     <!-- Ambient Floating Glows -->
     <div class="ambient-glow-wrapper">
         <div class="ambient-orb orb-1"></div>
@@ -239,6 +253,77 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Cyber HUD Controls (Audio Synth + Theme Selector + Command Palette Trigger) -->
+    <div class="hud-floating-controls">
+        <button class="hud-ctrl-btn" id="hudAudioToggle" aria-label="Toggle Futuristic Audio Synth">
+            <div class="hud-sound-bars">
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+                <span class="hud-sound-bar"></span>
+            </div>
+            <span class="hud-audio-text">AUDIO: OFF</span>
+        </button>
+        <div class="hud-theme-selector">
+            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Cyber HUD Theme">
+                <span>🎨 THEME: <strong id="hudThemeLabel" style="color:var(--accent-cyan)">OBSIDIAN</strong></span>
+            </button>
+            <div class="hud-theme-dropdown" id="hudThemeDropdown">
+                <button class="hud-theme-opt active" data-set-theme="obsidian">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-obsidian"></span>
+                        <span>Quantum Obsidian</span>
+                    </div>
+                    <span class="hud-kbd-key">DEFAULT</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="matrix">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-matrix"></span>
+                        <span>Matrix Emerald</span>
+                    </div>
+                    <span class="hud-kbd-key">GREEN</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="cyberpunk">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-cyberpunk"></span>
+                        <span>Cyberpunk 2077</span>
+                    </div>
+                    <span class="hud-kbd-key">NEON</span>
+                </button>
+                <button class="hud-theme-opt" data-set-theme="frost">
+                    <div class="theme-opt-left">
+                        <span class="theme-preview-dot theme-dot-frost"></span>
+                        <span>Hyper Frost</span>
+                    </div>
+                    <span class="hud-kbd-key">ARCTIC</span>
+                </button>
+            </div>
+        </div>
+        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Command Palette">
+            <span>⚡ TELEPORT</span>
+            <kbd class="hud-kbd-key">Ctrl + K</kbd>
+        </button>
+    </div>
+
+    <!-- Command Palette HUD Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="cmd-palette">
+            <div class="cmd-search-box">
+                <span class="cmd-search-icon">⚡</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Teleport anywhere (e.g. Events, SICO, Reports, Team, Gallery)..." autocomplete="off" spellcheck="false">
+                <kbd class="hud-kbd-key">ESC</kbd>
+            </div>
+            <div class="cmd-results" id="cmdResults">
+                <!-- Results rendered dynamically by script.js -->
+            </div>
+            <div class="cmd-footer">
+                <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
+                <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
+                <span>EC &amp; CCAC SICO HUD v2.6</span>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
