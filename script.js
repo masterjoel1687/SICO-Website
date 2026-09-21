@@ -487,28 +487,144 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 7. EVENT DETAILS MODAL
+    // 7. EVENT DETAILS MODAL & CALENDAR EXPORT
     // -------------------------------------------------------------
     const eventModal = document.getElementById('eventModal');
     const eventModalClose = document.getElementById('eventModalClose');
 
+    // Universal iCalendar (.ics) Downloader
+    window.downloadEventICS = function(title, desc, location, dateStr) {
+        let dtStart = '20260930T130000';
+        let dtEnd = '20260930T170000';
+        const d = (dateStr || '').toUpperCase();
+        
+        if (d.includes('OCT') || d.includes('OCTOBER')) {
+            if (d.includes('24')) {
+                dtStart = '20261024T100000';
+                dtEnd = '20261024T160000';
+            } else {
+                dtStart = '20261008T120000';
+                dtEnd = '20261009T200000';
+            }
+        } else if (d.includes('DEC') || d.includes('DECEMBER')) {
+            if (d.includes('05') || d.includes('5TH')) {
+                dtStart = '20261205T140000';
+                dtEnd = '20261205T180000';
+            } else {
+                dtStart = '20261228T090000';
+                dtEnd = '20261229T220000';
+            }
+        } else if (d.includes('JAN') || d.includes('JANUARY')) {
+            dtStart = '20270108T140000';
+            dtEnd = '20270108T180000';
+        } else if (d.includes('FEB') || d.includes('FEBRUARY')) {
+            if (d.includes('12')) {
+                dtStart = '20270212T140000';
+                dtEnd = '20270212T180000';
+            } else {
+                dtStart = '20270206T140000';
+                dtEnd = '20270206T180000';
+            }
+        } else if (d.includes('MAR') || d.includes('MARCH')) {
+            dtStart = '20270305T090000';
+            dtEnd = '20270305T200000';
+        }
+
+        const cleanTitle = (title || 'Campus Event').replace(/,/g, '\\,');
+        const cleanDesc = (desc || 'EC & CCAC Campus Event at RVR&JCCE').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+        const cleanLoc = (location || 'RVR & JC College of Engineering').replace(/,/g, '\\,');
+
+        const icsData = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//RVRJCCE//EC & CCAC SICO EVENTS//EN',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            'BEGIN:VEVENT',
+            `SUMMARY:${cleanTitle}`,
+            `DESCRIPTION:${cleanDesc}`,
+            `LOCATION:${cleanLoc}`,
+            `DTSTART:${dtStart}`,
+            `DTEND:${dtEnd}`,
+            `STATUS:CONFIRMED`,
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${cleanTitle.replace(/[^a-zA-Z0-9]/g, '_')}.ics`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        if (typeof playSynthSound === 'function') playSynthSound('blip');
+    };
+
     document.querySelectorAll('.btn-event-details').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const card = btn.closest('.event-card');
+            const card = btn.closest('.event-card, .spotlight-card');
             if (!card || !eventModal) return;
 
-            document.getElementById('modalTitle').textContent = card.getAttribute('data-title') || 'Event Details';
-            document.getElementById('modalCategory').textContent = (card.getAttribute('data-category') || 'Campus Event').toUpperCase();
-            document.getElementById('modalDate').textContent = card.getAttribute('data-date') || 'To be announced';
-            document.getElementById('modalVenue').textContent = card.getAttribute('data-venue') || 'Campus Venue';
-            document.getElementById('modalDesc').textContent = card.querySelector('.event-description') ? card.querySelector('.event-description').textContent : '';
-            document.getElementById('modalHighlights').textContent = card.getAttribute('data-highlights') || '';
-            document.getElementById('modalRules').textContent = card.getAttribute('data-rules') || 'College ID card mandatory.';
-            document.getElementById('modalCoordinators').textContent = card.getAttribute('data-coordinators') || 'EC & CCAC Committee';
+            const title = card.getAttribute('data-title') || 'Event Details';
+            const category = card.getAttribute('data-catname') || card.getAttribute('data-category') || 'Campus Event';
+            const date = card.getAttribute('data-date') || 'To be announced';
+            const time = card.getAttribute('data-time') || '';
+            const venue = card.getAttribute('data-venue') || 'Campus Venue';
+            const prize = card.getAttribute('data-prize') || '--';
+            const desc = card.getAttribute('data-desc') || (card.querySelector('.event-description') ? card.querySelector('.event-description').textContent : '');
+            const highlights = card.getAttribute('data-highlights') || 'Workshops, competitions, and student performances.';
+            const rules = card.getAttribute('data-rules') || 'College ID card mandatory for entry.';
+            const coordinators = card.getAttribute('data-coordinators') || 'EC & CCAC Student Leads';
+
+            const modalTitle = document.getElementById('modalTitle');
+            const modalCategory = document.getElementById('modalCategory');
+            const modalDate = document.getElementById('modalDate');
+            const modalVenue = document.getElementById('modalVenue');
+            const modalPrize = document.getElementById('modalPrize');
+            const modalDesc = document.getElementById('modalDesc');
+            const modalHighlights = document.getElementById('modalHighlights');
+            const modalRules = document.getElementById('modalRules');
+            const modalCoordinators = document.getElementById('modalCoordinators');
+
+            if (modalTitle) modalTitle.textContent = title;
+            if (modalCategory) modalCategory.textContent = category.toUpperCase();
+            if (modalDate) modalDate.textContent = time ? `${date} · ${time}` : date;
+            if (modalVenue) modalVenue.textContent = venue;
+            if (modalPrize) modalPrize.textContent = prize;
+            if (modalDesc) modalDesc.textContent = desc;
+            if (modalHighlights) modalHighlights.textContent = highlights;
+            if (modalRules) modalRules.textContent = rules;
+            if (modalCoordinators) modalCoordinators.textContent = coordinators;
+
+            // Wire up modal's Add to Calendar button
+            const modalCalBtn = document.getElementById('modalAddToCalBtn');
+            if (modalCalBtn) {
+                modalCalBtn.onclick = () => {
+                    downloadEventICS(title, desc, venue, date);
+                };
+            }
 
             eventModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            if (typeof playSynthSound === 'function') playSynthSound('click');
+        });
+    });
+
+    // Wire up direct Add to Calendar buttons on spotlight cards
+    document.querySelectorAll('.btn-add-cal').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const card = btn.closest('.spotlight-card, .event-card');
+            if (!card) return;
+            const title = card.getAttribute('data-title') || 'Campus Event';
+            const desc = card.getAttribute('data-desc') || '';
+            const venue = card.getAttribute('data-venue') || 'Campus Venue';
+            const date = card.getAttribute('data-date') || '';
+            downloadEventICS(title, desc, venue, date);
         });
     });
 
@@ -973,7 +1089,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Visual Stories & Gallery', sub: 'High-resolution photographic memories', url: 'gallery.html', icon: '📸', category: 'Gallery' },
         { title: 'Contact & FAQ Hub', sub: 'Campus location, helpline, and answers', url: 'contact.html', icon: '💬', category: 'Contact' },
         { title: 'Register for SICO 2025–26', sub: 'Official registration form', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Register', external: true },
-        { title: 'Cultural Fest 2026', sub: 'Premier arts and cultural celebration', url: 'events.html', icon: '🎪', category: 'Events' },
+        { title: 'COLORIDO 2026', sub: 'Flagship Cultural Fest (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
         { title: 'Club Waltz Night', sub: 'Annual dance gala and choreo competition', url: 'events.html', icon: '💃', category: 'Events' },
         { title: 'Battle of the Bands', sub: 'Inter-college musical faceoff', url: 'events.html', icon: '🎸', category: 'Events' },
         // Cyber Terminal Commands
@@ -983,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'theme obsidian', sub: 'Command: Switch to Quantum Obsidian (Default) theme', action: () => setTheme('obsidian'), icon: '🟣', category: 'Terminal' },
         { title: 'sound toggle', sub: 'Command: Toggle futuristic synthesizer audio', action: () => { if (audioToggleBtn) audioToggleBtn.click(); }, icon: '🔊', category: 'Terminal' },
         { title: 'warp speed', sub: 'Command: Trigger hyper-drive particle acceleration', action: () => { if (window.triggerWarpSpeed) window.triggerWarpSpeed(); }, icon: '🚀', category: 'Terminal' },
-        { title: 'fest countdown', sub: 'Command: Scroll to Flagship Fest Live Countdown HUD', action: () => { const el = document.getElementById('festCountdown'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, icon: '⏱️', category: 'Terminal' }
+        { title: 'fest countdown', sub: 'Command: Scroll to COLORIDO 2026 Live Countdown HUD', action: () => { const el = document.getElementById('festCountdown'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, icon: '⏱️', category: 'Terminal' }
     ];
 
     let activeCmdIndex = 0;
@@ -1202,24 +1318,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 20. LIVE FLAGSHIP FEST HOLOGRAM COUNTDOWN HUD TICKER
+    // 20. LIVE COLORIDO 2026 HOLOGRAM COUNTDOWN HUD TICKER
     // -------------------------------------------------------------
     const cdDays = document.getElementById('cdDays');
     const cdHours = document.getElementById('cdHours');
     const cdMins = document.getElementById('cdMins');
     const cdSecs = document.getElementById('cdSecs');
     const cdMs = document.getElementById('cdMs');
+    const cdTitle = document.getElementById('cdTitle');
+    const cdStatus = document.getElementById('cdStatus');
 
     if (cdDays && cdHours && cdMins && cdSecs) {
-        // Target: Annual Flagship Fest (March 15, 2026, 09:00:00 IST)
-        let festTarget = new Date('2026-03-15T09:00:00+05:30').getTime();
-        if (Date.now() > festTarget) {
-            festTarget = Date.now() + 180 * 24 * 60 * 60 * 1000;
-        }
+        // COLORIDO 2026 Schedule:
+        // Starts: 28th December 2026 at 09:00:00 IST
+        // Ends: 29th December 2026 at 23:59:59 IST
+        const festStart = new Date('2026-12-28T09:00:00+05:30').getTime();
+        const festEnd = new Date('2026-12-29T23:59:59+05:30').getTime();
 
         function updateFestCountdown() {
             const now = Date.now();
-            const diff = Math.max(0, festTarget - now);
+            let diff = 0;
+
+            if (now < festStart) {
+                // Pre-fest: Countdown to commencement
+                diff = festStart - now;
+            } else if (now <= festEnd) {
+                // In progress: Live during festival
+                diff = festEnd - now;
+                if (cdTitle && cdTitle.textContent.indexOf('LIVE NOW') === -1) {
+                    cdTitle.textContent = 'COLORIDO 2026 // LIVE NOW // FINALE IN:';
+                }
+                if (cdStatus && cdStatus.textContent.indexOf('LIVE NOW') === -1) {
+                    cdStatus.innerHTML = '<span style="color:#00ff88;font-weight:700;">● LIVE NOW // COLORIDO 2026 FESTIVAL UNDERWAY // SAC GROUNDS</span>';
+                }
+            } else {
+                // Post-fest
+                diff = 0;
+                if (cdTitle && cdTitle.textContent.indexOf('CONCLUDED') === -1) {
+                    cdTitle.textContent = 'COLORIDO 2026 // FESTIVAL CONCLUDED';
+                }
+                if (cdStatus && cdStatus.textContent.indexOf('CONCLUDED') === -1) {
+                    cdStatus.innerHTML = '<span>STATUS: COLORIDO 2026 SUCCESSFULLY CONCLUDED // THANK YOU ALL</span>';
+                }
+            }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -1240,4 +1381,153 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(updateFestCountdown, 30);
     }
 
+    // -------------------------------------------------------------
+    // 21. AY 2026-2027 OFFICIAL CALENDAR & UPCOMING RADAR CONTROLLER
+    // -------------------------------------------------------------
+    const calSearchInput = document.getElementById('calendarSearchInput');
+    const calStatusFilters = document.querySelectorAll('#calStatusFilters .cal-filter-btn');
+    const calTableRows = document.querySelectorAll('#calendarTable tbody tr');
+    const nextEventCountdownEl = document.getElementById('nextEventCountdown');
+
+    let currentCalFilter = 'all';
+    let currentSearchTerm = '';
+
+    function filterCalendarRows() {
+        if (!calTableRows.length) return;
+        calTableRows.forEach(row => {
+            const rowStatus = row.getAttribute('data-status');
+            const rowText = row.textContent.toLowerCase();
+            const matchesStatus = (currentCalFilter === 'all') || (rowStatus === currentCalFilter);
+            const matchesSearch = !currentSearchTerm || rowText.includes(currentSearchTerm);
+
+            if (matchesStatus && matchesSearch) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    if (calSearchInput) {
+        calSearchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase().trim();
+            filterCalendarRows();
+        });
+    }
+
+    if (calStatusFilters.length) {
+        calStatusFilters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                calStatusFilters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCalFilter = btn.getAttribute('data-status');
+                filterCalendarRows();
+                playSynthSound('blip');
+            });
+        });
+    }
+
+    // Dynamic Countdown for Next Upcoming Event (30 Sep 2026, 1:00 PM IST)
+    if (nextEventCountdownEl) {
+        const nextTarget = new Date('2026-09-30T13:00:00+05:30').getTime();
+        function updateNextEventClock() {
+            const now = Date.now();
+            const diff = nextTarget - now;
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                nextEventCountdownEl.textContent = `${days}D ${hours}H REMAINING`;
+            } else {
+                nextEventCountdownEl.textContent = 'EVENT IN PROGRESS';
+            }
+        }
+        updateNextEventClock();
+        setInterval(updateNextEventClock, 60000);
+    }
+
+    // -------------------------------------------------------------
+    // 22. ULTIMATE UPCOMING EVENTS RADAR & SPOTLIGHT CONTROLLER
+    // -------------------------------------------------------------
+    const spotlightTrack = document.getElementById('spotlightTrack');
+    const spotlightPrevBtn = document.getElementById('spotlightPrevBtn');
+    const spotlightNextBtn = document.getElementById('spotlightNextBtn');
+    const spotlightFilterPills = document.querySelectorAll('#spotlightFilterPills .spotlight-pill');
+    const spotlightCards = document.querySelectorAll('.spotlight-card');
+    const spotlightDigitalCountdown = document.getElementById('spotlightDigitalCountdown');
+    const spotlightClockTicker = document.getElementById('spotlightClockTicker');
+    const spotlightClockTickerEvents = document.getElementById('spotlightClockTickerEvents');
+
+    // 1. Live Countdown for Digital Club Event (30 Sep 2026, 1:00 PM IST)
+    const digitalEventTime = new Date('2026-09-30T13:00:00+05:30').getTime();
+    function tickDigitalCountdown() {
+        const now = Date.now();
+        const diff = digitalEventTime - now;
+        if (diff > 0) {
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            const timeStr = `${d}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
+            const tickerStr = `DIGITAL CLUB (30 SEP) IN ${d} DAYS ${h} HOURS`;
+            
+            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = timeStr;
+            if (spotlightClockTicker) spotlightClockTicker.textContent = tickerStr;
+            if (spotlightClockTickerEvents) spotlightClockTickerEvents.textContent = tickerStr;
+        } else {
+            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = 'EVENT LIVE';
+            if (spotlightClockTicker) spotlightClockTicker.textContent = 'DIGITAL CLUB IN PROGRESS';
+            if (spotlightClockTickerEvents) spotlightClockTickerEvents.textContent = 'DIGITAL CLUB IN PROGRESS';
+        }
+    }
+    tickDigitalCountdown();
+    setInterval(tickDigitalCountdown, 1000);
+
+    // 2. Carousel Arrow Controls
+    if (spotlightTrack) {
+        const scrollAmount = 340;
+        if (spotlightPrevBtn) {
+            spotlightPrevBtn.addEventListener('click', () => {
+                spotlightTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                playSynthSound('click');
+            });
+        }
+        if (spotlightNextBtn) {
+            spotlightNextBtn.addEventListener('click', () => {
+                spotlightTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                playSynthSound('click');
+            });
+        }
+    }
+
+    // 3. Quick Filter Pills
+    if (spotlightFilterPills.length && spotlightCards.length) {
+        spotlightFilterPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                spotlightFilterPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                const filter = pill.getAttribute('data-filter');
+
+                spotlightCards.forEach(card => {
+                    const cardType = card.getAttribute('data-type') || '';
+                    if (filter === 'all' || cardType.includes(filter)) {
+                        card.classList.remove('hidden');
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (spotlightTrack) {
+                    spotlightTrack.scrollTo({ left: 0, behavior: 'smooth' });
+                }
+                playSynthSound('blip');
+            });
+        });
+    }
+
 });
+

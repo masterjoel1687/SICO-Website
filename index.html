@@ -113,8 +113,8 @@
                     <div class="countdown-header">
                         <div class="countdown-title-wrap">
                             <span class="countdown-beacon"></span>
-                            <span class="countdown-title">INNOVEX 2026 FEST // COMMENCING IN: 09 Oct 2026</span>
-                            <span class="countdown-target">ANNUAL CULTURAL &amp; LITERARY FEST</span>
+                            <span class="countdown-title" id="cdTitle">COLORIDO 2026 FEST // COMMENCING IN: 28 DEC 2026</span>
+                            <span class="countdown-target">FLAGSHIP CULTURAL &amp; ARTS EXTRAVAGANZA · 28 &amp; 29 DECEMBER 2026</span>
                         </div>
                         <div class="countdown-telemetry">
                             <span>TELEMETRY_SYNC: <strong style="color:var(--accent-cyan)">ACTIVE</strong></span>
@@ -144,11 +144,11 @@
                         </div>
                     </div>
                     <div class="countdown-footer">
-                        <div class="countdown-status">
-                            <span>STATUS: STAGE READY // 50+ EVENTS // 13 CLUBS</span>
+                        <div class="countdown-status" id="cdStatus">
+                            <span>STATUS: COLORIDO 2026 STAGE READY // 28–29 DEC 2026 // 50+ EVENTS</span>
                         </div>
                         <a href="events.html" class="countdown-link">
-                            <span>VIEW FEST LINEUP &amp; SCHEDULE</span>
+                            <span>VIEW COLORIDO SCHEDULE &amp; LINEUP</span>
                             <i>→</i>
                         </a>
                     </div>
@@ -163,14 +163,14 @@
     <!-- Running Ticker Ribbon -->
     <div class="ticker-ribbon">
         <div class="ticker-track">
-            <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> COLORIDO 2026 (28–29 Dec) Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
             <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
             <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
             <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
             <!-- Repeat loop -->
-            <span class="ticker-item"><i>✦</i> Cultural Fest 2026 Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> COLORIDO 2026 (28–29 Dec) Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
             <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
@@ -178,6 +178,564 @@
             <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
         </div>
     </div>
+
+    <!-- Ultimate Upcoming Events Radar & Spotlight Bar -->
+    <section class="upcoming-spotlight-section" id="upcoming-radar">
+        <div class="container">
+            <div class="upcoming-spotlight-wrap cyber-card">
+                <!-- Top Radar HUD Bar -->
+                <div class="spotlight-top-bar">
+                    <div class="spotlight-top-left">
+                        <div class="spotlight-badge">
+                            <span class="pulse-dot"></span>
+                            <span>LIVE RADAR // AY 2026–2027 CALENDAR</span>
+                            <span class="spotlight-live-telemetry">TELEMETRY: ACTIVE</span>
+                        </div>
+                        <h3 class="spotlight-main-title">Upcoming Campus <span class="gradient-text">Events &amp; Fests</span></h3>
+                        <p class="spotlight-sub">Live radar tracking 13 upcoming competitions across 13 student clubs with ₹30,000+ prize pools.</p>
+                    </div>
+
+                    <div class="spotlight-controls">
+                        <!-- Quick Filter Pills -->
+                        <div class="spotlight-filter-pills" id="spotlightFilterPills">
+                            <button class="spotlight-pill active" data-filter="all" type="button">All (13)</button>
+                            <button class="spotlight-pill" data-filter="imminent" type="button">⚡ Next Up</button>
+                            <button class="spotlight-pill" data-filter="fest" type="button">🎪 Mega Fests</button>
+                            <button class="spotlight-pill" data-filter="prizes" type="button">🏆 High Prizes</button>
+                        </div>
+
+                        <!-- Carousel Prev / Next Controls -->
+                        <div class="spotlight-nav-arrows">
+                            <button class="spotlight-arrow-btn" id="spotlightPrevBtn" aria-label="Previous events" type="button">‹</button>
+                            <button class="spotlight-arrow-btn" id="spotlightNextBtn" aria-label="Next events" type="button">›</button>
+                        </div>
+
+                        <a href="events.html#calendar" class="btn-spotlight-all">
+                            <span>Full Schedule (24)</span>
+                            <i>→</i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Spotlight Carousel Track -->
+                <div class="spotlight-carousel-container">
+                    <div class="spotlight-carousel-track" id="spotlightTrack">
+                        <!-- Card 1: Digital Club (IMMINENT NEXT UP) -->
+                        <div class="spotlight-card imminent active-item" 
+                             data-category="tech" 
+                             data-type="imminent prizes"
+                             data-title="Website Development &amp; Anime Video Making"
+                             data-catname="Technical &amp; Multimedia"
+                             data-date="30th September 2026"
+                             data-time="1:00 PM"
+                             data-venue="SJB Seminar Hall"
+                             data-prize="Web Dev: Up to ₹3,000 | Anime Making: Up to ₹1,500"
+                             data-desc="Digital Club brings an adrenaline-fueled duel of code and animation. Build creative responsive websites or produce original anime animations with compelling visual narratives."
+                             data-highlights="Live Web Hosting, Original Animation Screening, Jury Evaluation from Industry Experts"
+                             data-rules="Bring student college ID card. Laptops permitted with pre-installed editing suites. Teams up to 2 for Anime and Individual for Web Dev."
+                             data-coordinators="Digital Club Student Leads">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge next-up"><span class="beacon-pulse"></span> NEXT UP · 30 SEP 2026</span>
+                                <span class="card-countdown-tag" id="spotlightDigitalCountdown">9d 03h 12m</span>
+                            </div>
+                            <h4 class="card-title">Website Dev &amp; Anime Making</h4>
+                            <div class="card-club-tag">DIGITAL CLUB · RVR&amp;JCCE</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SJB Seminar Hall</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 1:00 PM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZE</span>
+                                    <span class="info-val prize-val">🏆 Up to ₹3,000</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">💻 Solo / Duo</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Club Waltz (Dance Gala) -->
+                        <div class="spotlight-card" 
+                             data-category="dance" 
+                             data-type="imminent prizes"
+                             data-title="Club Waltz (Dance Gala)"
+                             data-catname="Dance &amp; Performing Arts"
+                             data-date="08th &amp; 09th October 2026"
+                             data-time="12:00 Noon"
+                             data-venue="Open Air Theatre (OAT)"
+                             data-prize="Solo: ₹3,000 | Group: ₹3,000"
+                             data-desc="Step onto the grandest dance arena of the semester. From high-energy hip-hop and western classical to traditional partner choreography, battle for campus glory."
+                             data-highlights="2-Day Dance Gala, Solo &amp; Crew Battles, DJ Sound System"
+                             data-rules="Max performance duration: 4 mins for Solo, 6 mins for Groups. Audio tracks must be submitted 24h in advance."
+                             data-coordinators="M Leeladhar, P Shanmukha Sai">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge dance-badge">08 &amp; 09 OCT 2026</span>
+                                <span class="card-countdown-tag">17 Days Left</span>
+                            </div>
+                            <h4 class="card-title">Club Waltz (Dance Gala)</h4>
+                            <div class="card-club-tag">CLUB WALTZ · DANCE CLUB</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 Open Air Theatre</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 12:00 Noon</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZE</span>
+                                    <span class="info-val prize-val">🏆 ₹3,000 Awards</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">💃 Solo &amp; Group</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Helping Hands (Social Outreach) -->
+                        <div class="spotlight-card" 
+                             data-category="social" 
+                             data-type="imminent"
+                             data-title="Helping Hands Community Service Drive"
+                             data-catname="Community Service &amp; Outreach"
+                             data-date="24th October 2026"
+                             data-time="10:00 AM"
+                             data-venue="Blind School &amp; Aged Home"
+                             data-prize="Certificate of Commendation &amp; On-Duty Attendance"
+                             data-desc="Spend a heartwarming day volunteering at local blind schools and senior living centers. Distribution of essential kits, educational resources, and cultural interactions."
+                             data-highlights="Community Outreach, Direct Volunteer Engagement, Institutional Social Impact"
+                             data-rules="College transport provided from campus at 09:30 AM. Volunteers receive official OD attendance credit."
+                             data-coordinators="Helping Hands Committee Leads">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge outreach-badge">24 OCT 2026</span>
+                                <span class="card-countdown-tag">33 Days Left</span>
+                            </div>
+                            <h4 class="card-title">Helping Hands Service Drive</h4>
+                            <div class="card-club-tag">HELPING HANDS · SICO</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">LOCATION</span>
+                                    <span class="info-val">📍 Blind School / Home</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 10:00 AM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">RECOGNITION</span>
+                                    <span class="info-val" style="color:var(--accent-cyan)">🤝 Honor Certificate</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">CREDIT</span>
+                                    <span class="info-val">⚡ Official OD</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Pixel Craft Club (Video Editing & Graphic Design) -->
+                        <div class="spotlight-card" 
+                             data-category="art" 
+                             data-type="prizes"
+                             data-title="Video Editing &amp; Graphic Design Contest"
+                             data-catname="Digital Arts &amp; Design"
+                             data-date="05th December 2026"
+                             data-time="2:00 PM"
+                             data-venue="SJB Seminar Hall"
+                             data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
+                             data-desc="Showcase your visual storytelling, VFX, motion graphics, and poster composition skills. Create stunning media responding to live creative prompts."
+                             data-highlights="Live Creative Prompts, Screenings, Adobe Suite / Blender / DaVinci Challenges"
+                             data-rules="Original raw assets and project files must be submitted along with the final rendered MP4/PNG."
+                             data-coordinators="Pixel Craft Club Student Heads">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge art-badge">05 DEC 2026</span>
+                                <span class="card-countdown-tag">75 Days Left</span>
+                            </div>
+                            <h4 class="card-title">Video Editing &amp; Graphic Design</h4>
+                            <div class="card-club-tag">PIXEL CRAFT CLUB · SJB HALL</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SJB Seminar Hall</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 2:00 PM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZES</span>
+                                    <span class="info-val prize-val">🏆 Up to ₹1,500</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">🎨 Solo</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: COLORIDO 2026 (Flagship Fest - 2 Days) -->
+                        <div class="spotlight-card flagship-fest-card" 
+                             data-category="cultural" 
+                             data-type="fest prizes"
+                             data-title="COLORIDO 2026 Flagship Cultural Fest"
+                             data-catname="Flagship Annual Fest"
+                             data-date="28th &amp; 29th December 2026"
+                             data-time="09:00 AM – 10:00 PM"
+                             data-venue="Main Open Air Auditorium &amp; SAC Grounds"
+                             data-prize="Total Fest Prize Pool Over ₹50,000 + Rolling Trophies"
+                             data-desc="The crown jewel of campus celebrations. 2 full days of music festivals, dance showdowns, stage dramas, robotic combats, anime exhibitions, and celebrity artist performances."
+                             data-highlights="120+ Performers, 50+ Events, 13 Dynamic Clubs, Grand Finale Concert"
+                             data-rules="Open to all enrolled students and registered inter-college participants. College ID mandatory for entry."
+                             data-coordinators="M Aravind Kumar, A Bhavagna">
+                            <div class="card-glow-halo fest-glow"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge fest-badge">🎪 FLAGSHIP · 28 &amp; 29 DEC</span>
+                                <span class="card-countdown-tag fest-tag">98 Days Ahead</span>
+                            </div>
+                            <h4 class="card-title" style="color:var(--accent-coral)">COLORIDO 2026 Annual Fest</h4>
+                            <div class="card-club-tag" style="color:#fcd34d">ALL 13 CLUBS · GRAND GALA</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SAC Grounds &amp; OAT</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">DURATION</span>
+                                    <span class="info-val">⏰ 2 Grand Days</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">PRIZE POOL</span>
+                                    <span class="info-val prize-val" style="color:var(--accent-coral)">🏆 ₹50,000+ Trophies</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">SCALE</span>
+                                    <span class="info-val">🌟 50+ Events</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Red Ants (Rangoli & Kites) -->
+                        <div class="spotlight-card" 
+                             data-category="art" 
+                             data-type="all"
+                             data-title="Rangoli &amp; Kites Competition"
+                             data-catname="Traditional &amp; Folk Arts"
+                             data-date="08th January 2027"
+                             data-time="2:00 PM"
+                             data-venue="SJB Portico"
+                             data-prize="Up to ₹1,500 + 10 Consolation Prizes"
+                             data-desc="Celebrate Sankranti heritage with vibrant floral and color Rangolis paired with high-flying kite designing and fighting contests."
+                             data-highlights="Traditional Folk Music, High-Altitude Kite Battles, Eco-friendly Rangoli Powders"
+                             data-rules="Eco-friendly colors only. 2 hours allotted for Rangoli creation. Teams up to 3 members."
+                             data-coordinators="Red Ants Club Leads">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge art-badge">08 JAN 2027</span>
+                                <span class="card-countdown-tag">Jan 2027</span>
+                            </div>
+                            <h4 class="card-title">Rangoli &amp; Kites Competition</h4>
+                            <div class="card-club-tag">RED ANTS · SJB PORTICO</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SJB Portico</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 2:00 PM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZE</span>
+                                    <span class="info-val prize-val">🏆 ₹1,500 + 10 Prizes</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">🪁 Teams of 3</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 7: Music Club (Rap & Band Showdown) -->
+                        <div class="spotlight-card" 
+                             data-category="music" 
+                             data-type="prizes"
+                             data-title="Western, Rap &amp; Band Showdown"
+                             data-catname="Music &amp; Acoustic Bands"
+                             data-date="06th February 2027"
+                             data-time="2:00 PM"
+                             data-venue="SJB Seminar Hall"
+                             data-prize="Group: ₹3,000 | Solo: ₹1,500"
+                             data-desc="Plug in your amps and deliver electrifying vocals, live instrumentation, and fast rap deliveries in this premier musical duel."
+                             data-highlights="Live Sound Engineering, Rap Battles, Acoustic &amp; Electric Sets"
+                             data-rules="Time limit: 8 mins for bands, 3 mins for rap/solo acts. Drum kits provided on stage."
+                             data-coordinators="Music Club Coordinators">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge music-badge">06 FEB 2027</span>
+                                <span class="card-countdown-tag">Feb 2027</span>
+                            </div>
+                            <h4 class="card-title">Western, Rap &amp; Band Showdown</h4>
+                            <div class="card-club-tag">MUSIC CLUB · SJB HALL</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SJB Seminar Hall</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 2:00 PM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZE</span>
+                                    <span class="info-val prize-val">🏆 Up to ₹3,000</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">🎸 Solo &amp; Bands</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 8: Photography Club (Annual Contest) -->
+                        <div class="spotlight-card" 
+                             data-category="art" 
+                             data-type="prizes"
+                             data-title="Annual Campus Photography Contest"
+                             data-catname="Visual &amp; Lens Media"
+                             data-date="12th February 2027"
+                             data-time="2:00 PM"
+                             data-venue="SJB Seminar Hall"
+                             data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
+                             data-desc="Capture the soul of campus architecture, candid expressions, motion, and wildlife through professional and smartphone lens photography."
+                             data-highlights="Gallery Display of Finalists, Technical Critiques, Drone &amp; DSLR Categories"
+                             data-rules="EXIF metadata must be intact. Minimal retouching allowed. Max 3 entries per participant."
+                             data-coordinators="Photography Club Leads">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge art-badge">12 FEB 2027</span>
+                                <span class="card-countdown-tag">Feb 2027</span>
+                            </div>
+                            <h4 class="card-title">Annual Photography Contest</h4>
+                            <div class="card-club-tag">PHOTOGRAPHY CLUB · SJB HALL</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 SJB Seminar Hall</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ 2:00 PM</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">CASH PRIZES</span>
+                                    <span class="info-val prize-val">🏆 Up to ₹1,500</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">FORMAT</span>
+                                    <span class="info-val">📷 DSLR &amp; Mobile</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card 9: 42nd Annual Day -->
+                        <div class="spotlight-card" 
+                             data-category="institutional" 
+                             data-type="fest"
+                             data-title="42nd Annual Day Celebrations"
+                             data-catname="Institutional Convocation"
+                             data-date="05th March 2027"
+                             data-time="Full Day"
+                             data-venue="Open Air Auditorium"
+                             data-prize="Institutional Gold Medals, Merit Citations &amp; Rolling Trophies"
+                             data-desc="The grand academic and co-curricular finale of R.V.R. &amp; J.C. College of Engineering. Honoring academic toppers, committee leaders, national sports champions, and dynamic cultural performers."
+                             data-highlights="Distinguished Chief Guests, Annual Report Presentation, Cultural Extravaganza"
+                             data-rules="Formal dress code mandatory. Reserved seating for awardees and their parents."
+                             data-coordinators="Principal, Management &amp; EC &amp; CCAC">
+                            <div class="card-glow-halo"></div>
+                            <div class="card-header-meta">
+                                <span class="card-status-badge fest-badge">05 MAR 2027</span>
+                                <span class="card-countdown-tag">Mar 2027</span>
+                            </div>
+                            <h4 class="card-title">42nd Annual Day Celebrations</h4>
+                            <div class="card-club-tag">RVR&amp;JCCE INSTITUTIONAL</div>
+                            <div class="card-info-grid">
+                                <div class="info-cell">
+                                    <span class="info-label">VENUE</span>
+                                    <span class="info-val">📍 Open Air Auditorium</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">TIME</span>
+                                    <span class="info-val">⏰ Full Day</span>
+                                </div>
+                                <div class="info-cell prize-cell">
+                                    <span class="info-label">HONORS</span>
+                                    <span class="info-val prize-val">🎖️ Medals &amp; Trophies</span>
+                                </div>
+                                <div class="info-cell">
+                                    <span class="info-label">SCALE</span>
+                                    <span class="info-val">🌟 Grand Finale</span>
+                                </div>
+                            </div>
+                            <div class="card-action-row">
+                                <button class="btn-card-details btn-event-details" type="button">
+                                    <span>View Details</span>
+                                    <i>→</i>
+                                </button>
+                                <button class="btn-card-cal btn-add-cal" type="button" aria-label="Add to Calendar" title="Add to Calendar (.ics)">
+                                    <span>📅 Add Cal</span>
+                                </button>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                                   target="_blank" rel="noopener noreferrer" class="btn-card-reg" title="Register Now">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Telemetry HUD Status Strip -->
+                <div class="spotlight-telemetry-bar">
+                    <div class="telemetry-item">
+                        <span class="telemetry-dot"></span>
+                        <span>RADAR STATUS: <strong>LOCKED ON 13 UPCOMING PROTOCOLS</strong></span>
+                    </div>
+                    <div class="telemetry-item">
+                        <span>PRIZE POOL: <strong style="color:#fcee0a">₹30,000+ IN MERIT CASH AWARDS</strong></span>
+                    </div>
+                    <div class="telemetry-item">
+                        <span>NEXT CLOCK: <strong style="color:#00ff88" id="spotlightClockTicker">DIGITAL CLUB (30 SEP) IN 9 DAYS</strong></span>
+                    </div>
+                    <div class="telemetry-item">
+                        <span>CONTROLS: <strong>SWIPE OR USE ARROWS</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Portal Hub & Category Navigation Gateway -->
     <section class="portal-hub" id="portal-hub">
@@ -221,9 +779,9 @@
                         </div>
                         <div class="portal-kicker">CALENDAR &amp; PERFORMANCES</div>
                         <h3 class="portal-card-title cyber-decode">Flagship Events &amp; Fests</h3>
-                        <p class="portal-card-desc">From Cultural Fest and Club Waltz to Battle of the Bands and Art Expos. Filter by category and access detailed guidelines and event coordinators.</p>
+                        <p class="portal-card-desc">From COLORIDO 2026 and Club Waltz to Battle of the Bands and Art Expos. Filter by category and access detailed guidelines and event coordinators.</p>
                         <div class="portal-tags">
-                            <span class="portal-tag">Cultural Fests</span>
+                            <span class="portal-tag">COLORIDO 2026</span>
                             <span class="portal-tag">Dance Galas</span>
                             <span class="portal-tag">Music Festivals</span>
                         </div>
@@ -436,6 +994,53 @@
                 <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
                 <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
                 <span>EC &amp; CCAC SICO HUD v2.6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Universal Event Detail Modal -->
+    <div class="event-modal-backdrop" id="eventModal">
+        <div class="event-modal-container">
+            <button class="event-modal-close" id="eventModalClose" aria-label="Close modal">&times;</button>
+            <div class="event-modal-header">
+                <span class="event-modal-badge" id="modalCategory">Event</span>
+                <h3 class="event-modal-title" id="modalTitle">Event Details</h3>
+                <div class="event-modal-meta">
+                    <div><span>📅 Date:</span> <strong id="modalDate">--</strong></div>
+                    <div><span>📍 Venue:</span> <strong id="modalVenue">--</strong></div>
+                    <div id="modalPrizeWrap"><span>🏆 Cash Prize:</span> <strong id="modalPrize" style="color:#fcee0a">--</strong></div>
+                </div>
+            </div>
+            <div class="event-modal-body">
+                <div class="modal-section">
+                    <h4>About the Event</h4>
+                    <p id="modalDesc">Detailed description goes here.</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Highlights</h4>
+                    <p id="modalHighlights">Highlights</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Participation Guidelines</h4>
+                    <p id="modalRules">Rules</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Student Leads</h4>
+                    <p id="modalCoordinators">Coordinators</p>
+                </div>
+            </div>
+            <div class="event-modal-footer">
+                <button type="button" class="btn btn-secondary" id="modalAddToCalBtn">
+                    <span>📅 Add to Calendar (.ics)</span>
+                </button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   id="modalRegisterBtn"
+                   class="btn btn-primary"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register Now</span>
+                    <i>↗</i>
+                </a>
             </div>
         </div>
     </div>
