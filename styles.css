@@ -7,42 +7,42 @@
 
 /* --- CSS Variables & Design Tokens --- */
 :root {
-    --bg-dark: #070811;
-    --bg-dark-surface: #0e1022;
-    --bg-dark-alt: #13162e;
-    --bg-card: rgba(17, 20, 44, 0.65);
-    --bg-card-hover: rgba(26, 31, 68, 0.85);
-    --border-card: rgba(255, 255, 255, 0.09);
-    --border-glow: rgba(119, 104, 229, 0.4);
+    --bg-dark: #070a14;
+    --bg-dark-surface: #0c1020;
+    --bg-dark-alt: #121832;
+    --bg-card: rgba(15, 22, 45, 0.72);
+    --bg-card-hover: rgba(22, 32, 65, 0.9);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(59, 130, 246, 0.35);
 
     --text-primary: #ffffff;
-    --text-secondary: #a3a9cb;
-    --text-muted: #6d7499;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
 
-    /* Vibrant Accent Colors */
-    --accent-coral: #fc6441;
-    --accent-pink: #f5576c;
-    --accent-purple: #7768e5;
-    --accent-violet: #9b51e0;
-    --accent-cyan: #00f2fe;
-    --accent-blue: #4facfe;
-    --accent-amber: #f8ca4d;
-    --accent-green: #00d084;
+    /* Vibrant Accent Colors (Deep Navy, Royal Blue, Institutional Gold, Emerald) */
+    --accent-coral: #ea580c;
+    --accent-pink: #e11d48;
+    --accent-purple: #6366f1;
+    --accent-violet: #8b5cf6;
+    --accent-cyan: #38bdf8;
+    --accent-blue: #3b82f6;
+    --accent-amber: #f59e0b;
+    --accent-green: #10b981;
 
     /* Multi-color Gradients */
-    --grad-primary: linear-gradient(135deg, #fc6441 0%, #ff5e62 50%, #f5576c 100%);
-    --grad-purple-cyan: linear-gradient(135deg, #00f2fe 0%, #7768e5 50%, #9b51e0 100%);
-    --grad-amber-coral: linear-gradient(135deg, #f8ca4d 0%, #fc6441 100%);
-    --grad-violet-magenta: linear-gradient(135deg, #9b51e0 0%, #f5576c 100%);
-    --grad-cyan-teal: linear-gradient(135deg, #00d084 0%, #00f2fe 100%);
-    --grad-text-rainbow: linear-gradient(135deg, #00f2fe 0%, #7768e5 35%, #f5576c 70%, #fc6441 100%);
-    --grad-title: linear-gradient(135deg, #ffffff 10%, #e0e7ff 50%, #a5b4fc 100%);
+    --grad-primary: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #6366f1 100%);
+    --grad-purple-cyan: linear-gradient(135deg, #0284c7 0%, #4f46e5 50%, #7c3aed 100%);
+    --grad-amber-coral: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    --grad-violet-magenta: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+    --grad-cyan-teal: linear-gradient(135deg, #059669 0%, #0284c7 100%);
+    --grad-text-rainbow: linear-gradient(135deg, #38bdf8 0%, #818cf8 35%, #f472b6 70%, #fb923c 100%);
+    --grad-title: linear-gradient(135deg, #ffffff 10%, #e2e8f0 50%, #94a3b8 100%);
 
     /* Shadows & Glows */
-    --glow-coral: 0 8px 32px rgba(252, 100, 65, 0.35);
-    --glow-purple: 0 8px 32px rgba(119, 104, 229, 0.4);
-    --glow-cyan: 0 8px 32px rgba(0, 242, 254, 0.35);
-    --glow-amber: 0 8px 32px rgba(248, 202, 77, 0.35);
+    --glow-coral: 0 8px 32px rgba(234, 88, 12, 0.25);
+    --glow-purple: 0 8px 32px rgba(99, 102, 241, 0.3);
+    --glow-cyan: 0 8px 32px rgba(56, 189, 248, 0.25);
+    --glow-amber: 0 8px 32px rgba(245, 158, 11, 0.25);
 
     --font-heading: 'Outfit', sans-serif;
     --font-serif: 'Playfair Display', serif;
@@ -3571,7 +3571,7 @@ section {
     box-shadow: 0 0 8px currentColor;
 }
 
-.theme-dot-obsidian { background: #7768e5; color: #7768e5; }
+.theme-dot-obsidian { background: #3b82f6; color: #3b82f6; }
 .theme-dot-matrix { background: #00ff88; color: #00ff88; }
 .theme-dot-cyberpunk { background: #fcee0a; color: #fcee0a; }
 .theme-dot-frost { background: #70d6ff; color: #70d6ff; }
