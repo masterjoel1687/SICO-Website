@@ -1502,5 +1502,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // =============================================================
+    // SECTION 23: 3rd Year Student Coordinators Filtering & Live Search
+    // =============================================================
+    const thirdYearFilterBtns = document.querySelectorAll('#thirdYearFilters .team-filter-btn');
+    const thirdYearCards = document.querySelectorAll('#thirdYearGrid .team-card-3rd');
+    const teamSearchInput = document.getElementById('teamSearchInput');
+    const teamResultsCount = document.getElementById('teamResultsCount');
+
+    if (thirdYearCards.length) {
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        function updateTeamDisplay() {
+            let visibleCount = 0;
+            const query = searchQuery.trim().toLowerCase();
+
+            thirdYearCards.forEach(card => {
+                const category = card.getAttribute('data-category') || '';
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const role = (card.getAttribute('data-role') || '').toLowerCase();
+                const branch = (card.getAttribute('data-branch') || '').toLowerCase();
+
+                const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+                const matchesSearch = !query || name.includes(query) || role.includes(query) || branch.includes(query);
+
+                if (matchesCategory && matchesSearch) {
+                    card.classList.remove('hidden-member');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden-member');
+                }
+            });
+
+            if (teamResultsCount) {
+                teamResultsCount.textContent = `Showing ${visibleCount} of ${thirdYearCards.length} student coordinators`;
+            }
+        }
+
+        thirdYearFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                thirdYearFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeCategory = btn.getAttribute('data-filter') || 'all';
+                updateTeamDisplay();
+                if (typeof playSynthSound === 'function') playSynthSound('click');
+            });
+        });
+
+        if (teamSearchInput) {
+            teamSearchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                updateTeamDisplay();
+            });
+        }
+    }
+
 });
 

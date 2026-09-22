@@ -54,9 +54,18 @@
     animation: fadeInUp 1s cubic-bezier(.22,.68,.38,1.01) forwards;
 }
 
+@keyframes teamBounceKeyframes {
+    0% { transform: translateY(0) scale(1); }
+    35% { transform: translateY(-22px) scale(1.13); }
+    60% { transform: translateY(-10px) scale(1.06); }
+    85% { transform: translateY(-16px) scale(1.11); }
+    100% { transform: translateY(-14px) scale(1.10); }
+}
+
 .team-card:hover {
-    transform: translateY(-10px) scale(1.04);
-    box-shadow: 0 16px 32px 0 rgba(108,71,199,0.14);
+    animation: teamBounceKeyframes 0.55s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    box-shadow: 0 30px 60px 0 rgba(108,71,199,0.35);
+    z-index: 30;
 }
 
 @keyframes fadeInUp {
@@ -84,6 +93,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.team-card:hover .team-photo {
+    transform: scale(1.16);
 }
 
 .team-photo-img {
@@ -92,12 +106,12 @@
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
-    transition: transform 0.2s;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: block;
 }
 
 .team-card:hover .team-photo-img {
-    transform: scale(1.09);
+    transform: scale(1.15);
 }
 
 .team-name {
