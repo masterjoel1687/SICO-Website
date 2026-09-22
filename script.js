@@ -32,17 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
             playSynthSound('teleport');
         };
 
-        const colors = ['rgba(0, 242, 254, ', 'rgba(119, 104, 229, ', 'rgba(252, 100, 65, '];
+        const colors = ['rgba(56, 189, 248, ', 'rgba(59, 130, 246, ', 'rgba(245, 158, 11, ', 'rgba(16, 185, 129, '];
 
         class Particle {
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 2 + 1;
+                this.vx = (Math.random() - 0.5) * 0.7;
+                this.vy = (Math.random() - 0.5) * 0.7;
+                this.radius = Math.random() * 2.2 + 0.8;
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.alpha = Math.random() * 0.6 + 0.2;
+                this.alpha = Math.random() * 0.65 + 0.25;
             }
 
             update() {
@@ -73,6 +73,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Celestial Shooting Star (Meteor Streak)
+        class ShootingStar {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width * 0.8;
+                this.y = Math.random() * (height * 0.35);
+                this.len = Math.random() * 70 + 60;
+                this.speed = Math.random() * 7 + 7;
+                this.size = Math.random() * 1.5 + 0.8;
+                this.angle = Math.PI / 4;
+                this.dx = Math.cos(this.angle) * this.speed;
+                this.dy = Math.sin(this.angle) * this.speed;
+                this.active = false;
+                this.waitTime = Math.random() * 250 + 120;
+            }
+            update() {
+                if (!this.active) {
+                    this.waitTime--;
+                    if (this.waitTime <= 0) {
+                        this.active = true;
+                    }
+                    return;
+                }
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x > width + 100 || this.y > height + 100) {
+                    this.reset();
+                }
+            }
+            draw() {
+                if (!this.active) return;
+                const tailX = this.x - Math.cos(this.angle) * this.len;
+                const tailY = this.y - Math.sin(this.angle) * this.len;
+                const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
+                grad.addColorStop(0, 'rgba(56, 189, 248, 0)');
+                grad.addColorStop(0.7, 'rgba(59, 130, 246, 0.45)');
+                grad.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
+
+                ctx.beginPath();
+                ctx.moveTo(tailX, tailY);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = this.size;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.shadowColor = '#38bdf8';
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        const shootingStar = new ShootingStar();
+
         for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
@@ -91,18 +150,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < maxDist) {
-                        const opacity = (1 - dist / maxDist) * 0.25;
+                        const opacity = (1 - dist / maxDist) * 0.28;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(119, 104, 229, ${opacity})`;
-                        ctx.lineWidth = 0.9;
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+                        ctx.lineWidth = 0.85;
                         ctx.stroke();
                     }
                 }
                 particles[i].update();
                 particles[i].draw();
             }
+
+            // Draw celestial shooting star
+            shootingStar.update();
+            shootingStar.draw();
+
             // Update and draw shockwaves
             for (let s = shockwaves.length - 1; s >= 0; s--) {
                 shockwaves[s].update();
@@ -132,9 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(0, 242, 254, ${this.opacity})`;
+                ctx.strokeStyle = `rgba(56, 189, 248, ${this.opacity})`;
                 ctx.lineWidth = 2;
-                ctx.shadowColor = '#00f2fe';
+                ctx.shadowColor = '#38bdf8';
                 ctx.shadowBlur = 12;
                 ctx.stroke();
                 ctx.shadowBlur = 0;
@@ -275,6 +339,14 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 header.classList.remove('scrolled');
             }
+        }
+
+        const readingProgressBar = document.getElementById('readingProgressBar');
+        if (readingProgressBar) {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+            readingProgressBar.style.width = `${scrolled}%`;
         }
     });
 
@@ -916,39 +988,89 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Harmonic Pentatonic Scale for UI Audio (F major pentatonic / D minor: F4, G4, A4, C5, D5, F5, G5, A5)
+    const pentatonicNotes = [349.23, 392.00, 440.00, 523.25, 587.33, 698.46, 783.99, 880.00];
+    let noteIndex = 0;
+
     function playSynthSound(type) {
         if (!audioEnabled || !audioCtx) return;
         try {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
             const now = audioCtx.currentTime;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
+
+            // Master soft lowpass filter to create warm organic feel
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(3400, now);
+            filter.connect(audioCtx.destination);
 
             if (type === 'blip') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(1100, now);
-                osc.frequency.exponentialRampToValueAtTime(1760, now + 0.04);
-                gain.gain.setValueAtTime(0.06, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-                osc.start(now);
-                osc.stop(now + 0.04);
+                // Crystal bell chime (dual oscillator harmonic pair)
+                const freq = pentatonicNotes[noteIndex % pentatonicNotes.length];
+                noteIndex = (noteIndex + 1) % pentatonicNotes.length;
+
+                const osc1 = audioCtx.createOscillator();
+                const osc2 = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(freq, now);
+
+                // Overtone harmonic 2.01x higher with gentle decay
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(freq * 2.01, now);
+
+                osc1.connect(gain);
+                osc2.connect(gain);
+                gain.connect(filter);
+
+                gain.gain.setValueAtTime(0.045, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 0.14);
+                osc2.stop(now + 0.14);
+
             } else if (type === 'click') {
+                // Warm acoustic tactile click
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(880, now);
-                osc.frequency.exponentialRampToValueAtTime(220, now + 0.07);
-                gain.gain.setValueAtTime(0.1, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                osc.frequency.setValueAtTime(440, now);
+                osc.frequency.exponentialRampToValueAtTime(90, now + 0.05);
+
+                gain.gain.setValueAtTime(0.075, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+                osc.connect(gain);
+                gain.connect(filter);
+
                 osc.start(now);
-                osc.stop(now + 0.07);
+                osc.stop(now + 0.05);
+
             } else if (type === 'teleport') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(300, now);
-                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.18);
-                gain.gain.setValueAtTime(0.08, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-                osc.start(now);
-                osc.stop(now + 0.2);
+                // Celestial Ascending Arpeggio (magical portal warp)
+                const chord = [349.23, 440.00, 523.25, 698.46, 880.00];
+                chord.forEach((note, idx) => {
+                    const noteTime = now + idx * 0.038;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(note, noteTime);
+
+                    gain.gain.setValueAtTime(0.04, noteTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.22);
+
+                    osc.connect(gain);
+                    gain.connect(filter);
+
+                    osc.start(noteTime);
+                    osc.stop(noteTime + 0.22);
+                });
             }
         } catch (e) {
             // Silently ignore audio context restrictions
@@ -1056,16 +1178,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rotX = ((y - centerY) / centerY) * -8;
                 const rotY = ((x - centerX) / centerX) * 8;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
+                // For team cards, preserve the spring bounce and enlargement; for portal cards apply perspective tilt
+                if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd')) {
+                    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
+                }
                 glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.22), transparent 60%)`;
                 glare.style.opacity = '1';
 
                 const angle = Math.round((Math.atan2(y - centerY, x - centerX) * 180) / Math.PI + 180);
-                foil.style.background = `linear-gradient(${angle}deg, transparent 15%, rgba(0, 242, 254, 0.35) 35%, rgba(119, 104, 229, 0.35) 48%, rgba(245, 87, 108, 0.4) 62%, rgba(248, 202, 77, 0.35) 75%, transparent 88%)`;
+                foil.style.background = `linear-gradient(${angle}deg, transparent 15%, rgba(56, 189, 248, 0.3) 35%, rgba(59, 130, 246, 0.3) 48%, rgba(245, 158, 11, 0.35) 62%, rgba(16, 185, 129, 0.3) 75%, transparent 88%)`;
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
+                card.style.transform = '';
                 glare.style.opacity = '0';
             });
         });
