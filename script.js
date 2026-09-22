@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-event-details').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const card = btn.closest('.event-card, .spotlight-card');
+            const card = btn.closest('.event-card, .spotlight-card, .event-card-modern');
             if (!card || !eventModal) return;
 
             const title = card.getAttribute('data-title') || 'Event Details';
@@ -1446,16 +1446,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 22. ULTIMATE UPCOMING EVENTS RADAR & SPOTLIGHT CONTROLLER
+    // 22. UPCOMING EVENTS & COMPETITIONS SHOWCASE CONTROLLER
     // -------------------------------------------------------------
-    const spotlightTrack = document.getElementById('spotlightTrack');
-    const spotlightPrevBtn = document.getElementById('spotlightPrevBtn');
-    const spotlightNextBtn = document.getElementById('spotlightNextBtn');
-    const spotlightFilterPills = document.querySelectorAll('#spotlightFilterPills .spotlight-pill');
-    const spotlightCards = document.querySelectorAll('.spotlight-card');
+    const eventsFilterPills = document.querySelectorAll('#eventsFilterBar .filter-pill, #spotlightFilterPills .spotlight-pill');
+    const eventCardsModern = document.querySelectorAll('.event-card-modern, .spotlight-card');
     const spotlightDigitalCountdown = document.getElementById('spotlightDigitalCountdown');
-    const spotlightClockTicker = document.getElementById('spotlightClockTicker');
-    const spotlightClockTickerEvents = document.getElementById('spotlightClockTickerEvents');
+    const spotlightDigitalCountdownEvents = document.getElementById('spotlightDigitalCountdownEvents');
 
     // 1. Live Countdown for Digital Club Event (30 Sep 2026, 1:00 PM IST)
     const digitalEventTime = new Date('2026-09-30T13:00:00+05:30').getTime();
@@ -1466,52 +1462,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const d = Math.floor(diff / (1000 * 60 * 60 * 24));
             const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const m = Math.floor((diff / (1000 * 60)) % 60);
-            const timeStr = `${d}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
-            const tickerStr = `DIGITAL CLUB (30 SEP) IN ${d} DAYS ${h} HOURS`;
+            const badgeStr = `⚡ In ${d} Days (${h}h left)`;
             
-            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = timeStr;
-            if (spotlightClockTicker) spotlightClockTicker.textContent = tickerStr;
-            if (spotlightClockTickerEvents) spotlightClockTickerEvents.textContent = tickerStr;
+            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = badgeStr;
+            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = badgeStr;
         } else {
-            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = 'EVENT LIVE';
-            if (spotlightClockTicker) spotlightClockTicker.textContent = 'DIGITAL CLUB IN PROGRESS';
-            if (spotlightClockTickerEvents) spotlightClockTickerEvents.textContent = 'DIGITAL CLUB IN PROGRESS';
+            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = '⚡ Event Live Now';
+            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = '⚡ Event Live Now';
         }
     }
     tickDigitalCountdown();
     setInterval(tickDigitalCountdown, 1000);
 
-    // 2. Carousel Arrow Controls
-    if (spotlightTrack) {
-        const scrollAmount = 340;
-        if (spotlightPrevBtn) {
-            spotlightPrevBtn.addEventListener('click', () => {
-                spotlightTrack.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                playSynthSound('click');
-            });
-        }
-        if (spotlightNextBtn) {
-            spotlightNextBtn.addEventListener('click', () => {
-                spotlightTrack.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                playSynthSound('click');
-            });
-        }
-    }
-
-    // 3. Quick Filter Pills
-    if (spotlightFilterPills.length && spotlightCards.length) {
-        spotlightFilterPills.forEach(pill => {
+    // 2. Simple, High-Visibility Filter Tabs
+    if (eventsFilterPills.length && eventCardsModern.length) {
+        eventsFilterPills.forEach(pill => {
             pill.addEventListener('click', () => {
-                spotlightFilterPills.forEach(p => p.classList.remove('active'));
+                eventsFilterPills.forEach(p => p.classList.remove('active'));
                 pill.classList.add('active');
                 const filter = pill.getAttribute('data-filter');
 
-                spotlightCards.forEach(card => {
+                eventCardsModern.forEach(card => {
                     const cardType = card.getAttribute('data-type') || '';
                     if (filter === 'all' || cardType.includes(filter)) {
                         card.classList.remove('hidden');
                         card.style.opacity = '0';
-                        card.style.transform = 'translateY(10px)';
+                        card.style.transform = 'translateY(12px)';
                         setTimeout(() => {
                             card.style.opacity = '1';
                             card.style.transform = 'translateY(0)';
@@ -1521,10 +1497,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                if (spotlightTrack) {
-                    spotlightTrack.scrollTo({ left: 0, behavior: 'smooth' });
-                }
-                playSynthSound('blip');
+                if (typeof playSynthSound === 'function') playSynthSound('blip');
             });
         });
     }
