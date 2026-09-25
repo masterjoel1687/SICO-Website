@@ -7,202 +7,99 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------
     // 1. HERO CANVAS PARTICLE NETWORK
     // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    // 1. WARM AMBIENT LIGHT & FLOATING EMBERS CANVAS
+    // -------------------------------------------------------------
     const canvas = document.getElementById('heroCanvas');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width = canvas.width = canvas.parentElement.offsetWidth;
         let height = canvas.height = canvas.parentElement.offsetHeight;
-        let particles = [];
-        const particleCount = window.innerWidth < 768 ? 30 : 65;
-        const maxDist = 110;
-        let heroMouse = { x: null, y: null, radius: 140 };
-        let warpSpeed = 1;
+        let embers = [];
+        const emberCount = window.innerWidth < 768 ? 22 : 45;
+        let heroMouse = { x: null, y: null, radius: 160 };
 
+        // Safe fallback for window.triggerWarpSpeed if invoked
         window.triggerWarpSpeed = function() {
-            warpSpeed = 5.5;
-            for (let i = 0; i < 4; i++) {
-                setTimeout(() => {
-                    shockwaves.push(new Shockwave(
-                        Math.random() * width,
-                        Math.random() * height,
-                        colors[Math.floor(Math.random() * colors.length)]
-                    ));
-                }, i * 140);
-            }
-            playSynthSound('teleport');
+            // Soft warm pulse instead of sci-fi warp
+            embers.forEach(e => {
+                e.vy -= 2;
+                e.alpha = Math.min(0.8, e.alpha + 0.3);
+            });
         };
 
-        const colors = ['rgba(56, 189, 248, ', 'rgba(59, 130, 246, ', 'rgba(245, 158, 11, ', 'rgba(16, 185, 129, '];
+        const warmPalettes = [
+            'rgba(245, 158, 11, ',   // Warm Amber Gold
+            'rgba(225, 29, 72, ',    // Festival Vermilion
+            'rgba(251, 191, 36, ',   // Soft Champagne
+            'rgba(234, 88, 12, '     // Warm Coral
+        ];
 
-        class Particle {
+        class WarmEmber {
             constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
                 this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.7;
-                this.vy = (Math.random() - 0.5) * 0.7;
-                this.radius = Math.random() * 2.2 + 0.8;
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.alpha = Math.random() * 0.65 + 0.25;
+                this.y = initial ? Math.random() * height : height + Math.random() * 40;
+                this.radius = Math.random() * 2.8 + 1.2;
+                this.vx = (Math.random() - 0.5) * 0.45;
+                this.vy = -(Math.random() * 0.55 + 0.25);
+                this.color = warmPalettes[Math.floor(Math.random() * warmPalettes.length)];
+                this.baseAlpha = Math.random() * 0.4 + 0.15;
+                this.alpha = this.baseAlpha;
+                this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                this.pulseAngle = Math.random() * Math.PI * 2;
             }
 
             update() {
-                this.x += this.vx * warpSpeed;
-                this.y += this.vy * warpSpeed;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.pulseAngle += this.pulseSpeed;
+                this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.12;
 
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-
-                // Mouse deflection
+                // Subtle gentle deflection away from cursor
                 if (heroMouse.x !== null) {
                     const dx = heroMouse.x - this.x;
                     const dy = heroMouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < heroMouse.radius) {
                         const force = (heroMouse.radius - dist) / heroMouse.radius;
-                        this.x -= (dx / dist) * force * 3;
-                        this.y -= (dy / dist) * force * 3;
+                        this.x -= (dx / dist) * force * 1.8;
+                        this.y -= (dy / dist) * force * 1.8;
                     }
+                }
+
+                if (this.y < -30 || this.x < -40 || this.x > width + 40) {
+                    this.reset(false);
                 }
             }
 
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `${this.color}${this.alpha})`;
-                ctx.fill();
-            }
-        }
-
-        // Celestial Shooting Star (Meteor Streak)
-        class ShootingStar {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * width * 0.8;
-                this.y = Math.random() * (height * 0.35);
-                this.len = Math.random() * 70 + 60;
-                this.speed = Math.random() * 7 + 7;
-                this.size = Math.random() * 1.5 + 0.8;
-                this.angle = Math.PI / 4;
-                this.dx = Math.cos(this.angle) * this.speed;
-                this.dy = Math.sin(this.angle) * this.speed;
-                this.active = false;
-                this.waitTime = Math.random() * 250 + 120;
-            }
-            update() {
-                if (!this.active) {
-                    this.waitTime--;
-                    if (this.waitTime <= 0) {
-                        this.active = true;
-                    }
-                    return;
-                }
-                this.x += this.dx;
-                this.y += this.dy;
-                if (this.x > width + 100 || this.y > height + 100) {
-                    this.reset();
-                }
-            }
-            draw() {
-                if (!this.active) return;
-                const tailX = this.x - Math.cos(this.angle) * this.len;
-                const tailY = this.y - Math.sin(this.angle) * this.len;
-                const grad = ctx.createLinearGradient(tailX, tailY, this.x, this.y);
-                grad.addColorStop(0, 'rgba(56, 189, 248, 0)');
-                grad.addColorStop(0.7, 'rgba(59, 130, 246, 0.45)');
-                grad.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
-
-                ctx.beginPath();
-                ctx.moveTo(tailX, tailY);
-                ctx.lineTo(this.x, this.y);
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = this.size;
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
-                ctx.fillStyle = '#ffffff';
-                ctx.shadowColor = '#38bdf8';
+                ctx.fillStyle = `${this.color}${Math.max(0, this.alpha)})`;
+                ctx.shadowColor = this.color.replace('rgba', 'rgb').replace(', ', ',');
                 ctx.shadowBlur = 10;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
         }
 
-        const shootingStar = new ShootingStar();
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
+        for (let i = 0; i < emberCount; i++) {
+            embers.push(new WarmEmber());
         }
 
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
 
-            if (warpSpeed > 1) {
-                warpSpeed = Math.max(1, warpSpeed * 0.97);
-            }
-
-            // Connect nearby particles
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < maxDist) {
-                        const opacity = (1 - dist / maxDist) * 0.28;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-                        ctx.lineWidth = 0.85;
-                        ctx.stroke();
-                    }
-                }
-                particles[i].update();
-                particles[i].draw();
-            }
-
-            // Draw celestial shooting star
-            shootingStar.update();
-            shootingStar.draw();
-
-            // Update and draw shockwaves
-            for (let s = shockwaves.length - 1; s >= 0; s--) {
-                shockwaves[s].update();
-                shockwaves[s].draw();
-                if (shockwaves[s].opacity <= 0) {
-                    shockwaves.splice(s, 1);
-                }
-            }
+            embers.forEach(ember => {
+                ember.update();
+                ember.draw();
+            });
 
             requestAnimationFrame(animateCanvas);
-        }
-
-        let shockwaves = [];
-        class Shockwave {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.radius = 5;
-                this.maxRadius = 260;
-                this.opacity = 0.85;
-                this.speed = 9;
-            }
-            update() {
-                this.radius += this.speed;
-                this.opacity = Math.max(0, 0.85 * (1 - this.radius / this.maxRadius));
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(56, 189, 248, ${this.opacity})`;
-                ctx.lineWidth = 2;
-                ctx.shadowColor = '#38bdf8';
-                ctx.shadowBlur = 12;
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-            }
         }
 
         animateCanvas();
@@ -217,11 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSection.addEventListener('mouseleave', () => {
                 heroMouse.x = null;
                 heroMouse.y = null;
-            });
-            heroSection.addEventListener('click', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                shockwaves.push(new Shockwave(e.clientX - rect.left, e.clientY - rect.top));
-                if (typeof playSynthSound === 'function') playSynthSound('teleport');
             });
         }
 
@@ -1101,97 +993,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Attach sound to interactive elements
-    document.querySelectorAll('.nav-link, .btn, .portal-card, .filter-btn, .cmd-item, .social-link').forEach(el => {
-        el.addEventListener('mouseenter', () => playSynthSound('blip'));
-        el.addEventListener('click', () => playSynthSound('click'));
-    });
+    // -------------------------------------------------------------
+    // 16. HEADINGS & TYPOGRAPHY READABILITY (CLEAN & STABLE)
+    // -------------------------------------------------------------
+    // Text decoding scramblers removed in favor of crisp, human-crafted editorial typography
 
     // -------------------------------------------------------------
-    // 16. MATRIX CYBER TEXT SCRAMBLE / DECODER
-    // -------------------------------------------------------------
-    const glyphs = '01#@$%&▲▶◆░▒▓█XYZABC2026';
-    function decodeText(element) {
-        const originalText = element.getAttribute('data-original-text') || element.innerText;
-        element.setAttribute('data-original-text', originalText);
-        let iteration = 0;
-        const speed = 25;
-        clearInterval(element._decodeInterval);
-
-        element._decodeInterval = setInterval(() => {
-            element.innerText = originalText
-                .split('')
-                .map((char, index) => {
-                    if (index < iteration) {
-                        return originalText[index];
-                    }
-                    if (char === ' ') return ' ';
-                    return glyphs[Math.floor(Math.random() * glyphs.length)];
-                })
-                .join('');
-
-            if (iteration >= originalText.length) {
-                clearInterval(element._decodeInterval);
-            }
-            iteration += 1 / 2;
-        }, speed);
-    }
-
-    document.querySelectorAll('.cyber-decode').forEach(el => {
-        decodeText(el);
-        el.addEventListener('mouseenter', () => decodeText(el));
-    });
-
-    // -------------------------------------------------------------
-    // 17. REAL-TIME 3D CARD TILT, SPECULAR GLARE & HOLOGRAPHIC FOIL
+    // 17. TACTILE CARD INTERACTION & ELEVATION
     // -------------------------------------------------------------
     if (window.matchMedia('(pointer: fine)').matches) {
         const tiltCards = document.querySelectorAll('.portal-card, .tilt-card, .stat-card, .feature-card, .event-card, .team-card');
         tiltCards.forEach(card => {
-            let glare = card.querySelector('.tilt-glare');
-            if (!glare) {
-                glare = document.createElement('div');
-                glare.className = 'tilt-glare';
-                card.appendChild(glare);
-            }
-
-            let foil = card.querySelector('.hologram-foil');
-            if (!foil) {
-                foil = document.createElement('div');
-                foil.className = 'hologram-foil';
-                card.appendChild(foil);
-            }
-
-            let scanline = card.querySelector('.laser-scanline');
-            if (!scanline) {
-                scanline = document.createElement('div');
-                scanline.className = 'laser-scanline';
-                card.appendChild(scanline);
-            }
-
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotX = ((y - centerY) / centerY) * -8;
-                const rotY = ((x - centerX) / centerX) * 8;
+                const rotX = ((y - centerY) / centerY) * -4.5;
+                const rotY = ((x - centerX) / centerX) * 4.5;
 
-                // For team cards, preserve the spring bounce and enlargement; for portal cards apply perspective tilt
                 if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd')) {
-                    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-8px) scale(1.02)`;
+                    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
                 }
-                glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.22), transparent 60%)`;
-                glare.style.opacity = '1';
-
-                const angle = Math.round((Math.atan2(y - centerY, x - centerX) * 180) / Math.PI + 180);
-                foil.style.background = `linear-gradient(${angle}deg, transparent 15%, rgba(56, 189, 248, 0.3) 35%, rgba(59, 130, 246, 0.3) 48%, rgba(245, 158, 11, 0.35) 62%, rgba(16, 185, 129, 0.3) 75%, transparent 88%)`;
             });
 
             card.addEventListener('mouseleave', () => {
                 card.style.transform = '';
-                glare.style.opacity = '0';
             });
         });
     }
@@ -1205,26 +1033,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const cmdTriggerBtn = document.getElementById('hudCmdTrigger');
 
     const cmdDestinations = [
-        { title: 'Home / Portal Gateway', sub: 'Interactive dashboard & category hub', url: 'index.html', icon: '⚡', category: 'Portal' },
-        { title: 'About EC & CCAC', sub: 'Mission, vision, and dynamic statistics', url: 'about.html', icon: '🏛️', category: 'About' },
-        { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Events' },
-        { title: 'SICO Community Outreach', sub: 'Student initiatives & 3-pillar roadmap', url: 'sico.html', icon: '🚀', category: 'SICO' },
-        { title: 'Reports & Archives', sub: 'Annual documentation and academic year reports', url: 'reports.html', icon: '📊', category: 'Reports' },
-        { title: 'Student Coordinators', sub: 'Core leadership and coordinator directory', url: 'team.html', icon: '👥', category: 'Team' },
-        { title: 'Visual Stories & Gallery', sub: 'High-resolution photographic memories', url: 'gallery.html', icon: '📸', category: 'Gallery' },
-        { title: 'Contact & FAQ Hub', sub: 'Campus location, helpline, and answers', url: 'contact.html', icon: '💬', category: 'Contact' },
-        { title: 'Register for SICO 2025–26', sub: 'Official registration form', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Register', external: true },
-        { title: 'COLORIDO 2026', sub: 'Flagship Cultural Fest (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
-        { title: 'Club Waltz Night', sub: 'Annual dance gala and choreo competition', url: 'events.html', icon: '💃', category: 'Events' },
-        { title: 'Battle of the Bands', sub: 'Inter-college musical faceoff', url: 'events.html', icon: '🎸', category: 'Events' },
-        // Cyber Terminal Commands
-        { title: 'theme matrix', sub: 'Command: Switch to Matrix Emerald Green theme', action: () => setTheme('matrix'), icon: '🟢', category: 'Terminal' },
-        { title: 'theme cyberpunk', sub: 'Command: Switch to Cyberpunk 2077 Neon theme', action: () => setTheme('cyberpunk'), icon: '🟡', category: 'Terminal' },
-        { title: 'theme frost', sub: 'Command: Switch to Hyper Frost Arctic Blue theme', action: () => setTheme('frost'), icon: '🔵', category: 'Terminal' },
-        { title: 'theme obsidian', sub: 'Command: Switch to Quantum Obsidian (Default) theme', action: () => setTheme('obsidian'), icon: '🟣', category: 'Terminal' },
-        { title: 'sound toggle', sub: 'Command: Toggle futuristic synthesizer audio', action: () => { if (audioToggleBtn) audioToggleBtn.click(); }, icon: '🔊', category: 'Terminal' },
-        { title: 'warp speed', sub: 'Command: Trigger hyper-drive particle acceleration', action: () => { if (window.triggerWarpSpeed) window.triggerWarpSpeed(); }, icon: '🚀', category: 'Terminal' },
-        { title: 'fest countdown', sub: 'Command: Scroll to COLORIDO 2026 Live Countdown HUD', action: () => { const el = document.getElementById('festCountdown'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, icon: '⏱️', category: 'Terminal' }
+        // Pages
+        { title: 'Home / Campus Life Hub', sub: 'Interactive highlights, stats & overview', url: 'index.html', icon: '🏛️', category: 'Pages' },
+        { title: 'About EC & CCAC', sub: 'Our mission, vision, leadership & history', url: 'about.html', icon: '📜', category: 'Pages' },
+        { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Pages' },
+        { title: 'SICO Community Outreach', sub: 'Student initiatives & social impact programs', url: 'sico.html', icon: '🤝', category: 'Pages' },
+        { title: 'Reports & Archives', sub: 'Annual documentation & retrospective PDFs', url: 'reports.html', icon: '📊', category: 'Pages' },
+        { title: 'Student Coordinators', sub: 'Core leadership directory & committee leads', url: 'team.html', icon: '👥', category: 'Pages' },
+        { title: 'Visual Stories & Gallery', sub: 'Curated photo memories from campus celebrations', url: 'gallery.html', icon: '📸', category: 'Pages' },
+        { title: 'Contact & FAQ Hub', sub: 'Campus address, student helpline & FAQs', url: 'contact.html', icon: '💬', category: 'Pages' },
+        
+        // Flagship Events
+        { title: 'COLORIDO 2026', sub: 'Flagship Cultural & Arts Extravaganza (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
+        { title: 'Club Waltz (Dance Gala)', sub: 'Two-day dance battle & choreo showdown', url: 'events.html', icon: '💃', category: 'Events' },
+        { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off', url: 'events.html', icon: '🎸', category: 'Events' },
+        { title: 'Website Dev & Anime Video', sub: 'Digital Club technical & creative multimedia duel', url: 'events.html', icon: '💻', category: 'Events' },
+        { title: 'Helping Hands Service Drive', sub: 'Volunteer outreach at blind schools & senior homes', url: 'events.html', icon: '🤝', category: 'Events' },
+        { title: 'Graphic Design & Video Editing', sub: 'Pixel Craft visual storytelling & motion contest', url: 'events.html', icon: '🎨', category: 'Events' },
+        { title: 'Rangoli & Kite Flying Contest', sub: 'Red Ants cultural Sankranti celebration', url: 'events.html', icon: '🪁', category: 'Events' },
+        { title: 'Campus Photography Contest', sub: 'Visual lens contest for candid campus moments', url: 'events.html', icon: '📷', category: 'Events' },
+        { title: '42nd Annual Day Celebrations', sub: 'Grand convocation finale & rolling trophies', url: 'events.html', icon: '🎖️', category: 'Events' },
+
+        // Student Clubs
+        { title: 'Dance Club', sub: 'Performing arts, classical, hip-hop & western choreo', url: 'events.html', icon: '💃', category: 'Clubs' },
+        { title: 'Music Club', sub: 'Vocalists, live acoustic bands & sound engineering', url: 'events.html', icon: '🎵', category: 'Clubs' },
+        { title: 'Digital Club', sub: 'Web development, coding challenges & anime production', url: 'events.html', icon: '⚡', category: 'Clubs' },
+        { title: 'Pixel Craft Club', sub: 'Graphic design, digital art & cinematic video editing', url: 'events.html', icon: '🖌️', category: 'Clubs' },
+        { title: 'Helping Hands Club', sub: 'Social service, community welfare & outreach drives', url: 'sico.html', icon: '🤲', category: 'Clubs' },
+        { title: 'Photography Club', sub: 'DSLR, mobile lens photography & photojournalism', url: 'gallery.html', icon: '📸', category: 'Clubs' },
+        { title: 'Red Ants Cultural Club', sub: 'Heritage, folk traditions & festive celebrations', url: 'events.html', icon: '🪔', category: 'Clubs' },
+
+        // Quick Actions
+        { title: 'Register for SICO 2026–27', sub: 'Official Google Form registration', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Actions', external: true },
+        { title: 'View Full Academic Calendar', sub: 'Complete schedule of all 24 annual events', url: 'events.html#calendar', icon: '📅', category: 'Actions' },
+
+        // Aesthetic Palettes
+        { title: 'Palette: Velvet Midnight', sub: 'Deep midnight obsidian with warm amber accents', action: () => setTheme('obsidian'), icon: '🌑', category: 'Theme' },
+        { title: 'Palette: Warm Atelier', sub: 'Editorial warm champagne & ivory paper canvas', action: () => setTheme('champagne'), icon: '📜', category: 'Theme' },
+        { title: 'Palette: Royal Heritage', sub: 'Collegiate deep indigo & imperial gold', action: () => setTheme('heritage'), icon: '👑', category: 'Theme' }
     ];
 
     let activeCmdIndex = 0;
@@ -1234,7 +1080,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cmdResults) return;
         cmdResults.innerHTML = '';
         if (filteredCmds.length === 0) {
-            cmdResults.innerHTML = `<div style="padding: 24px; text-align: center; color: #64748b; font-family: var(--font-mono);">NO TELEPORT DESTINATIONS FOUND</div>`;
+            cmdResults.innerHTML = `<div style="padding: 28px; text-align: center; color: var(--text-muted); font-size: 0.95rem;">No matching campus results found. Try searching &ldquo;Colorido&rdquo;, &ldquo;Dance&rdquo;, &ldquo;Team&rdquo; or &ldquo;Register&rdquo;.</div>`;
             return;
         }
 
@@ -1371,7 +1217,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 19. 4-MODE CYBER HUD THEME MANAGER
+    // -------------------------------------------------------------
+    // 19. HUMAN EDITORIAL PALETTE MANAGER
     // -------------------------------------------------------------
     const themeTrigger = document.getElementById('hudThemeTrigger');
     const themeDropdown = document.getElementById('hudThemeDropdown');
@@ -1379,13 +1226,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeOpts = document.querySelectorAll('.hud-theme-opt');
 
     const themeDisplayNames = {
-        'obsidian': 'OBSIDIAN',
-        'matrix': 'MATRIX',
-        'cyberpunk': 'CYBERPUNK',
-        'frost': 'FROST'
+        'obsidian': 'VELVET MIDNIGHT',
+        'champagne': 'WARM ATELIER',
+        'heritage': 'ROYAL HERITAGE',
+        // Legacy fallbacks
+        'matrix': 'WARM ATELIER',
+        'cyberpunk': 'ROYAL HERITAGE',
+        'frost': 'VELVET MIDNIGHT'
     };
 
-    function setTheme(themeName, playSound = true) {
+    function setTheme(themeName) {
         if (!themeName || themeName === 'obsidian') {
             document.documentElement.removeAttribute('data-theme');
             document.body.removeAttribute('data-theme');
@@ -1395,34 +1245,30 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.setAttribute('data-theme', themeName);
         }
 
-        localStorage.setItem('sico_cyber_theme', themeName);
+        localStorage.setItem('sico_editorial_theme', themeName);
 
         if (themeLabel) {
-            themeLabel.textContent = themeDisplayNames[themeName] || 'OBSIDIAN';
+            themeLabel.textContent = themeDisplayNames[themeName] || 'VELVET MIDNIGHT';
         }
 
         themeOpts.forEach(opt => {
-            if (opt.getAttribute('data-set-theme') === themeName) {
+            const optTheme = opt.getAttribute('data-set-theme');
+            if (optTheme === themeName) {
                 opt.classList.add('active');
             } else {
                 opt.classList.remove('active');
             }
         });
-
-        if (playSound) {
-            playSynthSound('blip');
-        }
     }
 
     // Initialize stored theme
-    const savedTheme = localStorage.getItem('sico_cyber_theme') || 'obsidian';
-    setTheme(savedTheme, false);
+    const savedTheme = localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'obsidian';
+    setTheme(savedTheme);
 
     if (themeTrigger && themeDropdown) {
         themeTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             themeDropdown.classList.toggle('active');
-            playSynthSound('blip');
         });
 
         document.addEventListener('click', (e) => {
@@ -1435,7 +1281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeOpts.forEach(opt => {
         opt.addEventListener('click', () => {
             const targetTheme = opt.getAttribute('data-set-theme');
-            setTheme(targetTheme, true);
+            setTheme(targetTheme);
             if (themeDropdown) {
                 themeDropdown.classList.remove('active');
             }
@@ -1443,20 +1289,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 20. LIVE COLORIDO 2026 HOLOGRAM COUNTDOWN HUD TICKER
+    // 20. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN (1-SECOND PRECISION)
     // -------------------------------------------------------------
     const cdDays = document.getElementById('cdDays');
     const cdHours = document.getElementById('cdHours');
     const cdMins = document.getElementById('cdMins');
     const cdSecs = document.getElementById('cdSecs');
-    const cdMs = document.getElementById('cdMs');
     const cdTitle = document.getElementById('cdTitle');
     const cdStatus = document.getElementById('cdStatus');
 
     if (cdDays && cdHours && cdMins && cdSecs) {
-        // COLORIDO 2026 Schedule:
-        // Starts: 28th December 2026 at 09:00:00 IST
-        // Ends: 29th December 2026 at 23:59:59 IST
         const festStart = new Date('2026-12-28T09:00:00+05:30').getTime();
         const festEnd = new Date('2026-12-29T23:59:59+05:30').getTime();
 
@@ -1465,45 +1307,30 @@ document.addEventListener('DOMContentLoaded', () => {
             let diff = 0;
 
             if (now < festStart) {
-                // Pre-fest: Countdown to commencement
                 diff = festStart - now;
             } else if (now <= festEnd) {
-                // In progress: Live during festival
                 diff = festEnd - now;
-                if (cdTitle && cdTitle.textContent.indexOf('LIVE NOW') === -1) {
-                    cdTitle.textContent = 'COLORIDO 2026 // LIVE NOW // FINALE IN:';
-                }
-                if (cdStatus && cdStatus.textContent.indexOf('LIVE NOW') === -1) {
-                    cdStatus.innerHTML = '<span style="color:#00ff88;font-weight:700;">● LIVE NOW // COLORIDO 2026 FESTIVAL UNDERWAY // SAC GROUNDS</span>';
-                }
+                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL LIVE NOW · FINALE IN:';
+                if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">● LIVE NOW · COLORIDO 2026 UNDERWAY ON CAMPUS</span>';
             } else {
-                // Post-fest
                 diff = 0;
-                if (cdTitle && cdTitle.textContent.indexOf('CONCLUDED') === -1) {
-                    cdTitle.textContent = 'COLORIDO 2026 // FESTIVAL CONCLUDED';
-                }
-                if (cdStatus && cdStatus.textContent.indexOf('CONCLUDED') === -1) {
-                    cdStatus.innerHTML = '<span>STATUS: COLORIDO 2026 SUCCESSFULLY CONCLUDED // THANK YOU ALL</span>';
-                }
+                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL CONCLUDED';
+                if (cdStatus) cdStatus.innerHTML = '<span>COLORIDO 2026 CONCLUDED · THANK YOU TO ALL 1,000+ PARTICIPANTS</span>';
             }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const mins = Math.floor((diff / (1000 * 60)) % 60);
             const secs = Math.floor((diff / 1000) % 60);
-            const ms = Math.floor((diff % 1000) / 10);
 
             cdDays.textContent = String(days).padStart(2, '0');
             cdHours.textContent = String(hours).padStart(2, '0');
             cdMins.textContent = String(mins).padStart(2, '0');
             cdSecs.textContent = String(secs).padStart(2, '0');
-            if (cdMs) {
-                cdMs.textContent = String(ms).padStart(2, '0');
-            }
         }
 
         updateFestCountdown();
-        setInterval(updateFestCountdown, 30);
+        setInterval(updateFestCountdown, 1000);
     }
 
     // -------------------------------------------------------------

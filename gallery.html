@@ -14,17 +14,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Futuristic HUD Telemetry Bar -->
-    <div class="hud-telemetry-bar">
-        <div class="hud-telemetry-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> TEAM_ONLINE</span>
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SICO_RVRJC // GNT_AP</span>
-            <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
+    <!-- Dignified Collegiate Announcement Bar -->
+    <div class="campus-announcement-bar">
+        <div class="announcement-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Activities Center</span>
         </div>
-        <div class="hud-telemetry-right">
-            <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
-            <span class="hud-tag"><strong>ORBIT:</strong> AY 2026–2027</span>
-            <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
+        <div class="announcement-center">
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
+        </div>
+        <div class="announcement-right">
+            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
+            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
         </div>
     </div>
 
@@ -82,7 +82,7 @@
         <div class="container">
             <div class="page-banner-content">
                 <div class="kicker-pill"><span class="dot"></span> 06 / VISUAL STORIES &amp; MEMORIES</div>
-                <h1 class="page-banner-title">Moments &amp; <span class="gradient-text">Memories</span></h1>
+                <h1 class="page-banner-title">Moments &amp; <span class="editorial-italic">Memories</span></h1>
                 <p class="page-banner-subtitle">A photographic journey celebrating culture, art, music, dance, sports, and vibrant campus life at R.V.R. &amp; J.C. College of Engineering.</p>
             </div>
         </div>
@@ -257,64 +257,48 @@
         </div>
     </footer>
 
-    <!-- Floating Cyber HUD Controls (Audio Synth + Theme Selector + Command Palette Trigger) -->
+    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
     <div class="hud-floating-controls">
-        <button class="hud-ctrl-btn" id="hudAudioToggle" aria-label="Toggle Futuristic Audio Synth">
-            <div class="hud-sound-bars">
-                <span class="hud-sound-bar"></span>
-                <span class="hud-sound-bar"></span>
-                <span class="hud-sound-bar"></span>
-                <span class="hud-sound-bar"></span>
-            </div>
-            <span class="hud-audio-text">AUDIO: OFF</span>
-        </button>
         <div class="hud-theme-selector">
-            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Cyber HUD Theme">
-                <span>🎨 THEME: <strong id="hudThemeLabel" style="color:var(--accent-cyan)">OBSIDIAN</strong></span>
+            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Theme Palette">
+                <span>🎨 PALETTE: <strong id="hudThemeLabel" style="color:var(--accent-gold)">VELVET MIDNIGHT</strong></span>
             </button>
             <div class="hud-theme-dropdown" id="hudThemeDropdown">
                 <button class="hud-theme-opt active" data-set-theme="obsidian">
                     <div class="theme-opt-left">
                         <span class="theme-preview-dot theme-dot-obsidian"></span>
-                        <span>Quantum Obsidian</span>
+                        <span>Velvet Midnight (Dark)</span>
                     </div>
                     <span class="hud-kbd-key">DEFAULT</span>
                 </button>
-                <button class="hud-theme-opt" data-set-theme="matrix">
+                <button class="hud-theme-opt" data-set-theme="champagne">
                     <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-matrix"></span>
-                        <span>Matrix Emerald</span>
+                        <span class="theme-preview-dot theme-dot-champagne"></span>
+                        <span>Warm Atelier (Light)</span>
                     </div>
-                    <span class="hud-kbd-key">GREEN</span>
+                    <span class="hud-kbd-key">PAPER</span>
                 </button>
-                <button class="hud-theme-opt" data-set-theme="cyberpunk">
+                <button class="hud-theme-opt" data-set-theme="heritage">
                     <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-cyberpunk"></span>
-                        <span>Cyberpunk 2077</span>
+                        <span class="theme-preview-dot theme-dot-heritage"></span>
+                        <span>Royal Heritage (Navy)</span>
                     </div>
-                    <span class="hud-kbd-key">NEON</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="frost">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-frost"></span>
-                        <span>Hyper Frost</span>
-                    </div>
-                    <span class="hud-kbd-key">ARCTIC</span>
+                    <span class="hud-kbd-key">ROYAL</span>
                 </button>
             </div>
         </div>
-        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Command Palette">
-            <span>⚡ TELEPORT</span>
+        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
+            <span>🔍 SEARCH SPOTLIGHT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>
         </button>
     </div>
 
-    <!-- Command Palette HUD Modal -->
-    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <!-- Campus Spotlight Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
         <div class="cmd-palette">
             <div class="cmd-search-box">
-                <span class="cmd-search-icon">⚡</span>
-                <input type="text" class="cmd-input" id="cmdInput" placeholder="Teleport anywhere (e.g. Events, SICO, Reports, Team, Gallery)..." autocomplete="off" spellcheck="false">
+                <span class="cmd-search-icon">🔍</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
                 <kbd class="hud-kbd-key">ESC</kbd>
             </div>
             <div class="cmd-results" id="cmdResults">
@@ -323,7 +307,7 @@
             <div class="cmd-footer">
                 <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
                 <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
-                <span>EC &amp; CCAC SICO HUD v2.6</span>
+                <span>EC &amp; CCAC · SICO Portal</span>
             </div>
         </div>
     </div>
