@@ -1388,33 +1388,16 @@
 
     <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
     <div class="hud-floating-controls">
-        <div class="hud-theme-selector">
-            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Theme Palette">
-                <span>🎨 PALETTE: <strong id="hudThemeLabel" style="color:var(--accent-gold)">VELVET MIDNIGHT</strong></span>
-            </button>
-            <div class="hud-theme-dropdown" id="hudThemeDropdown">
-                <button class="hud-theme-opt active" data-set-theme="obsidian">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-obsidian"></span>
-                        <span>Velvet Midnight (Dark)</span>
-                    </div>
-                    <span class="hud-kbd-key">DEFAULT</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="champagne">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-champagne"></span>
-                        <span>Warm Atelier (Light)</span>
-                    </div>
-                    <span class="hud-kbd-key">PAPER</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="heritage">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-heritage"></span>
-                        <span>Royal Heritage (Navy)</span>
-                    </div>
-                    <span class="hud-kbd-key">ROYAL</span>
-                </button>
-            </div>
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+            <span class="roller-slider"></span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
+                <span class="roller-icon">🌙</span>
+                <span class="roller-text">Dark</span>
+            </span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light">
+                <span class="roller-icon">☀️</span>
+                <span class="roller-text">Light</span>
+            </span>
         </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
             <span>🔍 SEARCH SPOTLIGHT</span>

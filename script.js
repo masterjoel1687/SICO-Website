@@ -1067,10 +1067,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Register for SICO 2026–27', sub: 'Official Google Form registration', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Actions', external: true },
         { title: 'View Full Academic Calendar', sub: 'Complete schedule of all 24 annual events', url: 'events.html#calendar', icon: '📅', category: 'Actions' },
 
-        // Aesthetic Palettes
-        { title: 'Palette: Velvet Midnight', sub: 'Deep midnight obsidian with warm amber accents', action: () => setTheme('obsidian'), icon: '🌑', category: 'Theme' },
-        { title: 'Palette: Warm Atelier', sub: 'Editorial warm champagne & ivory paper canvas', action: () => setTheme('champagne'), icon: '📜', category: 'Theme' },
-        { title: 'Palette: Royal Heritage', sub: 'Collegiate deep indigo & imperial gold', action: () => setTheme('heritage'), icon: '👑', category: 'Theme' }
+        // Aesthetic Themes (Dark & Light)
+        { title: 'Switch to Dark Mode', sub: 'Deep midnight obsidian with warm amber accents', action: () => applyTheme('dark'), icon: '🌙', category: 'Theme' },
+        { title: 'Switch to Light Mode', sub: 'Editorial daylight porcelain with warm amber accents', action: () => applyTheme('light'), icon: '☀️', category: 'Theme' }
     ];
 
     let activeCmdIndex = 0;
@@ -1217,43 +1216,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
+    // 19. TACTILE MECHANICAL THEME ROLLER & EDITORIAL MANAGER
     // -------------------------------------------------------------
-    // 19. HUMAN EDITORIAL PALETTE MANAGER
-    // -------------------------------------------------------------
-    const themeTrigger = document.getElementById('hudThemeTrigger');
-    const themeDropdown = document.getElementById('hudThemeDropdown');
-    const themeLabel = document.getElementById('hudThemeLabel');
-    const themeOpts = document.querySelectorAll('.hud-theme-opt');
+    function applyTheme(themeName) {
+        const isLight = themeName === 'light' || themeName === 'champagne';
+        const effectiveTheme = isLight ? 'light' : 'dark';
 
-    const themeDisplayNames = {
-        'obsidian': 'VELVET MIDNIGHT',
-        'champagne': 'WARM ATELIER',
-        'heritage': 'ROYAL HERITAGE',
-        // Legacy fallbacks
-        'matrix': 'WARM ATELIER',
-        'cyberpunk': 'ROYAL HERITAGE',
-        'frost': 'VELVET MIDNIGHT'
-    };
-
-    function setTheme(themeName) {
-        if (!themeName || themeName === 'obsidian') {
+        if (isLight) {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.body.setAttribute('data-theme', 'light');
+        } else {
             document.documentElement.removeAttribute('data-theme');
             document.body.removeAttribute('data-theme');
-            themeName = 'obsidian';
-        } else {
-            document.documentElement.setAttribute('data-theme', themeName);
-            document.body.setAttribute('data-theme', themeName);
         }
 
-        localStorage.setItem('sico_editorial_theme', themeName);
+        try {
+            localStorage.setItem('sico_theme', effectiveTheme);
+            localStorage.setItem('sico_editorial_theme', effectiveTheme);
+        } catch (err) {}
 
+        // Update all theme rollers across the DOM
+        const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
+        themeRollers.forEach(roller => {
+            roller.setAttribute('aria-checked', isLight ? 'true' : 'false');
+            const darkOpt = roller.querySelector('.roller-opt-dark');
+            const lightOpt = roller.querySelector('.roller-opt-light');
+            if (isLight) {
+                roller.classList.add('is-light');
+                roller.classList.remove('is-dark');
+                if (darkOpt) darkOpt.classList.remove('active');
+                if (lightOpt) lightOpt.classList.add('active');
+            } else {
+                roller.classList.remove('is-light');
+                roller.classList.add('is-dark');
+                if (darkOpt) darkOpt.classList.add('active');
+                if (lightOpt) lightOpt.classList.remove('active');
+            }
+        });
+
+        // Backward compatibility for legacy labels and dropdowns
+        const themeLabel = document.getElementById('hudThemeLabel');
         if (themeLabel) {
-            themeLabel.textContent = themeDisplayNames[themeName] || 'VELVET MIDNIGHT';
+            themeLabel.textContent = isLight ? 'EDITORIAL LIGHT' : 'VELVET MIDNIGHT';
         }
-
-        themeOpts.forEach(opt => {
+        const legacyOpts = document.querySelectorAll('.hud-theme-opt');
+        legacyOpts.forEach(opt => {
             const optTheme = opt.getAttribute('data-set-theme');
-            if (optTheme === themeName) {
+            if ((isLight && (optTheme === 'champagne' || optTheme === 'light')) || (!isLight && (optTheme === 'obsidian' || optTheme === 'dark'))) {
                 opt.classList.add('active');
             } else {
                 opt.classList.remove('active');
@@ -1261,10 +1270,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize stored theme
-    const savedTheme = localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'obsidian';
-    setTheme(savedTheme);
+    // Expose setTheme globally for backward compatibility
+    window.setTheme = applyTheme;
 
+    // Initialize stored theme
+    const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'dark';
+    applyTheme(storedTheme);
+
+    // Bind interactive events for all theme rollers
+    const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
+    themeRollers.forEach(roller => {
+        roller.addEventListener('click', (e) => {
+            const clickedOpt = e.target.closest('.roller-opt');
+            if (clickedOpt) {
+                const targetTheme = clickedOpt.getAttribute('data-theme-val') || 'dark';
+                applyTheme(targetTheme);
+            } else {
+                const isCurrentlyLight = document.documentElement.getAttribute('data-theme') === 'light' ||
+                                         document.documentElement.getAttribute('data-theme') === 'champagne';
+                applyTheme(isCurrentlyLight ? 'dark' : 'light');
+            }
+        });
+
+        roller.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isCurrentlyLight = document.documentElement.getAttribute('data-theme') === 'light' ||
+                                         document.documentElement.getAttribute('data-theme') === 'champagne';
+                applyTheme(isCurrentlyLight ? 'dark' : 'light');
+            }
+        });
+    });
+
+    // Legacy dropdown handler fallback if present on any auxiliary page
+    const themeTrigger = document.getElementById('hudThemeTrigger');
+    const themeDropdown = document.getElementById('hudThemeDropdown');
     if (themeTrigger && themeDropdown) {
         themeTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1278,10 +1318,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    themeOpts.forEach(opt => {
+    const legacyThemeOpts = document.querySelectorAll('.hud-theme-opt');
+    legacyThemeOpts.forEach(opt => {
         opt.addEventListener('click', () => {
             const targetTheme = opt.getAttribute('data-set-theme');
-            setTheme(targetTheme);
+            applyTheme(targetTheme);
             if (themeDropdown) {
                 themeDropdown.classList.remove('active');
             }

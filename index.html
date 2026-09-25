@@ -14,17 +14,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Dignified Collegiate Announcement Bar -->
-    <div class="campus-announcement-bar">
-        <div class="announcement-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Activities Center</span>
+    <!-- Futuristic HUD Telemetry Bar -->
+    <div class="hud-telemetry-bar">
+        <div class="hud-telemetry-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> TEAM_ONLINE</span>
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SICO_RVRJC // GNT_AP</span>
+            <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
         </div>
-        <div class="announcement-center">
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
-        </div>
-        <div class="announcement-right">
-            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
-            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
+        <div class="hud-telemetry-right">
+            <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
+            <span class="hud-tag"><strong>ORBIT:</strong> AY 2026–2027</span>
+            <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
         </div>
     </div>
 
@@ -77,7 +77,7 @@
         </div>
     </header>
 
-    <!-- Hero Section with Canvas Bokeh Embers -->
+    <!-- Hero Section with Canvas Particle Network & Shockwave Energy -->
     <section class="hero" id="home">
         <canvas id="heroCanvas" class="hero-canvas"></canvas>
         <div class="hero-background">
@@ -91,12 +91,12 @@
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <span class="pulse-dot"></span>
-                    <span>EC &amp; CCAC · SICO STUDENT INITIATIVES</span>
+                    <span>SICO_RVRJC · EC &amp; CCAC</span>
                     <span class="badge-live">AY 2026–2027</span>
                 </div>
-                <h1 class="hero-title">Where Culture Breathes, <span class="editorial-italic">Talent Thrives</span> &amp; Stories Begin</h1>
-                <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Artistry &amp; Authentic Collegiate Community</p>
-                <p class="hero-description">We are the heartbeat of campus life at R.V.R. &amp; J.C. College of Engineering, orchestrating unforgettable cultural celebrations, performing arts galas, and community outreach that celebrate our student body.</p>
+                <h1 class="hero-title">Where Culture Meets <span class="gradient-text cyber-decode">Creativity</span></h1>
+                <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Talent &amp; Collaboration</p>
+                <p class="hero-description">We are the heartbeat of campus life, orchestrating unforgettable experiences that celebrate diversity, foster extraordinary talent, and build lifelong connections.</p>
                 <div class="hero-buttons">
                     <a href="events.html" class="btn btn-primary">
                         <span>Explore Events</span>
@@ -111,17 +111,17 @@
                     </a>
                 </div>
 
-                <!-- Collector's Ticket Fest Pass & Live Countdown Widget -->
-                <div class="collector-ticket-widget" id="festCountdown">
+                <!-- Live Flagship Fest Hologram Countdown HUD Widget -->
+                <div class="hud-countdown-widget" id="festCountdown">
                     <div class="countdown-header">
                         <div class="countdown-title-wrap">
                             <span class="countdown-beacon"></span>
-                            <span class="countdown-title" id="cdTitle">COLORIDO 2026 · FLAGSHIP CULTURAL &amp; ARTS FESTIVAL</span>
-                            <span class="countdown-target">28 &amp; 29 DECEMBER 2026 · OPEN AIR AUDITORIUM &amp; SAC GROUNDS</span>
+                            <span class="countdown-title" id="cdTitle">COLORIDO 2026 FEST // COMMENCING IN: 28 DEC 2026</span>
+                            <span class="countdown-target">FLAGSHIP CULTURAL &amp; ARTS EXTRAVAGANZA · 28 &amp; 29 DECEMBER 2026</span>
                         </div>
                         <div class="countdown-telemetry">
-                            <span>FESTIVAL PASS: <strong style="color:var(--accent-gold)">OFFICIAL ADMISSION</strong></span>
-                            <span>COMMENCING: <strong>28 DEC 2026</strong></span>
+                            <span>TELEMETRY_SYNC: <strong style="color:var(--accent-cyan)">ACTIVE</strong></span>
+                            <span>FREQ: <strong>432.08 MHz</strong></span>
                         </div>
                     </div>
                     <div class="countdown-grid">
@@ -141,10 +141,14 @@
                             <span class="countdown-number" id="cdSecs">00</span>
                             <span class="countdown-label">SECS</span>
                         </div>
+                        <div class="countdown-segment segment-ms">
+                            <span class="countdown-number" id="cdMs">00</span>
+                            <span class="countdown-label">HUNDREDTHS</span>
+                        </div>
                     </div>
                     <div class="countdown-footer">
                         <div class="countdown-status" id="cdStatus">
-                            <span>STATUS: COLORIDO 2026 STAGE READY · 50+ EVENTS &amp; GUEST PERFORMANCES</span>
+                            <span>STATUS: COLORIDO 2026 STAGE READY // 28–29 DEC 2026 // 50+ EVENTS</span>
                         </div>
                         <a href="events.html" class="countdown-link">
                             <span>VIEW COLORIDO SCHEDULE &amp; LINEUP</span>
@@ -904,119 +908,6 @@
                     </a>
                 </div>
             </div>
-<!-- Infinite Marquee Section -->
-    <section class="team" id="team-marquee" style="padding-top: 0;">
-        <div class="team-content">
-            <div class="team-carousel-wrapper">
-                <div class="team-carousel" id="student-coordinators">
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Joel.jpeg" alt="R. Joel Livingstone" class="team-photo-img"></div>
-                        <h3 class="team-name">R. Joel Livingstone</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img"></div>
-                        <h3 class="team-name">K. Madhulika</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img"></div>
-                        <h3 class="team-name">K. Sri Rama Chandra</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">V. Reshma Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">V. Rupesh Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img"></div>
-                        <h3 class="team-name">E. Divya Sree</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">G. Hemasri Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img"></div>
-                        <h3 class="team-name">Ch. Bhanusri</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img"></div>
-                        <h3 class="team-name">Y. Devesh</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img"></div>
-                        <h3 class="team-name">G. Durga Bhavani</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-
-                    <!-- Repeat Loop -->
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Joel.jpeg" alt="R. Joel Livingstone" class="team-photo-img"></div>
-                        <h3 class="team-name">R. Joel Livingstone</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img"></div>
-                        <h3 class="team-name">K. Madhulika</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img"></div>
-                        <h3 class="team-name">K. Sri Rama Chandra</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">V. Reshma Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">V. Rupesh Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img"></div>
-                        <h3 class="team-name">E. Divya Sree</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img"></div>
-                        <h3 class="team-name">Ch. Bhanusri</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img"></div>
-                        <h3 class="team-name">G. Hemasri Chowdary</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img"></div>
-                        <h3 class="team-name">Y. Devesh</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img"></div>
-                        <h3 class="team-name">G. Durga Bhavani</h3>
-                        <p class="team-role">Student Coordinator</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-   
-
             <!-- Spotlight CTA Banner -->
             <div class="portal-cta-banner tilt-card">
                 <div class="portal-cta-content tilt-inner">
@@ -1041,48 +932,181 @@
         </div>
     </section>
 
-    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
-    <div class="hud-floating-controls">
-        <div class="hud-theme-selector">
-            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Theme Palette">
-                <span>🎨 PALETTE: <strong id="hudThemeLabel" style="color:var(--accent-gold)">VELVET MIDNIGHT</strong></span>
-            </button>
-            <div class="hud-theme-dropdown" id="hudThemeDropdown">
-                <button class="hud-theme-opt active" data-set-theme="obsidian">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-obsidian"></span>
-                        <span>Velvet Midnight (Dark)</span>
-                    </div>
-                    <span class="hud-kbd-key">DEFAULT</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="champagne">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-champagne"></span>
-                        <span>Warm Atelier (Light)</span>
-                    </div>
-                    <span class="hud-kbd-key">PAPER</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="heritage">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-heritage"></span>
-                        <span>Royal Heritage (Navy)</span>
-                    </div>
-                    <span class="hud-kbd-key">ROYAL</span>
-                </button>
+    <!-- Student Coordinators Continuous Loop Showcase (Full Viewport Length) -->
+    <section class="team-showcase-section" id="team-marquee">
+        <div class="container">
+            <div class="section-header team-section-header">
+                <div class="kicker-pill"><span class="dot" style="background:var(--accent-gold); box-shadow:0 0 10px var(--accent-gold);"></span> STUDENT LEADERSHIP IN MOTION</div>
+                <br>
+                <h2 class="section-title">The Architects of Campus Culture</h2>
+                <div class="title-underline"></div>
+                <p class="section-description">Meet the dedicated student coordinators orchestrating cultural galas, technical summits, and creative initiatives across R.V.R. &amp; J.C. College of Engineering.</p>
             </div>
         </div>
+
+        <!-- Full-Bleed Edge-to-Edge Continuous Carousel Track -->
+        <div class="team-carousel-wrapper">
+            <div class="team-carousel" id="student-coordinators">
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Joel.jpg" alt="R. Joel Livingstone" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>JL</div>';"></div>
+                    <h3 class="team-name">R. Joel Livingstone</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>KM</div>';"></div>
+                    <h3 class="team-name">K. Madhulika</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>SC</div>';"></div>
+                    <h3 class="team-name">K. Sri Rama Chandra</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>RC</div>';"></div>
+                    <h3 class="team-name">V. Reshma Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>RC</div>';"></div>
+                    <h3 class="team-name">V. Rupesh Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>DS</div>';"></div>
+                    <h3 class="team-name">E. Divya Sree</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>HC</div>';"></div>
+                    <h3 class="team-name">G. Hemasri Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>BS</div>';"></div>
+                    <h3 class="team-name">Ch. Bhanusri</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>YD</div>';"></div>
+                    <h3 class="team-name">Y. Devesh</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>DB</div>';"></div>
+                    <h3 class="team-name">G. Durga Bhavani</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <!-- Repeat Loop (Identical sequence for 100% mathematically seamless transition) -->
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Joel.jpg" alt="R. Joel Livingstone" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>JL</div>';"></div>
+                    <h3 class="team-name">R. Joel Livingstone</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>KM</div>';"></div>
+                    <h3 class="team-name">K. Madhulika</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>SC</div>';"></div>
+                    <h3 class="team-name">K. Sri Rama Chandra</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>RC</div>';"></div>
+                    <h3 class="team-name">V. Reshma Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>RC</div>';"></div>
+                    <h3 class="team-name">V. Rupesh Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>DS</div>';"></div>
+                    <h3 class="team-name">E. Divya Sree</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>HC</div>';"></div>
+                    <h3 class="team-name">G. Hemasri Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>BS</div>';"></div>
+                    <h3 class="team-name">Ch. Bhanusri</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>YD</div>';"></div>
+                    <h3 class="team-name">Y. Devesh</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'team-avatar-initials avatar-grad-coord\'>DB</div>';"></div>
+                    <h3 class="team-name">G. Durga Bhavani</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="team-marquee-footer-action">
+                <a href="team.html" class="btn-marquee-directory">
+                    <span>Explore Full Leadership Directory · All 60+ Coordinators</span>
+                    <i>→</i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Campus Atelier Controls (Theme Palette & Spotlight Search) -->
+    <div class="hud-floating-controls">
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+            <span class="roller-slider"></span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
+                <span class="roller-icon">🌙</span>
+                <span class="roller-text">Dark</span>
+            </span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light">
+                <span class="roller-icon">☀️</span>
+                <span class="roller-text">Light</span>
+            </span>
+        </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
-            <span>🔍 SEARCH SPOTLIGHT</span>
+            <span>🔍 CAMPUS SPOTLIGHT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>
         </button>
     </div>
 
-    <!-- Campus Spotlight Modal -->
+    <!-- Campus Spotlight Search Modal (Ctrl + K) -->
     <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
         <div class="cmd-palette">
             <div class="cmd-search-box">
                 <span class="cmd-search-icon">🔍</span>
-                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus portals, flagship fests, coordinators, clubs &amp; archives..." autocomplete="off" spellcheck="false">
                 <kbd class="hud-kbd-key">ESC</kbd>
             </div>
             <div class="cmd-results" id="cmdResults">
@@ -1091,7 +1115,7 @@
             <div class="cmd-footer">
                 <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
                 <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
-                <span>EC &amp; CCAC · SICO Portal</span>
+                <span>EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering</span>
             </div>
         </div>
     </div>
