@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | Student Coordinators - EC &amp; CCAC</title>
+    <meta name="description" content="Meet the dynamic student coordinators leading the Extracurricular &amp; Co-Curricular Activities Committee at RVR &amp; JC College of Engineering.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dignified Collegiate Announcement Bar -->
+    <div class="campus-announcement-bar">
+        <div class="announcement-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Activities Center</span>
+        </div>
+        <div class="announcement-center">
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
+        </div>
+        <div class="announcement-right">
+            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
+            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
+        </div>
+    </div>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+
+    <!-- Ambient Floating Glows -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        <div class="ambient-orb orb-4"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="sico.html" class="nav-link">Sico</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="team.html" class="nav-link active">Team</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn-nav-cta"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register SICO</span>
+                    <i>↗</i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="page-banner-content">
+                <div class="kicker-pill"><span class="dot"></span> 05 / MEET THE TEAM</div>
+                <h1 class="page-banner-title">Student <span class="editorial-italic">Coordinators</span></h1>
+                <p class="page-banner-subtitle">The dedicated leaders, engineers, and visionaries orchestrating every campus celebration and student initiative.</p>
+                <div class="team-quick-nav">
+                    <a href="#fourth-year-section" class="team-nav-chip">
+                        <span>🎓 4th Year Core Leadership</span>
+                        <span class="chip-count">12 Leads</span>
+                    </a>
+                    <a href="#third-year-section" class="team-nav-chip">
+                        <span>⚡ 3rd Year Committee</span>
+                        <span class="chip-count">50 Members</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4th Year Student Coordinators (Core Leadership) -->
+    <section class="team-directory" id="fourth-year-section" style="padding: 3.5rem 0 4rem;">
+        <div class="container">
+            <div class="section-header">
+                <div class="kicker-pill" style="margin-bottom: 0.8rem;"><span class="dot" style="background:#f8ca4d; box-shadow:0 0 10px #f8ca4d;"></span> FINAL YEAR CORE LEADERSHIP</div>
+                <h2 class="section-title">4th Year <span class="gradient-text">Student Coordinators</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-description">Chief student coordinators spearheading institutional events, club logistics, inter-collegiate relations, and cultural flagship fests.</p>
+            </div>
+
+            <div class="events-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.8rem;">
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Joel.jpg" alt="R. Joel Livingstone" class="team-photo-img"></div>
+                    <h3 class="team-name">R. Joel Livingstone</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&ML)</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img"></div>
+                    <h3 class="team-name">K. Madhulika</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img"></div>
+                    <h3 class="team-name">K. Sri Rama Chandra</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img"></div>
+                    <h3 class="team-name">V. Reshma Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&ML)</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img"></div>
+                    <h3 class="team-name">V. Rupesh Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img"></div>
+                    <h3 class="team-name">E. Divya Sree</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img"></div>
+                    <h3 class="team-name">Ch. Bhanusri</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img"></div>
+                    <h3 class="team-name">G. Hemasri Chowdary</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img"></div>
+                    <h3 class="team-name">Y. Devesh</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img"></div>
+                    <h3 class="team-name">G. Durga Bhavani</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/aravind.png" alt="G.A.Prabhav Reddy" class="team-photo-img"></div>
+                    <h3 class="team-name">G.A.Prabhav Reddy</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE(AI&ML)</span>
+                </div>
+                <div class="team-card" style="width: 100%; min-width: 0;">
+                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/shannu.png" alt="Sk.M.Basha" class="team-photo-img"></div>
+                    <h3 class="team-name">Sk.M.Basha</h3>
+                    <p class="team-role">Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSD</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3rd Year Student Coordinators (50 Members across 4 Categories) -->
+    <section class="team-directory" id="third-year-section" style="padding: 4rem 0 5rem; background: rgba(7, 8, 17, 0.6); border-top: 1px solid rgba(255, 255, 255, 0.06);">
+        <div class="container">
+            <div class="section-header">
+                <div class="kicker-pill" style="margin-bottom: 0.8rem;"><span class="dot"></span> CLASS OF 2027 COMMITTEE</div>
+                <h2 class="section-title">3rd Year <span class="gradient-text">Student Coordinators</span></h2>
+                <div class="title-underline"></div>
+                <p class="section-description">50 dynamic coordinators executing technical operations, media &amp; visual design, event logistics, and stage anchoring across all campus initiatives.</p>
+            </div>
+
+            <!-- Category Filters & Live Search -->
+            <div class="team-filter-container">
+                <div class="team-filter-bar" id="thirdYearFilters">
+                    <button class="team-filter-btn active" data-filter="all">
+                        <span>🌟 All Members</span>
+                        <span class="btn-count" id="count-all">50</span>
+                    </button>
+                    <button class="team-filter-btn" data-filter="technical">
+                        <span>💻 Technical</span>
+                        <span class="btn-count" id="count-tech">13</span>
+                    </button>
+                    <button class="team-filter-btn" data-filter="design">
+                        <span>🎨 Design &amp; Media</span>
+                        <span class="btn-count" id="count-design">12</span>
+                    </button>
+                    <button class="team-filter-btn" data-filter="coordinator">
+                        <span>📋 Coordinators</span>
+                        <span class="btn-count" id="count-coord">13</span>
+                    </button>
+                    <button class="team-filter-btn" data-filter="anchor">
+                        <span>🎙️ Anchors &amp; Emcees</span>
+                        <span class="btn-count" id="count-anchor">12</span>
+                    </button>
+                </div>
+
+                <div class="team-search-wrapper">
+                    <span class="team-search-icon">🔍</span>
+                    <input type="text" class="team-search-input" id="teamSearchInput" placeholder="Filter by student name, role, or branch (e.g. CSE, ECE, Design)..." autocomplete="off">
+                </div>
+                <div class="team-results-count" id="teamResultsCount">Showing 50 of 50 student coordinators</div>
+            </div>
+
+            <!-- 50 Members Card Grid -->
+            <div class="team-grid-3rd" id="thirdYearGrid">
+                <!-- 1. Technical Team (13 Members) -->
+                <div class="team-card-3rd" data-category="technical" data-name="P. Sai Akhil" data-role="Web Systems Lead" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">SA</div></div>
+                    <h3 class="team-name">P. Sai Akhil</h3>
+                    <p class="team-role" style="color: #00f2fe;">Web Systems Lead</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="K. Tarun Kumar" data-role="Full-Stack Developer" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">TK</div></div>
+                    <h3 class="team-name">K. Tarun Kumar</h3>
+                    <p class="team-role" style="color: #00f2fe;">Full-Stack Developer</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="M. Vamsi Krishna" data-role="Cloud &amp; Server Admin" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">VK</div></div>
+                    <h3 class="team-name">M. Vamsi Krishna</h3>
+                    <p class="team-role" style="color: #00f2fe;">Cloud &amp; Server Admin</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="T. Niharika" data-role="Frontend Engineer" data-branch="CSM">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">TN</div></div>
+                    <h3 class="team-name">T. Niharika</h3>
+                    <p class="team-role" style="color: #00f2fe;">Frontend Engineer</p>
+                    <span class="team-branch-pill">B.Tech CSM</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="B. Harsha Vardhan" data-role="AV &amp; Sound Systems Lead" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">HV</div></div>
+                    <h3 class="team-name">B. Harsha Vardhan</h3>
+                    <p class="team-role" style="color: #00f2fe;">AV &amp; Sound Systems Lead</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="G. Rohith" data-role="Network &amp; Streaming Lead" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">GR</div></div>
+                    <h3 class="team-name">G. Rohith</h3>
+                    <p class="team-role" style="color: #00f2fe;">Network &amp; Streaming Lead</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="S. Tejaswi" data-role="Database &amp; Registrations Lead" data-branch="CSD">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">ST</div></div>
+                    <h3 class="team-name">S. Tejaswi</h3>
+                    <p class="team-role" style="color: #00f2fe;">Database &amp; Registrations</p>
+                    <span class="team-branch-pill">B.Tech CSD</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="N. Pavan Kalyan" data-role="Mobile App Developer" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">PK</div></div>
+                    <h3 class="team-name">N. Pavan Kalyan</h3>
+                    <p class="team-role" style="color: #00f2fe;">Mobile App Developer</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="V. Karthik" data-role="Electronics &amp; Stage Lighting" data-branch="EEE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">VK</div></div>
+                    <h3 class="team-name">V. Karthik</h3>
+                    <p class="team-role" style="color: #00f2fe;">Electronics &amp; Lighting</p>
+                    <span class="team-branch-pill">B.Tech EEE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="D. Ananya" data-role="Cyber Ops &amp; Portal Security" data-branch="AI&DS">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">DA</div></div>
+                    <h3 class="team-name">D. Ananya</h3>
+                    <p class="team-role" style="color: #00f2fe;">Cyber Ops &amp; Security</p>
+                    <span class="team-branch-pill">B.Tech AI&amp;DS</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="J. Sumanth" data-role="Acoustics &amp; Sound Engineer" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">JS</div></div>
+                    <h3 class="team-name">J. Sumanth</h3>
+                    <p class="team-role" style="color: #00f2fe;">Acoustics &amp; Sound Engineer</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="Ch. Sai Charan" data-role="Technical Ops Coordinator" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">SC</div></div>
+                    <h3 class="team-name">Ch. Sai Charan</h3>
+                    <p class="team-role" style="color: #00f2fe;">Technical Ops Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="technical" data-name="R. Manoj" data-role="Stage Mechanics &amp; Tech Support" data-branch="MECH">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-tech">💻 TECHNICAL</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-tech">RM</div></div>
+                    <h3 class="team-name">R. Manoj</h3>
+                    <p class="team-role" style="color: #00f2fe;">Stage Mechanics &amp; Tech</p>
+                    <span class="team-branch-pill">B.Tech MECH</span>
+                </div>
+
+                <!-- 2. Design & Media Team (12 Members) -->
+                <div class="team-card-3rd" data-category="design" data-name="K. Lokesh" data-role="Head of Visual Design" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">KL</div></div>
+                    <h3 class="team-name">K. Lokesh</h3>
+                    <p class="team-role" style="color: #c084fc;">Head of Visual Design</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="P. Deepthi" data-role="UI/UX &amp; Web Graphics" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">PD</div></div>
+                    <h3 class="team-name">P. Deepthi</h3>
+                    <p class="team-role" style="color: #c084fc;">UI/UX &amp; Web Graphics</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="M. Sneha" data-role="Motion Graphics &amp; 3D Artist" data-branch="CSM">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">MS</div></div>
+                    <h3 class="team-name">M. Sneha</h3>
+                    <p class="team-role" style="color: #c084fc;">Motion Graphics &amp; 3D</p>
+                    <span class="team-branch-pill">B.Tech CSM</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="S. Dinesh" data-role="Chief Video Editor" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">SD</div></div>
+                    <h3 class="team-name">S. Dinesh</h3>
+                    <p class="team-role" style="color: #c084fc;">Chief Video Editor</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="B. Sai Praneeth" data-role="Brand Identity &amp; Typography" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">SP</div></div>
+                    <h3 class="team-name">B. Sai Praneeth</h3>
+                    <p class="team-role" style="color: #c084fc;">Brand Identity &amp; Type</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="T. Varun" data-role="Cinematography &amp; Teasers" data-branch="MECH">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">TV</div></div>
+                    <h3 class="team-name">T. Varun</h3>
+                    <p class="team-role" style="color: #c084fc;">Cinematography Lead</p>
+                    <span class="team-branch-pill">B.Tech MECH</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="G. Mythili" data-role="Digital Illustrator &amp; Mascot Art" data-branch="CSD">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">GM</div></div>
+                    <h3 class="team-name">G. Mythili</h3>
+                    <p class="team-role" style="color: #c084fc;">Digital Illustrator</p>
+                    <span class="team-branch-pill">B.Tech CSD</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="A. Hemanth" data-role="Posters &amp; Social Media Art" data-branch="AI&DS">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">AH</div></div>
+                    <h3 class="team-name">A. Hemanth</h3>
+                    <p class="team-role" style="color: #c084fc;">Posters &amp; Social Media</p>
+                    <span class="team-branch-pill">B.Tech AI&amp;DS</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="N. Keerthana" data-role="Banners &amp; Print Media" data-branch="CIVIL">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">NK</div></div>
+                    <h3 class="team-name">N. Keerthana</h3>
+                    <p class="team-role" style="color: #c084fc;">Banners &amp; Print Media</p>
+                    <span class="team-branch-pill">B.Tech CIVIL</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="V. Sravan Kumar" data-role="VFX &amp; Post-Production" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">SK</div></div>
+                    <h3 class="team-name">V. Sravan Kumar</h3>
+                    <p class="team-role" style="color: #c084fc;">VFX &amp; Post-Production</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="Y. Meghana" data-role="Fest Merchandise Designer" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">YM</div></div>
+                    <h3 class="team-name">Y. Meghana</h3>
+                    <p class="team-role" style="color: #c084fc;">Merchandise Designer</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="design" data-name="K. Ruthvik" data-role="Short-Form Video Producer" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-design">🎨 DESIGN</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-design">KR</div></div>
+                    <h3 class="team-name">K. Ruthvik</h3>
+                    <p class="team-role" style="color: #c084fc;">Short-Form Producer</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <!-- 3. Student Coordinators (Operations & Logistics) (13 Members) -->
+                <div class="team-card-3rd" data-category="coordinator" data-name="Ch. Yashwanth" data-role="Head Student Coordinator" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">CY</div></div>
+                    <h3 class="team-name">Ch. Yashwanth</h3>
+                    <p class="team-role" style="color: #34d399;">Head Student Coordinator</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="K. Harika" data-role="Chief Logistics Coordinator" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">KH</div></div>
+                    <h3 class="team-name">K. Harika</h3>
+                    <p class="team-role" style="color: #34d399;">Chief Logistics Lead</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="P. Bharat" data-role="Stage &amp; Hall Operations Lead" data-branch="MECH">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">PB</div></div>
+                    <h3 class="team-name">P. Bharat</h3>
+                    <p class="team-role" style="color: #34d399;">Stage &amp; Hall Operations</p>
+                    <span class="team-branch-pill">B.Tech MECH</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="S. Sandeep" data-role="Crowd Management Lead" data-branch="CIVIL">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">SS</div></div>
+                    <h3 class="team-name">S. Sandeep</h3>
+                    <p class="team-role" style="color: #34d399;">Crowd Management Lead</p>
+                    <span class="team-branch-pill">B.Tech CIVIL</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="M. Pranavi" data-role="Guest &amp; VIP Hospitality Lead" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">MP</div></div>
+                    <h3 class="team-name">M. Pranavi</h3>
+                    <p class="team-role" style="color: #34d399;">Guest &amp; VIP Hospitality</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="B. Rakesh" data-role="Equipment &amp; Venue Procurement" data-branch="EEE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">BR</div></div>
+                    <h3 class="team-name">B. Rakesh</h3>
+                    <p class="team-role" style="color: #34d399;">Venue &amp; Equipment Lead</p>
+                    <span class="team-branch-pill">B.Tech EEE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="T. Divya" data-role="Registration &amp; Helpdesk Lead" data-branch="CSM">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">TD</div></div>
+                    <h3 class="team-name">T. Divya</h3>
+                    <p class="team-role" style="color: #34d399;">Registration &amp; Helpdesk</p>
+                    <span class="team-branch-pill">B.Tech CSM</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="G. Abhinav" data-role="Outdoor Events Coordinator" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">GA</div></div>
+                    <h3 class="team-name">G. Abhinav</h3>
+                    <p class="team-role" style="color: #34d399;">Outdoor Events Lead</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="N. Bhavana" data-role="Awards &amp; Certificates Lead" data-branch="AI&DS">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">NB</div></div>
+                    <h3 class="team-name">N. Bhavana</h3>
+                    <p class="team-role" style="color: #34d399;">Awards &amp; Certificates</p>
+                    <span class="team-branch-pill">B.Tech AI&amp;DS</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="V. Sai Teja" data-role="Inter-College Liaison Officer" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">ST</div></div>
+                    <h3 class="team-name">V. Sai Teja</h3>
+                    <p class="team-role" style="color: #34d399;">Inter-College Liaison</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="R. Navya" data-role="Catering &amp; Refreshments Lead" data-branch="CSD">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">RN</div></div>
+                    <h3 class="team-name">R. Navya</h3>
+                    <p class="team-role" style="color: #34d399;">Catering &amp; Refreshments</p>
+                    <span class="team-branch-pill">B.Tech CSD</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="A. Vinay" data-role="Campus Transport Lead" data-branch="MECH">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">AV</div></div>
+                    <h3 class="team-name">A. Vinay</h3>
+                    <p class="team-role" style="color: #34d399;">Campus Transport Lead</p>
+                    <span class="team-branch-pill">B.Tech MECH</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="coordinator" data-name="K. Poojitha" data-role="Faculty Liaison Coordinator" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-coord">📋 COORDINATOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">KP</div></div>
+                    <h3 class="team-name">K. Poojitha</h3>
+                    <p class="team-role" style="color: #34d399;">Faculty Liaison Lead</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <!-- 4. Anchors & Emcees (12 Members) -->
+                <div class="team-card-3rd" data-category="anchor" data-name="P. Sahithi" data-role="Lead Master of Ceremonies" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">PS</div></div>
+                    <h3 class="team-name">P. Sahithi</h3>
+                    <p class="team-role" style="color: #fb923c;">Lead Master of Ceremonies</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="M. Rahul Varma" data-role="Senior Stage Host &amp; Emcee" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">RV</div></div>
+                    <h3 class="team-name">M. Rahul Varma</h3>
+                    <p class="team-role" style="color: #fb923c;">Senior Stage Host &amp; Emcee</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="K. Swetha" data-role="Cultural Events Anchor" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">KS</div></div>
+                    <h3 class="team-name">K. Swetha</h3>
+                    <p class="team-role" style="color: #fb923c;">Cultural Events Anchor</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="T. Aditya" data-role="Technical Symposia Host" data-branch="CSM">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">TA</div></div>
+                    <h3 class="team-name">T. Aditya</h3>
+                    <p class="team-role" style="color: #fb923c;">Technical Symposia Host</p>
+                    <span class="team-branch-pill">B.Tech CSM</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="S. Siri Chandana" data-role="Literary &amp; Debate Moderator" data-branch="AI&DS">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">SC</div></div>
+                    <h3 class="team-name">S. Siri Chandana</h3>
+                    <p class="team-role" style="color: #fb923c;">Literary &amp; Debate Host</p>
+                    <span class="team-branch-pill">B.Tech AI&amp;DS</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="B. Jayanth" data-role="Crowd Engagement Emcee" data-branch="MECH">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">BJ</div></div>
+                    <h3 class="team-name">B. Jayanth</h3>
+                    <p class="team-role" style="color: #fb923c;">Crowd Engagement Emcee</p>
+                    <span class="team-branch-pill">B.Tech MECH</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="G. Varshini" data-role="Bilingual Host (Telugu/Eng)" data-branch="CSD">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">GV</div></div>
+                    <h3 class="team-name">G. Varshini</h3>
+                    <p class="team-role" style="color: #fb923c;">Bilingual Host (Telugu/Eng)</p>
+                    <span class="team-branch-pill">B.Tech CSD</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="A. Rohan" data-role="Sports &amp; Gaming Arena Emcee" data-branch="EEE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">AR</div></div>
+                    <h3 class="team-name">A. Rohan</h3>
+                    <p class="team-role" style="color: #fb923c;">Sports Arena Emcee</p>
+                    <span class="team-branch-pill">B.Tech EEE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="N. Tanuja" data-role="Valedictory Protocol Host" data-branch="CSE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">NT</div></div>
+                    <h3 class="team-name">N. Tanuja</h3>
+                    <p class="team-role" style="color: #fb923c;">Valedictory Protocol Host</p>
+                    <span class="team-branch-pill">B.Tech CSE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="V. Sai Kiran" data-role="Spot Events &amp; Flash Mob Host" data-branch="CIVIL">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">SK</div></div>
+                    <h3 class="team-name">V. Sai Kiran</h3>
+                    <p class="team-role" style="color: #fb923c;">Spot Events Host</p>
+                    <span class="team-branch-pill">B.Tech CIVIL</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="R. Lasya" data-role="Performing Arts Host" data-branch="ECE">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">RL</div></div>
+                    <h3 class="team-name">R. Lasya</h3>
+                    <p class="team-role" style="color: #fb923c;">Performing Arts Host</p>
+                    <span class="team-branch-pill">B.Tech ECE</span>
+                </div>
+
+                <div class="team-card-3rd" data-category="anchor" data-name="Ch. Akhila" data-role="Guest Speaker Host" data-branch="IT">
+                    <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                        <span class="team-year-badge badge-3rd-year">3RD YEAR</span>
+                        <span class="team-category-badge cat-anchor">🎙️ ANCHOR</span>
+                    </div>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-anchor">CA</div></div>
+                    <h3 class="team-name">Ch. Akhila</h3>
+                    <p class="team-role" style="color: #fb923c;">Guest Speaker Host</p>
+                    <span class="team-branch-pill">B.Tech IT</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <svg class="progress-ring" width="48" height="48">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+            <defs>
+                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe"/>
+                    <stop offset="50%" stop-color="#7768e5"/>
+                    <stop offset="100%" stop-color="#fc6441"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EC &amp; CCAC</h3>
+                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="sico.html">SICO Portal</a></li>
+                        <li><a href="reports.html">Reports &amp; Archives</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Address</h4>
+                    <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
+    <div class="hud-floating-controls">
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+            <span class="roller-slider"></span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
+                <span class="roller-icon">🌙</span>
+                <span class="roller-text">Dark</span>
+            </span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light">
+                <span class="roller-icon">☀️</span>
+                <span class="roller-text">Light</span>
+            </span>
+        </div>
+        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
+            <span>🔍 SEARCH SPOTLIGHT</span>
+            <kbd class="hud-kbd-key">Ctrl + K</kbd>
+        </button>
+    </div>
+
+    <!-- Campus Spotlight Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
+        <div class="cmd-palette">
+            <div class="cmd-search-box">
+                <span class="cmd-search-icon">🔍</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
+                <kbd class="hud-kbd-key">ESC</kbd>
+            </div>
+            <div class="cmd-results" id="cmdResults">
+                <!-- Results rendered dynamically by script.js -->
+            </div>
+            <div class="cmd-footer">
+                <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
+                <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
+                <span>EC &amp; CCAC · SICO Portal</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

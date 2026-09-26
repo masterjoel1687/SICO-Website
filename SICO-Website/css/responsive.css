@@ -1,0 +1,608 @@
+/* =============================================================
+   RESPONSIVE BREAKPOINTS
+   Mobile-First Approach with Consistent Breakpoints
+   ============================================================= */
+
+/* Small Mobile (up to 480px) - Base styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Header */
+    .header-content {
+        padding: 0.5rem 0;
+    }
+    
+    .logo-section img {
+        height: 45px;
+    }
+    
+    .nav-menu {
+        top: 60px;
+        padding: 1.25rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding-top: 65px;
+        min-height: 85vh;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    /* Section Headers */
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-description {
+        font-size: 0.9rem;
+    }
+    
+    .title-underline {
+        width: 60px;
+        height: 3px;
+    }
+
+    /* About Section */
+    .about-content {
+        gap: 1.25rem;
+    }
+    
+    .stat-item {
+        padding: 0.875rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    /* Events, Team, Reports */
+    .events-grid,
+    .team-grid,
+    .sico-features,
+    .reports-grid,
+    .reports-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .event-card {
+        border-radius: 15px;
+    }
+    
+    .event-content {
+        padding: 1.25rem;
+    }
+    
+    .event-title {
+        font-size: 1.25rem;
+    }
+    
+    .event-description {
+        font-size: 0.9rem;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 200px;
+        gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    /* Contact Section */
+    .contact-content {
+        gap: 1.25rem;
+    }
+    
+    .contact-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .contact-icon {
+        font-size: 1.5rem;
+        margin: 0 auto;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .contact-form-container {
+        padding: 1.25rem;
+    }
+    
+    .contact-form {
+        gap: 1rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .form-group textarea {
+        min-height: 100px;
+    }
+
+    /* Team Section */
+    .team-content {
+        padding: 1.5rem 0;
+    }
+    
+    .team-carousel-wrapper {
+        padding: 0 10px;
+    }
+    
+    /* SICO Section */
+    .sico-features {
+        gap: 1.25rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        font-size: 1.1rem;
+    }
+    
+    .footer-section p,
+    .footer-section li {
+        font-size: 0.9rem;
+    }
+    
+    .footer-social {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .footer-bottom {
+        padding-top: 1.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding-top: 70px;
+        min-height: 90vh;
+    }
+    
+    .hero-content {
+        padding: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    /* Section Headers */
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-header {
+        margin-bottom: 2rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+
+    /* About Section */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+
+    /* Events, Team */
+    .events-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .events-tabs {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .tab-btn {
+        width: 100%;
+    }
+    
+    .event-card {
+        margin-bottom: 0;
+    }
+
+    /* SICO Features */
+    .sico-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .feature-card {
+        padding: 1.75rem;
+    }
+    
+    .feature-icon {
+        font-size: 2.75rem;
+    }
+    
+    /* Team Section */
+    .team-content {
+        padding: 1.5rem 0;
+    }
+    
+    .team-carousel-wrapper {
+        padding: 0 15px;
+    }
+
+    /* Reports */
+    .reports-grid,
+    .reports-preview-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 150px;
+        gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.875rem 1.5rem;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .contact-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-item {
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .contact-icon {
+        font-size: 1.5rem;
+    }
+    
+    .contact-details strong {
+        font-size: 1rem;
+    }
+    
+    .contact-details p {
+        font-size: 0.9rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+        gap: 0.75rem;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .contact-form-container {
+        padding: 1.5rem;
+    }
+    
+    .contact-form {
+        gap: 1.25rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 0.75rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 2.5rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* Tablet (769px to 968px) */
+@media (min-width: 769px) and (max-width: 968px) {
+    .container {
+        padding: 0 25px;
+    }
+    
+    /* Hero Section */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .hero-description {
+        font-size: 1.05rem;
+    }
+
+    /* Section Headers */
+    .section-title {
+        font-size: 2.25rem;
+    }
+
+    /* About Section */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        padding: 1.25rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    /* Contact Section */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-info h3 {
+        font-size: 1.5rem;
+    }
+    
+    .contact-item {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .contact-icon {
+        font-size: 1.75rem;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 200px;
+    }
+    
+    /* Events */
+    .events-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    /* Reports */
+    .reports-preview-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    /* Team Section */
+    .team-content {
+        padding: 1.5rem 0;
+    }
+    
+    .team-carousel-wrapper {
+        padding: 0 20px;
+    }
+    
+    /* SICO Section */
+    .sico-content {
+        padding: 0 1rem;
+    }
+    
+    .sico-features {
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .feature-card {
+        padding: 1.75rem;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 2.5rem 0 1rem;
+    }
+    
+    .footer-content {
+        gap: 2rem;
+    }
+}
+
+/* Desktop (969px to 1024px) */
+@media (min-width: 969px) and (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .about-content {
+        gap: 2.5rem;
+    }
+    
+    .events-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* Large Desktop (1025px and above) */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+        padding: 0 var(--spacing-xl);
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.75rem;
+    }
+    
+    .about-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .events-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 250px;
+    }
+}
