@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC &amp; CCAC · Coordinator Admin Studio (Live Website Updater)</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="ambient-glow-wrap" aria-hidden="true">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="team.html" class="nav-link">Team</a>
+            </nav>
+            <div class="header-actions">
+                <span class="gform-user-pill" style="margin-right: 8px;">
+                    <span>🔒 Admin Mode</span>
+                </span>
+                <button type="button" class="gform-signout-btn" id="headerLockBtn" title="Lock Admin Studio">
+                    <span>Lock Studio</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         1. SECURITY PIN GATE OVERLAY (PROTECTED ACCESS)
+         ========================================================= -->
+    <div class="admin-auth-overlay" id="adminAuthOverlay">
+        <div class="admin-auth-card" id="adminAuthCard">
+            <div class="admin-auth-icon-wrap">🔒</div>
+            <h1 class="admin-auth-title">Coordinator Studio Access</h1>
+            <p class="admin-auth-subtitle">Restricted to authorized EC &amp; CCAC Student Leads &amp; Faculty Conveners. Enter security PIN to update campus events, circulars, and reports.</p>
+            
+            <form id="adminAuthForm" onsubmit="return false;">
+                <div class="admin-auth-input-group">
+                    <input type="password" 
+                           id="adminPinInput" 
+                           class="admin-auth-input" 
+                           placeholder="Enter Security PIN" 
+                           autocomplete="current-password"
+                           required>
+                    <button type="button" class="admin-toggle-pwd" id="togglePinBtn" aria-label="Show PIN">👁️</button>
+                </div>
+                
+                <label class="admin-auth-checkbox-row">
+                    <input type="checkbox" id="rememberSessionCheck" checked>
+                    <span>Remember this browser session</span>
+                </label>
+                
+                <button type="submit" class="admin-auth-btn" id="unlockStudioBtn">
+                    <span>Unlock Live Admin Studio</span>
+                    <i>→</i>
+                </button>
+                
+                <div class="admin-auth-error" id="authErrorMsg">Invalid PIN. Please check with Master Joel or SICO Conveners.</div>
+                
+                <div class="admin-auth-hint">
+                    Default Passkey: <code>sico2026</code> · Client-side secure storage
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         2. MAIN GOOGLE FORM ADMIN DASHBOARD (VISIBLE UPON UNLOCK)
+         ========================================================= -->
+    <main class="gform-studio-wrapper" id="adminStudioMain" style="display: none;">
+        
+        <!-- Google Form Header Card -->
+        <div class="gform-header-card">
+            <div class="gform-top-accent"></div>
+            <div class="gform-header-body">
+                <div class="gform-header-meta">
+                    <div class="gform-status-badge">
+                        <span class="gform-pulse-dot"></span>
+                        <span>LIVE WEBSITE SYNC ACTIVE</span>
+                    </div>
+                    <div class="gform-user-pill">
+                        <span>Signed in as: <strong>SICO Administrator (Lead)</strong></span>
+                        <button type="button" class="gform-signout-btn" id="bodySignOutBtn">Sign Out</button>
+                    </div>
+                </div>
+                
+                <h1 class="gform-header-title">EC &amp; CCAC · Campus Content Studio</h1>
+                <p class="gform-header-desc">
+                    Google Form-style live website updater. Submissions immediately sync to the live website without editing any code. Attach official circular PDFs, event posters, academic annual reports, and high-resolution gallery memories.
+                </p>
+                
+                <div class="gform-header-nav-links">
+                    <a href="index.html" class="gform-nav-chip" target="_blank"><span>🌐 Preview Homepage ↗</span></a>
+                    <a href="events.html" class="gform-nav-chip" target="_blank"><span>🎪 Preview Events &amp; Calendar ↗</span></a>
+                    <a href="reports.html" class="gform-nav-chip" target="_blank"><span>📄 Preview Reports Archive ↗</span></a>
+                    <a href="gallery.html" class="gform-nav-chip" target="_blank"><span>📸 Preview Gallery ↗</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Form Mode Switcher Tabs -->
+        <div class="gform-tabs-bar" role="tablist">
+            <button class="gform-tab-btn active" data-tab="eventTab" type="button">
+                <span>🎪 Add Event &amp; Circular / Poster</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="reportTab" type="button">
+                <span>📄 Add Annual Report &amp; Circular</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="galleryTab" type="button">
+                <span>📸 Add Photo to Gallery</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="recordsTab" type="button">
+                <span>📋 Live Records Manager</span>
+                <span class="gform-tab-count" id="totalRecordsBadge">0</span>
+            </button>
+        </div>
+
+        <!-- =====================================================
+             TAB 1: ADD EVENT & CIRCULAR / POSTER FORM
+             ===================================================== -->
+        <div class="gform-tab-content" id="eventTab">
+            <form id="addEventForm">
+                
+                <!-- Q1: Event Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evTitle">
+                            Event Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Official name of the event, competition, or festival.</p>
+                    </div>
+                    <input type="text" id="evTitle" class="gform-input" placeholder="e.g. AI Hackathon &amp; Web Duel 2026" required>
+                </div>
+
+                <!-- Q2: Organizing Club & Category -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evClub">
+                            Organizing Student Club &amp; Category <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select the organizing club or department committee.</p>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <select id="evClub" class="gform-select" required>
+                                <option value="Digital Club">Digital Club</option>
+                                <option value="Dance Club">Dance Club</option>
+                                <option value="Music Club">Music Club</option>
+                                <option value="Pixel Craft Club">Pixel Craft Club</option>
+                                <option value="Helping Hands Club">Helping Hands Club</option>
+                                <option value="Photography Club">Photography Club</option>
+                                <option value="Red Ants Cultural Club">Red Ants Cultural Club</option>
+                                <option value="Literary &amp; Debate Club">Literary &amp; Debate Club</option>
+                                <option value="Sports &amp; Fitness Club">Sports &amp; Fitness Club</option>
+                                <option value="EC &amp; CCAC Central">EC &amp; CCAC Central Committee</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="evCategory" class="gform-select" required>
+                                <option value="tech">Technical &amp; Coding</option>
+                                <option value="dance">Performing Arts &amp; Dance</option>
+                                <option value="music">Music &amp; Acoustic Bands</option>
+                                <option value="art">Fine Arts &amp; Digital Design</option>
+                                <option value="social">Social Service &amp; Community</option>
+                                <option value="cultural">Flagship Cultural Festival</option>
+                                <option value="sports">Inter-College Sports</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Schedule & Venue -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Date, Time &amp; Campus Venue <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">When and where will the event take place?</p>
+                    </div>
+                    <div class="gform-grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <input type="text" id="evDate" class="gform-input" placeholder="e.g. 15th November 2026" required>
+                        </div>
+                        <div>
+                            <input type="text" id="evTime" class="gform-input" placeholder="e.g. 10:00 AM IST" required>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" id="evVenue" class="gform-input" placeholder="e.g. SJB Seminar Hall / Open Air Theatre (OAT)" required>
+                    </div>
+                </div>
+
+                <!-- Q4: Cash Prizes & Awards -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evPrize">
+                            Cash Prizes &amp; Student Incentives
+                        </label>
+                        <p class="gform-q-desc">Specify cash prizes, trophies, certificates, or On-Duty (OD) attendance credit.</p>
+                    </div>
+                    <input type="text" id="evPrize" class="gform-input" placeholder="e.g. Up to ₹5,000 Cash + Merit Certificates &amp; OD Attendance">
+                </div>
+
+                <!-- Q5: Short Snippet -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evSnippet">
+                            Card Summary Snippet <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">A punchy 1-2 sentence overview shown directly on the event card (max 140 chars).</p>
+                    </div>
+                    <input type="text" id="evSnippet" class="gform-input" maxlength="150" placeholder="e.g. Build creative full-stack AI websites and compete for grand cash awards." required>
+                </div>
+
+                <!-- Q6: Detailed Description & Rules -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evDesc">
+                            Detailed Description, Highlights &amp; Rules
+                        </label>
+                        <p class="gform-q-desc">This information will be displayed when students click &ldquo;View Details &amp; Rules&rdquo;.</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Full Description:</label>
+                            <textarea id="evDesc" class="gform-textarea" placeholder="Comprehensive background about the competition, rounds, judging criteria..."></textarea>
+                        </div>
+                        <div class="gform-grid-2">
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Key Highlights (comma-separated):</label>
+                                <input type="text" id="evHighlights" class="gform-input" placeholder="e.g. Live Project Demos, Industry Judges, Food Kits">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Rules &amp; Eligibility:</label>
+                                <input type="text" id="evRules" class="gform-input" placeholder="e.g. College ID card mandatory. Laptops permitted.">
+                            </div>
+                        </div>
+                        <div class="gform-grid-2">
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Student Coordinators &amp; Phone:</label>
+                                <input type="text" id="evCoordinators" class="gform-input" placeholder="e.g. Master Joel (98480xxxxx), Club Lead (9440xxxxxx)">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Registration Form Link (Google Form):</label>
+                                <input type="url" id="evRegLink" class="gform-input" placeholder="https://docs.google.com/forms/...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7: Official Circular (PDF Document) Attachment -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Official Circular / Brochure (PDF Document)
+                        </label>
+                        <p class="gform-q-desc">Upload a PDF circular from your computer or paste a Google Drive / public document link. Students can view and download it directly.</p>
+                    </div>
+                    
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="evPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="evPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <!-- PDF Upload Dropzone -->
+                    <div id="evPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="evPdfDropzone">
+                            <span class="gform-drop-icon">📄</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Official Circular PDF here</div>
+                            <div class="gform-drop-hint">or click to browse your computer (.pdf format)</div>
+                            <input type="file" id="evPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <!-- PDF URL Input -->
+                    <div id="evPdfUrlWrap" style="display: none;">
+                        <input type="url" id="evPdfUrlInput" class="gform-input" placeholder="Paste Google Drive or institutional PDF link (e.g. https://drive.google.com/...)">
+                    </div>
+
+                    <!-- PDF Preview Pill -->
+                    <div class="gform-file-preview-wrap" id="evPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="evPdfNameDisplay">circular.pdf</div>
+                                    <div class="gform-pdf-size" id="evPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="evPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview PDF</button>
+                                <button type="button" class="gform-remove-file-btn" id="evPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8: Event Poster / Banner Image -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            🖼️ Event Poster / Banner Image
+                        </label>
+                        <p class="gform-q-desc">Upload a high-resolution poster or banner. It will be compressed automatically for fast browser loading.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="evPosterModeUpload">📁 Upload Image File</button>
+                        <button type="button" class="gform-source-pill" id="evPosterModeUrl">🔗 Image Web URL</button>
+                    </div>
+
+                    <!-- Poster Dropzone -->
+                    <div id="evPosterDropzoneWrap">
+                        <div class="gform-dropzone" id="evPosterDropzone">
+                            <span class="gform-drop-icon">🖼️</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Event Poster image here</div>
+                            <div class="gform-drop-hint">or click to browse (.png, .jpg, .webp)</div>
+                            <input type="file" id="evPosterFileInput" class="gform-hidden-file-input" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Poster URL Input -->
+                    <div id="evPosterUrlWrap" style="display: none;">
+                        <input type="url" id="evPosterUrlInput" class="gform-input" placeholder="Paste image URL (e.g. https://.../poster.jpg)">
+                    </div>
+
+                    <!-- Poster Preview Box -->
+                    <div class="gform-file-preview-wrap" id="evPosterPreviewWrap">
+                        <div class="gform-img-preview-box">
+                            <img id="evPosterImgDisplay" src="" alt="Poster preview">
+                        </div>
+                        <div style="margin-top: 8px; text-align: right;">
+                            <button type="button" class="gform-remove-file-btn" id="evPosterRemoveBtn">✕ Remove Poster</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitEventBtn">
+                        <span>🚀 Publish Event to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearEventFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 2: ADD ANNUAL REPORT & CIRCULAR FORM
+             ===================================================== -->
+        <div class="gform-tab-content" id="reportTab" style="display: none;">
+            <form id="addReportForm">
+                
+                <!-- Q1: Report Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="repTitle">
+                            Report / Publication Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Official title of the document or annual summary.</p>
+                    </div>
+                    <input type="text" id="repTitle" class="gform-input" placeholder="e.g. AY 2025–2026 Annual Activities Report" required>
+                </div>
+
+                <!-- Q2: Academic Year & Category -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Academic Year &amp; Report Category <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Organize the document within the institutional archives.</p>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Academic Year:</label>
+                            <input type="text" id="repYear" class="gform-input" placeholder="e.g. 2026–2027" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Category:</label>
+                            <select id="repCategory" class="gform-select" required>
+                                <option value="annual">Annual Institutional Report</option>
+                                <option value="summary">Event Summary &amp; Retrospective</option>
+                                <option value="circular">Administrative Circular</option>
+                                <option value="newsletter">Club Newsletter &amp; Highlights</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Executive Summary -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="repSummary">
+                            Executive Summary / Key Findings <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">A brief abstract outlining what is covered in this document.</p>
+                    </div>
+                    <textarea id="repSummary" class="gform-textarea" placeholder="Comprehensive documentation of 24 club events, student achievements, rolling trophy allocations..." required></textarea>
+                </div>
+
+                <!-- Q4: Report PDF Document -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Upload Official Document (PDF) <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Upload the official PDF report file or enter a public Google Drive / cloud link.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="repPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="repPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <div id="repPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="repPdfDropzone">
+                            <span class="gform-drop-icon">📑</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Report PDF file here</div>
+                            <div class="gform-drop-hint">or click to browse (.pdf format)</div>
+                            <input type="file" id="repPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <div id="repPdfUrlWrap" style="display: none;">
+                        <input type="url" id="repPdfUrlInput" class="gform-input" placeholder="Paste Google Drive or institutional link (e.g. https://drive.google.com/...)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="repPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="repPdfNameDisplay">report.pdf</div>
+                                    <div class="gform-pdf-size" id="repPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="repPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview</button>
+                                <button type="button" class="gform-remove-file-btn" id="repPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitReportBtn">
+                        <span>🚀 Publish Report to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearReportFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 3: ADD TO PHOTO GALLERY FORM
+             ===================================================== -->
+        <div class="gform-tab-content" id="galleryTab" style="display: none;">
+            <form id="addGalleryForm">
+                
+                <!-- Q1: Photo Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galTitle">
+                            Photograph Title / Event Name <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Name of the celebration or event depicted in the photo.</p>
+                    </div>
+                    <input type="text" id="galTitle" class="gform-input" placeholder="e.g. Colorido 2026 Grand Finale Fireworks" required>
+                </div>
+
+                <!-- Q2: Gallery Category Filter -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galCategory">
+                            Gallery Category Tab <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select which gallery filter category this photo belongs to.</p>
+                    </div>
+                    <select id="galCategory" class="gform-select" required>
+                        <option value="cultural">Cultural Festival</option>
+                        <option value="dance">Dance &amp; Performing Arts</option>
+                        <option value="art">Art &amp; Design Expo</option>
+                        <option value="music">Live Music &amp; Band Night</option>
+                        <option value="literature">Literature &amp; Book Fest</option>
+                        <option value="sports">Inter-College Sports</option>
+                    </select>
+                </div>
+
+                <!-- Q3: Caption -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galCaption">
+                            Photo Caption &amp; Story
+                        </label>
+                        <p class="gform-q-desc">Detailed caption shown in the full-screen lightbox when students click the photo.</p>
+                    </div>
+                    <input type="text" id="galCaption" class="gform-input" placeholder="e.g. Spectacular evening performance at the Open Air Theatre by student choreographers.">
+                </div>
+
+                <!-- Q4: Photo Upload -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📸 Upload Photograph <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Upload image file (.png, .jpg, .webp) or paste a web URL. Auto-compressed for crisp rendering.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="galModeUpload">📁 Upload Image File</button>
+                        <button type="button" class="gform-source-pill" id="galModeUrl">🔗 Image Web URL</button>
+                    </div>
+
+                    <div id="galDropzoneWrap">
+                        <div class="gform-dropzone" id="galDropzone">
+                            <span class="gform-drop-icon">📷</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Photograph here</div>
+                            <div class="gform-drop-hint">or click to browse your files</div>
+                            <input type="file" id="galFileInput" class="gform-hidden-file-input" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div id="galUrlWrap" style="display: none;">
+                        <input type="url" id="galUrlInput" class="gform-input" placeholder="Paste image URL (e.g. https://.../photo.jpg)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="galPreviewWrap">
+                        <div class="gform-img-preview-box">
+                            <img id="galImgDisplay" src="" alt="Gallery photo preview">
+                        </div>
+                        <div style="margin-top: 8px; text-align: right;">
+                            <button type="button" class="gform-remove-file-btn" id="galRemoveBtn">✕ Remove Photo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitGalleryBtn">
+                        <span>🚀 Add Photo to Live Gallery</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearGalleryFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 4: LIVE RECORDS & STORAGE MANAGER
+             ===================================================== -->
+        <div class="gform-tab-content" id="recordsTab" style="display: none;">
+            
+            <div class="gform-records-toolbar">
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div class="gform-records-stat-pill">
+                        Live Events: <strong id="statEventsCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Reports: <strong id="statReportsCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Gallery: <strong id="statGalleryCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Storage: <strong id="statStorageSize">0 KB</strong>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" class="gform-btn-tool" id="exportBackupBtn">
+                        <span>📥 Download Backup (JSON)</span>
+                    </button>
+                    <button type="button" class="gform-btn-tool" id="importBackupBtn">
+                        <span>📤 Restore Backup</span>
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                    <button type="button" class="gform-btn-delete" id="clearAllRecordsBtn">
+                        <span>🗑️ Clear All Custom Data</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Published Events List -->
+            <div class="gform-card">
+                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
+                    🎪 Published Dynamic Events (<span id="countEventsList">0</span>)
+                </h3>
+                <div id="recordsEventsContainer">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom events published yet. Use Tab 1 above to add events!</p>
+                </div>
+            </div>
+
+            <!-- Published Reports List -->
+            <div class="gform-card">
+                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
+                    📄 Published Annual Reports &amp; Circulars (<span id="countReportsList">0</span>)
+                </h3>
+                <div id="recordsReportsContainer">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom reports published yet. Use Tab 2 above to add reports!</p>
+                </div>
+            </div>
+
+            <!-- Published Gallery Photos List -->
+            <div class="gform-card">
+                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
+                    📸 Published Gallery Photos (<span id="countGalleryList">0</span>)
+                </h3>
+                <div id="recordsGalleryContainer">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom gallery photos published yet. Use Tab 3 above to add photos!</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- =====================================================
+             SUBMISSION SUCCESS CONFIRMATION MODAL / CARD
+             ===================================================== -->
+        <div class="gform-success-card" id="submissionSuccessCard">
+            <div class="gform-success-icon">✓</div>
+            <h2 class="gform-success-title">Response Recorded &amp; Published!</h2>
+            <p class="gform-success-desc" id="successDesc">
+                Your entry has been automatically synchronized to the live website. Visitors will now see the new card, circular PDF, and poster immediately without requiring any code edits.
+            </p>
+            <div class="gform-success-actions">
+                <a href="events.html" id="successPreviewLink" target="_blank" class="gform-btn-submit" style="text-decoration: none;">
+                    <span>👀 View on Live Website ↗</span>
+                </a>
+                <button type="button" class="gform-btn-clear" id="submitAnotherBtn">
+                    <span>➕ Submit another response</span>
+                </button>
+                <button type="button" class="gform-btn-tool" id="viewAllRecordsBtn">
+                    <span>📋 View All Records</span>
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 4rem;">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="index.html" class="footer-admin-link">← Return to Public Website</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         ADMIN LOGIC CONTROLLER (STANDALONE & REACTIVE)
+         ========================================================= -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // ---------------------------------------------------------
+        // 1. PIN AUTHENTICATION GATE
+        // ---------------------------------------------------------
+        const DEFAULT_PIN = 'sico2026';
+        const authOverlay = document.getElementById('adminAuthOverlay');
+        const authCard = document.getElementById('adminAuthCard');
+        const authForm = document.getElementById('adminAuthForm');
+        const pinInput = document.getElementById('adminPinInput');
+        const togglePinBtn = document.getElementById('togglePinBtn');
+        const rememberCheck = document.getElementById('rememberSessionCheck');
+        const authErrorMsg = document.getElementById('authErrorMsg');
+        const adminStudioMain = document.getElementById('adminStudioMain');
+        const headerLockBtn = document.getElementById('headerLockBtn');
+        const bodySignOutBtn = document.getElementById('bodySignOutBtn');
+
+        // Check existing auth state
+        function checkAuth() {
+            const isAuth = sessionStorage.getItem('sico_admin_auth') === 'true' || 
+                           localStorage.getItem('sico_admin_auth') === 'true';
+            if (isAuth) {
+                authOverlay.classList.add('hidden');
+                adminStudioMain.style.display = 'block';
+                refreshRecordsManager();
+            } else {
+                authOverlay.classList.remove('hidden');
+                adminStudioMain.style.display = 'none';
+                if (pinInput) pinInput.focus();
+            }
+        }
+
+        // Toggle PIN visibility
+        if (togglePinBtn && pinInput) {
+            togglePinBtn.addEventListener('click', () => {
+                const isPassword = pinInput.getAttribute('type') === 'password';
+                pinInput.setAttribute('type', isPassword ? 'text' : 'password');
+                togglePinBtn.textContent = isPassword ? '🙈' : '👁️';
+            });
+        }
+
+        // Handle unlock submission
+        if (authForm) {
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const entered = (pinInput.value || '').trim();
+                if (entered === DEFAULT_PIN || entered === 'admin2026') {
+                    // Success
+                    authErrorMsg.style.display = 'none';
+                    if (rememberCheck && rememberCheck.checked) {
+                        localStorage.setItem('sico_admin_auth', 'true');
+                    } else {
+                        sessionStorage.setItem('sico_admin_auth', 'true');
+                    }
+                    authOverlay.classList.add('hidden');
+                    adminStudioMain.style.display = 'block';
+                    refreshRecordsManager();
+                } else {
+                    // Error Shake
+                    authErrorMsg.style.display = 'block';
+                    authCard.classList.remove('shake');
+                    void authCard.offsetWidth; // trigger reflow
+                    authCard.classList.add('shake');
+                    pinInput.select();
+                }
+            });
+        }
+
+        function lockStudio() {
+            sessionStorage.removeItem('sico_admin_auth');
+            localStorage.removeItem('sico_admin_auth');
+            authOverlay.classList.remove('hidden');
+            adminStudioMain.style.display = 'none';
+            if (pinInput) {
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        }
+
+        if (headerLockBtn) headerLockBtn.addEventListener('click', lockStudio);
+        if (bodySignOutBtn) bodySignOutBtn.addEventListener('click', lockStudio);
+
+        checkAuth();
+
+        // ---------------------------------------------------------
+        // 2. TAB SWITCHER
+        // ---------------------------------------------------------
+        const tabBtns = document.querySelectorAll('.gform-tab-btn');
+        const tabContents = document.querySelectorAll('.gform-tab-content');
+        const successCard = document.getElementById('submissionSuccessCard');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTabId = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                tabContents.forEach(tc => tc.style.display = 'none');
+                if (successCard) successCard.classList.remove('active');
+
+                const activeContent = document.getElementById(targetTabId);
+                if (activeContent) activeContent.style.display = 'block';
+
+                if (targetTabId === 'recordsTab') {
+                    refreshRecordsManager();
+                }
+            });
+        });
+
+        // ---------------------------------------------------------
+        // 3. FILE COMPRESSOR & HELPER UTILITIES
+        // ---------------------------------------------------------
+        // Compress Image to lightweight JPEG Base64
+        function compressImage(file, maxWidth = 1200, quality = 0.82) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        let w = img.width;
+                        let h = img.height;
+                        if (w > maxWidth) {
+                            h = Math.round((h * maxWidth) / w);
+                            w = maxWidth;
+                        }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = w;
+                        canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = reject;
+                };
+                reader.onerror = reject;
+            });
+        }
+
+        // Read PDF File to Base64 Data URL
+        function readPdfFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+            });
+        }
+
+        // Format file size in KB/MB
+        function formatBytes(bytes) {
+            if (!bytes || bytes === 0) return '0 KB';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        // ---------------------------------------------------------
+        // 4. EVENT FORM ATTACHMENT HANDLERS (PDF & POSTER)
+        // ---------------------------------------------------------
+        let currentEventPdf = { url: '', name: '', size: '' };
+        let currentEventPoster = '';
+
+        // Mode switchers
+        const evPdfModeUpload = document.getElementById('evPdfModeUpload');
+        const evPdfModeUrl = document.getElementById('evPdfModeUrl');
+        const evPdfDropzoneWrap = document.getElementById('evPdfDropzoneWrap');
+        const evPdfUrlWrap = document.getElementById('evPdfUrlWrap');
+        const evPdfDropzone = document.getElementById('evPdfDropzone');
+        const evPdfFileInput = document.getElementById('evPdfFileInput');
+        const evPdfUrlInput = document.getElementById('evPdfUrlInput');
+        const evPdfPreviewWrap = document.getElementById('evPdfPreviewWrap');
+        const evPdfNameDisplay = document.getElementById('evPdfNameDisplay');
+        const evPdfSizeDisplay = document.getElementById('evPdfSizeDisplay');
+        const evPdfPreviewBtn = document.getElementById('evPdfPreviewBtn');
+        const evPdfRemoveBtn = document.getElementById('evPdfRemoveBtn');
+
+        evPdfModeUpload.addEventListener('click', () => {
+            evPdfModeUpload.classList.add('active');
+            evPdfModeUrl.classList.remove('active');
+            evPdfDropzoneWrap.style.display = 'block';
+            evPdfUrlWrap.style.display = 'none';
+        });
+
+        evPdfModeUrl.addEventListener('click', () => {
+            evPdfModeUrl.classList.add('active');
+            evPdfModeUpload.classList.remove('active');
+            evPdfDropzoneWrap.style.display = 'none';
+            evPdfUrlWrap.style.display = 'block';
+        });
+
+        if (evPdfFileInput) {
+            evPdfFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentEventPdf.name = file.name;
+                currentEventPdf.size = formatBytes(file.size);
+                currentEventPdf.url = await readPdfFile(file);
+                
+                evPdfNameDisplay.textContent = currentEventPdf.name;
+                evPdfSizeDisplay.textContent = currentEventPdf.size;
+                evPdfPreviewWrap.classList.add('active');
+            });
+        }
+
+        if (evPdfUrlInput) {
+            evPdfUrlInput.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    currentEventPdf.url = url;
+                    currentEventPdf.name = 'Official_Circular.pdf';
+                    currentEventPdf.size = 'Cloud Document';
+                    evPdfNameDisplay.textContent = currentEventPdf.name;
+                    evPdfSizeDisplay.textContent = currentEventPdf.size;
+                    evPdfPreviewWrap.classList.add('active');
+                } else {
+                    evPdfPreviewWrap.classList.remove('active');
+                }
+            });
+        }
+
+        if (evPdfRemoveBtn) {
+            evPdfRemoveBtn.addEventListener('click', () => {
+                currentEventPdf = { url: '', name: '', size: '' };
+                if (evPdfFileInput) evPdfFileInput.value = '';
+                if (evPdfUrlInput) evPdfUrlInput.value = '';
+                evPdfPreviewWrap.classList.remove('active');
+            });
+        }
+
+        if (evPdfPreviewBtn) {
+            evPdfPreviewBtn.addEventListener('click', () => {
+                if (currentEventPdf.url) {
+                    const win = window.open();
+                    win.document.write(`<iframe src="${currentEventPdf.url}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+                }
+            });
+        }
+
+        // Poster Mode switchers
+        const evPosterModeUpload = document.getElementById('evPosterModeUpload');
+        const evPosterModeUrl = document.getElementById('evPosterModeUrl');
+        const evPosterDropzoneWrap = document.getElementById('evPosterDropzoneWrap');
+        const evPosterUrlWrap = document.getElementById('evPosterUrlWrap');
+        const evPosterFileInput = document.getElementById('evPosterFileInput');
+        const evPosterUrlInput = document.getElementById('evPosterUrlInput');
+        const evPosterPreviewWrap = document.getElementById('evPosterPreviewWrap');
+        const evPosterImgDisplay = document.getElementById('evPosterImgDisplay');
+        const evPosterRemoveBtn = document.getElementById('evPosterRemoveBtn');
+
+        evPosterModeUpload.addEventListener('click', () => {
+            evPosterModeUpload.classList.add('active');
+            evPosterModeUrl.classList.remove('active');
+            evPosterDropzoneWrap.style.display = 'block';
+            evPosterUrlWrap.style.display = 'none';
+        });
+
+        evPosterModeUrl.addEventListener('click', () => {
+            evPosterModeUrl.classList.add('active');
+            evPosterModeUpload.classList.remove('active');
+            evPosterDropzoneWrap.style.display = 'none';
+            evPosterUrlWrap.style.display = 'block';
+        });
+
+        if (evPosterFileInput) {
+            evPosterFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentEventPoster = await compressImage(file, 1200, 0.82);
+                evPosterImgDisplay.src = currentEventPoster;
+                evPosterPreviewWrap.classList.add('active');
+            });
+        }
+
+        if (evPosterUrlInput) {
+            evPosterUrlInput.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    currentEventPoster = url;
+                    evPosterImgDisplay.src = currentEventPoster;
+                    evPosterPreviewWrap.classList.add('active');
+                } else {
+                    evPosterPreviewWrap.classList.remove('active');
+                }
+            });
+        }
+
+        if (evPosterRemoveBtn) {
+            evPosterRemoveBtn.addEventListener('click', () => {
+                currentEventPoster = '';
+                if (evPosterFileInput) evPosterFileInput.value = '';
+                if (evPosterUrlInput) evPosterUrlInput.value = '';
+                evPosterPreviewWrap.classList.remove('active');
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 5. SUBMIT EVENT
+        // ---------------------------------------------------------
+        const addEventForm = document.getElementById('addEventForm');
+        if (addEventForm) {
+            addEventForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const newEvent = {
+                    id: 'ev_' + Date.now(),
+                    title: document.getElementById('evTitle').value.trim(),
+                    club: document.getElementById('evClub').value,
+                    category: document.getElementById('evCategory').value,
+                    catname: document.getElementById('evClub').value + ' · Official',
+                    date: document.getElementById('evDate').value.trim(),
+                    time: document.getElementById('evTime').value.trim(),
+                    venue: document.getElementById('evVenue').value.trim(),
+                    prize: document.getElementById('evPrize').value.trim(),
+                    snippet: document.getElementById('evSnippet').value.trim(),
+                    desc: document.getElementById('evDesc').value.trim() || document.getElementById('evSnippet').value.trim(),
+                    highlights: document.getElementById('evHighlights').value.trim() || 'Organized by EC & CCAC',
+                    rules: document.getElementById('evRules').value.trim() || 'College ID card mandatory.',
+                    coordinators: document.getElementById('evCoordinators').value.trim() || 'EC & CCAC Student Leads',
+                    regLink: document.getElementById('evRegLink').value.trim() || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing',
+                    pdfUrl: currentEventPdf.url,
+                    pdfName: currentEventPdf.name,
+                    posterUrl: currentEventPoster,
+                    createdAt: new Date().toISOString()
+                };
+
+                const existingEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+                existingEvents.push(newEvent);
+                localStorage.setItem('sico_custom_events', JSON.stringify(existingEvents));
+
+                // Show success screen
+                tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successDesc').innerHTML = `
+                    <strong>${newEvent.title}</strong> has been successfully published to the live website with 
+                    ${newEvent.pdfUrl ? 'attached official circular PDF' : 'event details'} and 
+                    ${newEvent.posterUrl ? 'custom poster banner' : 'standard club branding'}.
+                `;
+                document.getElementById('successPreviewLink').href = 'events.html';
+                successCard.classList.add('active');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+                refreshRecordsManager();
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 6. REPORT FORM HANDLERS & SUBMIT
+        // ---------------------------------------------------------
+        let currentReportPdf = { url: '', name: '', size: '' };
+        const repPdfModeUpload = document.getElementById('repPdfModeUpload');
+        const repPdfModeUrl = document.getElementById('repPdfModeUrl');
+        const repPdfDropzoneWrap = document.getElementById('repPdfDropzoneWrap');
+        const repPdfUrlWrap = document.getElementById('repPdfUrlWrap');
+        const repPdfFileInput = document.getElementById('repPdfFileInput');
+        const repPdfUrlInput = document.getElementById('repPdfUrlInput');
+        const repPdfPreviewWrap = document.getElementById('repPdfPreviewWrap');
+        const repPdfNameDisplay = document.getElementById('repPdfNameDisplay');
+        const repPdfSizeDisplay = document.getElementById('repPdfSizeDisplay');
+        const repPdfPreviewBtn = document.getElementById('repPdfPreviewBtn');
+        const repPdfRemoveBtn = document.getElementById('repPdfRemoveBtn');
+
+        repPdfModeUpload.addEventListener('click', () => {
+            repPdfModeUpload.classList.add('active');
+            repPdfModeUrl.classList.remove('active');
+            repPdfDropzoneWrap.style.display = 'block';
+            repPdfUrlWrap.style.display = 'none';
+        });
+
+        repPdfModeUrl.addEventListener('click', () => {
+            repPdfModeUrl.classList.add('active');
+            repPdfModeUpload.classList.remove('active');
+            repPdfDropzoneWrap.style.display = 'none';
+            repPdfUrlWrap.style.display = 'block';
+        });
+
+        if (repPdfFileInput) {
+            repPdfFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentReportPdf.name = file.name;
+                currentReportPdf.size = formatBytes(file.size);
+                currentReportPdf.url = await readPdfFile(file);
+
+                repPdfNameDisplay.textContent = currentReportPdf.name;
+                repPdfSizeDisplay.textContent = currentReportPdf.size;
+                repPdfPreviewWrap.classList.add('active');
+            });
+        }
+
+        if (repPdfUrlInput) {
+            repPdfUrlInput.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    currentReportPdf.url = url;
+                    currentReportPdf.name = 'Official_Report.pdf';
+                    currentReportPdf.size = 'Cloud Document';
+                    repPdfNameDisplay.textContent = currentReportPdf.name;
+                    repPdfSizeDisplay.textContent = currentReportPdf.size;
+                    repPdfPreviewWrap.classList.add('active');
+                } else {
+                    repPdfPreviewWrap.classList.remove('active');
+                }
+            });
+        }
+
+        if (repPdfRemoveBtn) {
+            repPdfRemoveBtn.addEventListener('click', () => {
+                currentReportPdf = { url: '', name: '', size: '' };
+                if (repPdfFileInput) repPdfFileInput.value = '';
+                if (repPdfUrlInput) repPdfUrlInput.value = '';
+                repPdfPreviewWrap.classList.remove('active');
+            });
+        }
+
+        if (repPdfPreviewBtn) {
+            repPdfPreviewBtn.addEventListener('click', () => {
+                if (currentReportPdf.url) {
+                    const win = window.open();
+                    win.document.write(`<iframe src="${currentReportPdf.url}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+                }
+            });
+        }
+
+        const addReportForm = document.getElementById('addReportForm');
+        if (addReportForm) {
+            addReportForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!currentReportPdf.url) {
+                    alert('Please attach an official PDF document or enter a document URL before publishing.');
+                    return;
+                }
+
+                const newReport = {
+                    id: 'rep_' + Date.now(),
+                    title: document.getElementById('repTitle').value.trim(),
+                    academicYear: document.getElementById('repYear').value.trim(),
+                    category: document.getElementById('repCategory').value,
+                    summary: document.getElementById('repSummary').value.trim(),
+                    pdfUrl: currentReportPdf.url,
+                    pdfName: currentReportPdf.name,
+                    createdAt: new Date().toISOString()
+                };
+
+                const existingReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+                existingReports.push(newReport);
+                localStorage.setItem('sico_custom_reports', JSON.stringify(existingReports));
+
+                tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successDesc').innerHTML = `
+                    <strong>${newReport.title}</strong> (${newReport.academicYear}) has been published to the Reports &amp; Archives page with direct PDF download functionality.
+                `;
+                document.getElementById('successPreviewLink').href = 'reports.html';
+                successCard.classList.add('active');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+                refreshRecordsManager();
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 7. GALLERY FORM HANDLERS & SUBMIT
+        // ---------------------------------------------------------
+        let currentGalleryImg = '';
+        const galModeUpload = document.getElementById('galModeUpload');
+        const galModeUrl = document.getElementById('galModeUrl');
+        const galDropzoneWrap = document.getElementById('galDropzoneWrap');
+        const galUrlWrap = document.getElementById('galUrlWrap');
+        const galFileInput = document.getElementById('galFileInput');
+        const galUrlInput = document.getElementById('galUrlInput');
+        const galPreviewWrap = document.getElementById('galPreviewWrap');
+        const galImgDisplay = document.getElementById('galImgDisplay');
+        const galRemoveBtn = document.getElementById('galRemoveBtn');
+
+        galModeUpload.addEventListener('click', () => {
+            galModeUpload.classList.add('active');
+            galModeUrl.classList.remove('active');
+            galDropzoneWrap.style.display = 'block';
+            galUrlWrap.style.display = 'none';
+        });
+
+        galModeUrl.addEventListener('click', () => {
+            galModeUrl.classList.add('active');
+            galModeUpload.classList.remove('active');
+            galDropzoneWrap.style.display = 'none';
+            galUrlWrap.style.display = 'block';
+        });
+
+        if (galFileInput) {
+            galFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentGalleryImg = await compressImage(file, 1200, 0.85);
+                galImgDisplay.src = currentGalleryImg;
+                galPreviewWrap.classList.add('active');
+            });
+        }
+
+        if (galUrlInput) {
+            galUrlInput.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    currentGalleryImg = url;
+                    galImgDisplay.src = currentGalleryImg;
+                    galPreviewWrap.classList.add('active');
+                } else {
+                    galPreviewWrap.classList.remove('active');
+                }
+            });
+        }
+
+        if (galRemoveBtn) {
+            galRemoveBtn.addEventListener('click', () => {
+                currentGalleryImg = '';
+                if (galFileInput) galFileInput.value = '';
+                if (galUrlInput) galUrlInput.value = '';
+                galPreviewWrap.classList.remove('active');
+            });
+        }
+
+        const addGalleryForm = document.getElementById('addGalleryForm');
+        if (addGalleryForm) {
+            addGalleryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!currentGalleryImg) {
+                    alert('Please upload an image file or provide an image link.');
+                    return;
+                }
+
+                const newPhoto = {
+                    id: 'gal_' + Date.now(),
+                    title: document.getElementById('galTitle').value.trim(),
+                    category: document.getElementById('galCategory').value,
+                    caption: document.getElementById('galCaption').value.trim() || document.getElementById('galTitle').value.trim(),
+                    imageUrl: currentGalleryImg,
+                    createdAt: new Date().toISOString()
+                };
+
+                const existingPhotos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+                existingPhotos.push(newPhoto);
+                localStorage.setItem('sico_custom_gallery', JSON.stringify(existingPhotos));
+
+                tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successDesc').innerHTML = `
+                    <strong>${newPhoto.title}</strong> has been added to the Photo Gallery under the 
+                    <em>${newPhoto.category.toUpperCase()}</em> collection with full-screen lightbox preview support.
+                `;
+                document.getElementById('successPreviewLink').href = 'gallery.html';
+                successCard.classList.add('active');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+                refreshRecordsManager();
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 8. SUCCESS SCREEN CONTROLS
+        // ---------------------------------------------------------
+        const submitAnotherBtn = document.getElementById('submitAnotherBtn');
+        const viewAllRecordsBtn = document.getElementById('viewAllRecordsBtn');
+
+        if (submitAnotherBtn) {
+            submitAnotherBtn.addEventListener('click', () => {
+                successCard.classList.remove('active');
+                // Open first tab by default
+                tabBtns[0].click();
+            });
+        }
+
+        if (viewAllRecordsBtn) {
+            viewAllRecordsBtn.addEventListener('click', () => {
+                successCard.classList.remove('active');
+                tabBtns[3].click();
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 9. LIVE RECORDS & STORAGE MANAGER
+        // ---------------------------------------------------------
+        function refreshRecordsManager() {
+            const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+            const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+            const gallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+
+            const total = events.length + reports.length + gallery.length;
+            const badge = document.getElementById('totalRecordsBadge');
+            if (badge) badge.textContent = total;
+
+            document.getElementById('statEventsCount').textContent = events.length;
+            document.getElementById('statReportsCount').textContent = reports.length;
+            document.getElementById('statGalleryCount').textContent = gallery.length;
+            document.getElementById('countEventsList').textContent = events.length;
+            document.getElementById('countReportsList').textContent = reports.length;
+            document.getElementById('countGalleryList').textContent = gallery.length;
+
+            // Calculate estimated storage used
+            const totalBytes = new Blob([
+                localStorage.getItem('sico_custom_events') || '',
+                localStorage.getItem('sico_custom_reports') || '',
+                localStorage.getItem('sico_custom_gallery') || ''
+            ]).size;
+            document.getElementById('statStorageSize').textContent = formatBytes(totalBytes);
+
+            // Render Events List
+            const evContainer = document.getElementById('recordsEventsContainer');
+            if (evContainer) {
+                if (events.length === 0) {
+                    evContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom events published yet. Use Tab 1 above to add events!</p>';
+                } else {
+                    evContainer.innerHTML = events.map(ev => `
+                        <div class="gform-record-item">
+                            <div class="gform-record-left">
+                                ${ev.posterUrl ? `<img src="${ev.posterUrl}" alt="${ev.title}" class="gform-record-thumb">` : '<div class="gform-record-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🎪</div>'}
+                                <div>
+                                    <div class="gform-record-title">${ev.title}</div>
+                                    <div class="gform-record-meta">${ev.club} · 📅 ${ev.date} · 📍 ${ev.venue} ${ev.pdfUrl ? '· 📄 Circular Attached' : ''}</div>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <a href="events.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('event', '${ev.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Render Reports List
+            const repContainer = document.getElementById('recordsReportsContainer');
+            if (repContainer) {
+                if (reports.length === 0) {
+                    repContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom reports published yet. Use Tab 2 above to add reports!</p>';
+                } else {
+                    repContainer.innerHTML = reports.map(rep => `
+                        <div class="gform-record-item">
+                            <div class="gform-record-left">
+                                <div class="gform-record-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📄</div>
+                                <div>
+                                    <div class="gform-record-title">${rep.title} (${rep.academicYear})</div>
+                                    <div class="gform-record-meta">${rep.category.toUpperCase()} · ${rep.summary.slice(0, 90)}...</div>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <a href="reports.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('report', '${rep.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // Render Gallery List
+            const galContainer = document.getElementById('recordsGalleryContainer');
+            if (galContainer) {
+                if (gallery.length === 0) {
+                    galContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom gallery photos published yet. Use Tab 3 above to add photos!</p>';
+                } else {
+                    galContainer.innerHTML = gallery.map(photo => `
+                        <div class="gform-record-item">
+                            <div class="gform-record-left">
+                                <img src="${photo.imageUrl}" alt="${photo.title}" class="gform-record-thumb">
+                                <div>
+                                    <div class="gform-record-title">${photo.title}</div>
+                                    <div class="gform-record-meta">Category: ${photo.category.toUpperCase()} · ${photo.caption}</div>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <a href="gallery.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('gallery', '${photo.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        // Global Delete function
+        window.deleteRecord = function(type, id) {
+            if (!confirm(`Are you sure you want to delete this ${type}? It will be removed from the live website immediately.`)) return;
+
+            if (type === 'event') {
+                const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]').filter(e => e.id !== id);
+                localStorage.setItem('sico_custom_events', JSON.stringify(events));
+            } else if (type === 'report') {
+                const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]').filter(r => r.id !== id);
+                localStorage.setItem('sico_custom_reports', JSON.stringify(reports));
+            } else if (type === 'gallery') {
+                const photos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]').filter(p => p.id !== id);
+                localStorage.setItem('sico_custom_gallery', JSON.stringify(photos));
+            }
+
+            refreshRecordsManager();
+        };
+
+        // Export JSON Backup
+        const exportBackupBtn = document.getElementById('exportBackupBtn');
+        if (exportBackupBtn) {
+            exportBackupBtn.addEventListener('click', () => {
+                const backupData = {
+                    version: '1.0',
+                    exportedAt: new Date().toISOString(),
+                    events: JSON.parse(localStorage.getItem('sico_custom_events') || '[]'),
+                    reports: JSON.parse(localStorage.getItem('sico_custom_reports') || '[]'),
+                    gallery: JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]')
+                };
+
+                const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sico_live_website_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // Import JSON Backup
+        const importBackupBtn = document.getElementById('importBackupBtn');
+        const importFileInput = document.getElementById('importFileInput');
+        if (importBackupBtn && importFileInput) {
+            importBackupBtn.addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (data.events) localStorage.setItem('sico_custom_events', JSON.stringify(data.events));
+                        if (data.reports) localStorage.setItem('sico_custom_reports', JSON.stringify(data.reports));
+                        if (data.gallery) localStorage.setItem('sico_custom_gallery', JSON.stringify(data.gallery));
+                        alert('Backup successfully restored! The live website has been updated.');
+                        refreshRecordsManager();
+                    } catch (err) {
+                        alert('Error parsing backup JSON file. Please ensure it is a valid SICO backup.');
+                    }
+                };
+                reader.readAsText(file);
+            });
+        }
+
+        // Clear All Data
+        const clearAllRecordsBtn = document.getElementById('clearAllRecordsBtn');
+        if (clearAllRecordsBtn) {
+            clearAllRecordsBtn.addEventListener('click', () => {
+                if (confirm('CAUTION: Are you sure you want to delete ALL custom events, reports, and gallery photos? This action cannot be undone.')) {
+                    localStorage.removeItem('sico_custom_events');
+                    localStorage.removeItem('sico_custom_reports');
+                    localStorage.removeItem('sico_custom_gallery');
+                    alert('All custom dynamic records cleared.');
+                    refreshRecordsManager();
+                }
+            });
+        }
+
+    });
+    </script>
+</body>
+</html>

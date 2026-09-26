@@ -527,55 +527,92 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof playSynthSound === 'function') playSynthSound('blip');
     };
 
-    document.querySelectorAll('.btn-event-details').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = btn.closest('.event-card, .spotlight-card, .event-card-modern');
-            if (!card || !eventModal) return;
+    // Upgraded Event Details Modal with Event Delegation & Circular PDF Attachment
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-event-details');
+        if (!btn) return;
+        e.stopPropagation();
+        const card = btn.closest('.event-card, .spotlight-card, .event-card-modern');
+        if (!card || !eventModal) return;
 
-            const title = card.getAttribute('data-title') || 'Event Details';
-            const category = card.getAttribute('data-catname') || card.getAttribute('data-category') || 'Campus Event';
-            const date = card.getAttribute('data-date') || 'To be announced';
-            const time = card.getAttribute('data-time') || '';
-            const venue = card.getAttribute('data-venue') || 'Campus Venue';
-            const prize = card.getAttribute('data-prize') || '--';
-            const desc = card.getAttribute('data-desc') || (card.querySelector('.event-description') ? card.querySelector('.event-description').textContent : '');
-            const highlights = card.getAttribute('data-highlights') || 'Workshops, competitions, and student performances.';
-            const rules = card.getAttribute('data-rules') || 'College ID card mandatory for entry.';
-            const coordinators = card.getAttribute('data-coordinators') || 'EC & CCAC Student Leads';
+        const title = card.getAttribute('data-title') || 'Event Details';
+        const category = card.getAttribute('data-catname') || card.getAttribute('data-category') || 'Campus Event';
+        const date = card.getAttribute('data-date') || 'To be announced';
+        const time = card.getAttribute('data-time') || '';
+        const venue = card.getAttribute('data-venue') || 'Campus Venue';
+        const prize = card.getAttribute('data-prize') || '--';
+        const desc = card.getAttribute('data-desc') || (card.querySelector('.event-description, .event-card-snippet') ? card.querySelector('.event-description, .event-card-snippet').textContent : '');
+        const highlights = card.getAttribute('data-highlights') || 'Workshops, competitions, and student performances.';
+        const rules = card.getAttribute('data-rules') || 'College ID card mandatory for entry.';
+        const coordinators = card.getAttribute('data-coordinators') || 'EC & CCAC Student Leads';
+        const pdfUrl = card.getAttribute('data-pdfurl');
+        const pdfName = card.getAttribute('data-pdfname') || 'Official_Circular.pdf';
 
-            const modalTitle = document.getElementById('modalTitle');
-            const modalCategory = document.getElementById('modalCategory');
-            const modalDate = document.getElementById('modalDate');
-            const modalVenue = document.getElementById('modalVenue');
-            const modalPrize = document.getElementById('modalPrize');
-            const modalDesc = document.getElementById('modalDesc');
-            const modalHighlights = document.getElementById('modalHighlights');
-            const modalRules = document.getElementById('modalRules');
-            const modalCoordinators = document.getElementById('modalCoordinators');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalDate = document.getElementById('modalDate');
+        const modalVenue = document.getElementById('modalVenue');
+        const modalPrize = document.getElementById('modalPrize');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalHighlights = document.getElementById('modalHighlights');
+        const modalRules = document.getElementById('modalRules');
+        const modalCoordinators = document.getElementById('modalCoordinators');
 
-            if (modalTitle) modalTitle.textContent = title;
-            if (modalCategory) modalCategory.textContent = category.toUpperCase();
-            if (modalDate) modalDate.textContent = time ? `${date} · ${time}` : date;
-            if (modalVenue) modalVenue.textContent = venue;
-            if (modalPrize) modalPrize.textContent = prize;
-            if (modalDesc) modalDesc.textContent = desc;
-            if (modalHighlights) modalHighlights.textContent = highlights;
-            if (modalRules) modalRules.textContent = rules;
-            if (modalCoordinators) modalCoordinators.textContent = coordinators;
+        if (modalTitle) modalTitle.textContent = title;
+        if (modalCategory) modalCategory.textContent = category.toUpperCase();
+        if (modalDate) modalDate.textContent = time ? `${date} · ${time}` : date;
+        if (modalVenue) modalVenue.textContent = venue;
+        if (modalPrize) modalPrize.textContent = prize;
+        if (modalDesc) modalDesc.textContent = desc;
+        if (modalHighlights) modalHighlights.textContent = highlights;
+        if (modalRules) modalRules.textContent = rules;
+        if (modalCoordinators) modalCoordinators.textContent = coordinators;
 
-            // Wire up modal's Add to Calendar button
-            const modalCalBtn = document.getElementById('modalAddToCalBtn');
-            if (modalCalBtn) {
-                modalCalBtn.onclick = () => {
-                    downloadEventICS(title, desc, venue, date);
-                };
+        // Render circular download link inside modal if present
+        let modalCircularSection = document.getElementById('modalCircularSection');
+        if (!modalCircularSection) {
+            const modalBody = eventModal.querySelector('.event-modal-body');
+            if (modalBody) {
+                modalCircularSection = document.createElement('div');
+                modalCircularSection.id = 'modalCircularSection';
+                modalCircularSection.className = 'modal-section';
+                modalBody.appendChild(modalCircularSection);
             }
+        }
+        if (modalCircularSection) {
+            if (pdfUrl) {
+                modalCircularSection.style.display = 'block';
+                modalCircularSection.innerHTML = `
+                    <h4>Official Circular &amp; Poster Attachment</h4>
+                    <div style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.6rem;">📄</span>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">${pdfName}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Verified Administrative Circular · PDF Document</div>
+                            </div>
+                        </div>
+                        <a href="${pdfUrl}" target="_blank" download="${pdfName}" class="btn-card-circular" style="padding: 8px 16px; font-size: 0.85rem; background: var(--accent-cyan); color: #000; font-weight: 700; text-decoration:none;">
+                            <span>📥 Download Circular (PDF)</span>
+                        </a>
+                    </div>
+                `;
+            } else {
+                modalCircularSection.style.display = 'none';
+            }
+        }
 
-            eventModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            if (typeof playSynthSound === 'function') playSynthSound('click');
-        });
+        // Wire up modal's Add to Calendar button
+        const modalCalBtn = document.getElementById('modalAddToCalBtn');
+        if (modalCalBtn) {
+            modalCalBtn.onclick = () => {
+                downloadEventICS(title, desc, venue, date);
+            };
+        }
+
+        eventModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (typeof playSynthSound === 'function') playSynthSound('click');
     });
 
     // Wire up direct Add to Calendar buttons on spotlight cards
@@ -642,7 +679,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. GALLERY CATEGORY FILTER TABS
     // -------------------------------------------------------------
     const galleryFilterBtns = document.querySelectorAll('#galleryFilters .filter-btn');
-    const galleryItems = document.querySelectorAll('#galleryGrid .gallery-item');
 
     galleryFilterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -650,8 +686,9 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
 
             const filter = btn.getAttribute('data-filter');
+            const allItems = document.querySelectorAll('#galleryGrid .gallery-item');
 
-            galleryItems.forEach(item => {
+            allItems.forEach(item => {
                 const category = item.getAttribute('data-category');
                 if (filter === 'all' || category === filter) {
                     item.classList.remove('hidden');
@@ -700,8 +737,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
+    // Event delegation on #galleryGrid for both static and dynamically added gallery photos
+    const galleryGridContainer = document.getElementById('galleryGrid');
+    if (galleryGridContainer) {
+        galleryGridContainer.addEventListener('click', (e) => {
+            const item = e.target.closest('.gallery-item');
+            if (!item) return;
             visibleGalleryItems = Array.from(document.querySelectorAll('#galleryGrid .gallery-item:not(.hidden)'));
             const idx = visibleGalleryItems.indexOf(item);
             updateLightboxImage(idx >= 0 ? idx : 0);
@@ -710,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.style.overflow = 'hidden';
             }
         });
-    });
+    }
 
     if (lightboxPrev) {
         lightboxPrev.addEventListener('click', (e) => {
@@ -1062,6 +1103,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Helping Hands Club', sub: 'Social service, community welfare & outreach drives', url: 'sico.html', icon: '🤲', category: 'Clubs' },
         { title: 'Photography Club', sub: 'DSLR, mobile lens photography & photojournalism', url: 'gallery.html', icon: '📸', category: 'Clubs' },
         { title: 'Red Ants Cultural Club', sub: 'Heritage, folk traditions & festive celebrations', url: 'events.html', icon: '🪔', category: 'Clubs' },
+
+        // Coordinator Admin Studio
+        { title: 'Coordinator Admin Studio (Protected)', sub: 'Update events, circular PDFs, posters, reports & gallery', url: 'admin.html', icon: '🔒', category: 'Admin' },
 
         // Quick Actions
         { title: 'Register for SICO 2026–27', sub: 'Official Google Form registration', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Actions', external: true },
@@ -1551,5 +1595,228 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // =============================================================
+    // 27. UNIVERSAL LIVE DATA SYNCHRONIZATION (ADMIN GOOGLE FORM -> WEBSITE)
+    // =============================================================
+    function syncLiveAdminData() {
+        // A. Synchronize Custom Events into #eventsGridModern (index.html & events.html)
+        try {
+            const customEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+            const eventsGrid = document.getElementById('eventsGridModern');
+            const calendarTable = document.getElementById('calendarTable');
+
+            if (eventsGrid && customEvents.length > 0) {
+                // Remove previous dynamic cards to avoid duplicates on re-render
+                eventsGrid.querySelectorAll('.dynamic-admin-card').forEach(el => el.remove());
+
+                // Prepend cards so newest events appear first
+                [...customEvents].reverse().forEach(ev => {
+                    const card = document.createElement('div');
+                    card.className = 'event-card-modern dynamic-admin-card card-imminent';
+                    card.setAttribute('data-category', ev.category || 'tech');
+                    card.setAttribute('data-type', 'imminent prizes dynamic');
+                    card.setAttribute('data-title', ev.title || 'Campus Event');
+                    card.setAttribute('data-catname', ev.catname || ev.club || 'Student Activity');
+                    card.setAttribute('data-date', ev.date || 'TBA');
+                    card.setAttribute('data-time', ev.time || '');
+                    card.setAttribute('data-venue', ev.venue || 'Campus Venue');
+                    card.setAttribute('data-prize', ev.prize || '--');
+                    card.setAttribute('data-desc', ev.desc || ev.snippet || 'Join the event organized by EC & CCAC.');
+                    card.setAttribute('data-highlights', ev.highlights || 'Organized by EC & CCAC, Certificates, Campus Credits');
+                    card.setAttribute('data-rules', ev.rules || 'College ID card mandatory for entry.');
+                    card.setAttribute('data-coordinators', ev.coordinators || 'Student Leads');
+                    if (ev.pdfUrl) card.setAttribute('data-pdfurl', ev.pdfUrl);
+                    if (ev.pdfName) card.setAttribute('data-pdfname', ev.pdfName);
+
+                    let posterMarkup = '';
+                    if (ev.posterUrl) {
+                        posterMarkup = `
+                            <div class="event-card-poster-thumb">
+                                <img src="${ev.posterUrl}" alt="${ev.title}" loading="lazy">
+                            </div>
+                        `;
+                    }
+
+                    let circularBtn = '';
+                    if (ev.pdfUrl) {
+                        circularBtn = `
+                            <a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF">
+                                <span>📄 Circular (PDF)</span>
+                            </a>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                        ${posterMarkup}
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>${ev.date}</span>
+                            </div>
+                            <span class="event-status-pill status-live-sync">✨ LIVE UPDATE</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">${ev.title}</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:var(--accent-amber)"></span>
+                                <span>${ev.club} · ${ev.catname || 'Official'}</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">${ev.snippet || (ev.desc ? ev.desc.slice(0, 120) + '...' : 'Student club competition and cultural activity.')}</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">${ev.venue || 'Campus Venue'}</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">${ev.time || '10:00 AM IST'}</strong>
+                            </div>
+                            ${ev.prize ? `
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">${ev.prize}</strong>
+                            </div>` : ''}
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            ${circularBtn}
+                            <a href="${ev.regLink || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    `;
+
+                    eventsGrid.prepend(card);
+                });
+            }
+
+            // Sync into Calendar Table on events.html if present
+            if (calendarTable && customEvents.length > 0) {
+                const tbody = calendarTable.querySelector('tbody');
+                if (tbody) {
+                    tbody.querySelectorAll('.dynamic-admin-row').forEach(el => el.remove());
+                    [...customEvents].reverse().forEach(ev => {
+                        const tr = document.createElement('tr');
+                        tr.className = 'dynamic-admin-row';
+                        tr.setAttribute('data-status', 'upcoming');
+                        tr.setAttribute('data-club', ev.club);
+                        tr.innerHTML = `
+                            <td class="cal-sno-col">✨</td>
+                            <td class="cal-date-cell"><span class="cal-date-day">${ev.date}</span></td>
+                            <td>
+                                <div class="cal-club-name">${ev.club}</div>
+                                <span class="cal-club-badge" style="background:rgba(245,158,11,0.2); color:var(--accent-amber)">Live Update</span>
+                            </td>
+                            <td>
+                                <div class="cal-event-desc">
+                                    <strong>${ev.title}</strong> - ${ev.snippet || (ev.desc ? ev.desc.slice(0, 80) : '')}
+                                    ${ev.pdfUrl ? `<br><a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" style="font-size:0.8rem; color:var(--accent-cyan); font-weight:600;">📥 Download Circular (PDF)</a>` : ''}
+                                </div>
+                            </td>
+                            <td class="cal-venue-time">
+                                <span>📍 ${ev.venue || 'Campus'}</span>
+                                <span>⏰ ${ev.time || 'TBA'}</span>
+                            </td>
+                            <td class="cal-prize-cell">${ev.prize || '--'}</td>
+                            <td><span class="status-tag imminent" style="background:#10b981; color:#fff;">⚡ Live Entry</span></td>
+                        `;
+                        tbody.prepend(tr);
+                    });
+                }
+            }
+        } catch (err) {
+            console.error('Error syncing dynamic events:', err);
+        }
+
+        // B. Synchronize Custom Reports into reports.html
+        try {
+            const customReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+            const reportsGrid = document.querySelector('.reports-preview-grid');
+            if (reportsGrid && customReports.length > 0) {
+                let dynamicCard = document.getElementById('dynamicReportsCard');
+                if (!dynamicCard) {
+                    dynamicCard = document.createElement('div');
+                    dynamicCard.id = 'dynamicReportsCard';
+                    dynamicCard.className = 'report-preview-card dynamic-reports-highlight';
+                    dynamicCard.style.border = '1px solid var(--accent-amber)';
+                    dynamicCard.style.boxShadow = '0 8px 30px rgba(245, 158, 11, 0.15)';
+                    reportsGrid.prepend(dynamicCard);
+                }
+                dynamicCard.innerHTML = `
+                    <div class="report-preview-icon">✨</div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                        <h3 style="margin:0;">Live Published Reports &amp; Circulars</h3>
+                        <span class="status-badge" style="background:var(--accent-amber); color:#000; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">COORDINATOR UPLOADS</span>
+                    </div>
+                    <p>Official records, retrospectives, and circular documentation recently uploaded via the SICO Coordinator Studio.</p>
+                    <div class="report-links-list" style="margin-top:14px;">
+                        ${customReports.map(rep => `
+                            <div class="dynamic-report-item" style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,0.1); gap:12px; flex-wrap:wrap;">
+                                <div style="flex:1; min-width:200px;">
+                                    <a href="${rep.pdfUrl}" target="_blank" download="${rep.pdfName || 'report.pdf'}" class="report-download-link" style="margin:0; font-weight:600; color:var(--text-primary);">
+                                        📄 ${rep.title} (${rep.academicYear || 'AY 2026–2027'}) [PDF] ↗
+                                    </a>
+                                    <div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">${rep.summary || ''}</div>
+                                </div>
+                                <a href="${rep.pdfUrl}" target="_blank" download="${rep.pdfName || 'report.pdf'}" class="btn-card-circular" style="font-size:0.75rem; padding:6px 12px; white-space:nowrap;">
+                                    <span>📥 Download PDF</span>
+                                </a>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        } catch (err) {
+            console.error('Error syncing dynamic reports:', err);
+        }
+
+        // C. Synchronize Custom Gallery Photos into gallery.html
+        try {
+            const customGallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (galleryGrid && customGallery.length > 0) {
+                galleryGrid.querySelectorAll('.dynamic-gallery-item').forEach(el => el.remove());
+                [...customGallery].reverse().forEach(item => {
+                    const gItem = document.createElement('div');
+                    gItem.className = 'gallery-item dynamic-gallery-item';
+                    gItem.setAttribute('data-category', item.category || 'cultural');
+                    gItem.setAttribute('data-caption', item.caption || item.title);
+                    gItem.innerHTML = `
+                        <div class="gallery-image">
+                            <img src="${item.imageUrl}" alt="${item.title}" loading="lazy">
+                        </div>
+                        <div class="gallery-overlay">
+                            <span class="gallery-caption">${item.caption || item.title}</span>
+                            <span style="position:absolute; top:12px; right:12px; font-size:0.68rem; background:rgba(245,158,11,0.92); color:#000; padding:2px 8px; border-radius:99px; font-weight:700;">✨ NEW</span>
+                        </div>
+                    `;
+                    galleryGrid.prepend(gItem);
+                });
+            }
+        } catch (err) {
+            console.error('Error syncing dynamic gallery:', err);
+        }
+    }
+
+    // Call live admin synchronization immediately
+    syncLiveAdminData();
+
+    // Global Admin Shortcut: Ctrl + Shift + A (or Cmd + Shift + A)
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+            e.preventDefault();
+            window.location.href = 'admin.html';
+        }
+    });
+
 });
+
 
