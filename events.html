@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flagship Events | EC &amp; CCAC - RVR&amp;JCCE</title>
+    <meta name="description" content="Explore cultural fests, music concerts, dance battles, art expos, and literary events at RVR &amp; JC College of Engineering.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Dignified Collegiate Announcement Bar -->
+    <div class="campus-announcement-bar">
+        <div class="announcement-left">
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Activities Center</span>
+        </div>
+        <div class="announcement-center">
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
+        </div>
+        <div class="announcement-right">
+            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
+            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
+        </div>
+    </div>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+
+    <!-- Ambient Floating Glows -->
+    <div class="ambient-glow-wrapper">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+        <div class="ambient-orb orb-4"></div>
+    </div>
+
+    <!-- Interactive Cursor Glow Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link active">Events</a>
+                <a href="sico.html" class="nav-link">Sico</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="team.html" class="nav-link">Team</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   class="btn-nav-cta"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register SICO</span>
+                    <i>↗</i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="page-banner-content">
+                <div class="kicker-pill"><span class="dot"></span> 02 / CAMPUS HIGHLIGHTS</div>
+                <h1 class="page-banner-title">Flagship <span class="editorial-italic">Events &amp; Calendar</span></h1>
+                <p class="page-banner-subtitle">Official AY 2026–2027 calendar of celebrations, performances, exhibitions, and student competitions.</p>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Upcoming Events & Competitions Showcase (Simple & Clearly Visible) -->
+    <section class="events-showcase-section" id="events">
+        <div class="container">
+            <div class="events-showcase-wrap">
+                <!-- Section Header with Clear Title & Simple Filter Bar -->
+                <div class="events-section-header">
+                    <div class="events-header-left">
+                        <span class="section-kicker-tag">✦ CAMPUS HIGHLIGHTS</span>
+                        <h2 class="events-header-title">Upcoming Events &amp; Competitions</h2>
+                        <p class="events-header-subtitle">Explore student club activities, cultural festivals, and cash prize competitions across R.V.R. &amp; J.C. College of Engineering.</p>
+                    </div>
+
+                    <div class="events-filter-bar" id="eventsFilterBar">
+                        <button class="filter-pill active" data-filter="all" type="button">All Events (9)</button>
+                        <button class="filter-pill" data-filter="imminent" type="button">⚡ Next Up</button>
+                        <button class="filter-pill" data-filter="fest" type="button">🎪 Flagship Fests</button>
+                        <button class="filter-pill" data-filter="prizes" type="button">🏆 Cash Prizes</button>
+                    </div>
+                </div>
+
+                <!-- Open, High-Visibility Responsive Event Cards Grid -->
+                <div class="events-grid-modern" id="eventsGridModern">
+                    <!-- Card 1: Digital Club -->
+                    <div class="event-card-modern card-imminent"
+                         data-category="tech"
+                         data-type="imminent prizes"
+                         data-title="Website Development &amp; Anime Video Making"
+                         data-catname="Technical &amp; Multimedia"
+                         data-date="30th September 2026"
+                         data-time="1:00 PM"
+                         data-venue="SJB Seminar Hall"
+                         data-prize="Web Dev: Up to ₹3,000 | Anime Making: Up to ₹1,500"
+                         data-desc="Digital Club brings an adrenaline-fueled duel of code and animation. Build creative responsive websites or produce original anime animations with compelling visual narratives."
+                         data-highlights="Live Web Hosting, Original Animation Screening, Industry Evaluation"
+                         data-rules="College ID card mandatory. Laptops permitted with pre-installed editing suites."
+                         data-coordinators="Digital Club Student Leads">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>30 Sep 2026</span>
+                            </div>
+                            <span class="event-status-pill status-imminent" id="spotlightDigitalCountdownEvents">⚡ In 8 Days</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Website Dev &amp; Anime Video Making</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot"></span>
+                                <span>Digital Club · Technical &amp; Media</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Build responsive websites or produce original anime animations with visual storytelling.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SJB Seminar Hall</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">1:00 PM IST</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">Up to ₹3,000 Cash</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Club Waltz -->
+                    <div class="event-card-modern card-imminent"
+                         data-category="dance"
+                         data-type="imminent prizes"
+                         data-title="Club Waltz (Dance Gala)"
+                         data-catname="Dance &amp; Performing Arts"
+                         data-date="08th &amp; 09th October 2026"
+                         data-time="12:00 Noon"
+                         data-venue="Open Air Theatre (OAT)"
+                         data-prize="Solo: ₹3,000 | Group: ₹3,000"
+                         data-desc="Step onto the grandest dance arena of the semester. From high-energy hip-hop and western classical to traditional partner choreography, battle for campus glory."
+                         data-highlights="2-Day Dance Gala, Solo &amp; Crew Battles, DJ Sound System"
+                         data-rules="Max duration: 4 mins for Solo, 6 mins for Groups. Audio tracks must be submitted in advance."
+                         data-coordinators="M Leeladhar, P Shanmukha Sai">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>08 &amp; 09 Oct 2026</span>
+                            </div>
+                            <span class="event-status-pill status-imminent">⚡ In 16 Days</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Club Waltz (Dance Gala)</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:var(--accent-coral)"></span>
+                                <span>Dance Club · Performing Arts</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">High-energy hip-hop, western solo, and partner choreography on the grand open stage.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">Open Air Theatre (OAT)</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">12:00 Noon</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">₹3,000 (Solo &amp; Group)</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Helping Hands -->
+                    <div class="event-card-modern card-imminent"
+                         data-category="social"
+                         data-type="imminent"
+                         data-title="Helping Hands Community Service Drive"
+                         data-catname="Community Service &amp; Outreach"
+                         data-date="24th October 2026"
+                         data-time="10:00 AM"
+                         data-venue="Blind School &amp; Aged Home"
+                         data-prize="Certificate of Commendation &amp; On-Duty Attendance"
+                         data-desc="Spend a heartwarming day volunteering at local blind schools and senior living centers. Distribution of essential kits, educational resources, and cultural interactions."
+                         data-highlights="Community Outreach, Direct Volunteer Engagement, Institutional Impact"
+                         data-rules="College transport provided from campus at 09:30 AM. Volunteers receive official OD attendance credit."
+                         data-coordinators="Helping Hands Student Leads">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>24 Oct 2026</span>
+                            </div>
+                            <span class="event-status-pill status-imminent">🤝 Social Service</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Helping Hands Service Drive</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#00ff88"></span>
+                                <span>Helping Hands · Community Outreach</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Volunteer drive at local blind schools and senior homes. Transport &amp; OD credits provided.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">Blind School &amp; Senior Home</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">10:00 AM</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🎖️ Recognition:</span>
+                                <strong class="detail-value" style="color:var(--accent-cyan)">OD Attendance &amp; Certificate</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Pixel Craft Club -->
+                    <div class="event-card-modern"
+                         data-category="art"
+                         data-type="prizes"
+                         data-title="Video Editing &amp; Graphic Design Contest"
+                         data-catname="Digital Art &amp; Design"
+                         data-date="05th December 2026"
+                         data-time="2:00 PM"
+                         data-venue="SJB Seminar Hall"
+                         data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
+                         data-desc="Unleash your visual storytelling through motion graphics, cinematic color grading, and creative digital poster composition."
+                         data-highlights="Live Design Sprint, Motion Graphics Showcase, Professional Feedback"
+                         data-rules="Theme revealed at contest start. Adobe Premiere Pro, After Effects, Photoshop permitted."
+                         data-coordinators="Pixel Craft Student Leads">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>05 Dec 2026</span>
+                            </div>
+                            <span class="event-status-pill status-prize">🏆 Cash Prizes</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Video Editing &amp; Graphic Design</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#fcee0a"></span>
+                                <span>Pixel Craft Club · Digital Media</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Motion graphics, video editing sprints, and graphic poster design competitions.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SJB Seminar Hall</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">2:00 PM IST</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">I: ₹1500 · II: ₹1000 · III: ₹750</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: COLORIDO 2026 Mega Fest -->
+                    <div class="event-card-modern card-fest"
+                         data-category="fest"
+                         data-type="fest"
+                         data-title="COLORIDO 2026 (Flagship Cultural &amp; Sports Fest)"
+                         data-catname="Flagship Festival"
+                         data-date="28th &amp; 29th December 2026"
+                         data-time="Full Day (2-Day Extravaganza)"
+                         data-venue="Open Air Auditorium &amp; SAC Grounds"
+                         data-prize="Institutional Trophies, Merit Citations &amp; ₹50,000+ Honors"
+                         data-desc="The premier annual celebration of youth culture, arts, music, dance battles, technical competitions, and celebrity musical concerts at RVR&amp;JCCE."
+                         data-highlights="Celebrity Live Concert, Inter-College Competitions, 120+ Stage Performers, Food Village"
+                         data-rules="College ID card mandatory. Open to all branches and inter-college participants."
+                         data-coordinators="M Aravind Kumar, A Bhavagna, Student Council">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>28 &amp; 29 Dec 2026</span>
+                            </div>
+                            <span class="event-status-pill status-fest">🎪 Flagship Fest</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">COLORIDO 2026 Annual Fest</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:var(--accent-coral)"></span>
+                                <span>EC &amp; CCAC · Premier Annual Fest</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Two electrifying days of campus concerts, dance showcases, drama, and sports honors.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SAC Grounds &amp; Auditorium</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">Full Day (2 Days)</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Awards:</span>
+                                <strong class="detail-value prize-highlight">₹50,000+ Honors &amp; Trophies</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Red Ants Club -->
+                    <div class="event-card-modern"
+                         data-category="cultural"
+                         data-type="prizes"
+                         data-title="Rangoli &amp; Kite Flying Competition"
+                         data-catname="Cultural Heritage"
+                         data-date="08th January 2027"
+                         data-time="2:00 PM"
+                         data-venue="SJB Portico"
+                         data-prize="Up to ₹1,500 + 10 Consolation Prizes"
+                         data-desc="Celebrate Sankranti heritage with vibrant floral and color Rangolis paired with high-flying kite designing and fighting contests."
+                         data-highlights="Traditional Folk Music, Kite Battles, Eco-friendly Rangoli Powders"
+                         data-rules="Eco-friendly colors only. 2 hours allotted. Teams up to 3 members."
+                         data-coordinators="Red Ants Club Leads">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>08 Jan 2027</span>
+                            </div>
+                            <span class="event-status-pill status-prize">🏆 Cash Prizes</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Rangoli &amp; Kite Flying Contest</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#fcee0a"></span>
+                                <span>Red Ants Club · Cultural Traditions</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Traditional Sankranti celebration with eco-friendly Rangolis and aerial kite battles.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SJB Portico</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">2:00 PM IST</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">Up to ₹1,500 + 10 Prizes</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Music Club -->
+                    <div class="event-card-modern"
+                         data-category="music"
+                         data-type="prizes"
+                         data-title="Western, Rap &amp; Band Showdown"
+                         data-catname="Music &amp; Acoustic Bands"
+                         data-date="06th February 2027"
+                         data-time="2:00 PM"
+                         data-venue="SJB Seminar Hall"
+                         data-prize="Group: ₹3,000 | Solo: ₹1,500"
+                         data-desc="Plug in your amps and deliver electrifying vocals, live instrumentation, and fast rap deliveries in this premier musical duel."
+                         data-highlights="Live Sound Engineering, Rap Battles, Acoustic &amp; Electric Sets"
+                         data-rules="8 mins for bands, 3 mins for rap/solo. Drum kits provided."
+                         data-coordinators="Music Club Coordinators">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>06 Feb 2027</span>
+                            </div>
+                            <span class="event-status-pill status-prize">🏆 Cash Prizes</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Western, Rap &amp; Band Showdown</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#00f2fe"></span>
+                                <span>Music Club · Live Bands</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">Live acoustics, band face-offs, and solo rap battles in a high-octane musical showdown.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SJB Seminar Hall</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">2:00 PM IST</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">Group: ₹3,000 · Solo: ₹1,500</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 8: Photography Club -->
+                    <div class="event-card-modern"
+                         data-category="art"
+                         data-type="prizes"
+                         data-title="Annual Campus Photography Contest"
+                         data-catname="Visual &amp; Lens Media"
+                         data-date="12th February 2027"
+                         data-time="2:00 PM"
+                         data-venue="SJB Seminar Hall"
+                         data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
+                         data-desc="Capture the soul of campus architecture, candid expressions, motion, and wildlife through professional and smartphone lens photography."
+                         data-highlights="Gallery Display of Finalists, Technical Critiques, Drone &amp; DSLR"
+                         data-rules="EXIF metadata must be intact. Minimal retouching allowed. Max 3 entries."
+                         data-coordinators="Photography Club Leads">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>12 Feb 2027</span>
+                            </div>
+                            <span class="event-status-pill status-prize">🏆 Cash Prizes</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">Annual Photography Contest</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#a5b4fc"></span>
+                                <span>Photography Club · Lens Media</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">DSLR and mobile photography contest focusing on campus moments, nature, and light.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">SJB Seminar Hall</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">2:00 PM IST</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🏆 Cash Prizes:</span>
+                                <strong class="detail-value prize-highlight">I: ₹1500 · II: ₹1000 · III: ₹750</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Card 9: 42nd Annual Day -->
+                    <div class="event-card-modern card-fest"
+                         data-category="institutional"
+                         data-type="fest"
+                         data-title="42nd Annual Day Celebrations"
+                         data-catname="Institutional Convocation"
+                         data-date="05th March 2027"
+                         data-time="Full Day"
+                         data-venue="Open Air Auditorium"
+                         data-prize="Institutional Gold Medals, Merit Citations &amp; Rolling Trophies"
+                         data-desc="The grand academic and co-curricular finale of R.V.R. &amp; J.C. College of Engineering. Honoring academic toppers, committee leaders, national sports champions, and dynamic cultural performers."
+                         data-highlights="Distinguished Chief Guests, Annual Report Presentation, Cultural Extravaganza"
+                         data-rules="Formal dress code mandatory. Reserved seating for awardees and parents."
+                         data-coordinators="Principal, Management &amp; EC &amp; CCAC">
+                        <div class="event-card-header">
+                            <div class="event-date-pill">
+                                <span>📅</span>
+                                <span>05 Mar 2027</span>
+                            </div>
+                            <span class="event-status-pill status-fest">🎖️ Institutional Day</span>
+                        </div>
+                        <div class="event-card-main">
+                            <h3 class="event-card-title">42nd Annual Day Celebrations</h3>
+                            <div class="event-club-badge">
+                                <span class="club-dot" style="background:#00f2fe"></span>
+                                <span>RVR&amp;JCCE · Academic &amp; Cultural Finale</span>
+                            </div>
+                        </div>
+                        <p class="event-card-snippet">The grand finale honoring academic toppers, club leaders, and university champions.</p>
+                        <div class="event-details-box">
+                            <div class="detail-row">
+                                <span class="detail-label">📍 Venue:</span>
+                                <strong class="detail-value">Open Air Auditorium</strong>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">⏰ Time:</span>
+                                <strong class="detail-value">Full Day</strong>
+                            </div>
+                            <div class="detail-row detail-prize-row">
+                                <span class="detail-label">🎖️ Honors:</span>
+                                <strong class="detail-value prize-highlight">Gold Medals &amp; Citations</strong>
+                            </div>
+                        </div>
+                        <div class="event-card-footer">
+                            <button class="btn-event-details btn-card-primary" type="button">
+                                <span>View Details &amp; Rules</span>
+                                <i>→</i>
+                            </button>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn-card-register">
+                                <span>Register</span>
+                                <i>↗</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simple Bottom Banner to Master Academic Calendar -->
+                <div class="events-bottom-cta">
+                    <div class="cta-info">
+                        <span class="cta-badge">ACADEMIC YEAR 2026–2027</span>
+                        <span>Looking for the complete schedule of all 24 events across all clubs?</span>
+                    </div>
+                    <a href="#calendar" class="btn-outline-cyan">
+                        <span>Jump to Master Calendar Table (24)</span>
+                        <i>↓</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Official Calendar & Upcoming Events Master Section -->
+    <section class="calendar-section" id="calendar">
+        <div class="container">
+            <!-- Official Institution & Committee Banner -->
+            <div class="calendar-official-banner">
+                <div class="banner-top-meta">
+                    <span>AFFILIATED TO ACHARYA NAGARJUNA UNIVERSITY · AUTONOMOUS</span>
+                    <span>EC &amp; CCAC OFFICIAL SCHEDULE</span>
+                </div>
+                <h2 class="banner-institute-title">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING (A)</h2>
+                <div class="banner-committee-title">EXTRA-CURRICULAR &amp; CO-CURRICULAR ACTIVITIES COMMITTEE</div>
+                <div class="banner-academic-badge">
+                    <span>LIST OF EVENTS DURING AY : 2026–2027</span>
+                </div>
+                <div class="banner-stats-row">
+                    <div class="banner-stat-item">Total Scheduled: <strong>24 Events</strong></div>
+                    <div class="banner-stat-item">Upcoming Events: <strong style="color:var(--accent-cyan)">13 Ahead</strong></div>
+                    <div class="banner-stat-item">Total Cash Prizes: <strong style="color:#fcee0a">₹30,000+</strong></div>
+                    <div class="banner-stat-item">Academic Year: <strong>2026–2027</strong></div>
+                </div>
+            </div>
+
+            <!-- Full 24-Event Official Calendar Table -->
+            <div class="calendar-controls-bar">
+                        <div class="calendar-search-box">
+                            <span class="calendar-search-icon">🔍</span>
+                            <input type="text" id="calendarSearchInput" placeholder="Search events, clubs, venues, or cash prizes..." autocomplete="off">
+                        </div>
+                        <div class="calendar-filter-tabs" id="calStatusFilters">
+                            <button class="cal-filter-btn active" data-status="all">All (24)</button>
+                            <button class="cal-filter-btn" data-status="upcoming">⚡ Upcoming (13)</button>
+                            <button class="cal-filter-btn" data-status="completed">✓ Completed (11)</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-table-responsive">
+                        <table class="editorial-table cyber-table" id="calendarTable">
+                            <thead>
+                                <tr>
+                                    <th class="cal-sno-col">S.No</th>
+                                    <th>Date</th>
+                                    <th>Club Name</th>
+                                    <th>Event &amp; Description</th>
+                                    <th>Venue &amp; Time</th>
+                                    <th>Cash Prize</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- S.No 1 -->
+                                <tr class="row-completed" data-status="completed" data-club="International Yoga Day">
+                                    <td class="cal-sno-col">01</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">21 - Jun - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">International Yoga Day</div>
+                                        <span class="cal-club-badge">Wellness</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Yoga Sessions, Asanas &amp; Mindfulness Workshop</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT</span><span>⏰ 1:00 PM</span></td>
+                                    <td class="cal-prize-cell">--</td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 2 -->
+                                <tr class="row-completed" data-status="completed" data-club="Graduation Day">
+                                    <td class="cal-sno-col">02</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">04 - Jul - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Graduation Day</div>
+                                        <span class="cal-club-badge">Convocation</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Graduation Day Ceremony &amp; Degree Conferral</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT</span><span>⏰ 10:00 AM</span></td>
+                                    <td class="cal-prize-cell">--</td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 3 -->
+                                <tr class="row-completed" data-status="completed" data-club="Club Inspiraze">
+                                    <td class="cal-sno-col">03</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">25 - Jul - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Club Inspiraze</div>
+                                        <span class="cal-club-badge">Leadership</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Inspirational Talk by Industry Leaders &amp; Visionaries</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">--</td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 4 -->
+                                <tr class="row-completed" data-status="completed" data-club="Renewable Energy Club">
+                                    <td class="cal-sno-col">04</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">1 - Aug - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Renewable Energy Club</div>
+                                        <span class="cal-club-badge">Green Tech</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Poster Presentation on Clean &amp; Renewable Energy</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.3000</span><br>
+                                        <span class="prize-badge">II - Rs.2000</span><br>
+                                        <span class="prize-badge">III - Rs.1500</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 5 -->
+                                <tr class="row-completed" data-status="completed" data-club="CLUB SPARK">
+                                    <td class="cal-sno-col">05</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">06 - Aug - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">CLUB SPARK</div>
+                                        <span class="cal-club-badge">Knowledge Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Technical Poster Presentation &amp; Innovation Expo</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.3000</span><br>
+                                        <span class="prize-badge">II - Rs.2000</span><br>
+                                        <span class="prize-badge">III - Rs.1500</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 6 -->
+                                <tr class="row-completed" data-status="completed" data-club="Digital Club">
+                                    <td class="cal-sno-col">06</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">11 - Aug - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Digital Club</div>
+                                        <span class="cal-club-badge">Design &amp; Media</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Logo Design Championship &amp; Brand Identity</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 7 -->
+                                <tr class="row-completed" data-status="completed" data-club="Club Spectrum">
+                                    <td class="cal-sno-col">07</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">14 - Aug - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Club Spectrum</div>
+                                        <span class="cal-club-badge">Film Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Any Short Film (time limit: 15 mins) &amp; Rhythm in Motion (time limit: 4 mins)</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">Best I: Rs.4000</span><br>
+                                        <span class="prize-badge">Best II: Rs.2500</span><br>
+                                        <span class="prize-badge">Dir/Editor: Rs.1500</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 8 -->
+                                <tr class="row-completed" data-status="completed" data-club="RED ANTS">
+                                    <td class="cal-sno-col">08</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">29 - Aug - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">RED ANTS</div>
+                                        <span class="cal-club-badge">Fine Arts Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Face Painting, Pencil Shading, Mehandi, Conceptual Painting</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Portico &amp; Ground</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 9 -->
+                                <tr class="row-completed" data-status="completed" data-club="CLUB THEATRIX">
+                                    <td class="cal-sno-col">09</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">11 - Sep - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">CLUB THEATRIX</div>
+                                        <span class="cal-club-badge">Dramatics Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Mime (Group), Skit (Group), Standup Comedy</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB &amp; Decennial Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">Grp I: Rs.3000 | II: 2000</span><br>
+                                        <span class="prize-badge">Solo I: Rs.1500 | II: 1000</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 10 -->
+                                <tr class="row-completed" data-status="completed" data-club="Engineer's Day Celebrations">
+                                    <td class="cal-sno-col">10</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">15 - Sep - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Engineer's Day Celebrations</div>
+                                        <span class="cal-club-badge">Engineering Honor</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Celebrations, Technical Honors &amp; Sir MV Tributes</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT</span><span>⏰ 10:00 AM</span></td>
+                                    <td class="cal-prize-cell">--</td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+                                <!-- S.No 11 -->
+                                <tr class="row-completed" data-status="completed" data-club="CLUB ENDEAVOUR">
+                                    <td class="cal-sno-col">11</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">19 - Sep - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">CLUB ENDEAVOUR</div>
+                                        <span class="cal-club-badge">Literary Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">General Quiz Championship Across Multi-Disciplinary Trivia</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag completed">✓ Completed</span></td>
+                                </tr>
+
+                                <!-- S.No 12 (NEXT UP IMMINENT EVENT!) -->
+                                <tr class="row-upcoming row-imminent" data-status="upcoming" data-club="Digital Club">
+                                    <td class="cal-sno-col">12</td>
+                                    <td class="cal-date-cell"><strong class="cal-date-day" style="color:#00ff88">30 - Sep - 26</strong></td>
+                                    <td>
+                                        <div class="cal-club-name">Digital Club</div>
+                                        <span class="cal-club-badge" style="background:rgba(0,255,136,0.15);color:#00ff88;border-color:rgba(0,255,136,0.4)">Coding &amp; Animation</span>
+                                    </td>
+                                    <td><div class="cal-event-desc"><strong>Website Development &amp; Anime Video Making</strong></div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 1:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">Web: I - Rs.3000 | II - 2000</span><br>
+                                        <span class="prize-badge">Anime: I - Rs.1500 | II - 1000</span>
+                                    </td>
+                                    <td><span class="status-tag imminent">⚡ Next Up</span></td>
+                                </tr>
+                                <!-- S.No 13 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="CLUB WALTZ">
+                                    <td class="cal-sno-col">13</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">08 &amp; 09 - Oct - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">CLUB WALTZ</div>
+                                        <span class="cal-club-badge">Dance Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Classical Dance, Folk Dance, Old is Gold, Western Dance (Solo &amp; Group) &amp; Jodi Round</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT</span><span>⏰ 12:00 Noon</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">Grp: I - Rs.3000 | II - 2000</span><br>
+                                        <span class="prize-badge">Solo: I - Rs.1500 | II - 1000</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 14 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Helping Hands">
+                                    <td class="cal-sno-col">14</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">24 - Oct - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Helping Hands</div>
+                                        <span class="cal-club-badge">Service Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Orphanage, Blind School, Aged Home Community Outreach Drive</div></td>
+                                    <td class="cal-venue-time"><span>📍 Outreach Centers</span><span>⏰ Full Day</span></td>
+                                    <td class="cal-prize-cell">Social Outreach</td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 15 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Pixel Craft Club">
+                                    <td class="cal-sno-col">15</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">05 - Dec - 26</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Pixel Craft Club</div>
+                                        <span class="cal-club-badge">Creative Arts</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Video Editing &amp; Graphic Design Faceoff</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 16 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="COLORIDO - 2026">
+                                    <td class="cal-sno-col">16</td>
+                                    <td class="cal-date-cell"><strong class="cal-date-day" style="color:var(--accent-coral)">28 - Dec - 26</strong></td>
+                                    <td>
+                                        <div class="cal-club-name" style="color:var(--accent-coral)">COLORIDO - 2026</div>
+                                        <span class="cal-club-badge" style="background:rgba(252,100,65,0.2);color:#fc6441;border-color:rgba(252,100,65,0.4)">Flagship Day 1</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Cultural &amp; Sports Competitions, Opening Extravaganza</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT &amp; SAC Grounds</span><span>⏰ 9:00 AM onwards</span></td>
+                                    <td class="cal-prize-cell"><span class="prize-badge">Trophies &amp; Cash</span></td>
+                                    <td><span class="status-tag upcoming">⚡ Flagship Fest</span></td>
+                                </tr>
+                                <!-- S.No 17 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="COLORIDO - 2026">
+                                    <td class="cal-sno-col">17</td>
+                                    <td class="cal-date-cell"><strong class="cal-date-day" style="color:var(--accent-coral)">29 - Dec - 26</strong></td>
+                                    <td>
+                                        <div class="cal-club-name" style="color:var(--accent-coral)">COLORIDO - 2026</div>
+                                        <span class="cal-club-badge" style="background:rgba(252,100,65,0.2);color:#fc6441;border-color:rgba(252,100,65,0.4)">Flagship Day 2</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Technical &amp; Sports Competitions, Grand Gala &amp; Awards</div></td>
+                                    <td class="cal-venue-time"><span>📍 OAT &amp; SAC Grounds</span><span>⏰ 9:00 AM onwards</span></td>
+                                    <td class="cal-prize-cell"><span class="prize-badge">Trophies &amp; Cash</span></td>
+                                    <td><span class="status-tag upcoming">⚡ Flagship Fest</span></td>
+                                </tr>
+                                <!-- S.No 18 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="RED ANTS">
+                                    <td class="cal-sno-col">18</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">08 - Jan - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">RED ANTS</div>
+                                        <span class="cal-club-badge">Fine Arts Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Rangoli &amp; Kites Competition</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Portico &amp; Ground</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000 | III - 750</span><br>
+                                        <span style="font-size:0.65rem;color:var(--text-muted)">+10 Consolation Prizes</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 19 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Music Club">
+                                    <td class="cal-sno-col">19</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">06 - Feb - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Music Club</div>
+                                        <span class="cal-club-badge">Musical Arts</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Classical, Western, Rap, Beat Boxing (Solo &amp; Group), Musical Band</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">Grp: I - Rs.3000 | II - 2000</span><br>
+                                        <span class="prize-badge">Solo: I - Rs.1500 | II - 1000</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 20 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Photography Club">
+                                    <td class="cal-sno-col">20</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">12 - Feb - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Photography Club</div>
+                                        <span class="cal-club-badge">Visual Arts</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Photography Contest &amp; Campus Life Photowalk</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 21 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Club Tone">
+                                    <td class="cal-sno-col">21</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">20 - Feb - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Club Tone</div>
+                                        <span class="cal-club-badge">Book Club</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Talk About a Journal &amp; Literary Critique</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 2:00 PM</span></td>
+                                    <td class="cal-prize-cell">
+                                        <span class="prize-badge">I - Rs.1500</span><br>
+                                        <span class="prize-badge">II - Rs.1000</span><br>
+                                        <span class="prize-badge">III - Rs.750</span>
+                                    </td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 22 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Fine Arts for Faculty">
+                                    <td class="cal-sno-col">22</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">Mar - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Faculty Fine Arts</div>
+                                        <span class="cal-club-badge">Faculty Special</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Fine Arts Competitions for Faculty Members</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Portico &amp; Ground</span><span>⏰ 1:00 PM</span></td>
+                                    <td class="cal-prize-cell">Faculty Trophies</td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 23 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="Antakshari &amp; Dance for Faculty">
+                                    <td class="cal-sno-col">23</td>
+                                    <td class="cal-date-cell"><span class="cal-date-day">Mar - 27</span></td>
+                                    <td>
+                                        <div class="cal-club-name">Faculty Performing Arts</div>
+                                        <span class="cal-club-badge">Faculty Special</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">Antakshari &amp; Dance Competitions for Faculty</div></td>
+                                    <td class="cal-venue-time"><span>📍 SJB Seminar Hall</span><span>⏰ 1:00 PM</span></td>
+                                    <td class="cal-prize-cell">Faculty Trophies</td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                                <!-- S.No 24 -->
+                                <tr class="row-upcoming" data-status="upcoming" data-club="42nd Annual Day Celebrations">
+                                    <td class="cal-sno-col">24</td>
+                                    <td class="cal-date-cell"><strong class="cal-date-day" style="color:var(--accent-cyan)">05 - Mar - 27</strong></td>
+                                    <td>
+                                        <div class="cal-club-name">42nd Annual Day Celebrations</div>
+                                        <span class="cal-club-badge">Grand Finale</span>
+                                    </td>
+                                    <td><div class="cal-event-desc">42nd Annual Day Grand Celebrations &amp; Institutional Awards</div></td>
+                                    <td class="cal-venue-time"><span>📍 Open Air Auditorium</span><span>⏰ Full Day</span></td>
+                                    <td class="cal-prize-cell">Annual Awards</td>
+                                    <td><span class="status-tag upcoming">⚡ Upcoming</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
+    </section>
+
+    <!-- Flagship Events Showcase Section -->
+    <section class="events" id="events-list">
+        <div class="container">
+            <div class="section-header">
+                <div class="filter-tabs-wrapper">
+                    <div class="filter-tabs" id="eventFilters">
+                        <button class="filter-btn active" data-filter="all">All Events</button>
+                        <button class="filter-btn" data-filter="cultural">Cultural</button>
+                        <button class="filter-btn" data-filter="dance">Dance</button>
+                        <button class="filter-btn" data-filter="art">Art &amp; Design</button>
+                        <button class="filter-btn" data-filter="music">Music</button>
+                        <button class="filter-btn" data-filter="literature">Literature</button>
+                        <button class="filter-btn" data-filter="cinema">Cinema</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="events-grid" id="eventsGrid">
+                <!-- Cultural Fest: COLORIDO 2026 -->
+                <div class="event-card cultural" data-category="cultural"
+                     data-title="COLORIDO 2026"
+                     data-date="28th – 29th December 2026"
+                     data-venue="Main Open Air Auditorium &amp; SAC Grounds"
+                     data-coordinators="M Aravind Kumar, A Bhavagna"
+                     data-highlights="120+ Performers, 2 Days of Extravaganza, Dance &amp; Singing Clubs, Grand Finale"
+                     data-rules="Open to all enrolled students. Preliminary auditions required for solo acts. College ID card mandatory. External inter-college entries welcome.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Cultural Fest/Screenshot 2025-11-27 130859.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Cultural</div>
+                            <span class="event-badge-tag">Flagship · 28–29 Dec</span>
+                        </div>
+                        <h3 class="event-title">COLORIDO 2026</h3>
+                        <p class="event-description">The flagship annual cultural extravaganza at RVR &amp; JC College of Engineering. Join us on 28th and 29th December 2026 for two electrifying days of music, dance, drama, and artistic brilliance.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">28–29 Dec 2026</span>
+                            <span class="highlight-pill">120+ Performers</span>
+                            <span class="highlight-pill">Clubs Showcase</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Elevating the Talent of the Students</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Club Waltz -->
+                <div class="event-card dance" data-category="dance"
+                     data-title="Club Waltz"
+                     data-date="Annual Dance Gala"
+                     data-venue="Student Activities Center"
+                     data-coordinators="M Leeladhar, P Shanmukha Sai"
+                     data-highlights="Live Bands, Partner Choreography, Ballroom Workshops"
+                     data-rules="Dress code: Formal/Black-tie. Partners can register together or pair up during orientation workshops.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Club Waltz/WhatsApp Image 2025-12-01 at 20.49.47_e7db48e5.jpg');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Dance</div>
+                            <span class="event-badge-tag">Gala Night</span>
+                        </div>
+                        <h3 class="event-title">Club Waltz</h3>
+                        <p class="event-description">An elegant evening of dance, music, and networking. Showcase your moves and connect with fellow students in a sophisticated atmosphere.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Live Bands</span>
+                            <span class="highlight-pill">Partner Choreography</span>
+                            <span class="highlight-pill">Ballroom Workshops</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Black-tie ambience with modern flair</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Art Expo -->
+                <div class="event-card art" data-category="art"
+                     data-title="Art &amp; Design Expo"
+                     data-date="2-Day Exhibition"
+                     data-venue="Design Gallery &amp; Atrium"
+                     data-coordinators="A Yeswanth Chandra, K Sahithya"
+                     data-highlights="Immersive Galleries, Student Showcases, Hands-on Studios"
+                     data-rules="Submissions accepted across traditional, digital, 3D and mixed media. All original artworks eligible for jury awards.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Art Expo/DSC_0697.JPG');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Art &amp; Design</div>
+                            <span class="event-badge-tag">Exhibition</span>
+                        </div>
+                        <h3 class="event-title">Art &amp; Design Expo</h3>
+                        <p class="event-description">A showcase of student creativity featuring paintings, sculptures, digital art, and installations. Celebrate the artistic talent within our community.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Immersive Galleries</span>
+                            <span class="highlight-pill">Student Showcases</span>
+                            <span class="highlight-pill">Hands-on Studios</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Curated walkthroughs and live critiques</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Music Festival -->
+                <div class="event-card music" data-category="music"
+                     data-title="Music Festival"
+                     data-date="All-Day Concert"
+                     data-venue="SAC Amphitheatre"
+                     data-coordinators="M Vamsi, Sk Hussen"
+                     data-highlights="Headliner Acts, Open-Mic Stage, Food Village"
+                     data-rules="Battle of the Bands allows 15 mins stage time per team. Acoustic and electric setups supported.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Music Festival/IMG_0846.JPG');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Music</div>
+                            <span class="event-badge-tag">Live Fest</span>
+                        </div>
+                        <h3 class="event-title">Music Festival</h3>
+                        <p class="event-description">A day-long celebration of music featuring performances by student bands, solo artists, and guest musicians. Food, fun, and fantastic tunes!</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Headliner Acts</span>
+                            <span class="highlight-pill">Open-Mic Stage</span>
+                            <span class="highlight-pill">Food Village</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Sunset sessions followed by neon nights</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Literary Fest -->
+                <div class="event-card literature" data-category="literature"
+                     data-title="Literary Fest"
+                     data-date="2-Day Forum"
+                     data-venue="Library Seminar Hall"
+                     data-coordinators="G Sobha Serena, Sk Sohail"
+                     data-highlights="Poetry Slams, Writing Labs, Guest Authors"
+                     data-rules="Original essays, stories, and spoken-word poetry submissions. Plagiarism results in immediate disqualification.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Literary Fest/Screenshot 2025-12-04 141405.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Literature</div>
+                            <span class="event-badge-tag">Symposium</span>
+                        </div>
+                        <h3 class="event-title">Literary Fest</h3>
+                        <p class="event-description">A celebration of words, ideas, and creativity featuring poetry readings, book discussions, writing workshops, and author interactions.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Poetry Slams</span>
+                            <span class="highlight-pill">Writing Labs</span>
+                            <span class="highlight-pill">Guest Authors</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Bibliophile corners &amp; twilight readings</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Film Night -->
+                <div class="event-card cinema" data-category="cinema"
+                     data-title="Film Screening Night"
+                     data-date="Evening Gala"
+                     data-venue="Main Audi-Visual Theatre"
+                     data-coordinators="M Aravind Kumar, Sk Sohail"
+                     data-highlights="Student Premieres, Critics Panel, Audience Awards"
+                     data-rules="Short films under 15 minutes. Must include English subtitles. Original compositions or licensed soundtrack required.">
+                    <div class="event-image-wrapper">
+                        <div class="event-image" style="background-image: url('gallery/Film Night/Screenshot 2025-12-01 095657.png');"></div>
+                        <div class="event-gradient-overlay"></div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-meta-top">
+                            <div class="event-category">Cinema</div>
+                            <span class="event-badge-tag">Screening</span>
+                        </div>
+                        <h3 class="event-title">Film Screening Night</h3>
+                        <p class="event-description">An evening of cinematic excellence featuring student-made short films, documentaries, and an interactive Q&amp;A session with filmmakers.</p>
+                        <div class="event-highlights">
+                            <span class="highlight-pill">Student Premieres</span>
+                            <span class="highlight-pill">Critics Panel</span>
+                            <span class="highlight-pill">Audience Awards</span>
+                        </div>
+                        <div class="event-card-actions">
+                            <button class="btn-event-details" type="button">View Details <i>→</i></button>
+                            <span class="event-footer-note">Red-carpet arrivals &amp; spotlight moments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Universal Event Detail Modal -->
+    <div class="event-modal-backdrop" id="eventModal">
+        <div class="event-modal-container">
+            <button class="event-modal-close" id="eventModalClose" aria-label="Close modal">&times;</button>
+            <div class="event-modal-header">
+                <span class="event-modal-badge" id="modalCategory">Cultural</span>
+                <h3 class="event-modal-title" id="modalTitle">Cultural Fest</h3>
+                <div class="event-modal-meta">
+                    <div><span>📅 Date:</span> <strong id="modalDate">3 Days</strong></div>
+                    <div><span>📍 Venue:</span> <strong id="modalVenue">Auditorium</strong></div>
+                    <div id="modalPrizeWrap"><span>🏆 Cash Prize:</span> <strong id="modalPrize" style="color:#fcee0a">--</strong></div>
+                </div>
+            </div>
+            <div class="event-modal-body">
+                <div class="modal-section">
+                    <h4>About the Event</h4>
+                    <p id="modalDesc">Detailed description goes here.</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Highlights</h4>
+                    <p id="modalHighlights">Highlights</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Participation Guidelines</h4>
+                    <p id="modalRules">Rules</p>
+                </div>
+                <div class="modal-section">
+                    <h4>Student Leads</h4>
+                    <p id="modalCoordinators">Coordinators</p>
+                </div>
+            </div>
+            <div class="event-modal-footer">
+                <button type="button" class="btn btn-secondary" id="modalAddToCalBtn">
+                    <span>📅 Add to Calendar (.ics)</span>
+                </button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
+                   id="modalRegisterBtn"
+                   class="btn btn-primary"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    <span>Register Now</span>
+                    <i>↗</i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
+        <svg class="progress-ring" width="48" height="48">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+            <defs>
+                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe"/>
+                    <stop offset="50%" stop-color="#7768e5"/>
+                    <stop offset="100%" stop-color="#fc6441"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        <span class="arrow-up">↑</span>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EC &amp; CCAC</h3>
+                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="sico.html">SICO Portal</a></li>
+                        <li><a href="reports.html">Reports &amp; Archives</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Campus Address</h4>
+                    <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
+    <div class="hud-floating-controls">
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+            <span class="roller-slider"></span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
+                <span class="roller-icon">🌙</span>
+                <span class="roller-text">Dark</span>
+            </span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light">
+                <span class="roller-icon">☀️</span>
+                <span class="roller-text">Light</span>
+            </span>
+        </div>
+        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
+            <span>🔍 SEARCH SPOTLIGHT</span>
+            <kbd class="hud-kbd-key">Ctrl + K</kbd>
+        </button>
+    </div>
+
+    <!-- Campus Spotlight Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
+        <div class="cmd-palette">
+            <div class="cmd-search-box">
+                <span class="cmd-search-icon">🔍</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
+                <kbd class="hud-kbd-key">ESC</kbd>
+            </div>
+            <div class="cmd-results" id="cmdResults">
+                <!-- Results rendered dynamically by script.js -->
+            </div>
+            <div class="cmd-footer">
+                <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
+                <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
+                <span>EC &amp; CCAC · SICO Portal</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
