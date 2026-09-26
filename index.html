@@ -14,17 +14,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Futuristic HUD Telemetry Bar -->
-    <div class="hud-telemetry-bar">
-        <div class="hud-telemetry-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>SYS_STATUS:</strong> TEAM_ONLINE</span>
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> <strong>LOC:</strong> SICO_RVRJC // GNT_AP</span>
-            <span class="hud-tag"><strong>FREQ:</strong> 432.08 MHz</span>
+    <!-- Dignified Collegiate Top Bar -->
+    <div class="campus-announcement-bar">
+        <div class="campus-announcement-left">
+            <span class="campus-pill-badge">
+                <span class="campus-live-dot"></span>
+                <strong>R.V.R. &amp; J.C. College of Engineering (Autonomous)</strong>
+            </span>
+            <span class="campus-tag" style="opacity: 0.85;">NAAC 'A+' Grade &bull; NBA Accredited</span>
         </div>
-        <div class="hud-telemetry-right">
-            <span class="hud-tag"><strong>CADETS:</strong> 1,420+ ACTIVE</span>
-            <span class="hud-tag"><strong>ORBIT:</strong> AY 2026–2027</span>
-            <span class="hud-tag"><strong>CMD:</strong> PRESS <kbd class="hud-kbd-key">CTRL + K</kbd></span>
+        <div class="campus-announcement-right">
+            <span class="campus-tag">📍 Chowdavaram, Guntur, AP</span>
+            <span class="campus-tag">🗓️ Academic Year 2026–2027</span>
+            <span class="campus-tag" style="cursor: pointer;" onclick="document.getElementById('hudCmdTrigger').click()">🔍 Search <kbd class="hud-kbd-key">Ctrl + K</kbd></span>
         </div>
     </div>
 
@@ -91,68 +93,68 @@
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <span class="pulse-dot"></span>
-                    <span>SICO_RVRJC · EC &amp; CCAC</span>
-                    <span class="badge-live">AY 2026–2027</span>
+                    <span>STUDENT ACTIVITIES COUNCIL &bull; EC &amp; CCAC</span>
+                    <span class="badge-live">ESTD 1985</span>
                 </div>
-                <h1 class="hero-title">Where Culture Meets <span class="gradient-text cyber-decode">Creativity</span></h1>
-                <p class="hero-subtitle">Transforming Dreams into Reality through Passion, Talent &amp; Collaboration</p>
-                <p class="hero-description">We are the heartbeat of campus life, orchestrating unforgettable experiences that celebrate diversity, foster extraordinary talent, and build lifelong connections.</p>
+                <h1 class="hero-title">Where Campus Culture Meets <span class="hero-serif-highlight">Creative Spirit</span></h1>
+                <p class="hero-subtitle">The Heartbeat of Student Life, Expression &amp; Celebration at RVR&amp;JCCE</p>
+                <p class="hero-description">From high-voltage dance showdowns and acoustic rock battles to transformative community outreach and digital creativity &mdash; welcome to our vibrant campus society.</p>
                 <div class="hero-buttons">
                     <a href="events.html" class="btn btn-primary">
-                        <span>Explore Events</span>
+                        <span>Explore Campus Events</span>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
                        class="btn btn-secondary"
                        target="_blank"
                        rel="noopener noreferrer">
-                        <span>Register for SICO</span>
+                        <span>Register for SICO 2026–27</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                     </a>
                 </div>
+                <div style="margin-top: 14px;">
+                    <span class="human-script-note">✦ Handcrafted by students, for students &bull; Over 40 years of tradition ✦</span>
+                </div>
 
-                <!-- Live Flagship Fest Hologram Countdown HUD Widget -->
-                <div class="hud-countdown-widget" id="festCountdown">
-                    <div class="countdown-header">
-                        <div class="countdown-title-wrap">
-                            <span class="countdown-beacon"></span>
-                            <span class="countdown-title" id="cdTitle">COLORIDO 2026 FEST // COMMENCING IN: 28 DEC 2026</span>
-                            <span class="countdown-target">FLAGSHIP CULTURAL &amp; ARTS EXTRAVAGANZA · 28 &amp; 29 DECEMBER 2026</span>
+                <!-- Artisan Commemorative Festival Pass Card (Colorido 2026) -->
+                <div class="festival-pass-card" id="festCountdown">
+                    <div class="festival-pass-header">
+                        <div>
+                            <div class="festival-pass-kicker">
+                                <span class="countdown-beacon"></span>
+                                <span>OFFICIAL FESTIVAL PASS &bull; COLORIDO 2026</span>
+                            </div>
+                            <h2 class="festival-pass-title" id="cdTitle">Annual Cultural Extravaganza</h2>
+                            <p class="festival-pass-venue">28 &amp; 29 December 2026 &bull; Open Air Theatre &amp; Silver Jubilee Auditorium</p>
                         </div>
-                        <div class="countdown-telemetry">
-                            <span>TELEMETRY_SYNC: <strong style="color:var(--accent-cyan)">ACTIVE</strong></span>
-                            <span>FREQ: <strong>432.08 MHz</strong></span>
-                        </div>
-                    </div>
-                    <div class="countdown-grid">
-                        <div class="countdown-segment">
-                            <span class="countdown-number" id="cdDays">00</span>
-                            <span class="countdown-label">DAYS</span>
-                        </div>
-                        <div class="countdown-segment">
-                            <span class="countdown-number" id="cdHours">00</span>
-                            <span class="countdown-label">HOURS</span>
-                        </div>
-                        <div class="countdown-segment">
-                            <span class="countdown-number" id="cdMins">00</span>
-                            <span class="countdown-label">MINS</span>
-                        </div>
-                        <div class="countdown-segment">
-                            <span class="countdown-number" id="cdSecs">00</span>
-                            <span class="countdown-label">SECS</span>
-                        </div>
-                        <div class="countdown-segment segment-ms">
-                            <span class="countdown-number" id="cdMs">00</span>
-                            <span class="countdown-label">HUNDREDTHS</span>
+                        <div class="editorial-stamp">
+                            <span>PASS #CLR-2026</span>
                         </div>
                     </div>
-                    <div class="countdown-footer">
-                        <div class="countdown-status" id="cdStatus">
-                            <span>STATUS: COLORIDO 2026 STAGE READY // 28–29 DEC 2026 // 50+ EVENTS</span>
+                    <div class="festival-pass-grid">
+                        <div class="festival-pass-box">
+                            <span class="festival-pass-num" id="cdDays">00</span>
+                            <span class="festival-pass-label">Days</span>
                         </div>
-                        <a href="events.html" class="countdown-link">
-                            <span>VIEW COLORIDO SCHEDULE &amp; LINEUP</span>
-                            <i>→</i>
+                        <div class="festival-pass-box">
+                            <span class="festival-pass-num" id="cdHours">00</span>
+                            <span class="festival-pass-label">Hours</span>
+                        </div>
+                        <div class="festival-pass-box">
+                            <span class="festival-pass-num" id="cdMins">00</span>
+                            <span class="festival-pass-label">Minutes</span>
+                        </div>
+                        <div class="festival-pass-box">
+                            <span class="festival-pass-num" id="cdSecs">00</span>
+                            <span class="festival-pass-label">Seconds</span>
+                        </div>
+                    </div>
+                    <div class="festival-pass-footer">
+                        <div class="festival-pass-status" id="cdStatus">
+                            <span>✨ Registrations Open Across All Engineering &amp; PG Departments</span>
+                        </div>
+                        <a href="events.html" class="btn-card-primary" style="padding: 10px 22px; text-decoration: none; border-radius: 999px;">
+                            <span>Explore Festival Lineup &rarr;</span>
                         </a>
                     </div>
                 </div>
@@ -758,21 +760,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">🏛️</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            </div>
                             <span class="portal-badge">Our Mission</span>
                         </div>
                         <div class="portal-kicker">FOUNDATION &amp; HISTORY</div>
                         <h3 class="portal-card-title">About EC &amp; CCAC</h3>
-                        <p class="portal-card-desc">The heartbeat of student life at SICO_RVRJC. Discover our vision, leadership philosophy, animated stats, and community fostering extraordinary talent.</p>
+                        <p class="portal-card-desc">The heartbeat of student life at RVR&amp;JCCE. Discover our vision, leadership philosophy, faculty conveners, and four decades of fostering extraordinary student talent.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">50+ Events</span>
-                            <span class="portal-tag">1000+ Students</span>
-                            <span class="portal-tag">13+ Clubs</span>
+                            <span class="portal-tag">1400+ Students</span>
+                            <span class="portal-tag">13 Clubs</span>
                         </div>
                     </div>
                     <a href="about.html" class="portal-card-cta">
                         <span>Explore Our Story</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -780,12 +784,14 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">🎭</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            </div>
                             <span class="portal-badge">Celebrations</span>
                         </div>
-                        <div class="portal-kicker">CALENDAR &amp; PERFORMANCES</div>
+                        <div class="portal-kicker">CALENDAR &amp; STAGE</div>
                         <h3 class="portal-card-title">Flagship Events &amp; Fests</h3>
-                        <p class="portal-card-desc">From COLORIDO 2026 and Club Waltz to Battle of the Bands and Art Expos. Filter by category and access detailed guidelines and event coordinators.</p>
+                        <p class="portal-card-desc">From COLORIDO 2026 and Club Waltz to Battle of the Bands and Art Expos. Explore the complete 24-event schedule, guidelines, and cash prizes.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">COLORIDO 2026</span>
                             <span class="portal-tag">Dance Galas</span>
@@ -794,7 +800,7 @@
                     </div>
                     <a href="events.html" class="portal-card-cta">
                         <span>Explore Event Calendar</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -802,21 +808,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">🚀</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            </div>
                             <span class="portal-badge">Outreach</span>
                         </div>
                         <div class="portal-kicker">COMMUNITY &amp; IMPACT</div>
                         <h3 class="portal-card-title">SICO Initiatives</h3>
-                        <p class="portal-card-desc">Student Initiatives &amp; Community Outreach. Translate visionary ideas into tangible community impact through our Ideate • Collaborate • Impact framework.</p>
+                        <p class="portal-card-desc">Student Initiatives &amp; Community Outreach. Translate visionary ideas into tangible community impact through our Ideate &bull; Collaborate &bull; Impact framework.</p>
                         <div class="portal-tags">
-                            <span class="portal-tag">Social Impact</span>
+                            <span class="portal-tag">Social Welfare</span>
                             <span class="portal-tag">Proposal Guide</span>
-                            <span class="portal-tag">3-Pillar Roadmap</span>
+                            <span class="portal-tag">Student Drives</span>
                         </div>
                     </div>
                     <a href="sico.html" class="portal-card-cta">
                         <span>Discover Initiatives</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -824,21 +832,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">📊</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                            </div>
                             <span class="portal-badge">Archives</span>
                         </div>
-                        <div class="portal-kicker">RECORDS &amp; ACHIEVEMENTS</div>
+                        <div class="portal-kicker">RECORDS &amp; LEGACY</div>
                         <h3 class="portal-card-title">Reports &amp; Archives</h3>
-                        <p class="portal-card-desc">Official documentation, annual activity reports (PDF), milestone retrospectives, and event highlights organized by academic year.</p>
+                        <p class="portal-card-desc">Official documentation, annual activity reports (PDF), milestone retrospectives, and event highlights organized chronologically by academic year.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">Annual Reports</span>
                             <span class="portal-tag">Event Summaries</span>
-                            <span class="portal-tag">AY 2023–2026</span>
+                            <span class="portal-tag">PDF Archives</span>
                         </div>
                     </div>
                     <a href="reports.html" class="portal-card-cta">
                         <span>Access Reports</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -846,21 +856,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">👥</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
                             <span class="portal-badge">Leadership</span>
                         </div>
                         <div class="portal-kicker">STUDENT MINDS</div>
                         <h3 class="portal-card-title">Student Coordinators</h3>
-                        <p class="portal-card-desc">Meet the dynamic student coordinators and leaders who steer committee logistics, marketing, event operations, and creative vision.</p>
+                        <p class="portal-card-desc">Meet the dynamic student coordinators and club leads who steer committee logistics, production, stage operations, and creative direction.</p>
                         <div class="portal-tags">
-                            <span class="portal-tag">Core Coordinators</span>
-                            <span class="portal-tag">Faculty Guidance</span>
-                            <span class="portal-tag">Leadership</span>
+                            <span class="portal-tag">60+ Coordinators</span>
+                            <span class="portal-tag">All Branches</span>
+                            <span class="portal-tag">Club Heads</span>
                         </div>
                     </div>
                     <a href="team.html" class="portal-card-cta">
                         <span>Meet The Coordinators</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -868,21 +880,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">📸</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                            </div>
                             <span class="portal-badge">Memories</span>
                         </div>
                         <div class="portal-kicker">MOMENTS IN FOCUS</div>
                         <h3 class="portal-card-title">Visual Stories &amp; Gallery</h3>
-                        <p class="portal-card-desc">A curated photographic journey through cultural galas, live concerts, dance nights, art expos, and athletic triumphs at RVR&amp;JCCE.</p>
+                        <p class="portal-card-desc">A curated photographic journey through cultural galas, live concerts, dance nights, art expos, and athletic triumphs across the college campus.</p>
                         <div class="portal-tags">
                             <span class="portal-tag">High-Res Photos</span>
-                            <span class="portal-tag">Category Filters</span>
-                            <span class="portal-tag">Full Lightbox</span>
+                            <span class="portal-tag">Curated Albums</span>
+                            <span class="portal-tag">Campus Life</span>
                         </div>
                     </div>
                     <a href="gallery.html" class="portal-card-cta">
                         <span>View Photo Gallery</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
 
@@ -890,21 +904,23 @@
                 <div class="portal-card tilt-card">
                     <div class="tilt-inner">
                         <div class="portal-card-header">
-                            <div class="portal-icon">💬</div>
+                            <div class="portal-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
                             <span class="portal-badge">Support</span>
                         </div>
                         <div class="portal-kicker">CONNECT &amp; HELP</div>
                         <h3 class="portal-card-title">Contact &amp; FAQ Hub</h3>
-                        <p class="portal-card-desc">Have questions about joining the committee, On-Duty (OD) attendance, or new club proposals? Get in touch with our SAC team or view instant answers.</p>
+                        <p class="portal-card-desc">Have questions about joining a club, On-Duty (OD) event attendance, or proposing a new event? Get in touch with our SAC team or browse instant answers.</p>
                         <div class="portal-tags">
-                            <span class="portal-tag">Official Email</span>
+                            <span class="portal-tag">Official Desk</span>
                             <span class="portal-tag">Direct Helpline</span>
-                            <span class="portal-tag">FAQ Accordion</span>
+                            <span class="portal-tag">Instant FAQ</span>
                         </div>
                     </div>
                     <a href="contact.html" class="portal-card-cta">
                         <span>Get In Touch &amp; FAQ</span>
-                        <i>→</i>
+                        <i>&rarr;</i>
                     </a>
                 </div>
             </div>
@@ -1078,6 +1094,54 @@
                     <span>Explore Full Leadership Directory · All 60+ Coordinators</span>
                     <i>→</i>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Human Student Voices & Cultural Stories Section -->
+    <section class="campus-voices-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <div class="kicker-pill"><span class="dot"></span> VOICES OF RVR&amp;JC</div>
+                <br>
+                <h2 class="section-title">The Spirit Behind the Stage</h2>
+                <div class="title-underline" style="margin: 0 auto 16px;"></div>
+                <p class="section-description" style="max-width: 680px; margin: 0 auto;">Beyond the bright lights and championship trophies, here is what being part of EC &amp; CCAC truly means to our student performers and organizers.</p>
+            </div>
+            <div class="voices-grid">
+                <div class="voice-card">
+                    <div class="voice-quote-mark">&ldquo;</div>
+                    <p class="voice-quote-text">Colorido was the first time I stood before three thousand students singing with my band. EC &amp; CCAC didn&rsquo;t just give us a stage; they gave us a family and memories that define our college years.</p>
+                    <div class="voice-author">
+                        <div class="voice-author-initials">MK</div>
+                        <div>
+                            <div class="voice-author-name">M. Kalyan</div>
+                            <div class="voice-author-role">Music Club Lead &bull; B.Tech ECE</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-quote-mark">&ldquo;</div>
+                    <p class="voice-quote-text">From choreographing 40-member crews for Club Waltz to managing stage cues at midnight, you learn real leadership, empathy, and grace under pressure here.</p>
+                    <div class="voice-author">
+                        <div class="voice-author-initials">SP</div>
+                        <div>
+                            <div class="voice-author-name">S. Priya</div>
+                            <div class="voice-author-role">Dance Club Coordinator &bull; B.Tech CSE</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="voice-card">
+                    <div class="voice-quote-mark">&ldquo;</div>
+                    <p class="voice-quote-text">SICO initiatives showed me how engineers can directly touch lives &mdash; teaching basic digital skills at blind schools and organizing campus blood donation camps.</p>
+                    <div class="voice-author">
+                        <div class="voice-author-initials">RT</div>
+                        <div>
+                            <div class="voice-author-name">R. Tarun</div>
+                            <div class="voice-author-role">Helping Hands Volunteer &bull; B.Tech Mechanical</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

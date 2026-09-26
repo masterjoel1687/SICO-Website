@@ -3,7 +3,7 @@
    Human-Crafted Editorial & Cultural Design System
    ============================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* --- CSS Variables & Design Tokens --- */
 :root {
@@ -52,6 +52,7 @@
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-body: 'Plus Jakarta Sans', 'Outfit', sans-serif;
     --font-mono: 'DM Mono', monospace;
+    --font-script: 'Caveat', 'Playfair Display', cursive;
 
     --transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -190,6 +191,19 @@ body {
     overflow-x: hidden;
     position: relative;
     -webkit-font-smoothing: antialiased;
+}
+
+/* Authentic Tactile Paper Grain Texture Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.022'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
 }
 
 /* --- Warm Ambient Atmospheric Glows --- */
@@ -5518,5 +5532,475 @@ section {
 [data-theme="champagne"] .arrow-up {
     color: #1c1917;
 }
+
+/* =============================================================
+   BESPOKE HUMAN-CRAFTED EDITORIAL DESIGN SYSTEM
+   Artisanal touches, human typography, collegiate heritage & warmth
+   ============================================================= */
+
+/* --- Handcrafted Hero Typography & Accents --- */
+.hero-serif-highlight {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #fef08a 0%, #fbbf24 35%, #f59e0b 70%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    padding-right: 0.08em;
+    position: relative;
+    text-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="light"] .hero-serif-highlight,
+[data-theme="champagne"] .hero-serif-highlight {
+    background: linear-gradient(135deg, #92400e 0%, #b45309 50%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+
+/* --- Handwritten Human Script Annotation --- */
+.human-script-note {
+    font-family: var(--font-script);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--accent-amber);
+    letter-spacing: 0.015em;
+    display: inline-block;
+    transform: rotate(-2deg);
+    margin-top: 14px;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .human-script-note,
+[data-theme="champagne"] .human-script-note {
+    color: #b45309;
+}
+
+/* --- Collegiate Heritage Seal / Editorial Stamp --- */
+.editorial-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border: 1.5px dashed rgba(245, 158, 11, 0.45);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-gold);
+    background: rgba(245, 158, 11, 0.08);
+    transition: var(--transition);
+}
+
+[data-theme="light"] .editorial-stamp,
+[data-theme="champagne"] .editorial-stamp {
+    border-color: rgba(180, 83, 9, 0.45);
+    color: #92400e;
+    background: rgba(180, 83, 9, 0.07);
+}
+
+/* --- Human Collegiate Announcement Top Bar --- */
+.campus-announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 34px;
+    background: rgba(12, 15, 23, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.22);
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.8rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.015em;
+    color: #94a3b8;
+    user-select: none;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .campus-announcement-bar,
+[data-theme="champagne"] .campus-announcement-bar {
+    background: rgba(250, 248, 245, 0.96);
+    border-bottom: 1px solid rgba(180, 83, 9, 0.18);
+    color: #57534e;
+}
+
+.campus-announcement-left,
+.campus-announcement-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.campus-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .campus-pill-badge,
+[data-theme="champagne"] .campus-pill-badge {
+    color: #1c1917;
+}
+
+.campus-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+    animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* --- Commemorative Festival Pass Card (Colorido 2026) --- */
+.festival-pass-card {
+    margin: 36px auto 20px;
+    max-width: 860px;
+    width: 100%;
+    background: linear-gradient(145deg, rgba(20, 24, 36, 0.94) 0%, rgba(14, 17, 26, 0.96) 100%);
+    border: 1.5px solid rgba(245, 158, 11, 0.38);
+    border-radius: 20px;
+    padding: 28px 36px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .festival-pass-card,
+[data-theme="champagne"] .festival-pass-card {
+    background: linear-gradient(145deg, #ffffff 0%, #faf6ef 100%);
+    border: 1.5px solid rgba(180, 83, 9, 0.32);
+    box-shadow: 0 20px 50px rgba(180, 83, 9, 0.1), inset 0 1px 0 #ffffff;
+}
+
+.festival-pass-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed rgba(245, 158, 11, 0.28);
+}
+
+[data-theme="light"] .festival-pass-header,
+[data-theme="champagne"] .festival-pass-header {
+    border-bottom: 1px dashed rgba(180, 83, 9, 0.24);
+}
+
+.festival-pass-kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+}
+
+[data-theme="light"] .festival-pass-kicker,
+[data-theme="champagne"] .festival-pass-kicker {
+    color: #b45309;
+}
+
+.festival-pass-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 4px;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .festival-pass-title,
+[data-theme="champagne"] .festival-pass-title {
+    color: #1c1917;
+}
+
+.festival-pass-venue {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+[data-theme="light"] .festival-pass-venue,
+[data-theme="champagne"] .festival-pass-venue {
+    color: #57534e;
+}
+
+.festival-pass-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+@media (max-width: 640px) {
+    .festival-pass-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+.festival-pass-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    position: relative;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .festival-pass-box,
+[data-theme="champagne"] .festival-pass-box {
+    background: #ffffff;
+    border: 1px solid rgba(180, 83, 9, 0.18);
+    box-shadow: 0 4px 14px rgba(180, 83, 9, 0.06);
+}
+
+.festival-pass-num {
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #fef08a;
+    display: block;
+}
+
+[data-theme="light"] .festival-pass-num,
+[data-theme="champagne"] .festival-pass-num {
+    color: #b45309;
+}
+
+.festival-pass-label {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-top: 6px;
+    display: block;
+}
+
+[data-theme="light"] .festival-pass-label,
+[data-theme="champagne"] .festival-pass-label {
+    color: #78716c;
+}
+
+.festival-pass-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .festival-pass-footer,
+[data-theme="champagne"] .festival-pass-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.festival-pass-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #34d399;
+}
+
+[data-theme="light"] .festival-pass-status,
+[data-theme="champagne"] .festival-pass-status {
+    color: #059669;
+}
+
+/* --- Human Student Voices & Cultural Stories Section --- */
+.campus-voices-section {
+    padding: 70px 0;
+    position: relative;
+    background: linear-gradient(180deg, transparent 0%, rgba(245, 158, 11, 0.03) 50%, transparent 100%);
+}
+
+.voices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+}
+
+.voice-card {
+    background: rgba(19, 23, 34, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 32px;
+    position: relative;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.voice-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .voice-card,
+[data-theme="champagne"] .voice-card {
+    background: #ffffff;
+    border: 1px solid rgba(180, 83, 9, 0.16);
+    box-shadow: 0 10px 30px rgba(180, 83, 9, 0.06);
+}
+
+[data-theme="light"] .voice-card:hover,
+[data-theme="champagne"] .voice-card:hover {
+    border-color: rgba(180, 83, 9, 0.45);
+    box-shadow: 0 16px 40px rgba(180, 83, 9, 0.12);
+}
+
+.voice-quote-mark {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: rgba(245, 158, 11, 0.35);
+    margin-bottom: -10px;
+}
+
+[data-theme="light"] .voice-quote-mark,
+[data-theme="champagne"] .voice-quote-mark {
+    color: rgba(180, 83, 9, 0.28);
+}
+
+.voice-quote-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin-bottom: 22px;
+}
+
+[data-theme="light"] .voice-quote-text,
+[data-theme="champagne"] .voice-quote-text {
+    color: #1c1917;
+}
+
+.voice-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 16px;
+}
+
+[data-theme="light"] .voice-author,
+[data-theme="champagne"] .voice-author {
+    border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+.voice-author-initials {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.voice-author-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .voice-author-name,
+[data-theme="champagne"] .voice-author-name {
+    color: #1c1917;
+}
+
+.voice-author-role {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+[data-theme="light"] .voice-author-role,
+[data-theme="champagne"] .voice-author-role {
+    color: #78716c;
+}
+
+/* --- Clean SVG Vector Icons in Portal Cards --- */
+.portal-card-header .portal-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent-amber);
+    transition: var(--transition);
+}
+
+[data-theme="light"] .portal-card-header .portal-icon svg,
+[data-theme="champagne"] .portal-card-header .portal-icon svg {
+    stroke: #b45309;
+}
+
+.portal-card:hover .portal-card-header .portal-icon svg {
+    stroke: #ffffff;
+    transform: scale(1.1);
+}
+
+[data-theme="light"] .portal-card:hover .portal-card-header .portal-icon svg,
+[data-theme="champagne"] .portal-card:hover .portal-card-header .portal-icon svg {
+    stroke: #ffffff;
+}
+
+/* --- Clean SVG in Spotlight Modal --- */
+.cmd-item-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent-amber);
+}
+
+[data-theme="light"] .cmd-item-icon svg,
+[data-theme="champagne"] .cmd-item-icon svg {
+    stroke: #b45309;
+}
+
+.cmd-search-box .cmd-search-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text-muted);
+}
+
 
 
