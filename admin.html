@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EC &amp; CCAC · Coordinator Admin Studio (Live Website Updater)</title>
+    <title>EC &amp; CCAC · Coordinator Admin Studio (Live Website Updater &amp; Editor)</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
     
     <!-- Google Fonts -->
@@ -33,14 +33,14 @@
             </div>
             <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="events.html" class="nav-link">Events</a>
+                <a href="events.html" class="nav-link">Events &amp; Winners</a>
                 <a href="reports.html" class="nav-link">Reports</a>
                 <a href="gallery.html" class="nav-link">Gallery</a>
                 <a href="team.html" class="nav-link">Team</a>
             </nav>
             <div class="header-actions">
                 <span class="gform-user-pill" style="margin-right: 8px;">
-                    <span>🔒 Admin Mode</span>
+                    <span>🔒 Coordinator Admin</span>
                 </span>
                 <button type="button" class="gform-signout-btn" id="headerLockBtn" title="Lock Admin Studio">
                     <span>Lock Studio</span>
@@ -56,7 +56,7 @@
         <div class="admin-auth-card" id="adminAuthCard">
             <div class="admin-auth-icon-wrap">🔒</div>
             <h1 class="admin-auth-title">Coordinator Studio Access</h1>
-            <p class="admin-auth-subtitle">Restricted to authorized EC &amp; CCAC Student Leads &amp; Faculty Conveners. Enter security PIN to update campus events, circulars, and reports.</p>
+            <p class="admin-auth-subtitle">Restricted to authorized EC &amp; CCAC Student Leads &amp; Faculty Conveners. Enter security PIN to update campus events, circulars, completed events, and student winners lists.</p>
             
             <form id="adminAuthForm" onsubmit="return false;">
                 <div class="admin-auth-input-group">
@@ -100,50 +100,68 @@
                 <div class="gform-header-meta">
                     <div class="gform-status-badge">
                         <span class="gform-pulse-dot"></span>
-                        <span>LIVE WEBSITE SYNC ACTIVE</span>
+                        <span>LIVE WEBSITE SYNC &amp; EDIT ENGINE ACTIVE</span>
                     </div>
                     <div class="gform-user-pill">
-                        <span>Signed in as: <strong>SICO Administrator (Lead)</strong></span>
+                        <span>Signed in as: <strong>Master Joel / SICO Lead</strong></span>
                         <button type="button" class="gform-signout-btn" id="bodySignOutBtn">Sign Out</button>
                     </div>
                 </div>
                 
-                <h1 class="gform-header-title">EC &amp; CCAC · Campus Content Studio</h1>
+                <h1 class="gform-header-title">EC &amp; CCAC · Content &amp; Winners Studio</h1>
                 <p class="gform-header-desc">
-                    Google Form-style live website updater. Submissions immediately sync to the live website without editing any code. Attach official circular PDFs, event posters, academic annual reports, and high-resolution gallery memories.
+                    Google Form-style live website manager. Easily add or modify upcoming events with circular PDFs &amp; posters, update completed events and winners lists with registration numbers &amp; cash prize details, upload annual reports, and manage gallery photos.
                 </p>
                 
                 <div class="gform-header-nav-links">
                     <a href="index.html" class="gform-nav-chip" target="_blank"><span>🌐 Preview Homepage ↗</span></a>
-                    <a href="events.html" class="gform-nav-chip" target="_blank"><span>🎪 Preview Events &amp; Calendar ↗</span></a>
-                    <a href="reports.html" class="gform-nav-chip" target="_blank"><span>📄 Preview Reports Archive ↗</span></a>
-                    <a href="gallery.html" class="gform-nav-chip" target="_blank"><span>📸 Preview Gallery ↗</span></a>
+                    <a href="events.html" class="gform-nav-chip" target="_blank"><span>🎪 Events Calendar &amp; Big Gala ↗</span></a>
+                    <a href="events.html#winnersHallOfFame" class="gform-nav-chip" target="_blank"><span>🏆 Winners Hall of Fame ↗</span></a>
+                    <a href="reports.html" class="gform-nav-chip" target="_blank"><span>📄 Reports Archive ↗</span></a>
+                    <a href="gallery.html" class="gform-nav-chip" target="_blank"><span>📸 Photo Gallery ↗</span></a>
                 </div>
             </div>
+        </div>
+
+        <!-- Global In-Place Edit Mode Banner -->
+        <div class="gform-edit-banner" id="globalEditBanner">
+            <div class="gform-edit-banner-left">
+                <span style="font-size: 1.4rem;">✏️</span>
+                <div>
+                    <div><strong>Editing Active Record:</strong> <span id="editBannerTitle">Sample Event</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Modify any field below and click &ldquo;Save Modifications&rdquo; to update the live website immediately.</div>
+                </div>
+            </div>
+            <button type="button" class="gform-cancel-edit-btn" id="cancelEditModeBtn">✕ Cancel Edit</button>
         </div>
 
         <!-- Google Form Mode Switcher Tabs -->
         <div class="gform-tabs-bar" role="tablist">
             <button class="gform-tab-btn active" data-tab="eventTab" type="button">
-                <span>🎪 Add Event &amp; Circular / Poster</span>
+                <span>🎪 Upcoming Event &amp; Poster</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="completedTab" type="button">
+                <span>🏆 Completed Events &amp; Winners</span>
+                <span class="gform-tab-count" id="countCompletedTabBadge" style="background:#10b981; color:#fff;">3</span>
             </button>
             <button class="gform-tab-btn" data-tab="reportTab" type="button">
-                <span>📄 Add Annual Report &amp; Circular</span>
+                <span>📄 Annual Reports &amp; PDFs</span>
             </button>
             <button class="gform-tab-btn" data-tab="galleryTab" type="button">
-                <span>📸 Add Photo to Gallery</span>
+                <span>📸 Photo Gallery</span>
             </button>
             <button class="gform-tab-btn" data-tab="recordsTab" type="button">
-                <span>📋 Live Records Manager</span>
+                <span>📋 Live Records &amp; Edit Studio</span>
                 <span class="gform-tab-count" id="totalRecordsBadge">0</span>
             </button>
         </div>
 
         <!-- =====================================================
-             TAB 1: ADD EVENT & CIRCULAR / POSTER FORM
+             TAB 1: ADD / MODIFY UPCOMING EVENT & POSTER / CIRCULAR
              ===================================================== -->
         <div class="gform-tab-content" id="eventTab">
             <form id="addEventForm">
+                <input type="hidden" id="evEditId" value="">
                 
                 <!-- Q1: Event Title -->
                 <div class="gform-card">
@@ -153,7 +171,7 @@
                         </label>
                         <p class="gform-q-desc">Official name of the event, competition, or festival.</p>
                     </div>
-                    <input type="text" id="evTitle" class="gform-input" placeholder="e.g. AI Hackathon &amp; Web Duel 2026" required>
+                    <input type="text" id="evTitle" class="gform-input" placeholder="e.g. Club Waltz (Mega Dance Gala) / AI Hackathon 2026" required>
                 </div>
 
                 <!-- Q2: Organizing Club & Category -->
@@ -167,8 +185,8 @@
                     <div class="gform-grid-2">
                         <div>
                             <select id="evClub" class="gform-select" required>
-                                <option value="Digital Club">Digital Club</option>
                                 <option value="Dance Club">Dance Club</option>
+                                <option value="Digital Club">Digital Club</option>
                                 <option value="Music Club">Music Club</option>
                                 <option value="Pixel Craft Club">Pixel Craft Club</option>
                                 <option value="Helping Hands Club">Helping Hands Club</option>
@@ -181,8 +199,8 @@
                         </div>
                         <div>
                             <select id="evCategory" class="gform-select" required>
+                                <option value="dance">Performing Arts &amp; Dance Gala</option>
                                 <option value="tech">Technical &amp; Coding</option>
-                                <option value="dance">Performing Arts &amp; Dance</option>
                                 <option value="music">Music &amp; Acoustic Bands</option>
                                 <option value="art">Fine Arts &amp; Digital Design</option>
                                 <option value="social">Social Service &amp; Community</option>
@@ -203,14 +221,14 @@
                     </div>
                     <div class="gform-grid-2" style="margin-bottom: 12px;">
                         <div>
-                            <input type="text" id="evDate" class="gform-input" placeholder="e.g. 15th November 2026" required>
+                            <input type="text" id="evDate" class="gform-input" placeholder="e.g. 05th &amp; 06th October 2026" required>
                         </div>
                         <div>
-                            <input type="text" id="evTime" class="gform-input" placeholder="e.g. 10:00 AM IST" required>
+                            <input type="text" id="evTime" class="gform-input" placeholder="e.g. 12:00 Noon onwards" required>
                         </div>
                     </div>
                     <div>
-                        <input type="text" id="evVenue" class="gform-input" placeholder="e.g. SJB Seminar Hall / Open Air Theatre (OAT)" required>
+                        <input type="text" id="evVenue" class="gform-input" placeholder="e.g. Open Air Theatre (OAT) / SJB Seminar Hall" required>
                     </div>
                 </div>
 
@@ -222,7 +240,7 @@
                         </label>
                         <p class="gform-q-desc">Specify cash prizes, trophies, certificates, or On-Duty (OD) attendance credit.</p>
                     </div>
-                    <input type="text" id="evPrize" class="gform-input" placeholder="e.g. Up to ₹5,000 Cash + Merit Certificates &amp; OD Attendance">
+                    <input type="text" id="evPrize" class="gform-input" placeholder="e.g. Solo: ₹3,000 | Group: ₹3,000 Cash Awards">
                 </div>
 
                 <!-- Q5: Short Snippet -->
@@ -231,9 +249,9 @@
                         <label class="gform-q-title" for="evSnippet">
                             Card Summary Snippet <span class="gform-required-star">*</span>
                         </label>
-                        <p class="gform-q-desc">A punchy 1-2 sentence overview shown directly on the event card (max 140 chars).</p>
+                        <p class="gform-q-desc">A punchy 1-2 sentence overview shown directly on the event card (max 150 chars).</p>
                     </div>
-                    <input type="text" id="evSnippet" class="gform-input" maxlength="150" placeholder="e.g. Build creative full-stack AI websites and compete for grand cash awards." required>
+                    <input type="text" id="evSnippet" class="gform-input" maxlength="150" placeholder="e.g. Campus flagship dance spectacle: Solo, group crew battles &amp; Jodi rounds." required>
                 </div>
 
                 <!-- Q6: Detailed Description & Rules -->
@@ -252,17 +270,17 @@
                         <div class="gform-grid-2">
                             <div>
                                 <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Key Highlights (comma-separated):</label>
-                                <input type="text" id="evHighlights" class="gform-input" placeholder="e.g. Live Project Demos, Industry Judges, Food Kits">
+                                <input type="text" id="evHighlights" class="gform-input" placeholder="e.g. Live Project Demos, Industry Judges, DJ Stage">
                             </div>
                             <div>
                                 <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Rules &amp; Eligibility:</label>
-                                <input type="text" id="evRules" class="gform-input" placeholder="e.g. College ID card mandatory. Laptops permitted.">
+                                <input type="text" id="evRules" class="gform-input" placeholder="e.g. College ID card mandatory. Soundtrack before 04 Oct.">
                             </div>
                         </div>
                         <div class="gform-grid-2">
                             <div>
                                 <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Student Coordinators &amp; Phone:</label>
-                                <input type="text" id="evCoordinators" class="gform-input" placeholder="e.g. Master Joel (98480xxxxx), Club Lead (9440xxxxxx)">
+                                <input type="text" id="evCoordinators" class="gform-input" placeholder="e.g. M Leeladhar (Lead), P Shanmukha Sai">
                             </div>
                             <div>
                                 <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Registration Form Link (Google Form):</label>
@@ -278,7 +296,7 @@
                         <label class="gform-q-title">
                             📄 Official Circular / Brochure (PDF Document)
                         </label>
-                        <p class="gform-q-desc">Upload a PDF circular from your computer or paste a Google Drive / public document link. Students can view and download it directly.</p>
+                        <p class="gform-q-desc">Upload a PDF circular from your computer or paste a Google Drive / cloud link. Students can view and download it directly.</p>
                     </div>
                     
                     <div class="gform-source-switcher">
@@ -325,7 +343,7 @@
                         <label class="gform-q-title">
                             🖼️ Event Poster / Banner Image
                         </label>
-                        <p class="gform-q-desc">Upload a high-resolution poster or banner. It will be compressed automatically for fast browser loading.</p>
+                        <p class="gform-q-desc">Upload a poster or banner. It will be compressed automatically for fast browser loading.</p>
                     </div>
 
                     <div class="gform-source-switcher">
@@ -362,7 +380,7 @@
                 <!-- Action Bar -->
                 <div class="gform-action-bar">
                     <button type="submit" class="gform-btn-submit" id="submitEventBtn">
-                        <span>🚀 Publish Event to Live Website</span>
+                        <span id="submitEventBtnText">🚀 Publish Event to Live Website</span>
                     </button>
                     <button type="reset" class="gform-btn-clear" id="clearEventFormBtn">Clear Form</button>
                 </div>
@@ -371,10 +389,165 @@
         </div>
 
         <!-- =====================================================
-             TAB 2: ADD ANNUAL REPORT & CIRCULAR FORM
+             TAB 2: COMPLETED EVENTS & WINNERS DIRECTORY (NEW!)
+             ===================================================== -->
+        <div class="gform-tab-content" id="completedTab" style="display: none;">
+            <form id="addCompletedForm">
+                <input type="hidden" id="compEditId" value="">
+
+                <!-- Q1: Completed Event Title & Presets -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="compTitle">
+                            Completed Event Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select an institutional event or enter a custom completed event name.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <select id="compPresetSelect" class="gform-select" style="flex: 1; min-width: 250px;">
+                            <option value="">-- Choose Existing Campus Event or Enter Custom --</option>
+                            <option value="Clean Energy Poster Presentation">Renewable Energy Club · Clean Energy Poster Presentation</option>
+                            <option value="Youth Leadership & Oratory Conclave">Club Inspiraze · Youth Leadership Conclave</option>
+                            <option value="International Yoga Day Asana Championship">International Yoga Day · Asana Championship</option>
+                            <option value="Website Development & Anime Video Duel">Digital Club · Website Dev & Anime Video Making</option>
+                            <option value="Club Waltz (Mega Dance Gala)">Dance Club · Club Waltz (Mega Dance Gala)</option>
+                            <option value="Graduation Day Awards Ceremony">Graduation Day Awards & Degree Conferral</option>
+                            <option value="COLORIDO 2025 Cultural Finale">COLORIDO Cultural Festival Grand Finale</option>
+                        </select>
+                    </div>
+                    <input type="text" id="compTitle" class="gform-input" placeholder="e.g. Clean Energy Poster Presentation" required>
+                </div>
+
+                <!-- Q2: Organizing Club, Date & Venue -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Organizing Club, Completion Date &amp; Venue <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Institutional details and academic timing of the completed competition.</p>
+                    </div>
+                    <div class="gform-grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Club / Body:</label>
+                            <input type="text" id="compClub" class="gform-input" placeholder="e.g. Renewable Energy Club" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Completion Date:</label>
+                            <input type="text" id="compDate" class="gform-input" placeholder="e.g. 01st August 2026" required>
+                        </div>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Campus Venue:</label>
+                            <input type="text" id="compVenue" class="gform-input" placeholder="e.g. SJB Seminar Hall / OAT" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Total Cash Prize Pool Distributed:</label>
+                            <input type="text" id="compPrizePool" class="gform-input" placeholder="e.g. ₹6,000 Cash Prizes Awarded">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Event Summary / Outcome Remarks -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="compSummary">
+                            Event Summary &amp; Adjudication Remarks
+                        </label>
+                        <p class="gform-q-desc">Brief retrospective on the competition, faculty evaluators, and student participation.</p>
+                    </div>
+                    <textarea id="compSummary" class="gform-textarea" placeholder="Over 180 students participated. High quality technical solutions presented with outstanding peer engagement..."></textarea>
+                </div>
+
+                <!-- Q4: Official Result Sheet / Circular (PDF) -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Official Result Sheet / Circular (PDF Document)
+                        </label>
+                        <p class="gform-q-desc">Upload signed faculty evaluation sheet, circular, or certificate document.</p>
+                    </div>
+                    
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="compPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="compPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <div id="compPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="compPdfDropzone">
+                            <span class="gform-drop-icon">📑</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Winners Circular PDF here</div>
+                            <div class="gform-drop-hint">or click to browse (.pdf format)</div>
+                            <input type="file" id="compPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <div id="compPdfUrlWrap" style="display: none;">
+                        <input type="url" id="compPdfUrlInput" class="gform-input" placeholder="Paste link to signed circular (e.g. Google Drive link)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="compPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="compPdfNameDisplay">results.pdf</div>
+                                    <div class="gform-pdf-size" id="compPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="compPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview</button>
+                                <button type="button" class="gform-remove-file-btn" id="compPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5: Winners Directory (Dynamic Rows: Name, Regd No, Branch, Cash Prize) -->
+                <div class="gform-card" style="border-left-color: #10b981;">
+                    <div class="gform-q-header">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <label class="gform-q-title" style="margin: 0;">
+                                🏆 Student Winners Directory <span class="gform-required-star">*</span>
+                            </label>
+                            <span class="status-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 99px;">
+                                NAME · REGD NO · CASH PRIZE
+                            </span>
+                        </div>
+                        <p class="gform-q-desc">Add each student winner with their official registered number, department branch, and cash prize won.</p>
+                        
+                        <!-- Quick Templates Bar -->
+                        <div class="gform-quick-template-bar">
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">Quick Templates:</span>
+                            <button type="button" class="gform-btn-template" id="tpl123">⚡ 1st, 2nd &amp; 3rd Prize</button>
+                            <button type="button" class="gform-btn-template" id="tplSoloGroup">⚡ Solo &amp; Group Awards</button>
+                            <button type="button" class="gform-btn-template" id="btnAddWinnerRow">➕ Add Single Winner</button>
+                        </div>
+                    </div>
+
+                    <!-- Container for Winner Rows -->
+                    <div id="winnersRowsContainer">
+                        <!-- Dynamic Winner Rows rendered here -->
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitCompletedBtn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <span id="submitCompletedBtnText">🚀 Publish Completed Event &amp; Winners to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearCompletedFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 3: ADD / MODIFY ANNUAL REPORT & CIRCULAR FORM
              ===================================================== -->
         <div class="gform-tab-content" id="reportTab" style="display: none;">
             <form id="addReportForm">
+                <input type="hidden" id="repEditId" value="">
                 
                 <!-- Q1: Report Title -->
                 <div class="gform-card">
@@ -470,7 +643,7 @@
                 <!-- Action Bar -->
                 <div class="gform-action-bar">
                     <button type="submit" class="gform-btn-submit" id="submitReportBtn">
-                        <span>🚀 Publish Report to Live Website</span>
+                        <span id="submitReportBtnText">🚀 Publish Report to Live Website</span>
                     </button>
                     <button type="reset" class="gform-btn-clear" id="clearReportFormBtn">Clear Form</button>
                 </div>
@@ -479,10 +652,11 @@
         </div>
 
         <!-- =====================================================
-             TAB 3: ADD TO PHOTO GALLERY FORM
+             TAB 4: ADD / MODIFY PHOTO GALLERY FORM
              ===================================================== -->
         <div class="gform-tab-content" id="galleryTab" style="display: none;">
             <form id="addGalleryForm">
+                <input type="hidden" id="galEditId" value="">
                 
                 <!-- Q1: Photo Title -->
                 <div class="gform-card">
@@ -492,7 +666,7 @@
                         </label>
                         <p class="gform-q-desc">Name of the celebration or event depicted in the photo.</p>
                     </div>
-                    <input type="text" id="galTitle" class="gform-input" placeholder="e.g. Colorido 2026 Grand Finale Fireworks" required>
+                    <input type="text" id="galTitle" class="gform-input" placeholder="e.g. Club Waltz 2026 Dance Battles" required>
                 </div>
 
                 <!-- Q2: Gallery Category Filter -->
@@ -504,8 +678,8 @@
                         <p class="gform-q-desc">Select which gallery filter category this photo belongs to.</p>
                     </div>
                     <select id="galCategory" class="gform-select" required>
-                        <option value="cultural">Cultural Festival</option>
                         <option value="dance">Dance &amp; Performing Arts</option>
+                        <option value="cultural">Cultural Festival</option>
                         <option value="art">Art &amp; Design Expo</option>
                         <option value="music">Live Music &amp; Band Night</option>
                         <option value="literature">Literature &amp; Book Fest</option>
@@ -564,7 +738,7 @@
                 <!-- Action Bar -->
                 <div class="gform-action-bar">
                     <button type="submit" class="gform-btn-submit" id="submitGalleryBtn">
-                        <span>🚀 Add Photo to Live Gallery</span>
+                        <span id="submitGalleryBtnText">🚀 Add Photo to Live Gallery</span>
                     </button>
                     <button type="reset" class="gform-btn-clear" id="clearGalleryFormBtn">Clear Form</button>
                 </div>
@@ -573,14 +747,17 @@
         </div>
 
         <!-- =====================================================
-             TAB 4: LIVE RECORDS & STORAGE MANAGER
+             TAB 5: LIVE RECORDS & IN-PLACE EDIT STUDIO
              ===================================================== -->
         <div class="gform-tab-content" id="recordsTab" style="display: none;">
             
             <div class="gform-records-toolbar">
                 <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
                     <div class="gform-records-stat-pill">
-                        Live Events: <strong id="statEventsCount">0</strong>
+                        Upcoming: <strong id="statEventsCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Completed &amp; Winners: <strong id="statCompletedCount" style="color:#10b981;">0</strong>
                     </div>
                     <div class="gform-records-stat-pill">
                         Reports: <strong id="statReportsCount">0</strong>
@@ -607,13 +784,35 @@
                 </div>
             </div>
 
-            <!-- Published Events List -->
+            <!-- Instant Search Bar across all records -->
+            <div class="gform-search-box">
+                <span class="gform-search-icon">🔍</span>
+                <input type="text" id="recordsSearchInput" placeholder="Quick search by title, winner student name, regd no, or club to modify immediately...">
+            </div>
+
+            <!-- Published Completed Events & Winners -->
+            <div class="gform-card" style="border-left-color: #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        🏆 Completed Events &amp; Winners Lists (<span id="countCompletedList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'completedTab\']').click()">➕ Add Completed Event</button>
+                </div>
+                <div id="recordsCompletedContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Published Upcoming Events List -->
             <div class="gform-card">
-                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
-                    🎪 Published Dynamic Events (<span id="countEventsList">0</span>)
-                </h3>
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        🎪 Upcoming Events (<span id="countEventsList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'eventTab\']').click()">➕ Add Upcoming Event</button>
+                </div>
                 <div id="recordsEventsContainer">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom events published yet. Use Tab 1 above to add events!</p>
+                    <!-- Populated dynamically -->
                 </div>
             </div>
 
@@ -623,7 +822,7 @@
                     📄 Published Annual Reports &amp; Circulars (<span id="countReportsList">0</span>)
                 </h3>
                 <div id="recordsReportsContainer">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom reports published yet. Use Tab 2 above to add reports!</p>
+                    <!-- Populated dynamically -->
                 </div>
             </div>
 
@@ -633,7 +832,7 @@
                     📸 Published Gallery Photos (<span id="countGalleryList">0</span>)
                 </h3>
                 <div id="recordsGalleryContainer">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">No custom gallery photos published yet. Use Tab 3 above to add photos!</p>
+                    <!-- Populated dynamically -->
                 </div>
             </div>
 
@@ -644,16 +843,16 @@
              ===================================================== -->
         <div class="gform-success-card" id="submissionSuccessCard">
             <div class="gform-success-icon">✓</div>
-            <h2 class="gform-success-title">Response Recorded &amp; Published!</h2>
+            <h2 class="gform-success-title" id="successTitle">Changes Saved &amp; Synced!</h2>
             <p class="gform-success-desc" id="successDesc">
-                Your entry has been automatically synchronized to the live website. Visitors will now see the new card, circular PDF, and poster immediately without requiring any code edits.
+                Your entry has been automatically synchronized to the live website. Visitors will now see the new card, circular PDF, poster, and winners merit table immediately without requiring any code edits.
             </p>
             <div class="gform-success-actions">
                 <a href="events.html" id="successPreviewLink" target="_blank" class="gform-btn-submit" style="text-decoration: none;">
                     <span>👀 View on Live Website ↗</span>
                 </a>
                 <button type="button" class="gform-btn-clear" id="submitAnotherBtn">
-                    <span>➕ Submit another response</span>
+                    <span>➕ Submit or Edit Another</span>
                 </button>
                 <button type="button" class="gform-btn-tool" id="viewAllRecordsBtn">
                     <span>📋 View All Records</span>
@@ -693,13 +892,13 @@
         const headerLockBtn = document.getElementById('headerLockBtn');
         const bodySignOutBtn = document.getElementById('bodySignOutBtn');
 
-        // Check existing auth state
         function checkAuth() {
             const isAuth = sessionStorage.getItem('sico_admin_auth') === 'true' || 
                            localStorage.getItem('sico_admin_auth') === 'true';
             if (isAuth) {
                 authOverlay.classList.add('hidden');
                 adminStudioMain.style.display = 'block';
+                seedInitialCompletedEvents();
                 refreshRecordsManager();
             } else {
                 authOverlay.classList.remove('hidden');
@@ -708,7 +907,6 @@
             }
         }
 
-        // Toggle PIN visibility
         if (togglePinBtn && pinInput) {
             togglePinBtn.addEventListener('click', () => {
                 const isPassword = pinInput.getAttribute('type') === 'password';
@@ -717,13 +915,11 @@
             });
         }
 
-        // Handle unlock submission
         if (authForm) {
             authForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const entered = (pinInput.value || '').trim();
                 if (entered === DEFAULT_PIN || entered === 'admin2026') {
-                    // Success
                     authErrorMsg.style.display = 'none';
                     if (rememberCheck && rememberCheck.checked) {
                         localStorage.setItem('sico_admin_auth', 'true');
@@ -732,12 +928,12 @@
                     }
                     authOverlay.classList.add('hidden');
                     adminStudioMain.style.display = 'block';
+                    seedInitialCompletedEvents();
                     refreshRecordsManager();
                 } else {
-                    // Error Shake
                     authErrorMsg.style.display = 'block';
                     authCard.classList.remove('shake');
-                    void authCard.offsetWidth; // trigger reflow
+                    void authCard.offsetWidth;
                     authCard.classList.add('shake');
                     pinInput.select();
                 }
@@ -761,34 +957,122 @@
         checkAuth();
 
         // ---------------------------------------------------------
-        // 2. TAB SWITCHER
+        // 2. SEED DEFAULT COMPLETED EVENTS & WINNERS IF EMPTY
+        // ---------------------------------------------------------
+        function seedInitialCompletedEvents() {
+            if (!localStorage.getItem('sico_completed_events')) {
+                const defaultCompleted = [
+                    {
+                        id: 'comp_seed_1',
+                        title: 'Clean Energy Poster Presentation',
+                        club: 'Renewable Energy Club',
+                        date: '01st August 2026',
+                        venue: 'SJB Seminar Hall',
+                        prizePool: '₹6,000 Cash Prizes Awarded',
+                        summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations. Judged by senior electrical engineering faculty.',
+                        pdfUrl: '',
+                        pdfName: 'Clean_Energy_Poster_Winners.pdf',
+                        winners: [
+                            { rank: '1st', name: 'K. Vamsi Krishna', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
+                            { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
+                            { rank: '3rd', name: 'T. Rahul', regd: 'Y24CS105', branch: 'CSE', prize: '₹1,000 Cash', project: 'AI Solar Tracking Panel' }
+                        ]
+                    },
+                    {
+                        id: 'comp_seed_2',
+                        title: 'Youth Leadership & Oratory Conclave',
+                        club: 'Club Inspiraze',
+                        date: '25th July 2026',
+                        venue: 'Open Air Theatre (OAT)',
+                        prizePool: '₹4,000 Cash & Trophies',
+                        summary: 'Annual campus oratorical conclave on ethics in technology and social impact. Evaluated by humanities department and alumni guests.',
+                        pdfUrl: '',
+                        pdfName: 'Inspiraze_Oratory_Results.pdf',
+                        winners: [
+                            { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
+                            { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
+                        ]
+                    },
+                    {
+                        id: 'comp_seed_3',
+                        title: 'International Yoga Day Asana Championship',
+                        club: 'Wellness & Sports Club',
+                        date: '21st June 2026',
+                        venue: 'Open Air Theatre (OAT)',
+                        prizePool: '₹2,500 Cash & Medals',
+                        summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
+                        pdfUrl: '',
+                        pdfName: 'Yoga_Day_Official_Results.pdf',
+                        winners: [
+                            { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
+                            { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
+                        ]
+                    }
+                ];
+                localStorage.setItem('sico_completed_events', JSON.stringify(defaultCompleted));
+            }
+        }
+
+        // ---------------------------------------------------------
+        // 3. TAB SWITCHER & EDIT BANNER
         // ---------------------------------------------------------
         const tabBtns = document.querySelectorAll('.gform-tab-btn');
         const tabContents = document.querySelectorAll('.gform-tab-content');
         const successCard = document.getElementById('submissionSuccessCard');
+        const globalEditBanner = document.getElementById('globalEditBanner');
+        const editBannerTitle = document.getElementById('editBannerTitle');
+        const cancelEditModeBtn = document.getElementById('cancelEditModeBtn');
+
+        function switchTab(targetTabId) {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            const activeBtn = document.querySelector(`.gform-tab-btn[data-tab="${targetTabId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            tabContents.forEach(tc => tc.style.display = 'none');
+            if (successCard) successCard.classList.remove('active');
+
+            const activeContent = document.getElementById(targetTabId);
+            if (activeContent) activeContent.style.display = 'block';
+
+            if (targetTabId === 'recordsTab') {
+                refreshRecordsManager();
+            }
+        }
 
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const targetTabId = btn.getAttribute('data-tab');
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                tabContents.forEach(tc => tc.style.display = 'none');
-                if (successCard) successCard.classList.remove('active');
-
-                const activeContent = document.getElementById(targetTabId);
-                if (activeContent) activeContent.style.display = 'block';
-
-                if (targetTabId === 'recordsTab') {
-                    refreshRecordsManager();
-                }
-            });
+            btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
         });
 
+        function clearEditMode() {
+            globalEditBanner.classList.remove('active');
+            // Reset Event form
+            document.getElementById('evEditId').value = '';
+            document.getElementById('submitEventBtnText').textContent = '🚀 Publish Event to Live Website';
+            // Reset Completed form
+            document.getElementById('compEditId').value = '';
+            document.getElementById('submitCompletedBtnText').textContent = '🚀 Publish Completed Event & Winners to Live Website';
+            // Reset Report form
+            document.getElementById('repEditId').value = '';
+            document.getElementById('submitReportBtnText').textContent = '🚀 Publish Report to Live Website';
+            // Reset Gallery form
+            document.getElementById('galEditId').value = '';
+            document.getElementById('submitGalleryBtnText').textContent = '🚀 Add Photo to Live Gallery';
+        }
+
+        if (cancelEditModeBtn) {
+            cancelEditModeBtn.addEventListener('click', () => {
+                clearEditMode();
+                document.getElementById('addEventForm').reset();
+                document.getElementById('addCompletedForm').reset();
+                document.getElementById('addReportForm').reset();
+                document.getElementById('addGalleryForm').reset();
+                switchTab('recordsTab');
+            });
+        }
+
         // ---------------------------------------------------------
-        // 3. FILE COMPRESSOR & HELPER UTILITIES
+        // 4. FILE UTILITIES (COMPRESSOR & PDF LOADER)
         // ---------------------------------------------------------
-        // Compress Image to lightweight JPEG Base64
         function compressImage(file, maxWidth = 1200, quality = 0.82) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -816,7 +1100,6 @@
             });
         }
 
-        // Read PDF File to Base64 Data URL
         function readPdfFile(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -826,7 +1109,6 @@
             });
         }
 
-        // Format file size in KB/MB
         function formatBytes(bytes) {
             if (!bytes || bytes === 0) return '0 KB';
             const k = 1024;
@@ -836,17 +1118,15 @@
         }
 
         // ---------------------------------------------------------
-        // 4. EVENT FORM ATTACHMENT HANDLERS (PDF & POSTER)
+        // 5. EVENT FORM ATTACHMENT HANDLERS (PDF & POSTER)
         // ---------------------------------------------------------
         let currentEventPdf = { url: '', name: '', size: '' };
         let currentEventPoster = '';
 
-        // Mode switchers
         const evPdfModeUpload = document.getElementById('evPdfModeUpload');
         const evPdfModeUrl = document.getElementById('evPdfModeUrl');
         const evPdfDropzoneWrap = document.getElementById('evPdfDropzoneWrap');
         const evPdfUrlWrap = document.getElementById('evPdfUrlWrap');
-        const evPdfDropzone = document.getElementById('evPdfDropzone');
         const evPdfFileInput = document.getElementById('evPdfFileInput');
         const evPdfUrlInput = document.getElementById('evPdfUrlInput');
         const evPdfPreviewWrap = document.getElementById('evPdfPreviewWrap');
@@ -974,16 +1254,16 @@
             });
         }
 
-        // ---------------------------------------------------------
-        // 5. SUBMIT EVENT
-        // ---------------------------------------------------------
+        // Handle Event Submission (Add & In-Place Modify)
         const addEventForm = document.getElementById('addEventForm');
         if (addEventForm) {
             addEventForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const editId = document.getElementById('evEditId').value;
+                const existingEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
 
-                const newEvent = {
-                    id: 'ev_' + Date.now(),
+                const eventData = {
+                    id: editId || ('ev_' + Date.now()),
                     title: document.getElementById('evTitle').value.trim(),
                     club: document.getElementById('evClub').value,
                     category: document.getElementById('evCategory').value,
@@ -1001,19 +1281,27 @@
                     pdfUrl: currentEventPdf.url,
                     pdfName: currentEventPdf.name,
                     posterUrl: currentEventPoster,
-                    createdAt: new Date().toISOString()
+                    updatedAt: new Date().toISOString()
                 };
 
-                const existingEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
-                existingEvents.push(newEvent);
-                localStorage.setItem('sico_custom_events', JSON.stringify(existingEvents));
+                if (editId) {
+                    // Update existing
+                    const idx = existingEvents.findIndex(ev => ev.id === editId);
+                    if (idx >= 0) existingEvents[idx] = eventData;
+                    else existingEvents.push(eventData);
+                } else {
+                    existingEvents.push(eventData);
+                }
 
-                // Show success screen
+                localStorage.setItem('sico_custom_events', JSON.stringify(existingEvents));
+                clearEditMode();
+
                 tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successTitle').textContent = editId ? 'Modifications Saved & Synced!' : 'Event Published Live!';
                 document.getElementById('successDesc').innerHTML = `
-                    <strong>${newEvent.title}</strong> has been successfully published to the live website with 
-                    ${newEvent.pdfUrl ? 'attached official circular PDF' : 'event details'} and 
-                    ${newEvent.posterUrl ? 'custom poster banner' : 'standard club branding'}.
+                    <strong>${eventData.title}</strong> has been successfully updated on the live website with 
+                    ${eventData.pdfUrl ? 'attached official circular PDF' : 'event details'} and 
+                    ${eventData.posterUrl ? 'custom poster banner' : 'standard club branding'}.
                 `;
                 document.getElementById('successPreviewLink').href = 'events.html';
                 successCard.classList.add('active');
@@ -1023,7 +1311,227 @@
         }
 
         // ---------------------------------------------------------
-        // 6. REPORT FORM HANDLERS & SUBMIT
+        // 6. COMPLETED EVENTS & WINNERS BUILDER (NAME, REGD NO, PRIZE)
+        // ---------------------------------------------------------
+        let currentCompletedPdf = { url: '', name: '', size: '' };
+        const compPdfModeUpload = document.getElementById('compPdfModeUpload');
+        const compPdfModeUrl = document.getElementById('compPdfModeUrl');
+        const compPdfDropzoneWrap = document.getElementById('compPdfDropzoneWrap');
+        const compPdfUrlWrap = document.getElementById('compPdfUrlWrap');
+        const compPdfFileInput = document.getElementById('compPdfFileInput');
+        const compPdfUrlInput = document.getElementById('compPdfUrlInput');
+        const compPdfPreviewWrap = document.getElementById('compPdfPreviewWrap');
+        const compPdfNameDisplay = document.getElementById('compPdfNameDisplay');
+        const compPdfSizeDisplay = document.getElementById('compPdfSizeDisplay');
+        const compPdfPreviewBtn = document.getElementById('compPdfPreviewBtn');
+        const compPdfRemoveBtn = document.getElementById('compPdfRemoveBtn');
+        const compPresetSelect = document.getElementById('compPresetSelect');
+        const winnersRowsContainer = document.getElementById('winnersRowsContainer');
+
+        if (compPresetSelect) {
+            compPresetSelect.addEventListener('change', () => {
+                if (compPresetSelect.value) {
+                    document.getElementById('compTitle').value = compPresetSelect.value;
+                    if (compPresetSelect.value.includes('Dance')) {
+                        document.getElementById('compClub').value = 'Dance Club';
+                        document.getElementById('compVenue').value = 'Open Air Theatre (OAT)';
+                    } else if (compPresetSelect.value.includes('Energy')) {
+                        document.getElementById('compClub').value = 'Renewable Energy Club';
+                        document.getElementById('compVenue').value = 'SJB Seminar Hall';
+                    } else if (compPresetSelect.value.includes('Digital') || compPresetSelect.value.includes('Anime')) {
+                        document.getElementById('compClub').value = 'Digital Club';
+                        document.getElementById('compVenue').value = 'Cyber Block Seminar Hall';
+                    }
+                }
+            });
+        }
+
+        compPdfModeUpload.addEventListener('click', () => {
+            compPdfModeUpload.classList.add('active');
+            compPdfModeUrl.classList.remove('active');
+            compPdfDropzoneWrap.style.display = 'block';
+            compPdfUrlWrap.style.display = 'none';
+        });
+
+        compPdfModeUrl.addEventListener('click', () => {
+            compPdfModeUrl.classList.add('active');
+            compPdfModeUpload.classList.remove('active');
+            compPdfDropzoneWrap.style.display = 'none';
+            compPdfUrlWrap.style.display = 'block';
+        });
+
+        if (compPdfFileInput) {
+            compPdfFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentCompletedPdf.name = file.name;
+                currentCompletedPdf.size = formatBytes(file.size);
+                currentCompletedPdf.url = await readPdfFile(file);
+                compPdfNameDisplay.textContent = currentCompletedPdf.name;
+                compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+                compPdfPreviewWrap.classList.add('active');
+            });
+        }
+
+        if (compPdfUrlInput) {
+            compPdfUrlInput.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    currentCompletedPdf.url = url;
+                    currentCompletedPdf.name = 'Results_Circular.pdf';
+                    currentCompletedPdf.size = 'Cloud Document';
+                    compPdfNameDisplay.textContent = currentCompletedPdf.name;
+                    compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+                    compPdfPreviewWrap.classList.add('active');
+                } else {
+                    compPdfPreviewWrap.classList.remove('active');
+                }
+            });
+        }
+
+        if (compPdfRemoveBtn) {
+            compPdfRemoveBtn.addEventListener('click', () => {
+                currentCompletedPdf = { url: '', name: '', size: '' };
+                if (compPdfFileInput) compPdfFileInput.value = '';
+                if (compPdfUrlInput) compPdfUrlInput.value = '';
+                compPdfPreviewWrap.classList.remove('active');
+            });
+        }
+
+        if (compPdfPreviewBtn) {
+            compPdfPreviewBtn.addEventListener('click', () => {
+                if (currentCompletedPdf.url) {
+                    const win = window.open();
+                    win.document.write(`<iframe src="${currentCompletedPdf.url}" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>`);
+                }
+            });
+        }
+
+        // Add Winner Row Function
+        window.createWinnerRow = function(data = {}) {
+            const row = document.createElement('div');
+            row.className = 'gform-winner-row';
+            row.innerHTML = `
+                <div class="gform-winner-grid">
+                    <div>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Rank / Prize:</label>
+                        <select class="gform-select w-rank" style="padding:8px 10px; font-weight:700;">
+                            <option value="1st" ${data.rank === '1st' ? 'selected' : ''}>🥇 1st Prize</option>
+                            <option value="2nd" ${data.rank === '2nd' ? 'selected' : ''}>🥈 2nd Prize</option>
+                            <option value="3rd" ${data.rank === '3rd' ? 'selected' : ''}>🥉 3rd Prize</option>
+                            <option value="Special" ${data.rank === 'Special' ? 'selected' : ''}>🎖️ Special Mention</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Winner Student Name *:</label>
+                        <input type="text" class="gform-input w-name" placeholder="e.g. K. Vamsi Krishna" value="${data.name || ''}" required style="padding:8px 10px;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Regd. No *:</label>
+                        <input type="text" class="gform-input w-regd" placeholder="e.g. Y23EE042" value="${data.regd || ''}" required style="padding:8px 10px; font-family:var(--font-mono);">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Branch / Dept:</label>
+                        <input type="text" class="gform-input w-branch" placeholder="e.g. EEE / CSE" value="${data.branch || 'CSE'}" style="padding:8px 10px;">
+                    </div>
+                    <div>
+                        <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Cash Prize Won *:</label>
+                        <input type="text" class="gform-input w-prize" placeholder="e.g. ₹3,000 Cash" value="${data.prize || '₹2,000 Cash'}" required style="padding:8px 10px; font-weight:700; color:#10b981;">
+                    </div>
+                    <div style="padding-top: 18px;">
+                        <button type="button" class="gform-btn-remove-row" onclick="this.closest('.gform-winner-row').remove()" title="Remove Winner Row">✕</button>
+                    </div>
+                </div>
+                <div style="margin-top: 8px;">
+                    <input type="text" class="gform-input w-project" placeholder="Performance / Project Title (e.g. Solar Tracking Microgrid / Solo Classical)" value="${data.project || ''}" style="padding:6px 10px; font-size:0.85rem;">
+                </div>
+            `;
+            winnersRowsContainer.appendChild(row);
+        };
+
+        // Quick template buttons
+        document.getElementById('btnAddWinnerRow').addEventListener('click', () => createWinnerRow());
+        document.getElementById('tpl123').addEventListener('click', () => {
+            winnersRowsContainer.innerHTML = '';
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'CSE', prize: '₹3,000 Cash', project: '' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'IT', prize: '₹2,000 Cash', project: '' });
+            createWinnerRow({ rank: '3rd', name: '', regd: '', branch: 'ECE', prize: '₹1,000 Cash', project: '' });
+        });
+        document.getElementById('tplSoloGroup').addEventListener('click', () => {
+            winnersRowsContainer.innerHTML = '';
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'CSE', prize: '₹3,000 (Group 1st)', project: 'Group Crew Showdown' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'IT', prize: '₹2,000 (Group 2nd)', project: 'Group Crew Showdown' });
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'ECE', prize: '₹1,500 (Solo 1st)', project: 'Solo Western Dance' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'EEE', prize: '₹1,000 (Solo 2nd)', project: 'Solo Western Dance' });
+        });
+
+        // Initialize with default template
+        document.getElementById('tpl123').click();
+
+        // Submit Completed Event & Winners
+        const addCompletedForm = document.getElementById('addCompletedForm');
+        if (addCompletedForm) {
+            addCompletedForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const editId = document.getElementById('compEditId').value;
+                const rows = winnersRowsContainer.querySelectorAll('.gform-winner-row');
+                if (rows.length === 0) {
+                    alert('Please add at least one winner before publishing.');
+                    return;
+                }
+
+                const winnersList = [];
+                rows.forEach(r => {
+                    winnersList.push({
+                        rank: r.querySelector('.w-rank').value,
+                        name: r.querySelector('.w-name').value.trim(),
+                        regd: r.querySelector('.w-regd').value.trim().toUpperCase(),
+                        branch: r.querySelector('.w-branch').value.trim().toUpperCase(),
+                        prize: r.querySelector('.w-prize').value.trim(),
+                        project: r.querySelector('.w-project').value.trim()
+                    });
+                });
+
+                const compData = {
+                    id: editId || ('comp_' + Date.now()),
+                    title: document.getElementById('compTitle').value.trim(),
+                    club: document.getElementById('compClub').value.trim(),
+                    date: document.getElementById('compDate').value.trim(),
+                    venue: document.getElementById('compVenue').value.trim(),
+                    prizePool: document.getElementById('compPrizePool').value.trim() || 'Cash Prizes Awarded',
+                    summary: document.getElementById('compSummary').value.trim(),
+                    pdfUrl: currentCompletedPdf.url,
+                    pdfName: currentCompletedPdf.name,
+                    winners: winnersList,
+                    updatedAt: new Date().toISOString()
+                };
+
+                const completedEvents = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+                if (editId) {
+                    const idx = completedEvents.findIndex(c => c.id === editId);
+                    if (idx >= 0) completedEvents[idx] = compData;
+                    else completedEvents.push(compData);
+                } else {
+                    completedEvents.unshift(compData);
+                }
+
+                localStorage.setItem('sico_completed_events', JSON.stringify(completedEvents));
+                clearEditMode();
+
+                tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successTitle').textContent = editId ? 'Winners List Updated & Synced!' : 'Completed Event & Winners Published!';
+                document.getElementById('successDesc').innerHTML = `
+                    <strong>${compData.title}</strong> results with <strong>${winnersList.length} verified winners</strong> (names, regd numbers &amp; cash awards) have been published directly to the <em>Champions &amp; Winners Hall of Fame</em> on the website!
+                `;
+                document.getElementById('successPreviewLink').href = 'events.html#winnersHallOfFame';
+                successCard.classList.add('active');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+                refreshRecordsManager();
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 7. REPORT FORM HANDLERS & SUBMIT (ADD & IN-PLACE MODIFY)
         // ---------------------------------------------------------
         let currentReportPdf = { url: '', name: '', size: '' };
         const repPdfModeUpload = document.getElementById('repPdfModeUpload');
@@ -1104,29 +1612,39 @@
         if (addReportForm) {
             addReportForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const editId = document.getElementById('repEditId').value;
                 if (!currentReportPdf.url) {
                     alert('Please attach an official PDF document or enter a document URL before publishing.');
                     return;
                 }
 
-                const newReport = {
-                    id: 'rep_' + Date.now(),
+                const reportData = {
+                    id: editId || ('rep_' + Date.now()),
                     title: document.getElementById('repTitle').value.trim(),
                     academicYear: document.getElementById('repYear').value.trim(),
                     category: document.getElementById('repCategory').value,
                     summary: document.getElementById('repSummary').value.trim(),
                     pdfUrl: currentReportPdf.url,
                     pdfName: currentReportPdf.name,
-                    createdAt: new Date().toISOString()
+                    updatedAt: new Date().toISOString()
                 };
 
                 const existingReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
-                existingReports.push(newReport);
+                if (editId) {
+                    const idx = existingReports.findIndex(r => r.id === editId);
+                    if (idx >= 0) existingReports[idx] = reportData;
+                    else existingReports.push(reportData);
+                } else {
+                    existingReports.push(reportData);
+                }
+
                 localStorage.setItem('sico_custom_reports', JSON.stringify(existingReports));
+                clearEditMode();
 
                 tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successTitle').textContent = editId ? 'Report Modifications Saved!' : 'Report Published Live!';
                 document.getElementById('successDesc').innerHTML = `
-                    <strong>${newReport.title}</strong> (${newReport.academicYear}) has been published to the Reports &amp; Archives page with direct PDF download functionality.
+                    <strong>${reportData.title}</strong> (${reportData.academicYear}) has been published to the Reports &amp; Archives page with direct PDF download functionality.
                 `;
                 document.getElementById('successPreviewLink').href = 'reports.html';
                 successCard.classList.add('active');
@@ -1136,7 +1654,7 @@
         }
 
         // ---------------------------------------------------------
-        // 7. GALLERY FORM HANDLERS & SUBMIT
+        // 8. GALLERY FORM HANDLERS & SUBMIT (ADD & IN-PLACE MODIFY)
         // ---------------------------------------------------------
         let currentGalleryImg = '';
         const galModeUpload = document.getElementById('galModeUpload');
@@ -1199,28 +1717,38 @@
         if (addGalleryForm) {
             addGalleryForm.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const editId = document.getElementById('galEditId').value;
                 if (!currentGalleryImg) {
                     alert('Please upload an image file or provide an image link.');
                     return;
                 }
 
-                const newPhoto = {
-                    id: 'gal_' + Date.now(),
+                const photoData = {
+                    id: editId || ('gal_' + Date.now()),
                     title: document.getElementById('galTitle').value.trim(),
                     category: document.getElementById('galCategory').value,
                     caption: document.getElementById('galCaption').value.trim() || document.getElementById('galTitle').value.trim(),
                     imageUrl: currentGalleryImg,
-                    createdAt: new Date().toISOString()
+                    updatedAt: new Date().toISOString()
                 };
 
                 const existingPhotos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
-                existingPhotos.push(newPhoto);
+                if (editId) {
+                    const idx = existingPhotos.findIndex(p => p.id === editId);
+                    if (idx >= 0) existingPhotos[idx] = photoData;
+                    else existingPhotos.push(photoData);
+                } else {
+                    existingPhotos.push(photoData);
+                }
+
                 localStorage.setItem('sico_custom_gallery', JSON.stringify(existingPhotos));
+                clearEditMode();
 
                 tabContents.forEach(tc => tc.style.display = 'none');
+                document.getElementById('successTitle').textContent = editId ? 'Photo Details Updated!' : 'Photo Added to Gallery!';
                 document.getElementById('successDesc').innerHTML = `
-                    <strong>${newPhoto.title}</strong> has been added to the Photo Gallery under the 
-                    <em>${newPhoto.category.toUpperCase()}</em> collection with full-screen lightbox preview support.
+                    <strong>${photoData.title}</strong> has been saved in the Photo Gallery under the 
+                    <em>${photoData.category.toUpperCase()}</em> collection with full-screen lightbox preview support.
                 `;
                 document.getElementById('successPreviewLink').href = 'gallery.html';
                 successCard.classList.add('active');
@@ -1230,60 +1758,224 @@
         }
 
         // ---------------------------------------------------------
-        // 8. SUCCESS SCREEN CONTROLS
+        // 9. IN-PLACE EDIT TRIGGERS (MODIFY ANYTHING)
         // ---------------------------------------------------------
-        const submitAnotherBtn = document.getElementById('submitAnotherBtn');
-        const viewAllRecordsBtn = document.getElementById('viewAllRecordsBtn');
+        window.editRecord = function(type, id) {
+            clearEditMode();
 
-        if (submitAnotherBtn) {
-            submitAnotherBtn.addEventListener('click', () => {
-                successCard.classList.remove('active');
-                // Open first tab by default
-                tabBtns[0].click();
-            });
+            if (type === 'event') {
+                const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+                const ev = events.find(e => e.id === id);
+                if (!ev) return;
+
+                document.getElementById('evEditId').value = ev.id;
+                document.getElementById('evTitle').value = ev.title;
+                document.getElementById('evClub').value = ev.club;
+                document.getElementById('evCategory').value = ev.category || 'tech';
+                document.getElementById('evDate').value = ev.date;
+                document.getElementById('evTime').value = ev.time || '';
+                document.getElementById('evVenue').value = ev.venue;
+                document.getElementById('evPrize').value = ev.prize || '';
+                document.getElementById('evSnippet').value = ev.snippet || '';
+                document.getElementById('evDesc').value = ev.desc || '';
+                document.getElementById('evHighlights').value = ev.highlights || '';
+                document.getElementById('evRules').value = ev.rules || '';
+                document.getElementById('evCoordinators').value = ev.coordinators || '';
+                document.getElementById('evRegLink').value = ev.regLink || '';
+
+                if (ev.pdfUrl) {
+                    currentEventPdf = { url: ev.pdfUrl, name: ev.pdfName || 'circular.pdf', size: 'Attached' };
+                    evPdfNameDisplay.textContent = currentEventPdf.name;
+                    evPdfSizeDisplay.textContent = currentEventPdf.size;
+                    evPdfPreviewWrap.classList.add('active');
+                } else {
+                    evPdfPreviewWrap.classList.remove('active');
+                }
+
+                if (ev.posterUrl) {
+                    currentEventPoster = ev.posterUrl;
+                    evPosterImgDisplay.src = currentEventPoster;
+                    evPosterPreviewWrap.classList.add('active');
+                } else {
+                    evPosterPreviewWrap.classList.remove('active');
+                }
+
+                editBannerTitle.textContent = ev.title;
+                globalEditBanner.classList.add('active');
+                document.getElementById('submitEventBtnText').textContent = '💾 Save Modifications to Live Website';
+                switchTab('eventTab');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+
+            } else if (type === 'completed') {
+                const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+                const comp = completed.find(c => c.id === id);
+                if (!comp) return;
+
+                document.getElementById('compEditId').value = comp.id;
+                document.getElementById('compTitle').value = comp.title;
+                document.getElementById('compClub').value = comp.club;
+                document.getElementById('compDate').value = comp.date;
+                document.getElementById('compVenue').value = comp.venue || '';
+                document.getElementById('compPrizePool').value = comp.prizePool || '';
+                document.getElementById('compSummary').value = comp.summary || '';
+
+                if (comp.pdfUrl) {
+                    currentCompletedPdf = { url: comp.pdfUrl, name: comp.pdfName || 'results.pdf', size: 'Attached' };
+                    compPdfNameDisplay.textContent = currentCompletedPdf.name;
+                    compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+                    compPdfPreviewWrap.classList.add('active');
+                } else {
+                    compPdfPreviewWrap.classList.remove('active');
+                }
+
+                // Populate winners rows
+                winnersRowsContainer.innerHTML = '';
+                if (comp.winners && comp.winners.length > 0) {
+                    comp.winners.forEach(w => createWinnerRow(w));
+                } else {
+                    document.getElementById('tpl123').click();
+                }
+
+                editBannerTitle.textContent = comp.title + ' (Winners)';
+                globalEditBanner.classList.add('active');
+                document.getElementById('submitCompletedBtnText').textContent = '💾 Save Modifications to Live Website';
+                switchTab('completedTab');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+
+            } else if (type === 'report') {
+                const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+                const rep = reports.find(r => r.id === id);
+                if (!rep) return;
+
+                document.getElementById('repEditId').value = rep.id;
+                document.getElementById('repTitle').value = rep.title;
+                document.getElementById('repYear').value = rep.academicYear;
+                document.getElementById('repCategory').value = rep.category || 'annual';
+                document.getElementById('repSummary').value = rep.summary;
+
+                if (rep.pdfUrl) {
+                    currentReportPdf = { url: rep.pdfUrl, name: rep.pdfName || 'report.pdf', size: 'Attached' };
+                    repPdfNameDisplay.textContent = currentReportPdf.name;
+                    repPdfSizeDisplay.textContent = currentReportPdf.size;
+                    repPdfPreviewWrap.classList.add('active');
+                }
+
+                editBannerTitle.textContent = rep.title;
+                globalEditBanner.classList.add('active');
+                document.getElementById('submitReportBtnText').textContent = '💾 Save Modifications to Live Website';
+                switchTab('reportTab');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+
+            } else if (type === 'gallery') {
+                const photos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+                const photo = photos.find(p => p.id === id);
+                if (!photo) return;
+
+                document.getElementById('galEditId').value = photo.id;
+                document.getElementById('galTitle').value = photo.title;
+                document.getElementById('galCategory').value = photo.category || 'dance';
+                document.getElementById('galCaption').value = photo.caption || '';
+                currentGalleryImg = photo.imageUrl;
+                galImgDisplay.src = currentGalleryImg;
+                galPreviewWrap.classList.add('active');
+
+                editBannerTitle.textContent = photo.title;
+                globalEditBanner.classList.add('active');
+                document.getElementById('submitGalleryBtnText').textContent = '💾 Save Modifications to Live Website';
+                switchTab('galleryTab');
+                window.scrollTo({ top: 120, behavior: 'smooth' });
+            }
+        };
+
+        // ---------------------------------------------------------
+        // 10. LIVE RECORDS & STORAGE MANAGER WITH SEARCH FILTER
+        // ---------------------------------------------------------
+        const recordsSearchInput = document.getElementById('recordsSearchInput');
+        if (recordsSearchInput) {
+            recordsSearchInput.addEventListener('input', () => refreshRecordsManager());
         }
 
-        if (viewAllRecordsBtn) {
-            viewAllRecordsBtn.addEventListener('click', () => {
-                successCard.classList.remove('active');
-                tabBtns[3].click();
-            });
-        }
-
-        // ---------------------------------------------------------
-        // 9. LIVE RECORDS & STORAGE MANAGER
-        // ---------------------------------------------------------
         function refreshRecordsManager() {
             const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+            const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
             const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
             const gallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
 
-            const total = events.length + reports.length + gallery.length;
+            const filter = (recordsSearchInput ? recordsSearchInput.value : '').trim().toLowerCase();
+
+            const total = events.length + completed.length + reports.length + gallery.length;
             const badge = document.getElementById('totalRecordsBadge');
             if (badge) badge.textContent = total;
 
             document.getElementById('statEventsCount').textContent = events.length;
+            document.getElementById('statCompletedCount').textContent = completed.length;
             document.getElementById('statReportsCount').textContent = reports.length;
             document.getElementById('statGalleryCount').textContent = gallery.length;
             document.getElementById('countEventsList').textContent = events.length;
+            document.getElementById('countCompletedList').textContent = completed.length;
             document.getElementById('countReportsList').textContent = reports.length;
             document.getElementById('countGalleryList').textContent = gallery.length;
 
-            // Calculate estimated storage used
             const totalBytes = new Blob([
                 localStorage.getItem('sico_custom_events') || '',
+                localStorage.getItem('sico_completed_events') || '',
                 localStorage.getItem('sico_custom_reports') || '',
                 localStorage.getItem('sico_custom_gallery') || ''
             ]).size;
             document.getElementById('statStorageSize').textContent = formatBytes(totalBytes);
 
-            // Render Events List
+            // 1. Render Completed Events & Winners Directory
+            const compContainer = document.getElementById('recordsCompletedContainer');
+            if (compContainer) {
+                const filteredComp = completed.filter(c => {
+                    if (!filter) return true;
+                    const matchesTitle = (c.title || '').toLowerCase().includes(filter);
+                    const matchesClub = (c.club || '').toLowerCase().includes(filter);
+                    const matchesWinners = (c.winners || []).some(w => 
+                        (w.name || '').toLowerCase().includes(filter) || 
+                        (w.regd || '').toLowerCase().includes(filter) ||
+                        (w.prize || '').toLowerCase().includes(filter)
+                    );
+                    return matchesTitle || matchesClub || matchesWinners;
+                });
+
+                if (filteredComp.length === 0) {
+                    compContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No completed events match your search. Click "Add Completed Event" above to create one!</p>';
+                } else {
+                    compContainer.innerHTML = filteredComp.map(c => `
+                        <div class="gform-record-item" style="border-left: 4px solid #10b981;">
+                            <div class="gform-record-left">
+                                <div class="gform-record-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);">🏆</div>
+                                <div>
+                                    <div class="gform-record-title">${c.title}</div>
+                                    <div class="gform-record-meta">${c.club} · 📅 ${c.date} · <strong>${c.winners ? c.winners.length : 0} Verified Winners</strong> · 💰 ${c.prizePool || 'Cash Prizes'}</div>
+                                    <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                                        ${(c.winners || []).map(w => `<span class="winner-regd-pill" style="margin-right:6px;">${w.rank}: ${w.name} (${w.regd}) - ${w.prize}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-edit-record" onclick="editRecord('completed', '${c.id}')">✏️ Edit / Modify Winners</button>
+                                <a href="events.html#winnersHallOfFame" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('completed', '${c.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // 2. Render Upcoming Events
             const evContainer = document.getElementById('recordsEventsContainer');
             if (evContainer) {
-                if (events.length === 0) {
-                    evContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom events published yet. Use Tab 1 above to add events!</p>';
+                const filteredEv = events.filter(e => {
+                    if (!filter) return true;
+                    return (e.title || '').toLowerCase().includes(filter) || (e.club || '').toLowerCase().includes(filter);
+                });
+
+                if (filteredEv.length === 0) {
+                    evContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No upcoming events found. Use Tab 1 above to add events!</p>';
                 } else {
-                    evContainer.innerHTML = events.map(ev => `
+                    evContainer.innerHTML = filteredEv.map(ev => `
                         <div class="gform-record-item">
                             <div class="gform-record-left">
                                 ${ev.posterUrl ? `<img src="${ev.posterUrl}" alt="${ev.title}" class="gform-record-thumb">` : '<div class="gform-record-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🎪</div>'}
@@ -1293,6 +1985,7 @@
                                 </div>
                             </div>
                             <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-edit-record" onclick="editRecord('event', '${ev.id}')">✏️ Edit / Modify</button>
                                 <a href="events.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
                                 <button type="button" class="gform-btn-delete" onclick="deleteRecord('event', '${ev.id}')">🗑️ Delete</button>
                             </div>
@@ -1301,13 +1994,18 @@
                 }
             }
 
-            // Render Reports List
+            // 3. Render Reports
             const repContainer = document.getElementById('recordsReportsContainer');
             if (repContainer) {
-                if (reports.length === 0) {
-                    repContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom reports published yet. Use Tab 2 above to add reports!</p>';
+                const filteredRep = reports.filter(r => {
+                    if (!filter) return true;
+                    return (r.title || '').toLowerCase().includes(filter) || (r.academicYear || '').toLowerCase().includes(filter);
+                });
+
+                if (filteredRep.length === 0) {
+                    repContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No reports found. Use Tab 3 above to add reports!</p>';
                 } else {
-                    repContainer.innerHTML = reports.map(rep => `
+                    repContainer.innerHTML = filteredRep.map(rep => `
                         <div class="gform-record-item">
                             <div class="gform-record-left">
                                 <div class="gform-record-thumb" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">📄</div>
@@ -1317,6 +2015,7 @@
                                 </div>
                             </div>
                             <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-edit-record" onclick="editRecord('report', '${rep.id}')">✏️ Edit / Modify</button>
                                 <a href="reports.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
                                 <button type="button" class="gform-btn-delete" onclick="deleteRecord('report', '${rep.id}')">🗑️ Delete</button>
                             </div>
@@ -1325,13 +2024,18 @@
                 }
             }
 
-            // Render Gallery List
+            // 4. Render Gallery
             const galContainer = document.getElementById('recordsGalleryContainer');
             if (galContainer) {
-                if (gallery.length === 0) {
-                    galContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No custom gallery photos published yet. Use Tab 3 above to add photos!</p>';
+                const filteredGal = gallery.filter(p => {
+                    if (!filter) return true;
+                    return (p.title || '').toLowerCase().includes(filter) || (p.caption || '').toLowerCase().includes(filter);
+                });
+
+                if (filteredGal.length === 0) {
+                    galContainer.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No gallery photos found. Use Tab 4 above to add photos!</p>';
                 } else {
-                    galContainer.innerHTML = gallery.map(photo => `
+                    galContainer.innerHTML = filteredGal.map(photo => `
                         <div class="gform-record-item">
                             <div class="gform-record-left">
                                 <img src="${photo.imageUrl}" alt="${photo.title}" class="gform-record-thumb">
@@ -1341,6 +2045,7 @@
                                 </div>
                             </div>
                             <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-edit-record" onclick="editRecord('gallery', '${photo.id}')">✏️ Edit / Modify</button>
                                 <a href="gallery.html" target="_blank" class="gform-btn-tool" style="text-decoration:none; font-size:0.75rem;">👀 View on Site</a>
                                 <button type="button" class="gform-btn-delete" onclick="deleteRecord('gallery', '${photo.id}')">🗑️ Delete</button>
                             </div>
@@ -1357,6 +2062,9 @@
             if (type === 'event') {
                 const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]').filter(e => e.id !== id);
                 localStorage.setItem('sico_custom_events', JSON.stringify(events));
+            } else if (type === 'completed') {
+                const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]').filter(c => c.id !== id);
+                localStorage.setItem('sico_completed_events', JSON.stringify(completed));
             } else if (type === 'report') {
                 const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]').filter(r => r.id !== id);
                 localStorage.setItem('sico_custom_reports', JSON.stringify(reports));
@@ -1373,9 +2081,10 @@
         if (exportBackupBtn) {
             exportBackupBtn.addEventListener('click', () => {
                 const backupData = {
-                    version: '1.0',
+                    version: '2.0',
                     exportedAt: new Date().toISOString(),
                     events: JSON.parse(localStorage.getItem('sico_custom_events') || '[]'),
+                    completedEvents: JSON.parse(localStorage.getItem('sico_completed_events') || '[]'),
                     reports: JSON.parse(localStorage.getItem('sico_custom_reports') || '[]'),
                     gallery: JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]')
                 };
@@ -1405,9 +2114,10 @@
                     try {
                         const data = JSON.parse(event.target.result);
                         if (data.events) localStorage.setItem('sico_custom_events', JSON.stringify(data.events));
+                        if (data.completedEvents) localStorage.setItem('sico_completed_events', JSON.stringify(data.completedEvents));
                         if (data.reports) localStorage.setItem('sico_custom_reports', JSON.stringify(data.reports));
                         if (data.gallery) localStorage.setItem('sico_custom_gallery', JSON.stringify(data.gallery));
-                        alert('Backup successfully restored! The live website has been updated.');
+                        alert('Backup successfully restored! Live website has been synchronized.');
                         refreshRecordsManager();
                     } catch (err) {
                         alert('Error parsing backup JSON file. Please ensure it is a valid SICO backup.');
@@ -1421,8 +2131,9 @@
         const clearAllRecordsBtn = document.getElementById('clearAllRecordsBtn');
         if (clearAllRecordsBtn) {
             clearAllRecordsBtn.addEventListener('click', () => {
-                if (confirm('CAUTION: Are you sure you want to delete ALL custom events, reports, and gallery photos? This action cannot be undone.')) {
+                if (confirm('CAUTION: Are you sure you want to delete ALL custom events, completed events & winners, reports, and gallery photos? This action cannot be undone.')) {
                     localStorage.removeItem('sico_custom_events');
+                    localStorage.removeItem('sico_completed_events');
                     localStorage.removeItem('sico_custom_reports');
                     localStorage.removeItem('sico_custom_gallery');
                     alert('All custom dynamic records cleared.');
@@ -1430,6 +2141,16 @@
                 }
             });
         }
+
+        // Success controls
+        document.getElementById('submitAnotherBtn').addEventListener('click', () => {
+            successCard.classList.remove('active');
+            tabBtns[0].click();
+        });
+        document.getElementById('viewAllRecordsBtn').addEventListener('click', () => {
+            successCard.classList.remove('active');
+            tabBtns[4].click();
+        });
 
     });
     </script>

@@ -467,8 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 dtStart = '20261024T100000';
                 dtEnd = '20261024T160000';
             } else {
-                dtStart = '20261008T120000';
-                dtEnd = '20261009T200000';
+                dtStart = '20261005T120000';
+                dtEnd = '20261006T210000';
             }
         } else if (d.includes('DEC') || d.includes('DECEMBER')) {
             if (d.includes('05') || d.includes('5TH')) {
@@ -633,8 +633,125 @@ document.addEventListener('DOMContentLoaded', () => {
         if (eventModal) {
             eventModal.classList.remove('active');
             document.body.style.overflow = '';
+            const modalRegisterBtn = document.getElementById('modalRegisterBtn');
+            if (modalRegisterBtn) modalRegisterBtn.style.display = '';
+            const modalCalBtn = document.getElementById('modalAddToCalBtn');
+            if (modalCalBtn) modalCalBtn.style.display = '';
         }
     }
+
+    // Modal Viewer for Completed Events & Verified Winners Directory
+    window.viewCompletedWinnersModal = function(id) {
+        const completedList = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+        const ev = completedList.find(c => c.id === id);
+        if (!ev || !eventModal) return;
+
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalDate = document.getElementById('modalDate');
+        const modalVenue = document.getElementById('modalVenue');
+        const modalPrize = document.getElementById('modalPrize');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalHighlights = document.getElementById('modalHighlights');
+        const modalRules = document.getElementById('modalRules');
+        const modalCoordinators = document.getElementById('modalCoordinators');
+        const modalRegisterBtn = document.getElementById('modalRegisterBtn');
+        const modalCalBtn = document.getElementById('modalAddToCalBtn');
+
+        if (modalTitle) modalTitle.textContent = ev.title;
+        if (modalCategory) modalCategory.textContent = 'COMPLETED · OFFICIAL MERIT LIST';
+        if (modalDate) modalDate.textContent = `Concluded on ${ev.date}`;
+        if (modalVenue) modalVenue.textContent = ev.venue || 'Campus Venue';
+        if (modalPrize) modalPrize.textContent = ev.prizePool || 'Cash Prizes Awarded';
+        if (modalDesc) modalDesc.textContent = ev.summary || 'Official campus competition results and verified awardees.';
+
+        if (modalHighlights) {
+            modalHighlights.innerHTML = `
+                <div class="winner-table-wrap" style="padding: 4px 0 10px; overflow-x: auto;">
+                    <table class="winner-table">
+                        <thead>
+                            <tr>
+                                <th>Rank / Honor</th>
+                                <th>Winner Student</th>
+                                <th>Regd. No</th>
+                                <th>Dept</th>
+                                <th>Cash Prize Won</th>
+                                <th>Performance / Project</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(ev.winners || []).map(w => {
+                                let rankBadge = `<span class="rank-badge-3">${w.rank}</span>`;
+                                if (w.rank === '1st') rankBadge = `<span class="rank-badge-1">🥇 1st Prize</span>`;
+                                else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
+                                else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
+                                else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
+
+                                return `
+                                    <tr>
+                                        <td>${rankBadge}</td>
+                                        <td><strong style="color:var(--text-primary); font-weight:700;">${w.name}</strong></td>
+                                        <td><span class="winner-regd-pill">${w.regd}</span></td>
+                                        <td><span style="font-weight:600; font-size:0.8rem; color:var(--text-secondary);">${w.branch || '--'}</span></td>
+                                        <td><span class="winner-cash-text">${w.prize}</span></td>
+                                        <td style="font-size:0.82rem; color:var(--text-muted);">${w.project || 'Merit Presentation'}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        if (modalRules) {
+            modalRules.innerHTML = 'All cash awards, certificates, and merit standings have been verified and disbursed under the aegis of the EC & CCAC Committee and Convener.';
+        }
+
+        if (modalCoordinators) {
+            modalCoordinators.textContent = `${ev.club} Student Coordinators`;
+        }
+
+        let modalCircularSection = document.getElementById('modalCircularSection');
+        if (!modalCircularSection) {
+            const modalBody = eventModal.querySelector('.event-modal-body');
+            if (modalBody) {
+                modalCircularSection = document.createElement('div');
+                modalCircularSection.id = 'modalCircularSection';
+                modalCircularSection.className = 'modal-section';
+                modalBody.appendChild(modalCircularSection);
+            }
+        }
+        if (modalCircularSection) {
+            if (ev.pdfUrl) {
+                modalCircularSection.style.display = 'block';
+                modalCircularSection.innerHTML = `
+                    <h4>Official Signed Result Sheet &amp; Circular PDF</h4>
+                    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.6rem;">📄</span>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">${ev.pdfName || 'Results_Circular.pdf'}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Official Administrative Result Circular · PDF Document</div>
+                            </div>
+                        </div>
+                        <a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'results.pdf'}" class="btn-card-circular" style="padding: 8px 16px; font-size: 0.85rem; background: #10b981; color: #fff; font-weight: 700; text-decoration:none; border-radius:8px;">
+                            <span>📥 Download Result Sheet (PDF)</span>
+                        </a>
+                    </div>
+                `;
+            } else {
+                modalCircularSection.style.display = 'none';
+            }
+        }
+
+        if (modalRegisterBtn) modalRegisterBtn.style.display = 'none';
+        if (modalCalBtn) modalCalBtn.style.display = 'none';
+
+        eventModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (typeof playSynthSound === 'function') playSynthSound('click');
+    };
 
     if (eventModalClose) eventModalClose.addEventListener('click', closeEventModal);
     if (eventModal) {
@@ -1081,12 +1198,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'SICO Community Outreach', sub: 'Student initiatives & social impact programs', url: 'sico.html', icon: '🤝', category: 'Pages' },
         { title: 'Reports & Archives', sub: 'Annual documentation & retrospective PDFs', url: 'reports.html', icon: '📊', category: 'Pages' },
         { title: 'Student Coordinators', sub: 'Core leadership directory & committee leads', url: 'team.html', icon: '👥', category: 'Pages' },
+        { title: 'Champions & Winners Hall of Fame', sub: 'Verified merit lists, student regd numbers & cash prizes', url: 'events.html#winnersHallOfFame', icon: '🏆', category: 'Pages' },
         { title: 'Visual Stories & Gallery', sub: 'Curated photo memories from campus celebrations', url: 'gallery.html', icon: '📸', category: 'Pages' },
         { title: 'Contact & FAQ Hub', sub: 'Campus address, student helpline & FAQs', url: 'contact.html', icon: '💬', category: 'Pages' },
         
         // Flagship Events
         { title: 'COLORIDO 2026', sub: 'Flagship Cultural & Arts Extravaganza (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
-        { title: 'Club Waltz (Dance Gala)', sub: 'Two-day dance battle & choreo showdown', url: 'events.html', icon: '💃', category: 'Events' },
+        { title: 'Club Waltz (Mega Dance Gala)', sub: 'Two-day mega dance extravaganza & choreo battle (05–06 Oct 2026)', url: 'events.html', icon: '💃', category: 'Events' },
         { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off', url: 'events.html', icon: '🎸', category: 'Events' },
         { title: 'Website Dev & Anime Video', sub: 'Digital Club technical & creative multimedia duel', url: 'events.html', icon: '💻', category: 'Events' },
         { title: 'Helping Hands Service Drive', sub: 'Volunteer outreach at blind schools & senior homes', url: 'events.html', icon: '🤝', category: 'Events' },
@@ -1803,6 +1921,184 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             console.error('Error syncing dynamic gallery:', err);
+        }
+
+        // D. Synchronize Completed Events & Winners List into events.html
+        try {
+            // Seed default completed events if empty
+            if (!localStorage.getItem('sico_completed_events')) {
+                const defaultCompleted = [
+                    {
+                        id: 'comp_seed_1',
+                        title: 'Clean Energy Poster Presentation',
+                        club: 'Renewable Energy Club',
+                        date: '01st August 2026',
+                        venue: 'SJB Seminar Hall',
+                        prizePool: '₹6,000 Cash Prizes Awarded',
+                        summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations. Judged by senior electrical engineering faculty.',
+                        pdfUrl: '',
+                        pdfName: 'Clean_Energy_Poster_Winners.pdf',
+                        winners: [
+                            { rank: '1st', name: 'K. Vamsi Krishna', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
+                            { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
+                            { rank: '3rd', name: 'T. Rahul', regd: 'Y24CS105', branch: 'CSE', prize: '₹1,000 Cash', project: 'AI Solar Tracking Panel' }
+                        ]
+                    },
+                    {
+                        id: 'comp_seed_2',
+                        title: 'Youth Leadership & Oratory Conclave',
+                        club: 'Club Inspiraze',
+                        date: '25th July 2026',
+                        venue: 'Open Air Theatre (OAT)',
+                        prizePool: '₹4,000 Cash & Trophies',
+                        summary: 'Annual campus oratorical conclave on ethics in technology and social impact. Evaluated by humanities department and alumni guests.',
+                        pdfUrl: '',
+                        pdfName: 'Inspiraze_Oratory_Results.pdf',
+                        winners: [
+                            { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
+                            { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
+                        ]
+                    },
+                    {
+                        id: 'comp_seed_3',
+                        title: 'International Yoga Day Asana Championship',
+                        club: 'Wellness & Sports Club',
+                        date: '21st June 2026',
+                        venue: 'Open Air Theatre (OAT)',
+                        prizePool: '₹2,500 Cash & Medals',
+                        summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
+                        pdfUrl: '',
+                        pdfName: 'Yoga_Day_Official_Results.pdf',
+                        winners: [
+                            { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
+                            { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
+                        ]
+                    }
+                ];
+                localStorage.setItem('sico_completed_events', JSON.stringify(defaultCompleted));
+            }
+
+            const completedEvents = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+            const winnersGrid = document.getElementById('winnersHallGrid');
+
+            if (winnersGrid) {
+                if (completedEvents.length === 0) {
+                    winnersGrid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px dashed var(--border-card);">
+                            <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">No completed events published yet. Visit the <a href="admin.html" style="color: var(--accent-amber); font-weight: 700;">Coordinator Studio</a> to publish event merit lists and winners.</p>
+                        </div>
+                    `;
+                } else {
+                    winnersGrid.innerHTML = completedEvents.map(comp => {
+                        const totalCash = comp.prizePool || 'Cash Prizes Awarded';
+                        let downloadPdfBtn = '';
+                        if (comp.pdfUrl) {
+                            downloadPdfBtn = `
+                                <a href="${comp.pdfUrl}" target="_blank" download="${comp.pdfName || 'winners_circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF" style="font-size:0.75rem; padding:5px 12px; text-decoration:none;">
+                                    <span>📥 Result Sheet (PDF)</span>
+                                </a>
+                            `;
+                        }
+
+                        return `
+                            <div class="winner-event-card">
+                                <div class="winner-card-header">
+                                    <div>
+                                        <span class="winner-club-badge">${comp.club || 'Campus Club'}</span>
+                                        <h3 class="winner-event-title">${comp.title}</h3>
+                                        <div class="winner-event-meta">
+                                            <span>📅 Concluded: ${comp.date}</span>
+                                            <span>📍 ${comp.venue || 'Campus Venue'}</span>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+                                        <div class="winner-prize-pool">
+                                            <span>💰 ${totalCash}</span>
+                                        </div>
+                                        ${downloadPdfBtn}
+                                    </div>
+                                </div>
+
+                                ${comp.summary ? `<p style="padding: 0 1.5rem 0.5rem; font-size: 0.88rem; color: var(--text-secondary); margin: 0;">${comp.summary}</p>` : ''}
+
+                                <div class="winner-table-wrap">
+                                    <table class="winner-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Rank / Honor</th>
+                                                <th>Winner Student</th>
+                                                <th>Regd. No</th>
+                                                <th>Dept</th>
+                                                <th>Cash Prize Won</th>
+                                                <th>Performance / Project</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${(comp.winners || []).map(w => {
+                                                let rankBadge = `<span class="rank-badge-3">${w.rank}</span>`;
+                                                if (w.rank === '1st') rankBadge = `<span class="rank-badge-1">🥇 1st Prize</span>`;
+                                                else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
+                                                else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
+                                                else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
+
+                                                return `
+                                                    <tr>
+                                                        <td>${rankBadge}</td>
+                                                        <td><strong style="color:var(--text-primary); font-weight:700;">${w.name}</strong></td>
+                                                        <td><span class="winner-regd-pill">${w.regd}</span></td>
+                                                        <td><span style="font-weight:600; font-size:0.8rem; color:var(--text-secondary);">${w.branch || '--'}</span></td>
+                                                        <td><span class="winner-cash-text">${w.prize}</span></td>
+                                                        <td style="font-size:0.82rem; color:var(--text-muted);">${w.project || 'Merit Performance'}</td>
+                                                    </tr>
+                                                `;
+                                            }).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+
+            // Connect completed calendar table rows to view merit winners
+            const calTable = document.getElementById('calendarTable');
+            if (calTable && completedEvents.length > 0) {
+                const completedRows = calTable.querySelectorAll('tr[data-status="completed"]');
+                completedRows.forEach(row => {
+                    if (row.querySelector('.btn-cal-winners')) return;
+                    const clubNameEl = row.querySelector('.cal-club-name');
+                    const clubName = clubNameEl ? clubNameEl.textContent.trim().toLowerCase() : '';
+                    
+                    // Match with completed events
+                    const matchedComp = completedEvents.find(c => 
+                        (c.club && clubName.includes(c.club.toLowerCase())) ||
+                        (c.title && row.textContent.toLowerCase().includes(c.title.toLowerCase().slice(0, 15)))
+                    );
+
+                    const actionCell = row.querySelector('td:last-child');
+                    if (actionCell) {
+                        const winnerBtn = document.createElement('a');
+                        winnerBtn.className = 'btn-cal-winners';
+                        winnerBtn.href = '#winnersHallOfFame';
+                        winnerBtn.style.marginTop = '6px';
+                        winnerBtn.style.textDecoration = 'none';
+                        winnerBtn.innerHTML = '🏆 Merit List';
+                        if (matchedComp) {
+                            winnerBtn.addEventListener('click', (e) => {
+                                if (window.viewCompletedWinnersModal) {
+                                    e.preventDefault();
+                                    window.viewCompletedWinnersModal(matchedComp.id);
+                                }
+                            });
+                        }
+                        actionCell.appendChild(winnerBtn);
+                    }
+                });
+            }
+
+        } catch (err) {
+            console.error('Error syncing dynamic completed events & winners:', err);
         }
     }
 

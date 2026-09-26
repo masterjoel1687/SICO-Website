@@ -7099,6 +7099,399 @@ section {
     color: var(--accent-amber);
 }
 
+/* =============================================================
+   COMPLETED EVENTS, WINNERS HALL OF FAME & IN-PLACE MODIFY STYLES
+   ============================================================= */
 
+/* Edit Mode Banner */
+.gform-edit-banner {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(234, 88, 12, 0.18) 100%);
+    border: 1px solid var(--accent-amber);
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease;
+}
 
+.gform-edit-banner.active {
+    display: flex;
+}
 
+.gform-edit-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.gform-edit-banner-left strong {
+    color: var(--accent-amber);
+}
+
+.gform-cancel-edit-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.gform-cancel-edit-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+/* Records Manager Search & Filter */
+.gform-search-box {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+.gform-search-box input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    border-radius: 10px;
+    background: var(--bg-dark-surface);
+    border: 1px solid var(--border-card);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .gform-search-box input,
+[data-theme="champagne"] .gform-search-box input {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #1c1917;
+}
+
+.gform-search-box input:focus {
+    border-color: var(--accent-amber);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
+}
+
+.gform-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* Winner Row Builder in Admin Form */
+.gform-winner-row {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: var(--transition);
+}
+
+[data-theme="light"] .gform-winner-row,
+[data-theme="champagne"] .gform-winner-row {
+    background: #fbf9f4;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.gform-winner-row:hover {
+    border-color: rgba(245, 158, 11, 0.35);
+}
+
+.gform-winner-grid {
+    display: grid;
+    grid-template-columns: 140px 1.2fr 1fr 1fr 1fr 36px;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .gform-winner-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .gform-winner-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gform-btn-remove-row {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.gform-btn-remove-row:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.gform-quick-template-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.gform-btn-template {
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: var(--accent-amber);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.gform-btn-template:hover {
+    background: rgba(245, 158, 11, 0.22);
+}
+
+.gform-btn-edit-record {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: var(--accent-amber);
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.gform-btn-edit-record:hover {
+    background: rgba(245, 158, 11, 0.3);
+}
+
+/* =============================================================
+   CHAMPIONS & WINNERS HALL OF FAME ON WEBSITE (events.html)
+   ============================================================= */
+.winners-hall-section {
+    padding: 5rem 0;
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+}
+
+.winners-hall-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+}
+
+.winners-hall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+}
+
+@media (max-width: 640px) {
+    .winners-hall-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.winner-event-card {
+    background: var(--bg-dark-surface);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    transition: var(--transition);
+}
+
+[data-theme="light"] .winner-event-card,
+[data-theme="champagne"] .winner-event-card {
+    background: #ffffff;
+    border-color: rgba(180, 83, 9, 0.15);
+    box-shadow: 0 12px 36px rgba(180, 83, 9, 0.08);
+}
+
+.winner-event-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-amber);
+    box-shadow: 0 16px 44px rgba(245, 158, 11, 0.18);
+}
+
+.winner-card-top {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.winner-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.winner-event-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+}
+
+.winner-prize-pool {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+/* Winner Table */
+.winner-table-wrap {
+    padding: 1rem 1.5rem 1.5rem;
+    overflow-x: auto;
+}
+
+.winner-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.winner-table th {
+    text-align: left;
+    padding: 8px 10px;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-card);
+}
+
+.winner-table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .winner-table td,
+[data-theme="champagne"] .winner-table td {
+    border-bottom-color: rgba(0, 0, 0, 0.05);
+    color: #1c1917;
+}
+
+.winner-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Winner Badges */
+.rank-badge-1 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    color: #fbbf24;
+    font-weight: 800;
+    font-size: 0.78rem;
+}
+
+.rank-badge-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(148, 163, 184, 0.2);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: #cbd5e1;
+    font-weight: 800;
+    font-size: 0.78rem;
+}
+
+.rank-badge-3 {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(234, 88, 12, 0.2);
+    border: 1px solid rgba(234, 88, 12, 0.4);
+    color: #fb923c;
+    font-weight: 800;
+    font-size: 0.78rem;
+}
+
+.winner-regd-pill {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+[data-theme="light"] .winner-regd-pill,
+[data-theme="champagne"] .winner-regd-pill {
+    background: #f3ede2;
+    color: #0284c7;
+}
+
+.winner-cash-text {
+    font-weight: 800;
+    color: #10b981;
+}
+
+.btn-cal-winners {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(245, 158, 11, 0.18);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--accent-amber);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.btn-cal-winners:hover {
+    background: rgba(245, 158, 11, 0.35);
+}
