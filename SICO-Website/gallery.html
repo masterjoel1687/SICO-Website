@@ -12,8 +12,78 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
+    <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
+    <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
+
+    <!-- =========================================================================
+         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
+         Centralized and configurable in animations.css & script.js
+         ========================================================================= -->
+    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
+        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
+        <div class="wormhole-chamber">
+            <div class="wormhole-ring ring-1"></div>
+            <div class="wormhole-ring ring-2"></div>
+            <div class="wormhole-ring ring-3"></div>
+            <div class="wormhole-ring ring-4"></div>
+            <div class="wormhole-ring ring-5"></div>
+            <div class="wormhole-vortex-core"></div>
+        </div>
+        <div class="teleport-hud">
+            <div class="teleport-hud-top">
+                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
+                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
+            </div>
+            <div class="teleport-nexus">
+                <div class="nexus-emblem-glow"></div>
+                <div class="nexus-crest-wrap">
+                    <div class="nexus-monogram">SICO</div>
+                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
+                </div>
+            </div>
+            <div class="teleport-trajectory">
+                <div class="trajectory-line">
+                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
+                    <span class="trajectory-arrow">══════►</span>
+                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
+                </div>
+                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
+            </div>
+            <div class="teleport-meter">
+                <div class="teleport-meter-track">
+                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
+                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
+                </div>
+                <div class="teleport-meter-footer">
+                    <div class="teleport-timer-box">
+                        <span class="timer-label">DIVE REMAINING:</span>
+                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
+                    </div>
+                    <div class="teleport-percent" id="teleportPercent">00%</div>
+                </div>
+            </div>
+            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
+                <span>Skip Dive</span>
+                <kbd>ESC</kbd>
+            </button>
+        </div>
+        <div class="teleport-supernova-flash" id="teleportFlash"></div>
+        <div class="teleport-iris-top" id="teleportIrisTop"></div>
+        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
+    </div>
+
+    <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
+    <div class="page-transition-veil" id="pageTransitionVeil" aria-hidden="true">
+        <div class="veil-shimmer-line"></div>
+        <div class="veil-content">
+            <div class="veil-spinner"></div>
+            <div class="veil-text" id="veilText">✦ NAVIGATING CAMPUS PORTAL ✦</div>
+        </div>
+    </div>
+
     <!-- Dignified Collegiate Announcement Bar -->
     <div class="campus-announcement-bar">
         <div class="announcement-left">
@@ -252,7 +322,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="admin.html" class="footer-admin-link" title="Authorized Coordinator Studio">🔒 Coordinator Studio</a></p>
             </div>
         </div>
     </footer>

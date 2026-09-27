@@ -3,7 +3,7 @@
    Human-Crafted Editorial & Cultural Design System
    ============================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 
 /* --- CSS Variables & Design Tokens --- */
 :root {
@@ -50,11 +50,13 @@
 
     --font-heading: 'Outfit', sans-serif;
     --font-serif: 'Playfair Display', Georgia, serif;
+    --font-editorial: 'Instrument Serif', 'Playfair Display', Georgia, serif;
     --font-body: 'Plus Jakarta Sans', 'Outfit', sans-serif;
     --font-mono: 'DM Mono', monospace;
     --font-script: 'Caveat', 'Playfair Display', cursive;
 
     --transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* --- Theme 1: Velvet Midnight (Default Dark) --- */
@@ -7919,3 +7921,759 @@ section {
 .btn-cal-winners:hover {
     background: rgba(245, 158, 11, 0.35);
 }
+
+/* ==========================================================================
+   THE HUMAN-MADE EXPERIENCE:
+   1. ANALOG FILM GRAIN TEXTURE
+   2. CINEMATIC STUDIO PRELOADER (ENTRANCE REVEAL)
+   3. SEAMLESS PAGE TRANSITION VEIL
+   4. SCROLL REVEAL SYSTEM WITH CUBIC-BEZIER EASING
+   5. SPECULAR INTERACTIVE SPOTLIGHTS ON CARDS
+   6. MAGNETIC BUTTONS & INTERACTIVE TACTILE PHYSICS
+   7. HUD ACOUSTIC AUDIO TOGGLE & EQUALIZER
+   8. ARTISAN HUMAN-CRAFTED GUESTBOOK STAMP IN FOOTER
+   ========================================================================== */
+
+/* 1. Analog Film Grain Texture (Eliminates artificial digital flatness) */
+.film-grain-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0.038;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+[data-theme="light"] .film-grain-layer,
+[data-theme="champagne"] .film-grain-layer {
+    opacity: 0.024;
+    mix-blend-mode: multiply;
+}
+
+/* Editorial Serif & Typographic Polish */
+.hero-serif-highlight,
+.editorial-italic {
+    font-family: var(--font-editorial) !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+}
+
+/* 2. Cinematic Studio Preloader (Grand Entrance Reveal) */
+.cinema-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #080a14;
+    color: #f8fafc;
+    overflow: hidden;
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.85s ease;
+}
+
+.cinema-preloader.done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-backdrop {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.preloader-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+.preloader-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(85px);
+    pointer-events: none;
+    opacity: 0.45;
+    animation: preloaderOrbFloat 6s ease-in-out infinite alternate;
+}
+
+.preloader-orb.orb-a {
+    width: 380px;
+    height: 380px;
+    top: 15%;
+    left: 20%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.5) 0%, transparent 70%);
+}
+
+.preloader-orb.orb-b {
+    width: 340px;
+    height: 340px;
+    bottom: 15%;
+    right: 20%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, transparent 70%);
+    animation-delay: -3s;
+}
+
+@keyframes preloaderOrbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(32px, -24px) scale(1.12); }
+}
+
+.preloader-stage {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 580px;
+    width: 90%;
+    padding: 2.5rem 1.5rem;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.cinema-preloader.curtains-open .preloader-stage {
+    transform: scale(0.92) translateY(-25px);
+    opacity: 0;
+}
+
+.preloader-emblem-wrap {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader-glow-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.32) 0%, rgba(99, 102, 241, 0.2) 50%, transparent 70%);
+    filter: blur(12px);
+    animation: ringGlowPulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes ringGlowPulse {
+    0% { transform: scale(0.92); opacity: 0.6; }
+    100% { transform: scale(1.18); opacity: 1; }
+}
+
+.preloader-svg-emblem {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: emblemSpin 8s linear infinite;
+}
+
+.emblem-circle-spin {
+    transition: stroke-dashoffset 0.25s ease;
+}
+
+@keyframes emblemSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.preloader-monogram {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.65);
+}
+
+.preloader-monogram .monogram-amp {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 1.45rem;
+    color: var(--accent-gold);
+    margin: 0 1px;
+}
+
+.preloader-typography {
+    margin-bottom: 2rem;
+}
+
+.preloader-institution {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 0.6rem;
+    text-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
+}
+
+.preloader-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3.8vw, 2.15rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 0.45rem;
+    letter-spacing: -0.02em;
+}
+
+.preloader-italic {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    color: #fde047;
+}
+
+.preloader-tagline {
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+}
+
+.preloader-meter-box {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 1.5rem;
+}
+
+.preloader-progress-track {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.preloader-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0ea5e9, #8b5cf6 50%, #f59e0b 100%);
+    border-radius: 999px;
+    box-shadow: 0 0 14px #f59e0b;
+    transition: width 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+}
+
+.preloader-status {
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.preloader-percent {
+    color: #fbbf24;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.preloader-stamp {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.38);
+    text-transform: uppercase;
+    padding: 0.35rem 0.95rem;
+    border-radius: 100px;
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Grand Curtain Split Effect */
+.preloader-curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50.5%;
+    background: #080a14;
+    z-index: 5;
+    transition: transform 0.88s cubic-bezier(0.86, 0, 0.07, 1);
+    will-change: transform;
+}
+
+.preloader-curtain-top {
+    top: 0;
+    transform-origin: top center;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.preloader-curtain-bottom {
+    bottom: 0;
+    transform-origin: bottom center;
+    border-top: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.cinema-preloader.curtains-open .preloader-curtain-top {
+    transform: translateY(-100%);
+}
+
+.cinema-preloader.curtains-open .preloader-curtain-bottom {
+    transform: translateY(100%);
+}
+
+/* 3. Seamless Page Transition Veil */
+.page-transition-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 999990;
+    background: linear-gradient(145deg, rgba(8, 11, 20, 0.985) 0%, rgba(13, 17, 30, 0.99) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.25s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.page-transition-veil.active {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-transition-veil.revealing {
+    transform: translateY(-100%);
+    opacity: 1;
+    transition: transform 0.48s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.3s ease 0.15s;
+}
+
+.veil-shimmer-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #f59e0b, #e11d48, #0ea5e9);
+    background-size: 300% 100%;
+    animation: veilLaserFlow 2s linear infinite;
+    box-shadow: 0 0 20px #f59e0b, 0 0 35px #8b5cf6;
+}
+
+@keyframes veilLaserFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.veil-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+}
+
+.veil-spinner {
+    width: 44px;
+    height: 44px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent-gold);
+    border-right-color: var(--accent-purple);
+    border-radius: 50%;
+    animation: veilSpin 0.75s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+@keyframes veilSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.veil-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fef08a;
+    text-shadow: 0 0 16px rgba(254, 240, 138, 0.5);
+}
+
+/* 4. Scroll Reveal Animations */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    filter: blur(5px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+.reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); filter: blur(0); }
+.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.12s; opacity: 1; transform: translateY(0); filter: blur(0); }
+.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.19s; opacity: 1; transform: translateY(0); filter: blur(0); }
+.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.26s; opacity: 1; transform: translateY(0); filter: blur(0); }
+.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 0.33s; opacity: 1; transform: translateY(0); filter: blur(0); }
+.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 0.40s; opacity: 1; transform: translateY(0); filter: blur(0); }
+
+/* 5. Interactive Specular Spotlights on Cards */
+.team-card,
+.faculty-card,
+.portal-card,
+.event-card,
+.feature-card,
+.report-preview-card,
+.festival-pass-card,
+.voice-card {
+    --spot-x: 50%;
+    --spot-y: 50%;
+    position: relative;
+}
+
+.portal-card::after,
+.event-card::after,
+.voice-card::after,
+.festival-pass-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(450px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(245, 158, 11, 0.14), transparent 50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+}
+
+.portal-card:hover::after,
+.event-card:hover::after,
+.voice-card:hover::after,
+.festival-pass-card:hover::after {
+    opacity: 1;
+}
+
+/* 6. Magnetic Buttons Tactile Feel */
+.btn-magnetic {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+/* 7. HUD Acoustic Audio Toggle & Equalizer */
+.hud-audio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 100px;
+    background: rgba(18, 23, 38, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.hud-audio-btn:hover {
+    color: #ffffff;
+    border-color: rgba(245, 158, 11, 0.45);
+    background: rgba(24, 30, 52, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(245, 158, 11, 0.2);
+}
+
+.hud-audio-btn.active {
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.55);
+    background: linear-gradient(135deg, rgba(30, 24, 15, 0.95), rgba(20, 25, 42, 0.95));
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+}
+
+.hud-audio-icon {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 12px;
+}
+
+.sound-wave {
+    display: inline-block;
+    width: 2.5px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 999px;
+    transition: height 0.2s ease;
+}
+
+.hud-audio-btn.active .wave-1 { animation: waveBar 0.8s ease-in-out infinite alternate; }
+.hud-audio-btn.active .wave-2 { animation: waveBar 0.6s ease-in-out infinite alternate 0.18s; }
+.hud-audio-btn.active .wave-3 { animation: waveBar 0.9s ease-in-out infinite alternate 0.36s; }
+
+@keyframes waveBar {
+    0% { height: 4px; }
+    100% { height: 12px; }
+}
+
+[data-theme="light"] .hud-audio-btn,
+[data-theme="champagne"] .hud-audio-btn {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #52525b;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .hud-audio-btn:hover,
+[data-theme="champagne"] .hud-audio-btn:hover {
+    background: #ffffff;
+    color: #b45309;
+    border-color: rgba(180, 83, 9, 0.35);
+}
+
+[data-theme="light"] .hud-audio-btn.active,
+[data-theme="champagne"] .hud-audio-btn.active {
+    color: #b45309;
+    background: #fef3c7;
+    border-color: rgba(180, 83, 9, 0.4);
+}
+
+/* 8. Interactive Human-Crafted Guestbook Stamp in Footer */
+.human-craft-stamp-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 2.8rem auto 1.5rem;
+    position: relative;
+    z-index: 5;
+}
+
+.human-craft-stamp {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.human-craft-stamp:hover {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.human-craft-stamp:active {
+    transform: scale(0.94) rotate(-2deg);
+}
+
+.stamp-outer-ring {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px dashed rgba(245, 158, 11, 0.45);
+    background: linear-gradient(135deg, rgba(24, 20, 10, 0.85) 0%, rgba(13, 17, 30, 0.9) 100%);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(245, 158, 11, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.human-craft-stamp.stamped .stamp-outer-ring {
+    border-style: solid;
+    border-color: #10b981;
+    background: linear-gradient(135deg, rgba(6, 40, 25, 0.9) 0%, rgba(10, 25, 30, 0.95) 100%);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.35), inset 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.stamp-circular-text {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--accent-gold);
+    animation: stampRotate 24s linear infinite;
+    transform-origin: center;
+}
+
+.human-craft-stamp:hover .stamp-circular-text {
+    animation-duration: 10s;
+}
+
+@keyframes stampRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.stamp-center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.1;
+    z-index: 2;
+}
+
+.stamp-star {
+    color: #fbbf24;
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+    animation: starPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes starPulse {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+
+.stamp-text-inner {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.stamp-sub {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--accent-amber);
+    text-transform: uppercase;
+}
+
+.stamp-handwritten-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.75rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.05rem;
+    color: #fbbf24;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+.stamp-handwritten-note .note-arrow {
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    transform: rotate(45deg);
+}
+
+/* Stamp Shockwave Ripple */
+.stamp-shockwave {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-gold);
+    pointer-events: none;
+    animation: stampShockwave 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes stampShockwave {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+[data-theme="light"] .stamp-outer-ring,
+[data-theme="champagne"] .stamp-outer-ring {
+    background: #ffffff;
+    border-color: rgba(180, 83, 9, 0.4);
+    box-shadow: 0 4px 18px rgba(180, 83, 9, 0.12);
+}
+
+[data-theme="light"] .stamp-text-inner,
+[data-theme="champagne"] .stamp-text-inner {
+    color: #1c1917;
+}
+
+[data-theme="light"] .stamp-circular-text,
+[data-theme="champagne"] .stamp-circular-text {
+    color: #b45309;
+}
+
+[data-theme="light"] .stamp-handwritten-note,
+[data-theme="champagne"] .stamp-handwritten-note {
+    color: #b45309;
+}
+
+/* Collegiate Tactile Toast Notification */
+.collegiate-toast {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px);
+    background: rgba(15, 18, 26, 0.95);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(245, 158, 11, 0.25);
+    color: #f8fafc;
+    padding: 0.75rem 1.6rem;
+    border-radius: 9999px;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    z-index: 100005;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.collegiate-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+[data-theme="light"] .collegiate-toast,
+[data-theme="champagne"] .collegiate-toast {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(180, 83, 9, 0.45);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 24px rgba(245, 158, 11, 0.2);
+    color: #1c1917;
+}
+

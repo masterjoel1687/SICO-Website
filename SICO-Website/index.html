@@ -12,8 +12,93 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
+    <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
+    <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
+
+    <!-- =========================================================================
+         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
+         Centralized and configurable in animations.css & script.js
+         ========================================================================= -->
+    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
+        <!-- 3D Starfield Warp Tunnel Canvas -->
+        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
+
+        <!-- Concentric Dimensional Wormhole Rings -->
+        <div class="wormhole-chamber">
+            <div class="wormhole-ring ring-1"></div>
+            <div class="wormhole-ring ring-2"></div>
+            <div class="wormhole-ring ring-3"></div>
+            <div class="wormhole-ring ring-4"></div>
+            <div class="wormhole-ring ring-5"></div>
+            <div class="wormhole-vortex-core"></div>
+        </div>
+
+        <!-- Hyperspace Telemetry HUD -->
+        <div class="teleport-hud">
+            <div class="teleport-hud-top">
+                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
+                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
+            </div>
+
+            <!-- Central Dimensional Nexus -->
+            <div class="teleport-nexus">
+                <div class="nexus-emblem-glow"></div>
+                <div class="nexus-crest-wrap">
+                    <div class="nexus-monogram">SICO</div>
+                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
+                </div>
+            </div>
+
+            <!-- Trajectory Readout & Status -->
+            <div class="teleport-trajectory">
+                <div class="trajectory-line">
+                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
+                    <span class="trajectory-arrow">══════►</span>
+                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
+                </div>
+                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
+            </div>
+
+            <!-- Progress Meter & 7-Second Countdown -->
+            <div class="teleport-meter">
+                <div class="teleport-meter-track">
+                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
+                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
+                </div>
+                <div class="teleport-meter-footer">
+                    <div class="teleport-timer-box">
+                        <span class="timer-label">DIVE REMAINING:</span>
+                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
+                    </div>
+                    <div class="teleport-percent" id="teleportPercent">00%</div>
+                </div>
+            </div>
+
+            <!-- Fast-Forward / Skip Control -->
+            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
+                <span>Skip Dive</span>
+                <kbd>ESC</kbd>
+            </button>
+        </div>
+
+        <!-- Supernova Arrival Flash & Iris Curtains -->
+        <div class="teleport-supernova-flash" id="teleportFlash"></div>
+        <div class="teleport-iris-top" id="teleportIrisTop"></div>
+        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
+    </div>
+
+    <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
+    <div class="page-transition-veil" id="pageTransitionVeil" aria-hidden="true">
+        <div class="veil-shimmer-line"></div>
+        <div class="veil-content">
+            <div class="veil-spinner"></div>
+            <div class="veil-text" id="veilText">✦ NAVIGATING CAMPUS PORTAL ✦</div>
+        </div>
+    </div>
+
     <!-- Dignified Collegiate Top Bar -->
     <div class="campus-announcement-bar">
         <div class="campus-announcement-left">
@@ -1516,6 +1601,14 @@
                 <span class="roller-text">Light</span>
             </span>
         </div>
+        <button class="hud-audio-btn active" id="hudAudioToggle" aria-label="Toggle UI Acoustic Sound Feedback" title="Toggle tactile sound effects">
+            <span class="sound-wave">
+                <span class="sound-bar"></span>
+                <span class="sound-bar"></span>
+                <span class="sound-bar"></span>
+            </span>
+            <span class="sound-label">AUDIO</span>
+        </button>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
             <span>🔍 CAMPUS SPOTLIGHT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>
@@ -1650,6 +1743,31 @@
                     <p>Student Activities Center<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
                 </div>
             </div>
+            
+            <div class="human-craft-stamp-wrap">
+                <div class="human-craft-stamp" id="campusStampBtn" role="button" tabindex="0" title="Click to stamp your campus visit!">
+                    <div class="stamp-outer-ring">
+                        <svg class="stamp-circular-text" viewBox="0 0 140 140">
+                            <path id="stampCirclePath" d="M 70, 70 m -52, 0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" fill="none" />
+                            <text>
+                                <textPath href="#stampCirclePath" startOffset="0%">
+                                    • RVR&amp;JCCE • EC &amp; CCAC • SICO 2026 •
+                                </textPath>
+                            </text>
+                        </svg>
+                        <div class="stamp-center-content">
+                            <span class="stamp-star">✦</span>
+                            <span class="stamp-text-inner">VERIFIED</span>
+                            <span class="stamp-sub">VISITOR</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stamp-handwritten-note">
+                    <span class="note-arrow">↳</span>
+                    <span>Handcrafted with pride &bull; Est. 1985 &bull; <strong id="stampCounter">1,842</strong> campus visits stamped</span>
+                </div>
+            </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="admin.html" class="footer-admin-link" title="Authorized Coordinator Studio">🔒 Coordinator Studio</a></p>
             </div>

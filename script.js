@@ -1121,16 +1121,57 @@ document.addEventListener('DOMContentLoaded', () => {
                     osc.start(noteTime);
                     osc.stop(noteTime + 0.22);
                 });
+            } else if (type === 'stamp') {
+                // Tactile physical stamp thud + bell resonance
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.exponentialRampToValueAtTime(45, now + 0.12);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc.connect(gain);
+                gain.connect(filter);
+                osc.start(now);
+                osc.stop(now + 0.12);
+
+                const chime = audioCtx.createOscillator();
+                const chimeGain = audioCtx.createGain();
+                chime.type = 'sine';
+                chime.frequency.setValueAtTime(880, now + 0.03);
+                chimeGain.gain.setValueAtTime(0.04, now + 0.03);
+                chimeGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+                chime.connect(chimeGain);
+                chimeGain.connect(filter);
+                chime.start(now + 0.03);
+                chime.stop(now + 0.35);
+            } else if (type === 'chime') {
+                // Gentle collegiate chord
+                const chord = [523.25, 659.25, 783.99, 1046.50];
+                chord.forEach((freq, idx) => {
+                    const noteTime = now + idx * 0.06;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, noteTime);
+                    gain.gain.setValueAtTime(0.03, noteTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.4);
+                    osc.connect(gain);
+                    gain.connect(filter);
+                    osc.start(noteTime);
+                    osc.stop(noteTime + 0.4);
+                });
             }
         } catch (e) {
             // Silently ignore audio context restrictions
         }
     }
+    window.playSynthSound = playSynthSound;
 
     const audioToggleBtn = document.getElementById('hudAudioToggle');
     function updateAudioUI() {
         if (!audioToggleBtn) return;
-        const textSpan = audioToggleBtn.querySelector('.hud-audio-text');
+        const textSpan = audioToggleBtn.querySelector('.hud-audio-text, .sound-label');
         if (audioEnabled) {
             audioToggleBtn.classList.add('active');
             if (textSpan) textSpan.textContent = 'AUDIO: ON';
@@ -1160,7 +1201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 17. TACTILE CARD INTERACTION & ELEVATION
     // -------------------------------------------------------------
     if (window.matchMedia('(pointer: fine)').matches) {
-        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card, .stat-card, .feature-card, .event-card, .team-card');
+        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card, .stat-card, .feature-card, .event-card, .event-card-modern, .team-card, .voice-card, .faculty-marquee-item, .student-marquee-item');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -1171,13 +1212,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rotX = ((y - centerY) / centerY) * -4.5;
                 const rotY = ((x - centerX) / centerX) * 4.5;
 
-                if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd')) {
+                // Dynamically update card specular spotlight glare
+                card.style.setProperty('--spot-x', `${x.toFixed(1)}px`);
+                card.style.setProperty('--spot-y', `${y.toFixed(1)}px`);
+
+                if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd') && !card.classList.contains('faculty-marquee-item') && !card.classList.contains('student-marquee-item')) {
                     card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
                 }
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
+                if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd') && !card.classList.contains('faculty-marquee-item') && !card.classList.contains('student-marquee-item')) {
+                    card.style.transform = '';
+                }
             });
         });
     }
@@ -2190,8 +2237,417 @@ document.addEventListener('click', (e) => {
         }
     }
 
-    // Call live admin synchronization immediately
+    // -------------------------------------------------------------
+    // 21. TELEPORTING SPACE DIVE LOADING SYSTEM (AT LEAST 7 SECONDS)
+    // -------------------------------------------------------------
+    function initTeleportLoader() {
+        const loader = document.getElementById('teleportLoader');
+        if (!loader) return;
+
+        const canvas = document.getElementById('teleportCanvas');
+        const warpFactorEl = document.getElementById('teleportWarpFactor');
+        const stageStatusEl = document.getElementById('teleportStageStatus');
+        const meterBar = document.getElementById('teleportMeterBar');
+        const laserSpark = document.getElementById('teleportLaserSpark');
+        const countdownEl = document.getElementById('teleportCountdown');
+        const percentEl = document.getElementById('teleportPercent');
+        const skipBtn = document.getElementById('teleportSkipBtn');
+        const flashEl = document.getElementById('teleportFlash');
+
+        const TOTAL_DURATION = 7000; // Exact 7.0 seconds of cosmic space dive
+        let startTime = null;
+        let isCompleted = false;
+
+        // Sound synthesizer helper for hyperspace dive
+        function playTeleportRumble(stepProgress) {
+            if (!audioCtx || !audioEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                const baseFreq = 55 + stepProgress * 120;
+                osc.frequency.setValueAtTime(baseFreq, now);
+                osc.frequency.exponentialRampToValueAtTime(baseFreq + 20, now + 0.1);
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(400 + stepProgress * 1600, now);
+
+                gain.gain.setValueAtTime(0.015, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.1);
+            } catch (e) {}
+        }
+
+        // 3D Starfield Warp Tunnel Canvas
+        let stars = [];
+        const STAR_COUNT = 320;
+        let width = 0, height = 0;
+        let ctx = null;
+
+        if (canvas) {
+            ctx = canvas.getContext('2d');
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            for (let i = 0; i < STAR_COUNT; i++) {
+                stars.push({
+                    x: (Math.random() - 0.5) * 2000,
+                    y: (Math.random() - 0.5) * 2000,
+                    z: Math.random() * 1500 + 1,
+                    prevZ: 1500,
+                    color: Math.random() > 0.4 ? '#38bdf8' : (Math.random() > 0.5 ? '#8b5cf6' : '#f59e0b'),
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        const stages = [
+            { pct: 0, text: 'CALIBRATING QUANTUM COORDINATES...' },
+            { pct: 20, text: 'DIVING THROUGH HYPERSPACE CORRIDOR...' },
+            { pct: 45, text: 'CROSSING DIMENSIONAL PORTAL RIFT...' },
+            { pct: 75, text: 'DECELERATING INTO RVR & JC SAC ATELIER...' },
+            { pct: 95, text: 'TOUCHDOWN CONFIRMED · MATERIALIZING ATELIER' }
+        ];
+
+        function dismissTeleport(fast = false) {
+            if (isCompleted) return;
+            isCompleted = true;
+
+            if (fast) {
+                loader.classList.add('teleport-done');
+                setTimeout(() => { loader.style.display = 'none'; }, 200);
+                return;
+            }
+
+            if (flashEl) {
+                flashEl.classList.add('active');
+                setTimeout(() => flashEl.classList.remove('active'), 550);
+            }
+
+            playSynthSound('chime');
+            loader.classList.add('iris-open');
+
+            setTimeout(() => {
+                loader.classList.add('teleport-done');
+            }, 750);
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 1200);
+        }
+
+        if (skipBtn) {
+            skipBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dismissTeleport(false);
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !isCompleted) {
+                dismissTeleport(false);
+            }
+        });
+
+        let lastRumble = 0;
+
+        function renderTeleportFrame(timestamp) {
+            if (isCompleted) return;
+            if (!startTime) startTime = timestamp;
+
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(1, elapsed / TOTAL_DURATION);
+            const remainingSeconds = Math.max(0, (TOTAL_DURATION - elapsed) / 1000);
+
+            // Update Countdown (07.0s -> 00.0s)
+            if (countdownEl) {
+                const s = remainingSeconds.toFixed(1);
+                countdownEl.textContent = (s < 10 ? '0' : '') + s + 's';
+            }
+
+            // Update Progress Bar & Percentage
+            const pct = Math.min(100, Math.round(progress * 100));
+            if (percentEl) percentEl.textContent = (pct < 10 ? '0' : '') + pct + '%';
+            if (meterBar) meterBar.style.width = progress * 100 + '%';
+            if (laserSpark) laserSpark.style.left = progress * 100 + '%';
+
+            // Warp factor calculation
+            if (warpFactorEl) {
+                if (progress < 0.2) {
+                    warpFactorEl.textContent = `WARP ${(3.5 + progress * 20).toFixed(2)}`;
+                } else if (progress < 0.75) {
+                    const jitter = Math.sin(timestamp * 0.02) * 0.12;
+                    warpFactorEl.textContent = `WARP ${(9.82 + jitter).toFixed(2)}`;
+                } else {
+                    const deaccel = Math.max(0.1, (1 - (progress - 0.75) / 0.25) * 9.8);
+                    warpFactorEl.textContent = deaccel > 1 ? `WARP ${deaccel.toFixed(1)}` : 'SUB-LIGHT 0.28c';
+                }
+            }
+
+            // Stage Status update
+            if (stageStatusEl) {
+                for (let i = stages.length - 1; i >= 0; i--) {
+                    if (pct >= stages[i].pct) {
+                        stageStatusEl.textContent = stages[i].text;
+                        break;
+                    }
+                }
+            }
+
+            // Space acoustic sound pulse every ~380ms during dive
+            if (timestamp - lastRumble > 380 && progress < 0.95) {
+                lastRumble = timestamp;
+                playTeleportRumble(progress);
+            }
+
+            // Draw 3D Starfield Warp Tunnel
+            if (ctx && width && height) {
+                ctx.fillStyle = 'rgba(3, 5, 13, 0.32)';
+                ctx.fillRect(0, 0, width, height);
+
+                const cx = width / 2;
+                const cy = height / 2;
+
+                let speed = 8;
+                if (progress < 0.25) {
+                    speed = 8 + (progress / 0.25) * 45;
+                } else if (progress < 0.75) {
+                    speed = 53 + Math.sin(timestamp * 0.005) * 8;
+                } else {
+                    speed = Math.max(4, 53 * (1 - (progress - 0.75) / 0.25));
+                }
+
+                for (let i = 0; i < stars.length; i++) {
+                    const star = stars[i];
+                    star.prevZ = star.z;
+                    star.z -= speed;
+
+                    if (star.z <= 0) {
+                        star.z = 1500;
+                        star.prevZ = 1500;
+                        star.x = (Math.random() - 0.5) * 2000;
+                        star.y = (Math.random() - 0.5) * 2000;
+                    }
+
+                    const k = 320 / star.z;
+                    const px = star.x * k + cx;
+                    const py = star.y * k + cy;
+
+                    const prevK = 320 / star.prevZ;
+                    const prevX = star.x * prevK + cx;
+                    const prevY = star.y * prevK + cy;
+
+                    if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                        const alpha = Math.min(1, (1500 - star.z) / 400);
+                        ctx.strokeStyle = star.color;
+                        ctx.lineWidth = Math.min(4, Math.max(0.8, (1 - star.z / 1500) * 3.5));
+                        ctx.globalAlpha = alpha;
+                        ctx.beginPath();
+                        ctx.moveTo(prevX, prevY);
+                        ctx.lineTo(px, py);
+                        ctx.stroke();
+                    }
+                }
+                ctx.globalAlpha = 1.0;
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(renderTeleportFrame);
+            } else {
+                dismissTeleport(false);
+            }
+        }
+
+        requestAnimationFrame(renderTeleportFrame);
+    }
+
+    // -------------------------------------------------------------
+    // 22. SEAMLESS PAGE TRANSITION VEIL
+    // -------------------------------------------------------------
+    function initPageTransitions() {
+        const veil = document.getElementById('pageTransitionVeil');
+        const veilText = document.getElementById('veilText');
+        if (!veil) return;
+
+        const pageTitles = {
+            'index.html': 'CAMPUS LIFE HUB · RVR & JC',
+            'about.html': 'OUR FOUNDATION & HERITAGE',
+            'events.html': 'CULTURAL FESTS & COMPETITIONS',
+            'sico.html': 'STUDENT INTEGRATED COMMITTEE',
+            'reports.html': 'ANNUAL ARCHIVES & DOCUMENTATION',
+            'team.html': 'LEADERSHIP & MENTORSHIP DIRECTORY',
+            'gallery.html': 'VISUAL STORIES & RETROSPECTIVES',
+            'contact.html': 'STUDENT HELPLINE & SAC',
+            'admin.html': 'AUTHORIZED COORDINATOR STUDIO'
+        };
+
+        // Smooth reveal when landing on the page
+        veil.classList.add('revealing');
+        setTimeout(() => {
+            veil.classList.remove('active', 'revealing');
+            veil.style.transform = '';
+        }, 500);
+
+        window.addEventListener('pageshow', () => {
+            veil.classList.remove('active', 'revealing');
+            veil.style.transform = '';
+        });
+
+        document.addEventListener('click', (e) => {
+            const anchor = e.target.closest('a[href]');
+            if (!anchor) return;
+
+            const href = anchor.getAttribute('href');
+            if (!href) return;
+
+            if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+            if (anchor.target === '_blank' || href.startsWith('http://') || href.startsWith('https://')) return;
+            if (anchor.hasAttribute('download')) return;
+
+            const cleanPath = href.split('?')[0].split('#')[0];
+            if (!cleanPath.endsWith('.html') && cleanPath !== '') return;
+
+            e.preventDefault();
+            playSynthSound('click');
+
+            const pageKey = cleanPath || 'index.html';
+            if (veilText) {
+                veilText.textContent = pageTitles[pageKey] || 'R.V.R. & J.C. COLLEGE OF ENGINEERING';
+            }
+
+            veil.classList.remove('revealing');
+            veil.classList.add('active');
+
+            setTimeout(() => {
+                window.location.href = href;
+            }, 420);
+        });
+    }
+
+    // -------------------------------------------------------------
+    // 23. EDITORIAL SCROLL REVEALS & STAGGER
+    // -------------------------------------------------------------
+    function initScrollReveals() {
+        const revealTargets = document.querySelectorAll('.reveal-on-scroll, .portal-card, .event-card-modern, .voice-card');
+        if (!revealTargets.length) return;
+
+        if (!('IntersectionObserver' in window)) {
+            revealTargets.forEach(el => el.classList.add('is-revealed'));
+            return;
+        }
+
+        const revealObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        revealTargets.forEach(el => revealObserver.observe(el));
+    }
+
+    // -------------------------------------------------------------
+    // 24. COLLEGIATE HANDCRAFTED GUESTBOOK STAMP
+    // -------------------------------------------------------------
+    function initCampusStamp() {
+        const stampBtn = document.getElementById('campusStampBtn');
+        const counterEl = document.getElementById('stampCounter');
+        if (!stampBtn) return;
+
+        let stampCount = parseInt(localStorage.getItem('sico_campus_stamps') || '1842', 10);
+        if (counterEl) counterEl.textContent = stampCount.toLocaleString();
+
+        function triggerStamp() {
+            stampCount += 1;
+            try { localStorage.setItem('sico_campus_stamps', stampCount); } catch (e) {}
+            if (counterEl) counterEl.textContent = stampCount.toLocaleString();
+
+            playSynthSound('stamp');
+            if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+
+            const shockwave = document.createElement('div');
+            shockwave.className = 'stamp-shockwave';
+            stampBtn.appendChild(shockwave);
+            setTimeout(() => shockwave.remove(), 850);
+
+            stampBtn.classList.add('stamped');
+            setTimeout(() => stampBtn.classList.remove('stamped'), 1200);
+
+            showCollegiateToast(`🏛️ Official Campus Seal Stamped! Registered visit #${stampCount.toLocaleString()}`);
+        }
+
+        stampBtn.addEventListener('click', triggerStamp);
+        stampBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                triggerStamp();
+            }
+        });
+    }
+
+    function showCollegiateToast(msg) {
+        let toast = document.getElementById('collegiateToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'collegiateToast';
+            toast.className = 'collegiate-toast';
+            document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.classList.add('visible');
+        setTimeout(() => {
+            toast.classList.remove('visible');
+        }, 3400);
+    }
+
+    // -------------------------------------------------------------
+    // 25. ELASTIC MAGNETIC BUTTON PHYSICS
+    // -------------------------------------------------------------
+    function initMagneticButtons() {
+        if (!window.matchMedia('(pointer: fine)').matches) return;
+        const magnets = document.querySelectorAll('.btn-magnetic, .btn-hero-primary, .theme-roller-btn, #hudCmdTrigger, #campusStampBtn');
+
+        magnets.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - (rect.left + rect.width / 2);
+                const y = e.clientY - (rect.top + rect.height / 2);
+                btn.style.transform = `translate(${x * 0.16}px, ${y * 0.16}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                setTimeout(() => { btn.style.transition = ''; }, 400);
+            });
+        });
+    }
+
+    // Initialize all bespoke tactile human-made modules
     syncLiveAdminData();
+    initTeleportLoader();
+    initPageTransitions();
+    initScrollReveals();
+    initCampusStamp();
+    initMagneticButtons();
 
     // Global Admin Shortcut: Ctrl + Shift + A (or Cmd + Shift + A)
     window.addEventListener('keydown', (e) => {
