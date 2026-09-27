@@ -457,7 +457,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -514,7 +515,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -571,7 +573,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -628,7 +631,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -685,7 +689,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -742,7 +747,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -799,7 +805,8 @@
                             </button>
                             <button type="button"
                                     class="btn-card-register registration-locked"
-                                    title="Registration will open one week prior to the event date. Please check back later to register for this event.">
+                                    title="Registration will open one week prior to the event date. Please check back later to register for this event."
+                                    onclick="event.preventDefault(); event.stopPropagation(); alert('Registration will open one week prior to the event date. Please check back later to register for this event.');">
                                 <span>Registration</span>
                                 <i>🔒</i>
                             </button>
@@ -1770,15 +1777,15 @@
     <script src="script.js"></script>
 <script>
     // Upcoming-event registration lock
-    document.addEventListener('click', function (e) {
-        const lockedButton = e.target.closest('.registration-locked');
-        if (!lockedButton) return;
+    //document.addEventListener('click', function (e) {
+    //    const lockedButton = e.target.closest('.registration-locked');
+    //    if (!lockedButton) return;
 
-        e.preventDefault();
-        e.stopPropagation();
+    //    e.preventDefault();
+    //    e.stopPropagation();
 
-        alert('Registration will open one week prior to the event date. Please check back later to register for this event.');
-    });
+    //    alert('Registration will open one week prior to the event date. Please check back later to register for this event.');
+    //});
 </script>
 
 </body>
