@@ -11,8 +11,78 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
 </head>
 <body>
+    <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
+    <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
+
+    <!-- =========================================================================
+         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
+         Centralized and configurable in animations.css & script.js
+         ========================================================================= -->
+    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
+        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
+        <div class="wormhole-chamber">
+            <div class="wormhole-ring ring-1"></div>
+            <div class="wormhole-ring ring-2"></div>
+            <div class="wormhole-ring ring-3"></div>
+            <div class="wormhole-ring ring-4"></div>
+            <div class="wormhole-ring ring-5"></div>
+            <div class="wormhole-vortex-core"></div>
+        </div>
+        <div class="teleport-hud">
+            <div class="teleport-hud-top">
+                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
+                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
+            </div>
+            <div class="teleport-nexus">
+                <div class="nexus-emblem-glow"></div>
+                <div class="nexus-crest-wrap">
+                    <div class="nexus-monogram">SICO</div>
+                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
+                </div>
+            </div>
+            <div class="teleport-trajectory">
+                <div class="trajectory-line">
+                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
+                    <span class="trajectory-arrow">══════►</span>
+                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
+                </div>
+                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
+            </div>
+            <div class="teleport-meter">
+                <div class="teleport-meter-track">
+                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
+                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
+                </div>
+                <div class="teleport-meter-footer">
+                    <div class="teleport-timer-box">
+                        <span class="timer-label">DIVE REMAINING:</span>
+                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
+                    </div>
+                    <div class="teleport-percent" id="teleportPercent">00%</div>
+                </div>
+            </div>
+            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
+                <span>Skip Dive</span>
+                <kbd>ESC</kbd>
+            </button>
+        </div>
+        <div class="teleport-supernova-flash" id="teleportFlash"></div>
+        <div class="teleport-iris-top" id="teleportIrisTop"></div>
+        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
+    </div>
+
+    <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
+    <div class="page-transition-veil" id="pageTransitionVeil" aria-hidden="true">
+        <div class="veil-shimmer-line"></div>
+        <div class="veil-content">
+            <div class="veil-spinner"></div>
+            <div class="veil-text" id="veilText">✦ NAVIGATING CAMPUS PORTAL ✦</div>
+        </div>
+    </div>
+
     <!-- Dignified Collegiate Announcement Bar -->
     <div class="campus-announcement-bar">
         <div class="announcement-left">
@@ -280,33 +350,16 @@
 
     <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
     <div class="hud-floating-controls">
-        <div class="hud-theme-selector">
-            <button class="hud-ctrl-btn" id="hudThemeTrigger" aria-label="Switch Theme Palette">
-                <span>🎨 PALETTE: <strong id="hudThemeLabel" style="color:var(--accent-gold)">VELVET MIDNIGHT</strong></span>
-            </button>
-            <div class="hud-theme-dropdown" id="hudThemeDropdown">
-                <button class="hud-theme-opt active" data-set-theme="obsidian">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-obsidian"></span>
-                        <span>Velvet Midnight (Dark)</span>
-                    </div>
-                    <span class="hud-kbd-key">DEFAULT</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="champagne">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-champagne"></span>
-                        <span>Warm Atelier (Light)</span>
-                    </div>
-                    <span class="hud-kbd-key">PAPER</span>
-                </button>
-                <button class="hud-theme-opt" data-set-theme="heritage">
-                    <div class="theme-opt-left">
-                        <span class="theme-preview-dot theme-dot-heritage"></span>
-                        <span>Royal Heritage (Navy)</span>
-                    </div>
-                    <span class="hud-kbd-key">ROYAL</span>
-                </button>
-            </div>
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+            <span class="roller-slider"></span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
+                <span class="roller-icon">🌙</span>
+                <span class="roller-text">Dark</span>
+            </span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light">
+                <span class="roller-icon">☀️</span>
+                <span class="roller-text">Light</span>
+            </span>
         </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
             <span>🔍 SEARCH SPOTLIGHT</span>
