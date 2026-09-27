@@ -1713,7 +1713,75 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+// =============================================================
+// REGISTRATION CONTROL
+// =============================================================
 
+const REGISTRATION_LOCK_MESSAGE =
+    'Registration can be done only one week prior to the event date.';
+
+// Get the starting date from event date text.
+// Supports formats such as:
+// "05–06 Oct 2026"
+// "05 Oct 2026"
+// "05 October 2026"
+function getEventStartDate(dateText) {
+    if (!dateText) return null;
+
+    const text = String(dateText).trim();
+
+    const match = text.match(
+        /(\d{1,2})(?:\s*[-–]\s*\d{1,2})?\s+([A-Za-z]+)\s+(\d{4})/i
+    );
+
+    if (!match) return null;
+
+    const day = parseInt(match[1], 10);
+    const month = match[2];
+    const year = parseInt(match[3], 10);
+
+    const date = new Date(`${month} ${day}, ${year}`);
+
+    if (isNaN(date.getTime())) return null;
+
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
+
+// Registration becomes available 7 days before the event.
+function isRegistrationOpen(dateText) {
+    const eventDate = getEventStartDate(dateText);
+
+    // If the date cannot be parsed, keep registration locked.
+    if (!eventDate) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const registrationDate = new Date(eventDate);
+    registrationDate.setDate(registrationDate.getDate() - 7);
+
+    // Open from exactly 7 days before the event
+    // until the event starts.
+    return today >= registrationDate && today < eventDate;
+}
+
+
+// Show the registration lock message.
+function showRegistrationLockedMessage() {
+    alert(REGISTRATION_LOCK_MESSAGE);
+}
+document.addEventListener('click', (e) => {
+    const lockedButton = e.target.closest('.registration-locked');
+
+    if (!lockedButton) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    showRegistrationLockedMessage();
+});
     // =============================================================
     // 27. UNIVERSAL LIVE DATA SYNCHRONIZATION (ADMIN GOOGLE FORM -> WEBSITE)
     // =============================================================
@@ -1746,7 +1814,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.setAttribute('data-coordinators', ev.coordinators || 'Student Leads');
                     if (ev.pdfUrl) card.setAttribute('data-pdfurl', ev.pdfUrl);
                     if (ev.pdfName) card.setAttribute('data-pdfname', ev.pdfName);
-
+                    if (ev.regLink) card.setAttribute('data-reglink', ev.regLink);
                     let posterMarkup = '';
                     if (ev.posterUrl) {
                         posterMarkup = `
@@ -1803,13 +1871,32 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i>→</i>
                             </button>
                             ${circularBtn}
-                            <a href="${ev.regLink || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'}"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               class="btn-card-register">
-                                <span>Register</span>
-                                <i>↗</i>
-                            </a>
+                            ${(() => {
+    const registrationLink = ev.regLink || '';
+    const registrationOpen = registrationLink &&
+        isRegistrationOpen(ev.date);
+
+    if (registrationOpen) {
+        return `
+            <a href="${registrationLink}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn-card-register">
+                <span>Register</span>
+                <i>↗</i>
+            </a>
+        `;
+    }
+
+    return `
+        <button type="button"
+                class="btn-card-register registration-locked"
+                title="${REGISTRATION_LOCK_MESSAGE}">
+            <span>Registration</span>
+            <i>🔒</i>
+        </button>
+    `;
+})()}
                         </div>
                     `;
 
