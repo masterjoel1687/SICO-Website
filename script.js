@@ -1765,7 +1765,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // =============================================================
 
 const REGISTRATION_LOCK_MESSAGE =
-    'Registration can be done only one week prior to the event date.';
+    'Registration will open one week prior to the event date. Please check back later to register for this event.';
 
 // Get the starting date from event date text.
 // Supports formats such as:
