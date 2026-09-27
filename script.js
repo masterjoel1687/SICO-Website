@@ -1197,6 +1197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Pages' },
         { title: 'SICO Community Outreach', sub: 'Student initiatives & social impact programs', url: 'sico.html', icon: '🤝', category: 'Pages' },
         { title: 'Reports & Archives', sub: 'Annual documentation & retrospective PDFs', url: 'reports.html', icon: '📊', category: 'Pages' },
+        { title: 'Faculty Conveners & Advisory', sub: 'Dr. P. V. Kishore Babu & senior faculty steering board', url: 'team.html#faculty-section', icon: '🏛️', category: 'Pages' },
         { title: 'Student Coordinators', sub: 'Core leadership directory & committee leads', url: 'team.html', icon: '👥', category: 'Pages' },
         { title: 'Champions & Winners Hall of Fame', sub: 'Verified merit lists, student regd numbers & cash prizes', url: 'events.html#winnersHallOfFame', icon: '🏆', category: 'Pages' },
         { title: 'Visual Stories & Gallery', sub: 'Curated photo memories from campus celebrations', url: 'gallery.html', icon: '📸', category: 'Pages' },
