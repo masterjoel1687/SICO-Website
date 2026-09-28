@@ -2660,3 +2660,10 @@ document.addEventListener('click', (e) => {
 });
 
 
+
+/* Human-first redesign bootstrap */
+(()=>{
+  const css="redesign.css";
+  if(!document.querySelector('link[data-sico-redesign]')){const l=document.createElement("link");l.rel="stylesheet";l.href=css;l.dataset.sicoRedesign="1";document.head.appendChild(l)}
+  if(!document.querySelector('script[data-sico-redesign]')){const s=document.createElement("script");s.src="redesign.js";s.dataset.sicoRedesign="1";s.defer=true;s.onload=()=>window.SICO_REDESIGN_INIT&&window.SICO_REDESIGN_INIT();document.head.appendChild(s)}
+})();
