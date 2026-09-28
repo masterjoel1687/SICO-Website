@@ -119,3 +119,78 @@ footer{background:#0d0f12!important;color:#fff!important;border-top:1px solid rg
     margin:12px 12px 0;
   }
 }
+
+
+/* Final polish: responsive navigation, accessible focus, and restrained motion */
+:focus-visible{
+  outline:3px solid rgba(117,103,247,.45)!important;
+  outline-offset:3px!important;
+}
+.nav-link,.btn,.btn-nav-cta,.filter-pill,.mobile-menu-toggle{touch-action:manipulation}
+.ticker-track{animation-duration:34s!important}
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none!important}
+  .cursor-glow{display:none!important}
+}
+@media (max-width:900px){
+  .nav-menu{
+    position:fixed!important;
+    top:104px!important;
+    left:12px!important;
+    right:12px!important;
+    width:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:4px!important;
+    padding:12px!important;
+    border:1px solid var(--sx-line)!important;
+    border-radius:20px!important;
+    background:rgba(255,255,255,.96)!important;
+    box-shadow:0 24px 70px rgba(17,19,24,.16)!important;
+    backdrop-filter:blur(22px)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    transform:translateY(-10px)!important;
+    pointer-events:none!important;
+    transition:opacity .22s ease,transform .22s ease,visibility .22s ease!important;
+    z-index:1005!important;
+  }
+  .nav-menu.active{
+    opacity:1!important;
+    visibility:visible!important;
+    transform:translateY(0)!important;
+    pointer-events:auto!important;
+  }
+  .nav-link{
+    width:100%!important;
+    text-align:left!important;
+    padding:13px 14px!important;
+    font-size:14px!important;
+  }
+  .mobile-menu-toggle{
+    display:flex!important;
+    width:42px!important;
+    height:42px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid var(--sx-line)!important;
+    border-radius:12px!important;
+    background:#fff!important;
+  }
+  .mobile-menu-toggle span{background:#111318!important}
+  .mobile-menu-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .mobile-menu-toggle.active span:nth-child(2){opacity:0}
+  .mobile-menu-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .btn-nav-cta{display:none!important}
+  .campus-announcement-left .campus-tag,.campus-announcement-right .campus-tag:not(:last-child){display:none}
+}
+@media (max-width:640px){
+  .campus-announcement-bar{justify-content:center!important}
+  .campus-announcement-left{justify-content:center!important}
+  .campus-announcement-right{display:none!important}
+  .header{top:35px!important}
+  .nav-menu{top:94px!important}
+  .festival-pass-card{margin-top:26px!important}
+  .festival-pass-grid{grid-template-columns:repeat(2,1fr)!important}
+}
