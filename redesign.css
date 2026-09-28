@@ -86,3 +86,36 @@ footer{background:#0d0f12!important;color:#fff!important;border-top:1px solid rg
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.reveal-sx{opacity:1;transform:none}}
 @media(max-width:900px){.header{top:42px!important}.header-pill{width:calc(100% - 24px)!important}.hero{padding-top:135px!important}.hero-title{font-size:clamp(48px,12vw,78px)!important}}
 @media(max-width:640px){.campus-announcement-bar{padding:6px 14px}.header{top:35px!important}.header-pill{min-height:62px}.hero{min-height:auto;padding:125px 0 70px!important}.hero-title{font-size:clamp(44px,14vw,64px)!important}.hero-buttons{flex-direction:column;align-items:stretch}.hero-buttons .btn{width:100%;justify-content:center}.events-showcase-section,.portal-hub,.team-showcase-section,.campus-voices-section{padding-top:75px!important;padding-bottom:75px!important}.page-banner{padding-top:125px!important;padding-bottom:65px!important}.page-banner-title{font-size:clamp(44px,14vw,64px)!important}.section-title{font-size:clamp(34px,10vw,50px)!important}}
+
+
+/* Club Waltz flagship treatment */
+.club-waltz-featured{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,90,54,.28);
+  box-shadow:0 28px 90px rgba(255,90,54,.14);
+}
+.club-waltz-featured::before{
+  content:"CURRENT FLAGSHIP EVENT";
+  position:absolute;
+  top:14px;
+  right:14px;
+  z-index:3;
+  padding:7px 11px;
+  border-radius:999px;
+  background:var(--sx-ink);
+  color:#fff;
+  font:700 10px/1 "DM Mono",monospace;
+  letter-spacing:.12em;
+}
+.club-waltz-featured:hover{
+  transform:translateY(-8px);
+  box-shadow:0 34px 100px rgba(255,90,54,.2);
+}
+@media (max-width:640px){
+  .club-waltz-featured::before{
+    position:static;
+    display:inline-flex;
+    margin:12px 12px 0;
+  }
+}
