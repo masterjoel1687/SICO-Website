@@ -6,7 +6,22 @@ function reveals(){const nodes=$$(".section-header,.event-card,.event-card-moder
 function nav(){const h=$(".header");if(!h)return;let last=0;addEventListener("scroll",()=>{const y=scrollY;h.classList.toggle("sx-hidden-on-scroll",y>last&&y>260);h.classList.toggle("sx-scrolled",y>50);last=y},{passive:true})}
 function images(){$$("img").forEach(i=>{if(!i.hasAttribute("decoding"))i.decoding="async";if(!i.hasAttribute("loading")&&!i.closest(".hero"))i.loading="lazy"})}
 function polish(){$$("a[target='_blank']").forEach(a=>{a.rel=a.rel||"noopener noreferrer"});addEventListener("keydown",e=>{if(e.key==="/"&&!/input|textarea|select/i.test(document.activeElement?.tagName||"")){const s=$("[type='search'],.team-search-input,#siteSearchInput");if(s){e.preventDefault();s.focus()}}})}
-function init(){if(location.pathname.endsWith("/index.html")||location.pathname==="/"||location.pathname.endsWith("/SICO-Website/"))dedupe("#team-marquee .team-card",".team-name");reveals();nav();images();polish();document.body.classList.add("sx-ready")}
+function loader(){
+  const el=$("#sicoLoader"),bar=$("#sicoLoaderProgress"),status=$("#sicoLoaderStatus");
+  if(!el)return;
+  const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const messages=["Preparing your campus experience","Bringing SICO to life","Almost there"];
+  const start=performance.now(),duration=reduced?120:900;
+  function tick(now){
+    const p=Math.min(1,(now-start)/duration);
+    if(bar)bar.style.width=(p*100)+"%";
+    if(status)status.textContent=messages[Math.min(messages.length-1,Math.floor(p*messages.length))];
+    if(p<1)requestAnimationFrame(tick);
+    else setTimeout(()=>el.classList.add("is-done"),reduced?0:180);
+  }
+  requestAnimationFrame(tick);
+}
+function init(){if(location.pathname.endsWith("/index.html")||location.pathname==="/"||location.pathname.endsWith("/SICO-Website/"))dedupe("#team-marquee .team-card",".team-name");loader();reveals();nav();images();polish();document.body.classList.add("sx-ready")}
 window.SICO_REDESIGN_INIT=init;
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
