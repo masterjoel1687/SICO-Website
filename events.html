@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events &amp; Competitions | SICO — RVR&amp;JCCE</title>
-    <meta name="description" content="Explore SICO events and competitions at RVR &amp; JC College of Engineering, including Club Waltz 2026, flagship cultural events, technical competitions and student activities.">
+    <title>Flagship Events | EC &amp; CCAC - RVR&amp;JCCE</title>
+    <meta name="description" content="Explore cultural fests, music concerts, dance battles, art expos, and literary events at RVR &amp; JC College of Engineering.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,18 +17,61 @@
     <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
     <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
 
-    <!-- Premium SICO page loader -->
-    <div class="sico-loader" id="sicoLoader" aria-hidden="true">
-        <div class="sico-loader-mark">
-            <div class="sico-loader-ring"></div>
-            <div class="sico-loader-core">SICO</div>
+    <!-- =========================================================================
+         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
+         Centralized and configurable in animations.css & script.js
+         ========================================================================= -->
+    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
+        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
+        <div class="wormhole-chamber">
+            <div class="wormhole-ring ring-1"></div>
+            <div class="wormhole-ring ring-2"></div>
+            <div class="wormhole-ring ring-3"></div>
+            <div class="wormhole-ring ring-4"></div>
+            <div class="wormhole-ring ring-5"></div>
+            <div class="wormhole-vortex-core"></div>
         </div>
-        <div class="sico-loader-copy">
-            <span class="sico-loader-kicker">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</span>
-            <strong>Student Integrated Committee</strong>
-            <span class="sico-loader-status" id="sicoLoaderStatus">Preparing your campus experience</span>
+        <div class="teleport-hud">
+            <div class="teleport-hud-top">
+                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
+                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
+            </div>
+            <div class="teleport-nexus">
+                <div class="nexus-emblem-glow"></div>
+                <div class="nexus-crest-wrap">
+                    <div class="nexus-monogram">SICO</div>
+                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
+                </div>
+            </div>
+            <div class="teleport-trajectory">
+                <div class="trajectory-line">
+                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
+                    <span class="trajectory-arrow">══════►</span>
+                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
+                </div>
+                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
+            </div>
+            <div class="teleport-meter">
+                <div class="teleport-meter-track">
+                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
+                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
+                </div>
+                <div class="teleport-meter-footer">
+                    <div class="teleport-timer-box">
+                        <span class="timer-label">DIVE REMAINING:</span>
+                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
+                    </div>
+                    <div class="teleport-percent" id="teleportPercent">00%</div>
+                </div>
+            </div>
+            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
+                <span>Skip Dive</span>
+                <kbd>ESC</kbd>
+            </button>
         </div>
-        <div class="sico-loader-progress" aria-hidden="true"><span id="sicoLoaderProgress"></span></div>
+        <div class="teleport-supernova-flash" id="teleportFlash"></div>
+        <div class="teleport-iris-top" id="teleportIrisTop"></div>
+        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
     </div>
 
     <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
@@ -46,7 +89,7 @@
             <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Activities Center</span>
         </div>
         <div class="announcement-center">
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> ⚡ <strong>CLUB WALTZ 2026:</strong> Flagship Dance Gala · 05–06 October</span>
+            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
         </div>
         <div class="announcement-right">
             <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
@@ -196,9 +239,9 @@
                     </div>
 
                     <!-- Card 2: Club Waltz (Flagship Mega Gala) -->
-                    <div class="event-card-modern card-imminent club-waltz-featured"
+                    <div class="event-card-modern card-imminent"
                          data-category="dance"
-                         data-type="imminent prizes fest"
+                         data-type="imminent prizes"
                          data-title="Club Waltz (Mega Dance Gala)"
                          data-catname="Dance Club · Flagship Performing Arts"
                          data-date="05th &amp; 06th October 2026"
@@ -215,7 +258,7 @@
                                 <span>📅</span>
                                 <span>05 &amp; 06 Oct 2026</span>
                             </div>
-                            <span class="event-status-pill status-imminent" style="background: linear-gradient(135deg, var(--accent-coral), var(--accent-pink)); color: #fff;">⚡ 05–06 Oct · Flagship</span>
+                            <span class="event-status-pill status-imminent" style="background: linear-gradient(135deg, var(--accent-coral), var(--accent-pink)); color: #fff;">⚡ In 9 Days · Big Event</span>
                         </div>
                         <div class="event-card-main">
                             <h3 class="event-card-title">Club Waltz (Mega Dance Gala)</h3>
