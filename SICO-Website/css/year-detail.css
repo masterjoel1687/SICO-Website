@@ -1,0 +1,640 @@
+/* Section: Year Detail */
+.year-detail-page {
+    background: var(--bg-light);
+    min-height: calc(100vh - 80px);
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: var(--text-light);
+}
+
+.year-section {
+    background: var(--white);
+    border-radius: 25px;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-md);
+}
+
+.year-section-header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.year-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section-icon {
+    font-size: 2.5rem;
+}
+
+.year-section-description {
+    color: var(--text-light);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* PDF Files Grid */
+.pdf-files-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    grid-auto-rows: 260px;
+}
+
+.pdf-file-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: flex-start;
+    height: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(102, 126, 234, 0.1);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.pdf-file-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--gradient-1);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.3s ease;
+}
+
+.pdf-file-card:hover {
+    transform: translateY(-4px) translateX(4px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--white) 0%, rgba(102, 126, 234, 0.02) 100%);
+}
+
+.pdf-file-card:hover::before {
+    transform: scaleY(1);
+}
+
+.pdf-icon-wrapper {
+    flex: 0 0 auto;
+}
+
+.pdf-icon {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    width: clamp(56px, 8vw, 64px);
+    height: clamp(56px, 8vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.pdf-file-card:hover .pdf-icon {
+    transform: scale(1.1) rotate(-5deg);
+    background: var(--gradient-1);
+    box-shadow: var(--shadow-md);
+}
+
+.pdf-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+    width: 100%;
+    flex: 1;
+}
+
+.pdf-file-name {
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.pdf-file-card:hover .pdf-file-name {
+    color: var(--primary-color);
+}
+
+.pdf-file-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    color: var(--text-light);
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+.pdf-file-separator {
+    color: var(--text-light);
+}
+
+.pdf-download-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: clamp(0.75rem, 1.2vw, 0.875rem) clamp(1.25rem, 2vw, 1.75rem);
+    background: var(--gradient-1);
+    color: var(--white);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.pdf-download-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.pdf-download-btn:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+.pdf-download-btn svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.pdf-download-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.pdf-download-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.pdf-download-btn:hover svg {
+    transform: translateY(-2px);
+}
+
+/* Year Gallery Grid */
+.year-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    grid-auto-rows: 250px;
+}
+
+.year-gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.year-gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-xl);
+    z-index: 10;
+}
+
+.year-gallery-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.year-gallery-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.year-gallery-item:hover .year-gallery-image img {
+    transform: scale(1.1);
+}
+
+.year-gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.year-gallery-item:hover .year-gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-view-icon {
+    font-size: 2.5rem;
+    color: var(--white);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--white);
+    border-radius: 25px;
+    box-shadow: var(--shadow-sm);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--text-light);
+    font-size: 1.05rem;
+}
+
+/* Back to Reports Button */
+.back-to-reports {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.back-to-reports .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Year Lightbox */
+.year-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.year-lightbox.active {
+    display: flex;
+}
+
+.year-lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: var(--white);
+    font-size: 3rem;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+    z-index: 2001;
+}
+
+.year-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.year-lightbox-prev,
+.year-lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 2001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.year-lightbox-prev {
+    left: 30px;
+}
+
+.year-lightbox-next {
+    right: 30px;
+}
+
+.year-lightbox-prev:hover,
+.year-lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.year-lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    position: relative;
+}
+
+.year-lightbox-image {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 10px;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+}
+
+.year-lightbox-image img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+    display: block;
+}
+
+.year-lightbox-caption {
+    color: var(--white);
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Responsive Design for Reports */
+@media (max-width: 968px) {
+    .year-reports-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .year-section {
+        padding: 2rem;
+    }
+    
+    .pdf-files-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+
+    .pdf-file-card {
+        height: auto;
+        align-items: center;
+        text-align: center;
+    }
+
+    .pdf-icon-wrapper {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+    }
+
+    .pdf-file-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .pdf-download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .year-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-auto-rows: 200px;
+    }
+    
+    .year-report-card {
+        padding: 1.75rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .pdf-file-card {
+        text-align: center;
+        align-items: center;
+    }
+
+    .pdf-file-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .pdf-download-btn {
+        align-self: stretch;
+    }
+}
+
+@media (max-width: 768px) {
+    .year-reports-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .year-report-card {
+        padding: 1.5rem;
+    }
+    
+    .year-title {
+        font-size: 1.3rem;
+    }
+    
+    .year-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+    }
+    
+    .year-stats {
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 1.35rem;
+    }
+    
+    .year-view-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .pdf-file-card {
+        text-align: center;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .pdf-icon {
+        margin: 0 auto;
+    }
+    
+    .pdf-file-info {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .pdf-file-name {
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .pdf-file-meta {
+        justify-content: center;
+    }
+    
+    .pdf-download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .year-lightbox-prev,
+    .year-lightbox-next {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .year-lightbox-prev {
+        left: 10px;
+    }
+    
+    .year-lightbox-next {
+        right: 10px;
+    }
+    
+    .year-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .year-report-card {
+        padding: 1.25rem;
+    }
+    
+    .year-card-header {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    
+    .year-title {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+    
+    .year-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.7rem;
+    }
+    
+    .year-stats {
+        flex-direction: column;
+        gap: 0.875rem;
+    }
+    
+    .year-stat-item {
+        justify-content: center;
+    }
+    
+    .year-description {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+    
+    .pdf-file-name {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    .pdf-file-meta {
+        font-size: 0.8rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .pdf-file-card {
+        padding: 1.25rem;
+    }
+}

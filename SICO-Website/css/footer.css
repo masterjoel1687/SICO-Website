@@ -1,0 +1,262 @@
+/* Section: Footer - Modern Elegant Design */
+.footer {
+    background: linear-gradient(180deg, #1a1f35 0%, #0f1419 100%);
+    color: var(--white);
+    padding: 4rem 0 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-section h4 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.footer-section p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-section ul li a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 0;
+}
+
+.footer-section ul li a::before {
+    content: '→';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: #667eea;
+}
+
+.footer-section ul li a:hover {
+    color: #ffffff;
+    padding-left: 20px;
+    transform: translateX(5px);
+}
+
+.footer-section ul li a:hover::before {
+    opacity: 1;
+    left: -15px;
+}
+
+/* Footer Social Links - Modern Design */
+.footer-social {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+}
+
+.footer-social-link {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.footer-social-link svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    width: 18px;
+    height: 18px;
+}
+
+/* Facebook - Original Brand Color */
+.footer-social-link[aria-label="Facebook"]:hover {
+    background: #1877F2;
+    border-color: #1877F2;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
+}
+
+.footer-social-link[aria-label="Facebook"]:hover svg {
+    transform: scale(1.15);
+}
+
+/* Instagram - Original Brand Color */
+.footer-social-link[aria-label="Instagram"]:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-color: #bc1888;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(225, 48, 108, 0.5);
+}
+
+.footer-social-link[aria-label="Instagram"]:hover svg {
+    transform: scale(1.15);
+}
+
+/* Twitter/X - Original Brand Color */
+.footer-social-link[aria-label="Twitter"]:hover {
+    background: #1DA1F2;
+    border-color: #1DA1F2;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(29, 161, 242, 0.5);
+}
+
+.footer-social-link[aria-label="Twitter"]:hover svg {
+    transform: scale(1.15);
+}
+
+/* LinkedIn - Original Brand Color */
+.footer-social-link[aria-label="LinkedIn"]:hover {
+    background: #0077B5;
+    border-color: #0077B5;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 119, 181, 0.5);
+}
+
+.footer-social-link[aria-label="LinkedIn"]:hover svg {
+    transform: scale(1.15);
+}
+
+/* YouTube - Original Brand Color */
+.footer-social-link[aria-label="YouTube"]:hover {
+    background: #FF0000;
+    border-color: #FF0000;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+}
+
+.footer-social-link[aria-label="YouTube"]:hover svg {
+    transform: scale(1.15);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer {
+        padding: 3rem 0 1.25rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+    
+    .footer-section ul li a {
+        padding-left: 0;
+    }
+    
+    .footer-section ul li a::before {
+        display: none;
+    }
+    
+    .footer-section ul li a:hover {
+        padding-left: 0;
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 2.5rem 0 1rem;
+    }
+    
+    .footer-content {
+        gap: 2rem;
+    }
+    
+    .footer-social {
+        gap: 0.5rem;
+    }
+    
+    .footer-social-link {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .footer-social-link svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .footer-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .footer-section h4 {
+        font-size: 1rem;
+    }
+}

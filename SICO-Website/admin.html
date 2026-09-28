@@ -1,0 +1,3296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EC &amp; CCAC · Coordinator Admin Studio (Live Website Updater &amp; Editor)</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="ambient-glow-wrap" aria-hidden="true">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- Floating Pill Header -->
+    <header class="header" id="header">
+        <div class="header-pill">
+            <div class="logo-section">
+                <a href="index.html" class="logo-link" aria-label="Go to homepage">
+                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="events.html" class="nav-link">Events &amp; Winners</a>
+                <a href="reports.html" class="nav-link">Reports</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="team.html" class="nav-link">Team</a>
+            </nav>
+            <div class="header-actions">
+                <span class="gform-user-pill" style="margin-right: 8px;">
+                    <span>🔒 Coordinator Admin</span>
+                </span>
+                <button type="button" class="gform-signout-btn" id="headerLockBtn" title="Lock Admin Studio">
+                    <span>Lock Studio</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         1. SECURITY PIN GATE OVERLAY (PROTECTED ACCESS)
+         ========================================================= -->
+    <div class="admin-auth-overlay" id="adminAuthOverlay">
+        <div class="admin-auth-card" id="adminAuthCard">
+            <div class="admin-auth-icon-wrap">🔒</div>
+            <h1 class="admin-auth-title">Coordinator Studio Access</h1>
+            <p class="admin-auth-subtitle">Restricted to authorized EC &amp; CCAC Student Leads &amp; Faculty Conveners. Enter security PIN to update campus events, circulars, completed events, and student winners lists.</p>
+            
+            <form id="adminAuthForm" onsubmit="return false;">
+                <div class="admin-auth-input-group">
+                    <input type="password" 
+                           id="adminPinInput" 
+                           class="admin-auth-input" 
+                           placeholder="Enter Security PIN" 
+                           autocomplete="current-password"
+                           required>
+                    <button type="button" class="admin-toggle-pwd" id="togglePinBtn" aria-label="Show PIN">👁️</button>
+                </div>
+                
+                <label class="admin-auth-checkbox-row">
+                    <input type="checkbox" id="rememberSessionCheck" checked>
+                    <span>Remember this browser session</span>
+                </label>
+                
+                <button type="submit" class="admin-auth-btn" id="unlockStudioBtn">
+                    <span>Unlock Live Admin Studio</span>
+                    <i>→</i>
+                </button>
+                
+                <div class="admin-auth-error" id="authErrorMsg">Invalid PIN. Please check with Master Joel or SICO Conveners.</div>
+                
+                <div class="admin-auth-hint">
+                    Default Passkey: <code>sico2026</code> · Client-side secure storage
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         2. MAIN GOOGLE FORM ADMIN DASHBOARD (VISIBLE UPON UNLOCK)
+         ========================================================= -->
+    <main class="gform-studio-wrapper" id="adminStudioMain" style="display: none;">
+        
+        <!-- Google Form Header Card -->
+        <div class="gform-header-card">
+            <div class="gform-top-accent"></div>
+            <div class="gform-header-body">
+                <div class="gform-header-meta">
+                    <div class="gform-status-badge">
+                        <span class="gform-pulse-dot"></span>
+                        <span>LIVE WEBSITE SYNC &amp; EDIT ENGINE ACTIVE</span>
+                    </div>
+                    <div class="gform-user-pill">
+                        <span>Signed in as: <strong>Master Joel / SICO Lead</strong></span>
+                        <button type="button" class="gform-signout-btn" id="bodySignOutBtn">Sign Out</button>
+                    </div>
+                </div>
+                
+                <h1 class="gform-header-title">EC &amp; CCAC · Content &amp; Winners Studio</h1>
+                <p class="gform-header-desc">
+                    Google Form-style live website manager. Easily add or modify upcoming events with circular PDFs &amp; posters, update completed events and winners lists with registration numbers &amp; cash prize details, upload annual reports, and manage gallery photos.
+                </p>
+                
+                <div class="gform-header-nav-links">
+                    <a href="index.html" class="gform-nav-chip" target="_blank"><span>🌐 Preview Homepage ↗</span></a>
+                    <a href="events.html" class="gform-nav-chip" target="_blank"><span>🎪 Events Calendar &amp; Big Gala ↗</span></a>
+                    <a href="events.html#winnersHallOfFame" class="gform-nav-chip" target="_blank"><span>🏆 Winners Hall of Fame ↗</span></a>
+                    <a href="reports.html" class="gform-nav-chip" target="_blank"><span>📄 Reports Archive ↗</span></a>
+                    <a href="gallery.html" class="gform-nav-chip" target="_blank"><span>📸 Photo Gallery ↗</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global In-Place Edit Mode Banner -->
+        <div class="gform-edit-banner" id="globalEditBanner">
+            <div class="gform-edit-banner-left">
+                <span style="font-size: 1.4rem;">✏️</span>
+                <div>
+                    <div><strong>Editing Active Record:</strong> <span id="editBannerTitle">Sample Event</span></div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Modify any field below and click &ldquo;Save Modifications&rdquo; to update the live website immediately.</div>
+                </div>
+            </div>
+            <button type="button" class="gform-cancel-edit-btn" id="cancelEditModeBtn">✕ Cancel Edit</button>
+        </div>
+
+        <!-- Google Form Mode Switcher Tabs -->
+        <div class="gform-tabs-bar" role="tablist">
+            <button class="gform-tab-btn active" data-tab="eventTab" type="button">
+                <span>🎪 Upcoming Events</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="completedTab" type="button">
+                <span>🏆 Completed &amp; Winners</span>
+                <span class="gform-tab-count" id="countCompletedTabBadge" style="background:#10b981; color:#fff;">3</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="announcementTab" type="button">
+                <span>📢 Campus Bulletin</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="inboxTab" type="button">
+                <span>💬 Student Queries</span>
+                <span class="gform-tab-count" id="countInboxTabBadge" style="background:#ec4899; color:#fff;">0</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="voicesTab" type="button">
+                <span>✨ Student Stories</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="reportTab" type="button">
+                <span>📄 Annual Reports</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="galleryTab" type="button">
+                <span>📸 Photo Gallery</span>
+            </button>
+            <button class="gform-tab-btn" data-tab="recordsTab" type="button">
+                <span>📋 Live Records &amp; Tools</span>
+                <span class="gform-tab-count" id="totalRecordsBadge">0</span>
+            </button>
+        </div>
+
+        <!-- =====================================================
+             TAB 1: ADD / MODIFY UPCOMING EVENT & POSTER / CIRCULAR
+             ===================================================== -->
+        <div class="gform-tab-content" id="eventTab">
+            <form id="addEventForm">
+                <input type="hidden" id="evEditId" value="">
+                
+                <!-- Quick Preset Templates Bar -->
+                <div class="gform-preset-pills-wrap">
+                    <span style="font-size:0.78rem; font-weight:700; color:var(--accent-amber);">⚡ 1-CLICK PRESETS:</span>
+                    <button type="button" class="gform-preset-pill" id="presetDance">💃 Dance Gala (Club Waltz)</button>
+                    <button type="button" class="gform-preset-pill" id="presetFest">🎭 Cultural Fest (Colorido)</button>
+                    <button type="button" class="gform-preset-pill" id="presetTech">💻 Hackathon &amp; Anime Duel</button>
+                    <button type="button" class="gform-preset-pill" id="presetMusic">🎸 Acoustic Band Night</button>
+                    <button type="button" class="gform-preset-pill" id="presetSocial">🤝 Community Drive (SICO)</button>
+                </div>
+                
+                <!-- Q1: Event Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evTitle">
+                            Event Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Official name of the event, competition, or festival.</p>
+                    </div>
+                    <input type="text" id="evTitle" class="gform-input" placeholder="e.g. Club Waltz (Mega Dance Gala) / AI Hackathon 2026" required>
+                </div>
+
+                <!-- Q2: Organizing Club & Category -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evClub">
+                            Organizing Student Club &amp; Category <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select the organizing club or department committee.</p>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <select id="evClub" class="gform-select" required>
+                                <option value="Dance Club">Dance Club</option>
+                                <option value="Digital Club">Digital Club</option>
+                                <option value="Music Club">Music Club</option>
+                                <option value="Pixel Craft Club">Pixel Craft Club</option>
+                                <option value="Helping Hands Club">Helping Hands Club</option>
+                                <option value="Photography Club">Photography Club</option>
+                                <option value="Red Ants Cultural Club">Red Ants Cultural Club</option>
+                                <option value="Literary &amp; Debate Club">Literary &amp; Debate Club</option>
+                                <option value="Sports &amp; Fitness Club">Sports &amp; Fitness Club</option>
+                                <option value="EC &amp; CCAC Central">EC &amp; CCAC Central Committee</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="evCategory" class="gform-select" required>
+                                <option value="dance">Performing Arts &amp; Dance Gala</option>
+                                <option value="tech">Technical &amp; Coding</option>
+                                <option value="music">Music &amp; Acoustic Bands</option>
+                                <option value="art">Fine Arts &amp; Digital Design</option>
+                                <option value="social">Social Service &amp; Community</option>
+                                <option value="cultural">Flagship Cultural Festival</option>
+                                <option value="sports">Inter-College Sports</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Schedule & Venue -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Date, Time &amp; Campus Venue <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">When and where will the event take place?</p>
+                    </div>
+                    <div class="gform-grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <input type="text" id="evDate" class="gform-input" placeholder="e.g. 05th &amp; 06th October 2026" required>
+                        </div>
+                        <div>
+                            <input type="text" id="evTime" class="gform-input" placeholder="e.g. 12:00 Noon onwards" required>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="text" id="evVenue" class="gform-input" placeholder="e.g. Open Air Theatre (OAT) / SJB Seminar Hall" required>
+                    </div>
+                </div>
+
+                <!-- Q4: Cash Prizes & Awards -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evPrize">
+                            Cash Prizes &amp; Student Incentives
+                        </label>
+                        <p class="gform-q-desc">Specify cash prizes, trophies, certificates, or On-Duty (OD) attendance credit.</p>
+                    </div>
+                    <input type="text" id="evPrize" class="gform-input" placeholder="e.g. Solo: ₹3,000 | Group: ₹3,000 Cash Awards">
+                </div>
+
+                <!-- Q5: Short Snippet -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evSnippet">
+                            Card Summary Snippet <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">A punchy 1-2 sentence overview shown directly on the event card (max 150 chars).</p>
+                    </div>
+                    <input type="text" id="evSnippet" class="gform-input" maxlength="150" placeholder="e.g. Campus flagship dance spectacle: Solo, group crew battles &amp; Jodi rounds." required>
+                </div>
+
+                <!-- Q6: Detailed Description & Rules -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="evDesc">
+                            Detailed Description, Highlights &amp; Rules
+                        </label>
+                        <p class="gform-q-desc">This information will be displayed when students click &ldquo;View Details &amp; Rules&rdquo;.</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 14px;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Full Description:</label>
+                            <textarea id="evDesc" class="gform-textarea" placeholder="Comprehensive background about the competition, rounds, judging criteria..."></textarea>
+                        </div>
+                        <div class="gform-grid-2">
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Key Highlights (comma-separated):</label>
+                                <input type="text" id="evHighlights" class="gform-input" placeholder="e.g. Live Project Demos, Industry Judges, DJ Stage">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Rules &amp; Eligibility:</label>
+                                <input type="text" id="evRules" class="gform-input" placeholder="e.g. College ID card mandatory. Soundtrack before 04 Oct.">
+                            </div>
+                        </div>
+                        <div class="gform-grid-2">
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Student Coordinators &amp; Phone:</label>
+                                <input type="text" id="evCoordinators" class="gform-input" placeholder="e.g. M Leeladhar (Lead), P Shanmukha Sai">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Registration Form Link (Google Form):</label>
+                                <input type="url" id="evRegLink" class="gform-input" placeholder="https://docs.google.com/forms/...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7: Official Circular (PDF Document) Attachment -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Official Circular / Brochure (PDF Document)
+                        </label>
+                        <p class="gform-q-desc">Upload a PDF circular from your computer or paste a Google Drive / cloud link. Students can view and download it directly.</p>
+                    </div>
+                    
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="evPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="evPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <!-- PDF Upload Dropzone -->
+                    <div id="evPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="evPdfDropzone">
+                            <span class="gform-drop-icon">📄</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Official Circular PDF here</div>
+                            <div class="gform-drop-hint">or click to browse your computer (.pdf format)</div>
+                            <input type="file" id="evPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <!-- PDF URL Input -->
+                    <div id="evPdfUrlWrap" style="display: none;">
+                        <input type="url" id="evPdfUrlInput" class="gform-input" placeholder="Paste Google Drive or institutional PDF link (e.g. https://drive.google.com/...)">
+                    </div>
+
+                    <!-- PDF Preview Pill -->
+                    <div class="gform-file-preview-wrap" id="evPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="evPdfNameDisplay">circular.pdf</div>
+                                    <div class="gform-pdf-size" id="evPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="evPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview PDF</button>
+                                <button type="button" class="gform-remove-file-btn" id="evPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8: Event Poster / Banner Image -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            🖼️ Event Poster / Banner Image
+                        </label>
+                        <p class="gform-q-desc">Upload a poster or banner. It will be compressed automatically for fast browser loading.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="evPosterModeUpload">📁 Upload Image File</button>
+                        <button type="button" class="gform-source-pill" id="evPosterModeUrl">🔗 Image Web URL</button>
+                    </div>
+
+                    <!-- Poster Dropzone -->
+                    <div id="evPosterDropzoneWrap">
+                        <div class="gform-dropzone" id="evPosterDropzone">
+                            <span class="gform-drop-icon">🖼️</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Event Poster image here</div>
+                            <div class="gform-drop-hint">or click to browse (.png, .jpg, .webp)</div>
+                            <input type="file" id="evPosterFileInput" class="gform-hidden-file-input" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Poster URL Input -->
+                    <div id="evPosterUrlWrap" style="display: none;">
+                        <input type="url" id="evPosterUrlInput" class="gform-input" placeholder="Paste image URL (e.g. https://.../poster.jpg)">
+                    </div>
+
+                    <!-- Poster Preview Box -->
+                    <div class="gform-file-preview-wrap" id="evPosterPreviewWrap">
+                        <div class="gform-img-preview-box">
+                            <img id="evPosterImgDisplay" src="" alt="Poster preview">
+                        </div>
+                        <div style="margin-top: 8px; text-align: right;">
+                            <button type="button" class="gform-remove-file-btn" id="evPosterRemoveBtn">✕ Remove Poster</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Event Card Preview -->
+                <div class="gform-live-preview-box">
+                    <div class="gform-live-preview-header">
+                        <div class="gform-live-preview-title">
+                            <span>👀 LIVE WEBSITE CARD PREVIEW</span>
+                            <span style="font-size:0.74rem; color:var(--text-muted); font-weight:normal;">(Updates automatically as you type)</span>
+                        </div>
+                        <span class="status-badge" style="background:rgba(245,158,11,0.2); color:var(--accent-amber); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:99px;">WHAT VISITORS WILL SEE</span>
+                    </div>
+                    <div class="events-grid-modern" style="grid-template-columns:1fr; max-width:440px; margin:0 auto;">
+                        <div class="event-card-modern" id="livePreviewCard">
+                            <div class="event-card-poster-thumb" id="prevPosterWrap" style="display:none;">
+                                <img id="prevPosterImg" src="" alt="Poster preview">
+                            </div>
+                            <div class="event-card-header">
+                                <div class="event-date-pill">
+                                    <span>📅</span>
+                                    <span id="prevDate">05th &amp; 06th October 2026</span>
+                                </div>
+                                <span class="event-status-pill status-live-sync" id="prevStatus">✨ PREVIEW</span>
+                            </div>
+                            <div class="event-card-main">
+                                <h3 class="event-card-title" id="prevTitle">Club Waltz (Mega Dance Gala)</h3>
+                                <div class="event-club-badge">
+                                    <span class="club-dot" style="background:var(--accent-amber)"></span>
+                                    <span id="prevClub">Dance Club · Performing Arts</span>
+                                </div>
+                            </div>
+                            <p class="event-card-snippet" id="prevSnippet">Campus flagship dance spectacle: Solo, group crew battles &amp; Jodi rounds.</p>
+                            <div class="event-details-box">
+                                <div class="detail-row">
+                                    <span class="detail-label">📍 Venue:</span>
+                                    <strong class="detail-value" id="prevVenue">Open Air Theatre (OAT)</strong>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">⏰ Time:</span>
+                                    <strong class="detail-value" id="prevTime">12:00 Noon onwards</strong>
+                                </div>
+                                <div class="detail-row detail-prize-row" id="prevPrizeRow">
+                                    <span class="detail-label">🏆 Cash Prizes:</span>
+                                    <strong class="detail-value prize-highlight" id="prevPrize">₹6,000 Cash Awards</strong>
+                                </div>
+                            </div>
+                            <div class="event-card-footer">
+                                <button class="btn-event-details btn-card-primary" type="button" style="pointer-events:none;">
+                                    <span>View Details &amp; Rules</span>
+                                    <i>→</i>
+                                </button>
+                                <span class="btn-card-register" style="pointer-events:none; opacity:0.85;">
+                                    <span>Register</span>
+                                    <i>↗</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitEventBtn">
+                        <span id="submitEventBtnText">🚀 Publish Event to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearEventFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 2: COMPLETED EVENTS & WINNERS DIRECTORY (NEW!)
+             ===================================================== -->
+        <div class="gform-tab-content" id="completedTab" style="display: none;">
+            <form id="addCompletedForm">
+                <input type="hidden" id="compEditId" value="">
+
+                <!-- Q1: Completed Event Title & Presets -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="compTitle">
+                            Completed Event Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select an institutional event or enter a custom completed event name.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                        <select id="compPresetSelect" class="gform-select" style="flex: 1; min-width: 250px;">
+                            <option value="">-- Choose Existing Campus Event or Enter Custom --</option>
+                            <option value="Clean Energy Poster Presentation">Renewable Energy Club · Clean Energy Poster Presentation</option>
+                            <option value="Youth Leadership & Oratory Conclave">Club Inspiraze · Youth Leadership Conclave</option>
+                            <option value="International Yoga Day Asana Championship">International Yoga Day · Asana Championship</option>
+                            <option value="Website Development & Anime Video Duel">Digital Club · Website Dev & Anime Video Making</option>
+                            <option value="Club Waltz (Mega Dance Gala)">Dance Club · Club Waltz (Mega Dance Gala)</option>
+                            <option value="Graduation Day Awards Ceremony">Graduation Day Awards & Degree Conferral</option>
+                            <option value="COLORIDO 2025 Cultural Finale">COLORIDO Cultural Festival Grand Finale</option>
+                        </select>
+                    </div>
+                    <input type="text" id="compTitle" class="gform-input" placeholder="e.g. Clean Energy Poster Presentation" required>
+                </div>
+
+                <!-- Q2: Organizing Club, Date & Venue -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Organizing Club, Completion Date &amp; Venue <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Institutional details and academic timing of the completed competition.</p>
+                    </div>
+                    <div class="gform-grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Club / Body:</label>
+                            <input type="text" id="compClub" class="gform-input" placeholder="e.g. Renewable Energy Club" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Completion Date:</label>
+                            <input type="text" id="compDate" class="gform-input" placeholder="e.g. 01st August 2026" required>
+                        </div>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Campus Venue:</label>
+                            <input type="text" id="compVenue" class="gform-input" placeholder="e.g. SJB Seminar Hall / OAT" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Total Cash Prize Pool Distributed:</label>
+                            <input type="text" id="compPrizePool" class="gform-input" placeholder="e.g. ₹6,000 Cash Prizes Awarded">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Event Summary / Outcome Remarks -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="compSummary">
+                            Event Summary &amp; Adjudication Remarks
+                        </label>
+                        <p class="gform-q-desc">Brief retrospective on the competition, faculty evaluators, and student participation.</p>
+                    </div>
+                    <textarea id="compSummary" class="gform-textarea" placeholder="Over 180 students participated. High quality technical solutions presented with outstanding peer engagement..."></textarea>
+                </div>
+
+                <!-- Q4: Official Result Sheet / Circular (PDF) -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Official Result Sheet / Circular (PDF Document)
+                        </label>
+                        <p class="gform-q-desc">Upload signed faculty evaluation sheet, circular, or certificate document.</p>
+                    </div>
+                    
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="compPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="compPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <div id="compPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="compPdfDropzone">
+                            <span class="gform-drop-icon">📑</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Winners Circular PDF here</div>
+                            <div class="gform-drop-hint">or click to browse (.pdf format)</div>
+                            <input type="file" id="compPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <div id="compPdfUrlWrap" style="display: none;">
+                        <input type="url" id="compPdfUrlInput" class="gform-input" placeholder="Paste link to signed circular (e.g. Google Drive link)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="compPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="compPdfNameDisplay">results.pdf</div>
+                                    <div class="gform-pdf-size" id="compPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="compPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview</button>
+                                <button type="button" class="gform-remove-file-btn" id="compPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5: Winners Directory (Dynamic Rows: Name, Regd No, Branch, Cash Prize) -->
+                <div class="gform-card" style="border-left-color: #10b981;">
+                    <div class="gform-q-header">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <label class="gform-q-title" style="margin: 0;">
+                                🏆 Student Winners Directory <span class="gform-required-star">*</span>
+                            </label>
+                            <span class="status-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 99px;">
+                                NAME · REGD NO · CASH PRIZE
+                            </span>
+                        </div>
+                        <p class="gform-q-desc">Add each student winner with their official registered number, department branch, and cash prize won.</p>
+                        
+                        <!-- Quick Templates Bar -->
+                        <div class="gform-quick-template-bar">
+                            <span style="font-size: 0.78rem; color: var(--text-muted);">Quick Templates:</span>
+                            <button type="button" class="gform-btn-template" id="tpl123">⚡ 1st, 2nd &amp; 3rd Prize</button>
+                            <button type="button" class="gform-btn-template" id="tplSoloGroup">⚡ Solo &amp; Group Awards</button>
+                            <button type="button" class="gform-btn-template" id="btnAddWinnerRow">➕ Add Single Winner</button>
+                        </div>
+                    </div>
+
+                    <!-- Container for Winner Rows -->
+                    <div id="winnersRowsContainer">
+                        <!-- Dynamic Winner Rows rendered here -->
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitCompletedBtn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <span id="submitCompletedBtnText">🚀 Publish Completed Event &amp; Winners to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearCompletedFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB: CAMPUS BULLETIN & TICKER (SITE-WIDE NOTICE)
+             ===================================================== -->
+        <div class="gform-tab-content" id="announcementTab" style="display: none;">
+            <form id="announcementForm">
+                
+                <div class="gform-card" style="border-left-color: var(--accent-cyan);">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📢 Site-Wide Campus Bulletin Banner
+                        </label>
+                        <p class="gform-q-desc">Control the top notification ticker displayed across the homepage, events page, about page, and reports archive. Perfect for registrations, deadline extensions, or celebration notices.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.25rem;">
+                        <label class="admin-auth-checkbox-row" style="font-size: 1rem; font-weight: 700; cursor: pointer;">
+                            <input type="checkbox" id="annEnabled" checked style="width: 20px; height: 20px;">
+                            <span>Enable Live Bulletin Banner across all website pages</span>
+                        </label>
+                    </div>
+
+                    <div class="gform-preset-pills-wrap" style="margin-bottom: 1rem;">
+                        <span style="font-size:0.78rem; font-weight:700; color:var(--accent-amber);">⚡ QUICK PRESETS:</span>
+                        <button type="button" class="gform-preset-pill" id="annPresetColorido">✨ Colorido Registrations Open</button>
+                        <button type="button" class="gform-preset-pill" id="annPresetAudition">🎤 Dance &amp; Band Auditions</button>
+                        <button type="button" class="gform-preset-pill" id="annPresetHackathon">💻 Hackathon Deadline Tomorrow</button>
+                        <button type="button" class="gform-preset-pill" id="annPresetDefault">🏛️ Standard RVR&amp;JC Notice</button>
+                    </div>
+
+                    <div class="gform-grid-2" style="margin-bottom: 12px;">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Pill Badge Text:</label>
+                            <input type="text" id="annBadge" class="gform-input" placeholder="e.g. ✨ COLORIDO 2026 / 🚨 URGENT NOTICE" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Badge Highlight Color:</label>
+                            <select id="annBadgeColor" class="gform-select">
+                                <option value="linear-gradient(135deg, #e11d48, #ea580c)">Vermilion Rose (Festival / Hot)</option>
+                                <option value="linear-gradient(135deg, #059669, #10b981)">Emerald Green (Registrations Live)</option>
+                                <option value="linear-gradient(135deg, #6366f1, #8b5cf6)">Royal Indigo (Academic &amp; Official)</option>
+                                <option value="linear-gradient(135deg, #d97706, #f59e0b)">Amber Gold (Deadlines &amp; Prizes)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 12px;">
+                        <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Bulletin Headline Message:</label>
+                        <textarea id="annMessage" class="gform-textarea" rows="3" placeholder="e.g. COLORIDO 2026 Cultural Fest Registrations are now LIVE! Over ₹50,000 in cash awards across music, dance, and creative arts." required></textarea>
+                    </div>
+
+                    <div class="gform-grid-2">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Action Button Label (Optional):</label>
+                            <input type="text" id="annActionText" class="gform-input" placeholder="e.g. Register SICO ↗ / Explore Events ↗">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Action Destination URL:</label>
+                            <input type="text" id="annActionLink" class="gform-input" placeholder="e.g. events.html or Google Form link">
+                        </div>
+                    </div>
+
+                    <!-- Live Bulletin Preview -->
+                    <div style="margin-top: 1.5rem;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 6px; text-transform: uppercase;">
+                            👀 Live Website Bulletin Preview
+                        </div>
+                        <div class="bulletin-live-preview" id="annLivePreview">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+                        <span>🚀 Publish Campus Bulletin to All Pages</span>
+                    </button>
+                    <button type="button" class="gform-btn-clear" id="resetAnnouncementBtn">Reset to Default</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB: STUDENT QUERIES INBOX (FROM CONTACT.HTML)
+             ===================================================== -->
+        <div class="gform-tab-content" id="inboxTab" style="display: none;">
+            <div class="gform-card" style="border-left-color: var(--accent-purple);">
+                <div class="gform-q-header">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                        <label class="gform-q-title" style="margin: 0;">
+                            💬 Student Queries &amp; Collaboration Inbox (<span id="inboxCount">0</span>)
+                        </label>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="gform-btn-template" id="markAllReadBtn">✓ Mark All as Read</button>
+                            <button type="button" class="gform-btn-template" id="clearInboxBtn" style="color: #ef4444;">🗑️ Clear Inbox</button>
+                        </div>
+                    </div>
+                    <p class="gform-q-desc">Messages submitted by students and prospective participants through the Contact page form. Reply directly via email or manage status.</p>
+                </div>
+
+                <div class="inbox-list-wrap" id="inboxListContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             TAB: STUDENT VOICES & TESTIMONIALS (HOMEPAGE)
+             ===================================================== -->
+        <div class="gform-tab-content" id="voicesTab" style="display: none;">
+            <div class="gform-card" style="border-left-color: #ec4899;">
+                <div class="gform-q-header">
+                    <label class="gform-q-title">
+                        ✨ Student Reflections &amp; Stories (Homepage Spotlight)
+                    </label>
+                    <p class="gform-q-desc">Humanize the website by showcasing authentic thoughts from student performers, coordinators, and volunteers. These quotes appear in the &ldquo;The Spirit Behind the Stage&rdquo; section on the homepage.</p>
+                </div>
+
+                <!-- Add New Voice Form -->
+                <form id="addVoiceForm" style="margin-bottom: 1.5rem; padding: 1.2rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border-card);">
+                    <input type="hidden" id="voiceEditId" value="">
+                    <h4 style="margin: 0 0 10px; font-size: 0.95rem; color: var(--accent-amber);" id="voiceFormTitle">➕ Add Student Voice</h4>
+                    <div class="gform-grid-2" style="margin-bottom: 10px;">
+                        <div>
+                            <input type="text" id="voiceName" class="gform-input" placeholder="Student Name (e.g. M. Kalyan / R. Joel)" required>
+                        </div>
+                        <div>
+                            <input type="text" id="voiceRole" class="gform-input" placeholder="Club Role (e.g. Music Club Lead / Core Coordinator)" required>
+                        </div>
+                    </div>
+                    <div class="gform-grid-2" style="margin-bottom: 10px;">
+                        <div>
+                            <input type="text" id="voiceBranch" class="gform-input" placeholder="Branch &amp; Year (e.g. B.Tech ECE / B.Tech CSE)" required>
+                        </div>
+                        <div>
+                            <input type="text" id="voiceInitials" class="gform-input" maxlength="3" placeholder="Avatar Initials (e.g. MK)">
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <textarea id="voiceQuote" class="gform-textarea" rows="3" placeholder="What does EC &amp; CCAC or SICO mean to them? (e.g. Joining in 1st year was terrifying, but it gave me a stage and family...)" required></textarea>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="submit" class="gform-btn-submit" id="submitVoiceBtn" style="padding: 8px 16px; font-size: 0.85rem;">
+                            <span id="submitVoiceBtnText">🚀 Publish Student Voice</span>
+                        </button>
+                        <button type="button" class="gform-btn-clear" id="cancelVoiceEditBtn" style="display: none;">Cancel</button>
+                    </div>
+                </form>
+
+                <!-- Current Voices List -->
+                <h4 style="margin: 1.5rem 0 10px; font-size: 0.95rem; color: var(--text-primary);">Currently Active Student Stories (<span id="voicesCountBadge">0</span>)</h4>
+                <div class="voices-admin-grid" id="voicesAdminContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =====================================================
+             TAB: ADD / MODIFY ANNUAL REPORT & CIRCULAR FORM
+             ===================================================== -->
+        <div class="gform-tab-content" id="reportTab" style="display: none;">
+            <form id="addReportForm">
+                <input type="hidden" id="repEditId" value="">
+                
+                <!-- Q1: Report Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="repTitle">
+                            Report / Publication Title <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Official title of the document or annual summary.</p>
+                    </div>
+                    <input type="text" id="repTitle" class="gform-input" placeholder="e.g. AY 2025–2026 Annual Activities Report" required>
+                </div>
+
+                <!-- Q2: Academic Year & Category -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            Academic Year &amp; Report Category <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Organize the document within the institutional archives.</p>
+                    </div>
+                    <div class="gform-grid-2">
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Academic Year:</label>
+                            <input type="text" id="repYear" class="gform-input" placeholder="e.g. 2026–2027" required>
+                        </div>
+                        <div>
+                            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Category:</label>
+                            <select id="repCategory" class="gform-select" required>
+                                <option value="annual">Annual Institutional Report</option>
+                                <option value="summary">Event Summary &amp; Retrospective</option>
+                                <option value="circular">Administrative Circular</option>
+                                <option value="newsletter">Club Newsletter &amp; Highlights</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Executive Summary -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="repSummary">
+                            Executive Summary / Key Findings <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">A brief abstract outlining what is covered in this document.</p>
+                    </div>
+                    <textarea id="repSummary" class="gform-textarea" placeholder="Comprehensive documentation of 24 club events, student achievements, rolling trophy allocations..." required></textarea>
+                </div>
+
+                <!-- Q4: Report PDF Document -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📄 Upload Official Document (PDF) <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Upload the official PDF report file or enter a public Google Drive / cloud link.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="repPdfModeUpload">📁 Upload PDF File</button>
+                        <button type="button" class="gform-source-pill" id="repPdfModeUrl">🔗 Link / Google Drive URL</button>
+                    </div>
+
+                    <div id="repPdfDropzoneWrap">
+                        <div class="gform-dropzone" id="repPdfDropzone">
+                            <span class="gform-drop-icon">📑</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Report PDF file here</div>
+                            <div class="gform-drop-hint">or click to browse (.pdf format)</div>
+                            <input type="file" id="repPdfFileInput" class="gform-hidden-file-input" accept="application/pdf">
+                        </div>
+                    </div>
+
+                    <div id="repPdfUrlWrap" style="display: none;">
+                        <input type="url" id="repPdfUrlInput" class="gform-input" placeholder="Paste Google Drive or institutional link (e.g. https://drive.google.com/...)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="repPdfPreviewWrap">
+                        <div class="gform-pdf-preview-box">
+                            <div class="gform-pdf-meta">
+                                <span style="font-size: 1.5rem;">📄</span>
+                                <div>
+                                    <div class="gform-pdf-name" id="repPdfNameDisplay">report.pdf</div>
+                                    <div class="gform-pdf-size" id="repPdfSizeDisplay">0 KB</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="gform-btn-tool" id="repPdfPreviewBtn" style="padding: 4px 10px; font-size: 0.76rem;">Preview</button>
+                                <button type="button" class="gform-remove-file-btn" id="repPdfRemoveBtn">✕ Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitReportBtn">
+                        <span id="submitReportBtnText">🚀 Publish Report to Live Website</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearReportFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 4: ADD / MODIFY PHOTO GALLERY FORM
+             ===================================================== -->
+        <div class="gform-tab-content" id="galleryTab" style="display: none;">
+            <form id="addGalleryForm">
+                <input type="hidden" id="galEditId" value="">
+                
+                <!-- Q1: Photo Title -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galTitle">
+                            Photograph Title / Event Name <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Name of the celebration or event depicted in the photo.</p>
+                    </div>
+                    <input type="text" id="galTitle" class="gform-input" placeholder="e.g. Club Waltz 2026 Dance Battles" required>
+                </div>
+
+                <!-- Q2: Gallery Category Filter -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galCategory">
+                            Gallery Category Tab <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Select which gallery filter category this photo belongs to.</p>
+                    </div>
+                    <select id="galCategory" class="gform-select" required>
+                        <option value="dance">Dance &amp; Performing Arts</option>
+                        <option value="cultural">Cultural Festival</option>
+                        <option value="art">Art &amp; Design Expo</option>
+                        <option value="music">Live Music &amp; Band Night</option>
+                        <option value="literature">Literature &amp; Book Fest</option>
+                        <option value="sports">Inter-College Sports</option>
+                    </select>
+                </div>
+
+                <!-- Q3: Caption -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title" for="galCaption">
+                            Photo Caption &amp; Story
+                        </label>
+                        <p class="gform-q-desc">Detailed caption shown in the full-screen lightbox when students click the photo.</p>
+                    </div>
+                    <input type="text" id="galCaption" class="gform-input" placeholder="e.g. Spectacular evening performance at the Open Air Theatre by student choreographers.">
+                </div>
+
+                <!-- Q4: Photo Upload -->
+                <div class="gform-card">
+                    <div class="gform-q-header">
+                        <label class="gform-q-title">
+                            📸 Upload Photograph <span class="gform-required-star">*</span>
+                        </label>
+                        <p class="gform-q-desc">Upload image file (.png, .jpg, .webp) or paste a web URL. Auto-compressed for crisp rendering.</p>
+                    </div>
+
+                    <div class="gform-source-switcher">
+                        <button type="button" class="gform-source-pill active" id="galModeUpload">📁 Upload Image File</button>
+                        <button type="button" class="gform-source-pill" id="galModeUrl">🔗 Image Web URL</button>
+                    </div>
+
+                    <div id="galDropzoneWrap">
+                        <div class="gform-dropzone" id="galDropzone">
+                            <span class="gform-drop-icon">📷</span>
+                            <div class="gform-drop-title">Drag &amp; Drop Photograph here</div>
+                            <div class="gform-drop-hint">or click to browse your files</div>
+                            <input type="file" id="galFileInput" class="gform-hidden-file-input" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div id="galUrlWrap" style="display: none;">
+                        <input type="url" id="galUrlInput" class="gform-input" placeholder="Paste image URL (e.g. https://.../photo.jpg)">
+                    </div>
+
+                    <div class="gform-file-preview-wrap" id="galPreviewWrap">
+                        <div class="gform-img-preview-box">
+                            <img id="galImgDisplay" src="" alt="Gallery photo preview">
+                        </div>
+                        <div style="margin-top: 8px; text-align: right;">
+                            <button type="button" class="gform-remove-file-btn" id="galRemoveBtn">✕ Remove Photo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div class="gform-action-bar">
+                    <button type="submit" class="gform-btn-submit" id="submitGalleryBtn">
+                        <span id="submitGalleryBtnText">🚀 Add Photo to Live Gallery</span>
+                    </button>
+                    <button type="reset" class="gform-btn-clear" id="clearGalleryFormBtn">Clear Form</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- =====================================================
+             TAB 5: LIVE RECORDS & IN-PLACE EDIT STUDIO
+             ===================================================== -->
+        <div class="gform-tab-content" id="recordsTab" style="display: none;">
+            
+            <div class="gform-records-toolbar">
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div class="gform-records-stat-pill">
+                        Upcoming: <strong id="statEventsCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Completed &amp; Winners: <strong id="statCompletedCount" style="color:#10b981;">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Student Queries: <strong id="statInboxCount" style="color:#ec4899;">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Stories: <strong id="statVoicesCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Reports: <strong id="statReportsCount">0</strong>
+                    </div>
+                    <div class="gform-records-stat-pill">
+                        Gallery: <strong id="statGalleryCount">0</strong>
+                    </div>
+                    <div class="gform-storage-meter">
+                        <div class="gform-storage-meter-top">
+                            <span>Browser Storage:</span>
+                            <strong id="statStorageSize">0 KB / 5 MB</strong>
+                        </div>
+                        <div class="gform-storage-bar">
+                            <div class="gform-storage-fill" id="storageMeterFill" style="width: 5%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button type="button" class="gform-btn-tool" id="exportBackupBtn">
+                        <span>📥 Download Backup (JSON)</span>
+                    </button>
+                    <button type="button" class="gform-btn-tool" id="importBackupBtn">
+                        <span>📤 Restore Backup</span>
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+                    <button type="button" class="gform-btn-delete" id="clearAllRecordsBtn">
+                        <span>🗑️ Clear All Custom Data</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Pills for Records View -->
+            <div class="gform-preset-pills-wrap" style="margin-top: 1rem; margin-bottom: 1rem;" id="recordsFilterPills">
+                <span style="font-size:0.78rem; font-weight:700; color:var(--text-muted);">FILTER VIEW:</span>
+                <button type="button" class="gform-preset-pill active" data-rec-filter="all">All Records</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="events">🎪 Upcoming Events</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="completed">🏆 Completed &amp; Winners</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="inbox">💬 Student Queries</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="voices">✨ Student Stories</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="reports">📄 Reports</button>
+                <button type="button" class="gform-preset-pill" data-rec-filter="gallery">📸 Gallery</button>
+            </div>
+
+            <!-- Instant Search Bar across all records -->
+            <div class="gform-search-box">
+                <span class="gform-search-icon">🔍</span>
+                <input type="text" id="recordsSearchInput" placeholder="Quick search by title, winner student name, regd no, or club to modify immediately...">
+            </div>
+
+            <!-- Published Completed Events & Winners -->
+            <div class="gform-card rec-card-block" data-rec-type="completed" style="border-left-color: #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        🏆 Completed Events &amp; Winners Lists (<span id="countCompletedList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'completedTab\']').click()">➕ Add Completed Event</button>
+                </div>
+                <div id="recordsCompletedContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Published Upcoming Events List -->
+            <div class="gform-card rec-card-block" data-rec-type="events">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        🎪 Upcoming Events (<span id="countEventsList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'eventTab\']').click()">➕ Add Upcoming Event</button>
+                </div>
+                <div id="recordsEventsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Student Queries Records List -->
+            <div class="gform-card rec-card-block" data-rec-type="inbox" style="border-left-color: var(--accent-purple);">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        💬 Student Inquiries &amp; Queries (<span id="countInboxList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'inboxTab\']').click()">Go to Inbox Tab</button>
+                </div>
+                <div id="recordsInboxContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Student Voices Records List -->
+            <div class="gform-card rec-card-block" data-rec-type="voices" style="border-left-color: #ec4899;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.15rem; margin: 0; color: var(--text-primary);">
+                        ✨ Student Stories &amp; Testimonials (<span id="countVoicesList">0</span>)
+                    </h3>
+                    <button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\'voicesTab\']').click()">➕ Add Student Story</button>
+                </div>
+                <div id="recordsVoicesContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Published Reports List -->
+            <div class="gform-card rec-card-block" data-rec-type="reports">
+                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
+                    📄 Published Annual Reports &amp; Circulars (<span id="countReportsList">0</span>)
+                </h3>
+                <div id="recordsReportsContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Published Gallery Photos List -->
+            <div class="gform-card rec-card-block" data-rec-type="gallery">
+                <h3 style="font-size: 1.15rem; margin: 0 0 1rem; color: var(--text-primary);">
+                    📸 Published Gallery Photos (<span id="countGalleryList">0</span>)
+                </h3>
+                <div id="recordsGalleryContainer">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- =====================================================
+             SUBMISSION SUCCESS CONFIRMATION MODAL / CARD
+             ===================================================== -->
+        <div class="gform-success-card" id="submissionSuccessCard">
+            <div class="gform-success-icon">✓</div>
+            <h2 class="gform-success-title" id="successTitle">Changes Saved &amp; Synced!</h2>
+            <p class="gform-success-desc" id="successDesc">
+                Your entry has been automatically synchronized to the live website. Visitors will now see the new card, circular PDF, poster, and winners merit table immediately without requiring any code edits.
+            </p>
+            <div class="gform-success-actions">
+                <a href="events.html" id="successPreviewLink" target="_blank" class="gform-btn-submit" style="text-decoration: none;">
+                    <span>👀 View on Live Website ↗</span>
+                </a>
+                <button type="button" class="gform-btn-clear" id="submitAnotherBtn">
+                    <span>➕ Submit or Edit Another</span>
+                </button>
+                <button type="button" class="gform-btn-tool" id="viewAllRecordsBtn">
+                    <span>📋 View All Records</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Studio Live Toast Notification Container -->
+        <div class="studio-toast-container" id="studioToastContainer"></div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 4rem;">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="index.html" class="footer-admin-link">← Return to Public Website</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         ADMIN LOGIC CONTROLLER (STANDALONE & REACTIVE)
+         ========================================================= -->
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ---------------------------------------------------------
+    // 1. PIN AUTHENTICATION GATE
+    // ---------------------------------------------------------
+    const DEFAULT_PIN = 'sico2026';
+    const authOverlay = document.getElementById('adminAuthOverlay');
+    const authCard = document.getElementById('adminAuthCard');
+    const authForm = document.getElementById('adminAuthForm');
+    const pinInput = document.getElementById('adminPinInput');
+    const togglePinBtn = document.getElementById('togglePinBtn');
+    const rememberCheck = document.getElementById('rememberSessionCheck');
+    const authErrorMsg = document.getElementById('authErrorMsg');
+    const adminStudioMain = document.getElementById('adminStudioMain');
+    const headerLockBtn = document.getElementById('headerLockBtn');
+    const bodySignOutBtn = document.getElementById('bodySignOutBtn');
+
+    function checkAuth() {
+        const isAuth = sessionStorage.getItem('sico_admin_auth') === 'true' || 
+                       localStorage.getItem('sico_admin_auth') === 'true';
+        if (isAuth) {
+            if (authOverlay) authOverlay.classList.add('hidden');
+            if (adminStudioMain) adminStudioMain.style.display = 'block';
+            seedInitialCompletedEvents();
+            loadAnnouncementForm();
+            refreshInboxTab();
+            refreshVoicesManager();
+            refreshRecordsManager();
+            updateLiveEventPreview();
+        } else {
+            if (authOverlay) authOverlay.classList.remove('hidden');
+            if (adminStudioMain) adminStudioMain.style.display = 'none';
+            if (pinInput) pinInput.focus();
+        }
+    }
+
+    if (togglePinBtn && pinInput) {
+        togglePinBtn.addEventListener('click', () => {
+            const isPassword = pinInput.getAttribute('type') === 'password';
+            pinInput.setAttribute('type', isPassword ? 'text' : 'password');
+            togglePinBtn.textContent = isPassword ? '🙈' : '👁️';
+        });
+    }
+
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const entered = (pinInput.value || '').trim();
+            if (entered === DEFAULT_PIN || entered === 'admin2026') {
+                if (authErrorMsg) authErrorMsg.style.display = 'none';
+                if (rememberCheck && rememberCheck.checked) {
+                    localStorage.setItem('sico_admin_auth', 'true');
+                } else {
+                    sessionStorage.setItem('sico_admin_auth', 'true');
+                }
+                if (authOverlay) authOverlay.classList.add('hidden');
+                if (adminStudioMain) adminStudioMain.style.display = 'block';
+                seedInitialCompletedEvents();
+                loadAnnouncementForm();
+                refreshInboxTab();
+                refreshVoicesManager();
+                refreshRecordsManager();
+                updateLiveEventPreview();
+                showStudioToast('Welcome, Coordinator! Studio is unlocked and live sync is active.');
+            } else {
+                if (authErrorMsg) authErrorMsg.style.display = 'block';
+                if (authCard) {
+                    authCard.classList.remove('shake');
+                    void authCard.offsetWidth;
+                    authCard.classList.add('shake');
+                }
+                if (pinInput) pinInput.select();
+            }
+        });
+    }
+
+    function lockStudio() {
+        sessionStorage.removeItem('sico_admin_auth');
+        localStorage.removeItem('sico_admin_auth');
+        if (authOverlay) authOverlay.classList.remove('hidden');
+        if (adminStudioMain) adminStudioMain.style.display = 'none';
+        if (pinInput) {
+            pinInput.value = '';
+            pinInput.focus();
+        }
+    }
+
+    if (headerLockBtn) headerLockBtn.addEventListener('click', lockStudio);
+    if (bodySignOutBtn) bodySignOutBtn.addEventListener('click', lockStudio);
+
+    // ---------------------------------------------------------
+    // 2. STUDIO TOAST NOTIFICATION UTILITY
+    // ---------------------------------------------------------
+    function showStudioToast(message, type = 'success') {
+        const container = document.getElementById('studioToastContainer');
+        if (!container) return;
+        const toast = document.createElement('div');
+        toast.className = `studio-toast toast-${type}`;
+        let icon = '✨';
+        if (type === 'error') icon = '⚠️';
+        if (type === 'warning') icon = '🔔';
+        if (type === 'delete') icon = '🗑️';
+
+        toast.innerHTML = `
+            <span class="studio-toast-icon">${icon}</span>
+            <div class="studio-toast-body">${message}</div>
+            <button type="button" class="studio-toast-close" aria-label="Close">✕</button>
+        `;
+        toast.querySelector('.studio-toast-close').addEventListener('click', () => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => toast.remove(), 250);
+        });
+        container.appendChild(toast);
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 250);
+            }
+        }, 4200);
+    }
+
+    // ---------------------------------------------------------
+    // 3. SAFE STORAGE & QUOTA GAUGE
+    // ---------------------------------------------------------
+    function safeLocalStorageSet(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            updateStorageMeter();
+            return true;
+        } catch (err) {
+            console.error('Storage error:', err);
+            showStudioToast('⚠️ Storage limit reached! Please use a Google Drive or web link instead of a large raw upload.', 'error');
+            return false;
+        }
+    }
+
+    function updateStorageMeter() {
+        let totalBytes = 0;
+        for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('sico_')) {
+                totalBytes += (localStorage.getItem(k) || '').length * 2;
+            }
+        }
+        const kb = Math.round(totalBytes / 1024);
+        const mbLimit = 5120;
+        const pct = Math.min(100, Math.round((kb / mbLimit) * 100));
+
+        const sizeDisplay = document.getElementById('statStorageSize');
+        if (sizeDisplay) {
+            sizeDisplay.textContent = `${kb} KB / 5 MB (${100 - pct}% free)`;
+        }
+        const fillBar = document.getElementById('storageMeterFill');
+        if (fillBar) {
+            fillBar.style.width = Math.max(3, pct) + '%';
+            if (pct > 75) fillBar.classList.add('warn');
+            else fillBar.classList.remove('warn');
+        }
+    }
+
+    // ---------------------------------------------------------
+    // 4. SEED DEFAULT COMPLETED EVENTS IF EMPTY
+    // ---------------------------------------------------------
+    function seedInitialCompletedEvents() {
+        if (!localStorage.getItem('sico_completed_events')) {
+            const defaultCompleted = [
+                {
+                    id: 'comp_seed_1',
+                    title: 'Clean Energy Poster Presentation',
+                    club: 'Renewable Energy Club',
+                    date: '01st August 2026',
+                    venue: 'SJB Seminar Hall',
+                    prizePool: '₹6,000 Cash Prizes Awarded',
+                    summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations. Judged by senior electrical engineering faculty.',
+                    pdfUrl: '',
+                    pdfName: 'Clean_Energy_Poster_Winners.pdf',
+                    winners: [
+                        { rank: '1st', name: 'K. Vamsi Krishna', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
+                        { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
+                        { rank: '3rd', name: 'T. Rahul', regd: 'Y24CS105', branch: 'CSE', prize: '₹1,000 Cash', project: 'AI Solar Tracking Panel' }
+                    ]
+                },
+                {
+                    id: 'comp_seed_2',
+                    title: 'Youth Leadership & Oratory Conclave',
+                    club: 'Club Inspiraze',
+                    date: '25th July 2026',
+                    venue: 'Open Air Theatre (OAT)',
+                    prizePool: '₹4,000 Cash & Trophies',
+                    summary: 'Annual campus oratorical conclave on ethics in technology and social impact. Evaluated by humanities department and alumni guests.',
+                    pdfUrl: '',
+                    pdfName: 'Inspiraze_Oratory_Results.pdf',
+                    winners: [
+                        { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
+                        { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
+                    ]
+                },
+                {
+                    id: 'comp_seed_3',
+                    title: 'International Yoga Day Asana Championship',
+                    club: 'Wellness & Sports Club',
+                    date: '21st June 2026',
+                    venue: 'Open Air Theatre (OAT)',
+                    prizePool: '₹2,500 Cash & Medals',
+                    summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
+                    pdfUrl: '',
+                    pdfName: 'Yoga_Day_Official_Results.pdf',
+                    winners: [
+                        { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
+                        { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
+                    ]
+                }
+            ];
+            safeLocalStorageSet('sico_completed_events', JSON.stringify(defaultCompleted));
+        }
+    }
+
+    // ---------------------------------------------------------
+    // 5. TAB SWITCHER & EDIT BANNER
+    // ---------------------------------------------------------
+    const tabBtns = document.querySelectorAll('.gform-tab-btn');
+    const tabContents = document.querySelectorAll('.gform-tab-content');
+    const successCard = document.getElementById('submissionSuccessCard');
+    const globalEditBanner = document.getElementById('globalEditBanner');
+    const editBannerTitle = document.getElementById('editBannerTitle');
+    const cancelEditModeBtn = document.getElementById('cancelEditModeBtn');
+
+    function switchTab(targetTabId) {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        const activeBtn = document.querySelector(`.gform-tab-btn[data-tab="${targetTabId}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+
+        tabContents.forEach(tc => tc.style.display = 'none');
+        if (successCard) successCard.classList.remove('active');
+
+        const activeContent = document.getElementById(targetTabId);
+        if (activeContent) activeContent.style.display = 'block';
+
+        if (targetTabId === 'recordsTab') {
+            refreshRecordsManager();
+        } else if (targetTabId === 'inboxTab') {
+            refreshInboxTab();
+        } else if (targetTabId === 'voicesTab') {
+            refreshVoicesManager();
+        } else if (targetTabId === 'announcementTab') {
+            loadAnnouncementForm();
+        } else if (targetTabId === 'eventTab') {
+            updateLiveEventPreview();
+        }
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.getAttribute('data-tab')));
+    });
+
+    function clearEditMode() {
+        if (globalEditBanner) globalEditBanner.classList.remove('active');
+        const evEditId = document.getElementById('evEditId');
+        if (evEditId) evEditId.value = '';
+        const submitEvBtnText = document.getElementById('submitEventBtnText');
+        if (submitEvBtnText) submitEvBtnText.textContent = '🚀 Publish Event to Live Website';
+
+        const compEditId = document.getElementById('compEditId');
+        if (compEditId) compEditId.value = '';
+        const submitCompBtnText = document.getElementById('submitCompletedBtnText');
+        if (submitCompBtnText) submitCompBtnText.textContent = '🚀 Publish Completed Event & Winners to Live Website';
+
+        const repEditId = document.getElementById('repEditId');
+        if (repEditId) repEditId.value = '';
+        const submitRepBtnText = document.getElementById('submitReportBtnText');
+        if (submitRepBtnText) submitRepBtnText.textContent = '🚀 Publish Report to Live Website';
+
+        const galEditId = document.getElementById('galEditId');
+        if (galEditId) galEditId.value = '';
+        const submitGalBtnText = document.getElementById('submitGalleryBtnText');
+        if (submitGalBtnText) submitGalBtnText.textContent = '🚀 Add Photo to Live Gallery';
+
+        const voiceEditId = document.getElementById('voiceEditId');
+        if (voiceEditId) voiceEditId.value = '';
+        const submitVoiceBtnText = document.getElementById('submitVoiceBtnText');
+        if (submitVoiceBtnText) submitVoiceBtnText.textContent = '🚀 Publish Student Voice';
+        const cancelVoiceBtn = document.getElementById('cancelVoiceEditBtn');
+        if (cancelVoiceBtn) cancelVoiceBtn.style.display = 'none';
+        const voiceFormTitle = document.getElementById('voiceFormTitle');
+        if (voiceFormTitle) voiceFormTitle.textContent = '➕ Add Student Voice';
+    }
+
+    if (cancelEditModeBtn) {
+        cancelEditModeBtn.addEventListener('click', () => {
+            clearEditMode();
+            const f1 = document.getElementById('addEventForm'); if (f1) f1.reset();
+            const f2 = document.getElementById('addCompletedForm'); if (f2) f2.reset();
+            const f3 = document.getElementById('addReportForm'); if (f3) f3.reset();
+            const f4 = document.getElementById('addGalleryForm'); if (f4) f4.reset();
+            switchTab('recordsTab');
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 6. FILE UTILITIES (OPTIMIZED COMPRESSOR & PDF LOADER)
+    // ---------------------------------------------------------
+    function compressImage(file, maxWidth = 1000, quality = 0.78) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxWidth) {
+                        h = Math.round((h * maxWidth) / w);
+                        w = maxWidth;
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = reject;
+            };
+            reader.onerror = reject;
+        });
+    }
+
+    function readPdfFile(file) {
+        return new Promise((resolve, reject) => {
+            if (file.size > 1.2 * 1024 * 1024) {
+                showStudioToast('⚠️ Note: This PDF is over 1.2 MB. For best performance, consider pasting a Google Drive link.', 'warning');
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+        });
+    }
+
+    function formatBytes(bytes) {
+        if (!bytes || bytes === 0) return '0 KB';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    // ---------------------------------------------------------
+    // 7. EVENT FORM ATTACHMENT HANDLERS, PRESETS & LIVE PREVIEW
+    // ---------------------------------------------------------
+    let currentEventPdf = { url: '', name: '', size: '' };
+    let currentEventPoster = '';
+
+    const evPdfModeUpload = document.getElementById('evPdfModeUpload');
+    const evPdfModeUrl = document.getElementById('evPdfModeUrl');
+    const evPdfDropzoneWrap = document.getElementById('evPdfDropzoneWrap');
+    const evPdfUrlWrap = document.getElementById('evPdfUrlWrap');
+    const evPdfFileInput = document.getElementById('evPdfFileInput');
+    const evPdfUrlInput = document.getElementById('evPdfUrlInput');
+    const evPdfPreviewWrap = document.getElementById('evPdfPreviewWrap');
+    const evPdfNameDisplay = document.getElementById('evPdfNameDisplay');
+    const evPdfSizeDisplay = document.getElementById('evPdfSizeDisplay');
+    const evPdfPreviewBtn = document.getElementById('evPdfPreviewBtn');
+    const evPdfRemoveBtn = document.getElementById('evPdfRemoveBtn');
+
+    if (evPdfModeUpload) {
+        evPdfModeUpload.addEventListener('click', () => {
+            evPdfModeUpload.classList.add('active');
+            evPdfModeUrl.classList.remove('active');
+            evPdfDropzoneWrap.style.display = 'block';
+            evPdfUrlWrap.style.display = 'none';
+        });
+    }
+
+    if (evPdfModeUrl) {
+        evPdfModeUrl.addEventListener('click', () => {
+            evPdfModeUrl.classList.add('active');
+            evPdfModeUpload.classList.remove('active');
+            evPdfDropzoneWrap.style.display = 'none';
+            evPdfUrlWrap.style.display = 'block';
+        });
+    }
+
+    if (evPdfFileInput) {
+        evPdfFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            currentEventPdf.name = file.name;
+            currentEventPdf.size = formatBytes(file.size);
+            currentEventPdf.url = await readPdfFile(file);
+            if (evPdfNameDisplay) evPdfNameDisplay.textContent = currentEventPdf.name;
+            if (evPdfSizeDisplay) evPdfSizeDisplay.textContent = currentEventPdf.size;
+            if (evPdfPreviewWrap) evPdfPreviewWrap.classList.add('active');
+            showStudioToast(`📄 Attached circular PDF: ${file.name}`);
+        });
+    }
+
+    if (evPdfUrlInput) {
+        evPdfUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                currentEventPdf.url = url;
+                currentEventPdf.name = 'Official_Circular.pdf';
+                currentEventPdf.size = 'Cloud Document';
+                if (evPdfNameDisplay) evPdfNameDisplay.textContent = currentEventPdf.name;
+                if (evPdfSizeDisplay) evPdfSizeDisplay.textContent = currentEventPdf.size;
+                if (evPdfPreviewWrap) evPdfPreviewWrap.classList.add('active');
+            } else {
+                if (evPdfPreviewWrap) evPdfPreviewWrap.classList.remove('active');
+            }
+        });
+    }
+
+    if (evPdfRemoveBtn) {
+        evPdfRemoveBtn.addEventListener('click', () => {
+            currentEventPdf = { url: '', name: '', size: '' };
+            if (evPdfFileInput) evPdfFileInput.value = '';
+            if (evPdfUrlInput) evPdfUrlInput.value = '';
+            if (evPdfPreviewWrap) evPdfPreviewWrap.classList.remove('active');
+        });
+    }
+
+    if (evPdfPreviewBtn) {
+        evPdfPreviewBtn.addEventListener('click', () => {
+            if (currentEventPdf.url) window.open(currentEventPdf.url, '_blank');
+        });
+    }
+
+    // Poster Handlers
+    const evPosterModeUpload = document.getElementById('evPosterModeUpload');
+    const evPosterModeUrl = document.getElementById('evPosterModeUrl');
+    const evPosterDropzoneWrap = document.getElementById('evPosterDropzoneWrap');
+    const evPosterUrlWrap = document.getElementById('evPosterUrlWrap');
+    const evPosterFileInput = document.getElementById('evPosterFileInput');
+    const evPosterUrlInput = document.getElementById('evPosterUrlInput');
+    const evPosterPreviewWrap = document.getElementById('evPosterPreviewWrap');
+    const evPosterImgDisplay = document.getElementById('evPosterImgDisplay');
+    const evPosterRemoveBtn = document.getElementById('evPosterRemoveBtn');
+
+    if (evPosterModeUpload) {
+        evPosterModeUpload.addEventListener('click', () => {
+            evPosterModeUpload.classList.add('active');
+            evPosterModeUrl.classList.remove('active');
+            evPosterDropzoneWrap.style.display = 'block';
+            evPosterUrlWrap.style.display = 'none';
+        });
+    }
+
+    if (evPosterModeUrl) {
+        evPosterModeUrl.addEventListener('click', () => {
+            evPosterModeUrl.classList.add('active');
+            evPosterModeUpload.classList.remove('active');
+            evPosterDropzoneWrap.style.display = 'none';
+            evPosterUrlWrap.style.display = 'block';
+        });
+    }
+
+    if (evPosterFileInput) {
+        evPosterFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            currentEventPoster = await compressImage(file, 1000, 0.78);
+            if (evPosterImgDisplay) evPosterImgDisplay.src = currentEventPoster;
+            if (evPosterPreviewWrap) evPosterPreviewWrap.classList.add('active');
+            updateLiveEventPreview();
+            showStudioToast(`🖼️ Poster loaded & optimized (${file.name})`);
+        });
+    }
+
+    if (evPosterUrlInput) {
+        evPosterUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                currentEventPoster = url;
+                if (evPosterImgDisplay) evPosterImgDisplay.src = currentEventPoster;
+                if (evPosterPreviewWrap) evPosterPreviewWrap.classList.add('active');
+            } else {
+                if (evPosterPreviewWrap) evPosterPreviewWrap.classList.remove('active');
+            }
+            updateLiveEventPreview();
+        });
+    }
+
+    if (evPosterRemoveBtn) {
+        evPosterRemoveBtn.addEventListener('click', () => {
+            currentEventPoster = '';
+            if (evPosterFileInput) evPosterFileInput.value = '';
+            if (evPosterUrlInput) evPosterUrlInput.value = '';
+            if (evPosterPreviewWrap) evPosterPreviewWrap.classList.remove('active');
+            updateLiveEventPreview();
+        });
+    }
+
+    // Live Event Card Preview Updater
+    function updateLiveEventPreview() {
+        const title = (document.getElementById('evTitle') ? document.getElementById('evTitle').value.trim() : '') || 'Club Waltz (Mega Dance Gala)';
+        const date = (document.getElementById('evDate') ? document.getElementById('evDate').value.trim() : '') || '05th & 06th October 2026';
+        const time = (document.getElementById('evTime') ? document.getElementById('evTime').value.trim() : '') || '12:00 Noon onwards';
+        const venue = (document.getElementById('evVenue') ? document.getElementById('evVenue').value.trim() : '') || 'Open Air Theatre (OAT)';
+        const prize = document.getElementById('evPrize') ? document.getElementById('evPrize').value.trim() : '';
+        const snippet = (document.getElementById('evSnippet') ? document.getElementById('evSnippet').value.trim() : '') || 'Campus flagship dance spectacle: Solo, group crew battles & Jodi rounds.';
+        const clubEl = document.getElementById('evClub');
+        const club = clubEl ? clubEl.value : 'Dance Club';
+        const catEl = document.getElementById('evCategory');
+        const catText = catEl ? catEl.options[catEl.selectedIndex].text : 'Performing Arts';
+
+        const prevTitle = document.getElementById('prevTitle');
+        const prevDate = document.getElementById('prevDate');
+        const prevTime = document.getElementById('prevTime');
+        const prevVenue = document.getElementById('prevVenue');
+        const prevPrize = document.getElementById('prevPrize');
+        const prevPrizeRow = document.getElementById('prevPrizeRow');
+        const prevSnippet = document.getElementById('prevSnippet');
+        const prevClub = document.getElementById('prevClub');
+        const prevPosterWrap = document.getElementById('prevPosterWrap');
+        const prevPosterImg = document.getElementById('prevPosterImg');
+
+        if (prevTitle) prevTitle.textContent = title;
+        if (prevDate) prevDate.textContent = date;
+        if (prevTime) prevTime.textContent = time;
+        if (prevVenue) prevVenue.textContent = venue;
+        if (prevSnippet) prevSnippet.textContent = snippet;
+        if (prevClub) prevClub.textContent = `${club} · ${catText}`;
+
+        if (prevPrizeRow && prevPrize) {
+            if (prize) {
+                prevPrizeRow.style.display = 'flex';
+                prevPrize.textContent = prize;
+            } else {
+                prevPrizeRow.style.display = 'none';
+            }
+        }
+
+        if (prevPosterWrap && prevPosterImg) {
+            if (currentEventPoster) {
+                prevPosterImg.src = currentEventPoster;
+                prevPosterWrap.style.display = 'block';
+            } else {
+                prevPosterWrap.style.display = 'none';
+            }
+        }
+    }
+
+    // Attach preview event listeners
+    ['evTitle', 'evDate', 'evTime', 'evVenue', 'evPrize', 'evSnippet', 'evClub', 'evCategory'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', updateLiveEventPreview);
+            el.addEventListener('change', updateLiveEventPreview);
+        }
+    });
+
+    // 1-Click Presets for Upcoming Events
+    const eventPresets = {
+        dance: {
+            title: 'Club Waltz 2026 (Mega Dance Gala)',
+            club: 'Dance Club',
+            category: 'dance',
+            date: '10th & 11th October 2026',
+            time: '12:00 Noon onwards',
+            venue: 'Open Air Theatre (OAT)',
+            prize: 'Solo: ₹3,000 | Group: ₹5,000 Cash Awards',
+            snippet: 'Campus flagship dance spectacle: Solo freestyle, group crew battles & Jodi rounds.',
+            desc: 'Get ready for RVR&JC\'s biggest dance spectacle of the semester. Compete in Solo Western, Classical Fusion, and high-energy 10-minute Crew Battles judged by external choreographers.',
+            highlights: 'High-power Sound Stage, Trophy & Merit Certificates, OD Attendance Credit',
+            rules: 'College ID mandatory. Music soundtracks must be submitted in MP3 format 24 hours prior.',
+            coordinators: 'S. Priya (Lead), M. Leeladhar'
+        },
+        fest: {
+            title: 'COLORIDO 2026: Annual Cultural Festival',
+            club: 'Red Ants Cultural Club',
+            category: 'cultural',
+            date: '28th & 29th December 2026',
+            time: '9:30 AM – 9:00 PM',
+            venue: 'Campus Open Air Theatre & Silver Jubilee Block',
+            prize: 'Over ₹75,000 Cumulative Cash Pool & Rolling Trophy',
+            snippet: 'The pinnacle of collegiate talent and celebration across 18 competitions.',
+            desc: 'RVR&JC\'s premier annual youth cultural festival bringing together thousands of participants across dance, drama, music bands, fine arts, short film screenings, and gaming.',
+            highlights: 'Celebrity Musical Night, State-Level Rolling Trophy, Food & Craft Stalls',
+            rules: 'Open to all engineering and degree colleges across AP & Telangana.',
+            coordinators: 'R. Joel Livingstone (Lead Coordinator), K. Madhulika'
+        },
+        tech: {
+            title: 'CodeSprint & Anime Video Duel 2026',
+            club: 'Digital Club',
+            category: 'tech',
+            date: '18th October 2026',
+            time: '10:00 AM – 4:00 PM',
+            venue: 'Cyber Block Advanced Computing Labs',
+            prize: 'Web Dev: ₹4,000 | Video Duel: ₹2,500 Cash',
+            snippet: 'Duel of algorithms, responsive web development, and original anime editing.',
+            desc: 'Put your coding chops and creative multimedia skills to the test in this 6-hour sprint. Build responsive web portals or create high-energy anime visual montages.',
+            highlights: 'Cloud Hosting Provided, Live Faculty Evaluation, LinkedIn Badge',
+            rules: 'Individual or teams of 2. Code must be original and hosted on GitHub.',
+            coordinators: 'R. Joel Livingstone, Sk. M. Basha'
+        },
+        music: {
+            title: 'Acoustic Unplugged & College Band Battle',
+            club: 'Music Club',
+            category: 'music',
+            date: '04th November 2026',
+            time: '4:30 PM onwards',
+            venue: 'Campus Amphitheatre Lawns',
+            prize: 'Bands: ₹5,000 | Solo Vocals: ₹2,500 Cash',
+            snippet: 'Sunset acoustic jam sessions, guitar showdowns, and rock band battles.',
+            desc: 'Let your voice soar and guitars roar at the annual campus acoustic showdown. Categories include Western Solo, Carnatic Fusion, Beatboxing, and Live Band Performance.',
+            highlights: 'Live Sound Mixers, Professional Microphones, Video Recording',
+            rules: 'Standard 4-8 minute performance window per team. Own instruments welcome.',
+            coordinators: 'M. Kalyan (Lead), K. Sri Rama Chandra'
+        },
+        social: {
+            title: 'SICO Campus Blood Drive & Digital Literacy Camp',
+            club: 'Helping Hands Club',
+            category: 'social',
+            date: '15th November 2026',
+            time: '9:00 AM – 3:00 PM',
+            venue: 'Student Activities Center (SAC)',
+            prize: 'Government Donor Certificates & Institutional OD Credit',
+            snippet: 'Life-saving blood donation and basic computing lessons for underprivileged youth.',
+            desc: 'In collaboration with the Government General Hospital Blood Bank and local schools, SICO organizes this community mission empowering students to create tangible social good.',
+            highlights: 'Free Medical Checkups, Refreshments, Official NSS/SICO Recognition',
+            rules: 'Donors must be 18+ and weigh 45kg+. Bring College ID card.',
+            coordinators: 'R. Tarun (Volunteer Lead), V. Reshma Chowdary'
+        }
+    };
+
+    function applyEventPreset(key) {
+        const p = eventPresets[key];
+        if (!p) return;
+        if (document.getElementById('evTitle')) document.getElementById('evTitle').value = p.title;
+        if (document.getElementById('evClub')) document.getElementById('evClub').value = p.club;
+        if (document.getElementById('evCategory')) document.getElementById('evCategory').value = p.category;
+        if (document.getElementById('evDate')) document.getElementById('evDate').value = p.date;
+        if (document.getElementById('evTime')) document.getElementById('evTime').value = p.time;
+        if (document.getElementById('evVenue')) document.getElementById('evVenue').value = p.venue;
+        if (document.getElementById('evPrize')) document.getElementById('evPrize').value = p.prize;
+        if (document.getElementById('evSnippet')) document.getElementById('evSnippet').value = p.snippet;
+        if (document.getElementById('evDesc')) document.getElementById('evDesc').value = p.desc;
+        if (document.getElementById('evHighlights')) document.getElementById('evHighlights').value = p.highlights;
+        if (document.getElementById('evRules')) document.getElementById('evRules').value = p.rules;
+        if (document.getElementById('evCoordinators')) document.getElementById('evCoordinators').value = p.coordinators;
+        updateLiveEventPreview();
+        showStudioToast(`⚡ Applied "${p.title}" preset template!`);
+    }
+
+    if (document.getElementById('presetDance')) document.getElementById('presetDance').addEventListener('click', () => applyEventPreset('dance'));
+    if (document.getElementById('presetFest')) document.getElementById('presetFest').addEventListener('click', () => applyEventPreset('fest'));
+    if (document.getElementById('presetTech')) document.getElementById('presetTech').addEventListener('click', () => applyEventPreset('tech'));
+    if (document.getElementById('presetMusic')) document.getElementById('presetMusic').addEventListener('click', () => applyEventPreset('music'));
+    if (document.getElementById('presetSocial')) document.getElementById('presetSocial').addEventListener('click', () => applyEventPreset('social'));
+
+    // Handle Event Submission (Add & In-Place Modify)
+    const addEventForm = document.getElementById('addEventForm');
+    if (addEventForm) {
+        addEventForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('evEditId').value;
+            const existingEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+
+            const eventData = {
+                id: editId || ('ev_' + Date.now()),
+                title: document.getElementById('evTitle').value.trim(),
+                club: document.getElementById('evClub').value,
+                category: document.getElementById('evCategory').value,
+                catname: document.getElementById('evClub').value + ' · Official',
+                date: document.getElementById('evDate').value.trim(),
+                time: document.getElementById('evTime').value.trim(),
+                venue: document.getElementById('evVenue').value.trim(),
+                prize: document.getElementById('evPrize').value.trim(),
+                snippet: document.getElementById('evSnippet').value.trim(),
+                desc: document.getElementById('evDesc').value.trim() || document.getElementById('evSnippet').value.trim(),
+                highlights: document.getElementById('evHighlights').value.trim() || 'Organized by EC & CCAC',
+                rules: document.getElementById('evRules').value.trim() || 'College ID card mandatory.',
+                coordinators: document.getElementById('evCoordinators').value.trim() || 'EC & CCAC Student Leads',
+                regLink: document.getElementById('evRegLink').value.trim() || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing',
+                pdfUrl: currentEventPdf.url,
+                pdfName: currentEventPdf.name,
+                posterUrl: currentEventPoster,
+                updatedAt: new Date().toISOString()
+            };
+
+            if (editId) {
+                const idx = existingEvents.findIndex(ev => ev.id === editId);
+                if (idx >= 0) existingEvents[idx] = eventData;
+                else existingEvents.push(eventData);
+            } else {
+                existingEvents.push(eventData);
+            }
+
+            safeLocalStorageSet('sico_custom_events', JSON.stringify(existingEvents));
+            clearEditMode();
+
+            tabContents.forEach(tc => tc.style.display = 'none');
+            const sTitle = document.getElementById('successTitle');
+            if (sTitle) sTitle.textContent = editId ? 'Modifications Saved & Synced!' : 'Event Published Live!';
+            const sDesc = document.getElementById('successDesc');
+            if (sDesc) {
+                sDesc.innerHTML = `
+                    <strong>${eventData.title}</strong> has been successfully updated on the live website with 
+                    ${eventData.pdfUrl ? 'attached official circular PDF' : 'event details'} and 
+                    ${eventData.posterUrl ? 'custom poster banner' : 'standard club branding'}.
+                `;
+            }
+            const sLink = document.getElementById('successPreviewLink');
+            if (sLink) sLink.href = 'events.html';
+            if (successCard) successCard.classList.add('active');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+            refreshRecordsManager();
+            showStudioToast(`🚀 Successfully published "${eventData.title}" to live website!`);
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 8. COMPLETED EVENTS & WINNERS BUILDER
+    // ---------------------------------------------------------
+    let currentCompletedPdf = { url: '', name: '', size: '' };
+    const compPdfModeUpload = document.getElementById('compPdfModeUpload');
+    const compPdfModeUrl = document.getElementById('compPdfModeUrl');
+    const compPdfDropzoneWrap = document.getElementById('compPdfDropzoneWrap');
+    const compPdfUrlWrap = document.getElementById('compPdfUrlWrap');
+    const compPdfFileInput = document.getElementById('compPdfFileInput');
+    const compPdfUrlInput = document.getElementById('compPdfUrlInput');
+    const compPdfPreviewWrap = document.getElementById('compPdfPreviewWrap');
+    const compPdfNameDisplay = document.getElementById('compPdfNameDisplay');
+    const compPdfSizeDisplay = document.getElementById('compPdfSizeDisplay');
+    const compPdfPreviewBtn = document.getElementById('compPdfPreviewBtn');
+    const compPdfRemoveBtn = document.getElementById('compPdfRemoveBtn');
+    const compPresetSelect = document.getElementById('compPresetSelect');
+    const winnersRowsContainer = document.getElementById('winnersRowsContainer');
+
+    if (compPresetSelect) {
+        compPresetSelect.addEventListener('change', () => {
+            if (compPresetSelect.value) {
+                document.getElementById('compTitle').value = compPresetSelect.value;
+                if (compPresetSelect.value.includes('Dance')) {
+                    document.getElementById('compClub').value = 'Dance Club';
+                    document.getElementById('compVenue').value = 'Open Air Theatre (OAT)';
+                } else if (compPresetSelect.value.includes('Energy')) {
+                    document.getElementById('compClub').value = 'Renewable Energy Club';
+                    document.getElementById('compVenue').value = 'SJB Seminar Hall';
+                } else if (compPresetSelect.value.includes('Digital') || compPresetSelect.value.includes('Anime')) {
+                    document.getElementById('compClub').value = 'Digital Club';
+                    document.getElementById('compVenue').value = 'Cyber Block Seminar Hall';
+                }
+            }
+        });
+    }
+
+    if (compPdfModeUpload) {
+        compPdfModeUpload.addEventListener('click', () => {
+            compPdfModeUpload.classList.add('active');
+            compPdfModeUrl.classList.remove('active');
+            compPdfDropzoneWrap.style.display = 'block';
+            compPdfUrlWrap.style.display = 'none';
+        });
+    }
+
+    if (compPdfModeUrl) {
+        compPdfModeUrl.addEventListener('click', () => {
+            compPdfModeUrl.classList.add('active');
+            compPdfModeUpload.classList.remove('active');
+            compPdfDropzoneWrap.style.display = 'none';
+            compPdfUrlWrap.style.display = 'block';
+        });
+    }
+
+    if (compPdfFileInput) {
+        compPdfFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            currentCompletedPdf.name = file.name;
+            currentCompletedPdf.size = formatBytes(file.size);
+            currentCompletedPdf.url = await readPdfFile(file);
+            if (compPdfNameDisplay) compPdfNameDisplay.textContent = currentCompletedPdf.name;
+            if (compPdfSizeDisplay) compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+            if (compPdfPreviewWrap) compPdfPreviewWrap.classList.add('active');
+            showStudioToast(`📄 Attached results circular: ${file.name}`);
+        });
+    }
+
+    if (compPdfUrlInput) {
+        compPdfUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                currentCompletedPdf.url = url;
+                currentCompletedPdf.name = 'Results_Circular.pdf';
+                currentCompletedPdf.size = 'Cloud Document';
+                if (compPdfNameDisplay) compPdfNameDisplay.textContent = currentCompletedPdf.name;
+                if (compPdfSizeDisplay) compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+                if (compPdfPreviewWrap) compPdfPreviewWrap.classList.add('active');
+            } else {
+                if (compPdfPreviewWrap) compPdfPreviewWrap.classList.remove('active');
+            }
+        });
+    }
+
+    if (compPdfRemoveBtn) {
+        compPdfRemoveBtn.addEventListener('click', () => {
+            currentCompletedPdf = { url: '', name: '', size: '' };
+            if (compPdfFileInput) compPdfFileInput.value = '';
+            if (compPdfUrlInput) compPdfUrlInput.value = '';
+            if (compPdfPreviewWrap) compPdfPreviewWrap.classList.remove('active');
+        });
+    }
+
+    if (compPdfPreviewBtn) {
+        compPdfPreviewBtn.addEventListener('click', () => {
+            if (currentCompletedPdf.url) window.open(currentCompletedPdf.url, '_blank');
+        });
+    }
+
+    // Dynamic Winner Rows Builder
+    window.createWinnerRow = function(data = {}) {
+        if (!winnersRowsContainer) return;
+        const row = document.createElement('div');
+        row.className = 'gform-winner-row';
+        row.innerHTML = `
+            <div class="gform-winner-grid">
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Rank / Prize:</label>
+                    <select class="gform-select w-rank" style="padding:8px 10px; font-weight:700;">
+                        <option value="1st" ${data.rank === '1st' ? 'selected' : ''}>🥇 1st Prize</option>
+                        <option value="2nd" ${data.rank === '2nd' ? 'selected' : ''}>🥈 2nd Prize</option>
+                        <option value="3rd" ${data.rank === '3rd' ? 'selected' : ''}>🥉 3rd Prize</option>
+                        <option value="Special" ${data.rank === 'Special' ? 'selected' : ''}>🎖️ Special Mention</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Winner Student Name *:</label>
+                    <input type="text" class="gform-input w-name" placeholder="e.g. K. Vamsi Krishna" value="${data.name || ''}" required style="padding:8px 10px;">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Regd. No *:</label>
+                    <input type="text" class="gform-input w-regd" placeholder="e.g. Y23EE042" value="${data.regd || ''}" required style="padding:8px 10px; font-family:var(--font-mono);">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Branch / Dept:</label>
+                    <input type="text" class="gform-input w-branch" placeholder="e.g. EEE / CSE" value="${data.branch || 'CSE'}" style="padding:8px 10px;">
+                </div>
+                <div>
+                    <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:2px;">Cash Prize Won *:</label>
+                    <input type="text" class="gform-input w-prize" placeholder="e.g. ₹3,000 Cash" value="${data.prize || '₹2,000 Cash'}" required style="padding:8px 10px; font-weight:700; color:#10b981;">
+                </div>
+                <div style="padding-top: 18px;">
+                    <button type="button" class="gform-btn-remove-row" onclick="this.closest('.gform-winner-row').remove()" title="Remove Winner Row">✕</button>
+                </div>
+            </div>
+            <div style="margin-top: 8px;">
+                <input type="text" class="gform-input w-project" placeholder="Performance / Project Title (e.g. Solar Tracking Microgrid / Solo Classical)" value="${data.project || ''}" style="padding:6px 10px; font-size:0.85rem;">
+            </div>
+        `;
+        winnersRowsContainer.appendChild(row);
+    };
+
+    if (document.getElementById('btnAddWinnerRow')) {
+        document.getElementById('btnAddWinnerRow').addEventListener('click', () => createWinnerRow());
+    }
+    if (document.getElementById('tpl123')) {
+        document.getElementById('tpl123').addEventListener('click', () => {
+            if (winnersRowsContainer) winnersRowsContainer.innerHTML = '';
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'CSE', prize: '₹3,000 Cash', project: '' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'IT', prize: '₹2,000 Cash', project: '' });
+            createWinnerRow({ rank: '3rd', name: '', regd: '', branch: 'ECE', prize: '₹1,000 Cash', project: '' });
+        });
+    }
+    if (document.getElementById('tplSoloGroup')) {
+        document.getElementById('tplSoloGroup').addEventListener('click', () => {
+            if (winnersRowsContainer) winnersRowsContainer.innerHTML = '';
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'CSE', prize: '₹3,000 (Group 1st)', project: 'Group Crew Showdown' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'IT', prize: '₹2,000 (Group 2nd)', project: 'Group Crew Showdown' });
+            createWinnerRow({ rank: '1st', name: '', regd: '', branch: 'ECE', prize: '₹1,500 (Solo 1st)', project: 'Solo Western Dance' });
+            createWinnerRow({ rank: '2nd', name: '', regd: '', branch: 'EEE', prize: '₹1,000 (Solo 2nd)', project: 'Solo Western Dance' });
+        });
+    }
+
+    if (document.getElementById('tpl123')) document.getElementById('tpl123').click();
+
+    // Submit Completed Event & Winners
+    const addCompletedForm = document.getElementById('addCompletedForm');
+    if (addCompletedForm) {
+        addCompletedForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('compEditId').value;
+            const rows = winnersRowsContainer.querySelectorAll('.gform-winner-row');
+            if (rows.length === 0) {
+                showStudioToast('Please add at least one winner before publishing.', 'warning');
+                return;
+            }
+
+            const winnersList = [];
+            rows.forEach(r => {
+                winnersList.push({
+                    rank: r.querySelector('.w-rank').value,
+                    name: r.querySelector('.w-name').value.trim(),
+                    regd: r.querySelector('.w-regd').value.trim().toUpperCase(),
+                    branch: r.querySelector('.w-branch').value.trim().toUpperCase(),
+                    prize: r.querySelector('.w-prize').value.trim(),
+                    project: r.querySelector('.w-project').value.trim()
+                });
+            });
+
+            const compData = {
+                id: editId || ('comp_' + Date.now()),
+                title: document.getElementById('compTitle').value.trim(),
+                club: document.getElementById('compClub').value.trim(),
+                date: document.getElementById('compDate').value.trim(),
+                venue: document.getElementById('compVenue').value.trim(),
+                prizePool: document.getElementById('compPrizePool').value.trim() || 'Cash Prizes Awarded',
+                summary: document.getElementById('compSummary').value.trim(),
+                pdfUrl: currentCompletedPdf.url,
+                pdfName: currentCompletedPdf.name,
+                winners: winnersList,
+                updatedAt: new Date().toISOString()
+            };
+
+            const completedEvents = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+            if (editId) {
+                const idx = completedEvents.findIndex(c => c.id === editId);
+                if (idx >= 0) completedEvents[idx] = compData;
+                else completedEvents.push(compData);
+            } else {
+                completedEvents.unshift(compData);
+            }
+
+            safeLocalStorageSet('sico_completed_events', JSON.stringify(completedEvents));
+            clearEditMode();
+
+            tabContents.forEach(tc => tc.style.display = 'none');
+            const sTitle = document.getElementById('successTitle');
+            if (sTitle) sTitle.textContent = editId ? 'Winners List Updated & Synced!' : 'Completed Event & Winners Published!';
+            const sDesc = document.getElementById('successDesc');
+            if (sDesc) {
+                sDesc.innerHTML = `
+                    <strong>${compData.title}</strong> results with <strong>${winnersList.length} verified winners</strong> (names, regd numbers &amp; cash awards) have been published directly to the <em>Champions &amp; Winners Hall of Fame</em> on the website!
+                `;
+            }
+            const sLink = document.getElementById('successPreviewLink');
+            if (sLink) sLink.href = 'events.html#winnersHallOfFame';
+            if (successCard) successCard.classList.add('active');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+            refreshRecordsManager();
+            showStudioToast(`🏆 Published "${compData.title}" winners to Hall of Fame!`);
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 9. CAMPUS BULLETIN & TICKER FORM HANDLER
+    // ---------------------------------------------------------
+    const announcementForm = document.getElementById('announcementForm');
+    const annEnabled = document.getElementById('annEnabled');
+    const annBadge = document.getElementById('annBadge');
+    const annBadgeColor = document.getElementById('annBadgeColor');
+    const annMessage = document.getElementById('annMessage');
+    const annActionText = document.getElementById('annActionText');
+    const annActionLink = document.getElementById('annActionLink');
+    const annLivePreview = document.getElementById('annLivePreview');
+
+    function loadAnnouncementForm() {
+        const stored = localStorage.getItem('sico_site_announcement');
+        if (stored) {
+            try {
+                const ann = JSON.parse(stored);
+                if (annEnabled) annEnabled.checked = ann.enabled !== false;
+                if (annBadge) annBadge.value = ann.badgeText || '';
+                if (annBadgeColor) annBadgeColor.value = ann.badgeColor || 'linear-gradient(135deg, #e11d48, #ea580c)';
+                if (annMessage) annMessage.value = ann.message || '';
+                if (annActionText) annActionText.value = ann.actionText || '';
+                if (annActionLink) annActionLink.value = ann.actionLink || '';
+            } catch(e) {}
+        } else {
+            if (annBadge) annBadge.value = '✨ COLORIDO 2026';
+            if (annMessage) annMessage.value = 'Annual Cultural Fest Registrations are now LIVE! Over ₹75,000 in cash awards across dance, music & arts.';
+            if (annActionText) annActionText.value = 'Register SICO ↗';
+            if (annActionLink) annActionLink.value = 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing';
+        }
+        updateBulletinPreview();
+    }
+
+    function updateBulletinPreview() {
+        if (!annLivePreview) return;
+        const isEnabled = annEnabled ? annEnabled.checked : true;
+        const badge = (annBadge ? annBadge.value : '').trim() || 'CAMPUS BULLETIN';
+        const color = annBadgeColor ? annBadgeColor.value : 'linear-gradient(135deg, #e11d48, #ea580c)';
+        const msg = (annMessage ? annMessage.value : '').trim() || 'Welcome to the EC & CCAC student activities portal.';
+        const actText = (annActionText ? annActionText.value : '').trim();
+
+        if (!isEnabled) {
+            annLivePreview.innerHTML = `
+                <div style="color:var(--text-muted); font-size:0.88rem; width:100%; text-align:center; padding:8px 0;">
+                    ⚠️ Bulletin Banner is currently <strong>DISABLED</strong>. Visitors will see the standard college bar.
+                </div>
+            `;
+            return;
+        }
+
+        annLivePreview.innerHTML = `
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="campus-pill-badge" style="background:${color}; color:#fff; font-weight:700; padding:4px 10px; border-radius:99px; font-size:0.75rem;">
+                    <span class="campus-live-dot" style="background:#fff; width:6px; height:6px; border-radius:50%; display:inline-block;"></span>
+                    <strong>${badge}</strong>
+                </span>
+                <span style="font-weight:600; color:var(--text-primary); font-size:0.86rem;">
+                    ${msg}
+                </span>
+            </div>
+            ${actText ? `
+            <span style="background:var(--accent-amber); color:#000; font-weight:700; font-size:0.75rem; padding:4px 12px; border-radius:99px;">
+                ${actText}
+            </span>` : ''}
+        `;
+    }
+
+    [annEnabled, annBadge, annBadgeColor, annMessage, annActionText, annActionLink].forEach(el => {
+        if (el) {
+            el.addEventListener('input', updateBulletinPreview);
+            el.addEventListener('change', updateBulletinPreview);
+        }
+    });
+
+    // Bulletin Presets
+    const annPresets = {
+        colorido: {
+            badge: '✨ COLORIDO 2026',
+            color: 'linear-gradient(135deg, #e11d48, #ea580c)',
+            message: 'Registrations are now open for Colorido 2026 Cultural Fest! Cash prize pool over ₹75,000 across dance, music & arts.',
+            actionText: 'Register SICO ↗',
+            actionLink: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'
+        },
+        audition: {
+            badge: '🎤 AUDITIONS LIVE',
+            color: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+            message: 'Dance Club & Music Band Auditions are taking place this Thursday at the Student Activities Center (SAC). All years welcome!',
+            actionText: 'View Details ↗',
+            actionLink: 'events.html'
+        },
+        hackathon: {
+            badge: '💻 HACKATHON TOMORROW',
+            color: 'linear-gradient(135deg, #059669, #10b981)',
+            message: 'Web Dev & Anime Video Making Duel starts tomorrow at 1:00 PM at SJB Seminar Hall. Don\'t forget your laptop and college ID!',
+            actionText: 'Check Rules ↗',
+            actionLink: 'events.html'
+        },
+        defaultNotice: {
+            badge: '🏛️ R.V.R. & J.C. (AUTONOMOUS)',
+            color: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            message: 'Extracurricular & Co-Curricular Activities Committee &bull; SICO Portal &bull; Academic Year 2026–2027.',
+            actionText: 'Search Events ↗',
+            actionLink: 'events.html'
+        }
+    };
+
+    function applyAnnPreset(key) {
+        const p = annPresets[key];
+        if (!p) return;
+        if (annEnabled) annEnabled.checked = true;
+        if (annBadge) annBadge.value = p.badge;
+        if (annBadgeColor) annBadgeColor.value = p.color;
+        if (annMessage) annMessage.value = p.message;
+        if (annActionText) annActionText.value = p.actionText;
+        if (annActionLink) annActionLink.value = p.actionLink;
+        updateBulletinPreview();
+        showStudioToast('Loaded bulletin preset notice!');
+    }
+
+    if (document.getElementById('annPresetColorido')) document.getElementById('annPresetColorido').addEventListener('click', () => applyAnnPreset('colorido'));
+    if (document.getElementById('annPresetAudition')) document.getElementById('annPresetAudition').addEventListener('click', () => applyAnnPreset('audition'));
+    if (document.getElementById('annPresetHackathon')) document.getElementById('annPresetHackathon').addEventListener('click', () => applyAnnPreset('hackathon'));
+    if (document.getElementById('annPresetDefault')) document.getElementById('annPresetDefault').addEventListener('click', () => applyAnnPreset('defaultNotice'));
+
+    if (announcementForm) {
+        announcementForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const annData = {
+                enabled: annEnabled ? annEnabled.checked : true,
+                badgeText: (annBadge ? annBadge.value : '').trim(),
+                badgeColor: annBadgeColor ? annBadgeColor.value : 'linear-gradient(135deg, #e11d48, #ea580c)',
+                message: (annMessage ? annMessage.value : '').trim(),
+                actionText: (annActionText ? annActionText.value : '').trim(),
+                actionLink: (annActionLink ? annActionLink.value : '').trim(),
+                updatedAt: new Date().toISOString()
+            };
+            safeLocalStorageSet('sico_site_announcement', JSON.stringify(annData));
+            showStudioToast('📢 Live Campus Bulletin has been published across all website pages!');
+        });
+    }
+
+    if (document.getElementById('resetAnnouncementBtn')) {
+        document.getElementById('resetAnnouncementBtn').addEventListener('click', () => {
+            applyAnnPreset('defaultNotice');
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 10. STUDENT QUERIES INBOX TAB HANDLER
+    // ---------------------------------------------------------
+    window.refreshInboxTab = function() {
+        const messages = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
+        const container = document.getElementById('inboxListContainer');
+        const badge = document.getElementById('countInboxTabBadge');
+        const inboxCount = document.getElementById('inboxCount');
+        const statInboxCount = document.getElementById('statInboxCount');
+
+        const unreadCount = messages.filter(m => m.status === 'unread').length;
+        if (badge) badge.textContent = unreadCount;
+        if (inboxCount) inboxCount.textContent = `${messages.length} (${unreadCount} unread)`;
+        if (statInboxCount) statInboxCount.textContent = messages.length;
+
+        if (!container) return;
+        if (messages.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:40px 20px; color:var(--text-muted);">
+                    <div style="font-size:2.2rem; margin-bottom:8px;">📬</div>
+                    <div><strong>Your student inbox is all caught up!</strong></div>
+                    <div style="font-size:0.84rem; margin-top:4px;">When students or campus visitors submit queries on the <a href="contact.html" target="_blank" style="color:var(--accent-cyan); font-weight:600;">Contact page</a>, they will appear right here.</div>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = messages.map(msg => `
+            <div class="inbox-item-card ${msg.status === 'unread' ? 'unread' : ''}" id="inbox_card_${msg.id}">
+                <div class="inbox-item-header">
+                    <div>
+                        <span class="inbox-sender-name">${msg.name}</span>
+                        <a href="mailto:${msg.email}?subject=Regarding your EC & CCAC inquiry" class="inbox-sender-email" title="Click to reply via email">
+                            📧 ${msg.email}
+                        </a>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="inbox-item-date">🕒 ${msg.formattedDate || 'Recent'}</span>
+                        <span class="status-badge" style="background:${msg.status === 'unread' ? 'rgba(245,158,11,0.2)' : 'rgba(16,185,129,0.2)'}; color:${msg.status === 'unread' ? 'var(--accent-amber)' : '#10b981'}; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">
+                            ${msg.status === 'unread' ? '● UNREAD' : '✓ RESOLVED'}
+                        </span>
+                    </div>
+                </div>
+                <div class="inbox-item-body">${msg.message}</div>
+                <div class="inbox-item-actions">
+                    <a href="mailto:${msg.email}?subject=Regarding your EC & CCAC inquiry&body=Hi ${encodeURIComponent(msg.name)},%0D%0A%0D%0AThank you for reaching out to the EC %26 CCAC / SICO Student Committee!%0D%0A%0D%0A" class="gform-btn-tool" style="font-size:0.76rem; padding:5px 12px; text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+                        <span>✉️ Reply via Email</span>
+                    </a>
+                    <button type="button" class="gform-btn-template" onclick="toggleMsgStatus('${msg.id}')" style="font-size:0.76rem;">
+                        ${msg.status === 'unread' ? '✓ Mark Resolved' : '↩ Mark Unread'}
+                    </button>
+                    <button type="button" class="gform-remove-file-btn" onclick="deleteMessage('${msg.id}')" style="font-size:0.76rem; padding:4px 8px;">
+                        ✕ Delete
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    window.toggleMsgStatus = function(id) {
+        const messages = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
+        const msg = messages.find(m => m.id === id);
+        if (msg) {
+            msg.status = msg.status === 'unread' ? 'resolved' : 'unread';
+            safeLocalStorageSet('sico_contact_messages', JSON.stringify(messages));
+            refreshInboxTab();
+            refreshRecordsManager();
+            showStudioToast(msg.status === 'resolved' ? '✓ Marked query as resolved' : 'Marked query as unread');
+        }
+    };
+
+    window.deleteMessage = function(id) {
+        if (!confirm('Delete this student query?')) return;
+        let messages = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
+        messages = messages.filter(m => m.id !== id);
+        safeLocalStorageSet('sico_contact_messages', JSON.stringify(messages));
+        refreshInboxTab();
+        refreshRecordsManager();
+        showStudioToast('Query deleted from inbox', 'delete');
+    };
+
+    if (document.getElementById('markAllReadBtn')) {
+        document.getElementById('markAllReadBtn').addEventListener('click', () => {
+            const messages = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
+            messages.forEach(m => m.status = 'resolved');
+            safeLocalStorageSet('sico_contact_messages', JSON.stringify(messages));
+            refreshInboxTab();
+            refreshRecordsManager();
+            showStudioToast('✓ All messages marked as resolved');
+        });
+    }
+
+    if (document.getElementById('clearInboxBtn')) {
+        document.getElementById('clearInboxBtn').addEventListener('click', () => {
+            if (!confirm('Are you sure you want to clear all inquiries from the inbox?')) return;
+            safeLocalStorageSet('sico_contact_messages', JSON.stringify([]));
+            refreshInboxTab();
+            refreshRecordsManager();
+            showStudioToast('Inbox cleared', 'delete');
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 11. STUDENT VOICES & STORIES (HOMEPAGE TESTIMONIALS)
+    // ---------------------------------------------------------
+    window.refreshVoicesManager = function() {
+        const defaultVoices = [
+            {
+                id: 'voice_1',
+                quote: "Colorido was the first time I stood before three thousand students singing with my band. EC & CCAC didn't just give us a stage; they gave us a family and memories that define our college years.",
+                name: 'M. Kalyan',
+                role: 'Music Club Lead',
+                branch: 'B.Tech ECE',
+                initials: 'MK'
+            },
+            {
+                id: 'voice_2',
+                quote: "From choreographing 40-member crews for Club Waltz to managing stage cues at midnight, you learn real leadership, empathy, and grace under pressure here.",
+                name: 'S. Priya',
+                role: 'Dance Club Coordinator',
+                branch: 'B.Tech CSE',
+                initials: 'SP'
+            },
+            {
+                id: 'voice_3',
+                quote: "SICO initiatives showed me how engineers can directly touch lives — teaching basic digital skills at blind schools and organizing campus blood donation camps.",
+                name: 'R. Tarun',
+                role: 'Helping Hands Volunteer',
+                branch: 'B.Tech Mechanical',
+                initials: 'RT'
+            }
+        ];
+
+        if (!localStorage.getItem('sico_student_voices')) {
+            safeLocalStorageSet('sico_student_voices', JSON.stringify(defaultVoices));
+        }
+
+        const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
+        const container = document.getElementById('voicesAdminContainer');
+        const badge = document.getElementById('voicesCountBadge');
+        const statBadge = document.getElementById('statVoicesCount');
+
+        if (badge) badge.textContent = voices.length;
+        if (statBadge) statBadge.textContent = voices.length;
+
+        if (!container) return;
+        container.innerHTML = voices.map(v => `
+            <div class="voice-admin-card">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                        <strong style="color:var(--text-primary); font-size:1rem;">${v.name}</strong>
+                        <span class="status-badge" style="background:rgba(236,72,153,0.18); color:#ec4899; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">${v.branch}</span>
+                    </div>
+                    <div style="font-size:0.8rem; color:var(--accent-amber); font-weight:600; margin-bottom:8px;">${v.role}</div>
+                    <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.45; font-style:italic;">&ldquo;${v.quote}&rdquo;</p>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:12px; justify-content:flex-end;">
+                    <button type="button" class="gform-btn-tool" onclick="editVoice('${v.id}')" style="font-size:0.75rem; padding:4px 10px;">✏️ Edit</button>
+                    <button type="button" class="gform-remove-file-btn" onclick="deleteVoice('${v.id}')" style="font-size:0.75rem; padding:4px 8px;">✕ Delete</button>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    window.editVoice = function(id) {
+        const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
+        const v = voices.find(item => item.id === id);
+        if (!v) return;
+
+        if (document.getElementById('voiceEditId')) document.getElementById('voiceEditId').value = v.id;
+        if (document.getElementById('voiceName')) document.getElementById('voiceName').value = v.name;
+        if (document.getElementById('voiceRole')) document.getElementById('voiceRole').value = v.role;
+        if (document.getElementById('voiceBranch')) document.getElementById('voiceBranch').value = v.branch;
+        if (document.getElementById('voiceInitials')) document.getElementById('voiceInitials').value = v.initials || '';
+        if (document.getElementById('voiceQuote')) document.getElementById('voiceQuote').value = v.quote;
+
+        if (document.getElementById('submitVoiceBtnText')) document.getElementById('submitVoiceBtnText').textContent = '💾 Save Story Modifications';
+        if (document.getElementById('voiceFormTitle')) document.getElementById('voiceFormTitle').textContent = `✏️ Editing: ${v.name}`;
+        if (document.getElementById('cancelVoiceEditBtn')) document.getElementById('cancelVoiceEditBtn').style.display = 'inline-block';
+
+        switchTab('voicesTab');
+        window.scrollTo({ top: 180, behavior: 'smooth' });
+    };
+
+    window.deleteVoice = function(id) {
+        if (!confirm('Delete this student story from homepage?')) return;
+        let voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
+        voices = voices.filter(v => v.id !== id);
+        safeLocalStorageSet('sico_student_voices', JSON.stringify(voices));
+        refreshVoicesManager();
+        refreshRecordsManager();
+        showStudioToast('Student story removed', 'delete');
+    };
+
+    if (document.getElementById('cancelVoiceEditBtn')) {
+        document.getElementById('cancelVoiceEditBtn').addEventListener('click', () => {
+            clearEditMode();
+            const vf = document.getElementById('addVoiceForm');
+            if (vf) vf.reset();
+        });
+    }
+
+    const addVoiceForm = document.getElementById('addVoiceForm');
+    if (addVoiceForm) {
+        addVoiceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('voiceEditId').value;
+            const name = document.getElementById('voiceName').value.trim();
+            const role = document.getElementById('voiceRole').value.trim();
+            const branch = document.getElementById('voiceBranch').value.trim();
+            const quote = document.getElementById('voiceQuote').value.trim();
+            let initials = (document.getElementById('voiceInitials') ? document.getElementById('voiceInitials').value : '').trim().toUpperCase();
+
+            if (!initials && name) {
+                initials = name.split(' ').map(n=>n[0]).join('').slice(0, 2).toUpperCase();
+            }
+
+            const voiceData = {
+                id: editId || ('voice_' + Date.now()),
+                name,
+                role,
+                branch,
+                quote,
+                initials: initials || 'ST',
+                updatedAt: new Date().toISOString()
+            };
+
+            const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
+            if (editId) {
+                const idx = voices.findIndex(v => v.id === editId);
+                if (idx >= 0) voices[idx] = voiceData;
+                else voices.push(voiceData);
+            } else {
+                voices.push(voiceData);
+            }
+
+            safeLocalStorageSet('sico_student_voices', JSON.stringify(voices));
+            clearEditMode();
+            addVoiceForm.reset();
+            refreshVoicesManager();
+            refreshRecordsManager();
+            showStudioToast(`✨ Published student story by ${name}!`);
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 12. REPORT FORM HANDLERS & SUBMIT
+    // ---------------------------------------------------------
+    let currentReportPdf = { url: '', name: '', size: '' };
+    const repPdfModeUpload = document.getElementById('repPdfModeUpload');
+    const repPdfModeUrl = document.getElementById('repPdfModeUrl');
+    const repPdfDropzoneWrap = document.getElementById('repPdfDropzoneWrap');
+    const repPdfUrlWrap = document.getElementById('repPdfUrlWrap');
+    const repPdfFileInput = document.getElementById('repPdfFileInput');
+    const repPdfUrlInput = document.getElementById('repPdfUrlInput');
+    const repPdfPreviewWrap = document.getElementById('repPdfPreviewWrap');
+    const repPdfNameDisplay = document.getElementById('repPdfNameDisplay');
+    const repPdfSizeDisplay = document.getElementById('repPdfSizeDisplay');
+    const repPdfPreviewBtn = document.getElementById('repPdfPreviewBtn');
+    const repPdfRemoveBtn = document.getElementById('repPdfRemoveBtn');
+
+    if (repPdfModeUpload) {
+        repPdfModeUpload.addEventListener('click', () => {
+            repPdfModeUpload.classList.add('active');
+            repPdfModeUrl.classList.remove('active');
+            repPdfDropzoneWrap.style.display = 'block';
+            repPdfUrlWrap.style.display = 'none';
+        });
+    }
+
+    if (repPdfModeUrl) {
+        repPdfModeUrl.addEventListener('click', () => {
+            repPdfModeUrl.classList.add('active');
+            repPdfModeUpload.classList.remove('active');
+            repPdfDropzoneWrap.style.display = 'none';
+            repPdfUrlWrap.style.display = 'block';
+        });
+    }
+
+    if (repPdfFileInput) {
+        repPdfFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            currentReportPdf.name = file.name;
+            currentReportPdf.size = formatBytes(file.size);
+            currentReportPdf.url = await readPdfFile(file);
+            if (repPdfNameDisplay) repPdfNameDisplay.textContent = currentReportPdf.name;
+            if (repPdfSizeDisplay) repPdfSizeDisplay.textContent = currentReportPdf.size;
+            if (repPdfPreviewWrap) repPdfPreviewWrap.classList.add('active');
+            showStudioToast(`📄 Attached report PDF: ${file.name}`);
+        });
+    }
+
+    if (repPdfUrlInput) {
+        repPdfUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                currentReportPdf.url = url;
+                currentReportPdf.name = 'Official_Report.pdf';
+                currentReportPdf.size = 'Cloud Document';
+                if (repPdfNameDisplay) repPdfNameDisplay.textContent = currentReportPdf.name;
+                if (repPdfSizeDisplay) repPdfSizeDisplay.textContent = currentReportPdf.size;
+                if (repPdfPreviewWrap) repPdfPreviewWrap.classList.add('active');
+            } else {
+                if (repPdfPreviewWrap) repPdfPreviewWrap.classList.remove('active');
+            }
+        });
+    }
+
+    if (repPdfRemoveBtn) {
+        repPdfRemoveBtn.addEventListener('click', () => {
+            currentReportPdf = { url: '', name: '', size: '' };
+            if (repPdfFileInput) repPdfFileInput.value = '';
+            if (repPdfUrlInput) repPdfUrlInput.value = '';
+            if (repPdfPreviewWrap) repPdfPreviewWrap.classList.remove('active');
+        });
+    }
+
+    if (repPdfPreviewBtn) {
+        repPdfPreviewBtn.addEventListener('click', () => {
+            if (currentReportPdf.url) window.open(currentReportPdf.url, '_blank');
+        });
+    }
+
+    const addReportForm = document.getElementById('addReportForm');
+    if (addReportForm) {
+        addReportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('repEditId').value;
+            if (!currentReportPdf.url) {
+                showStudioToast('Please upload a PDF document or provide a link.', 'warning');
+                return;
+            }
+
+            const reportData = {
+                id: editId || ('rep_' + Date.now()),
+                title: document.getElementById('repTitle').value.trim(),
+                academicYear: document.getElementById('repYear').value.trim(),
+                category: document.getElementById('repCategory').value,
+                summary: document.getElementById('repSummary').value.trim(),
+                pdfUrl: currentReportPdf.url,
+                pdfName: currentReportPdf.name,
+                updatedAt: new Date().toISOString()
+            };
+
+            const existingReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+            if (editId) {
+                const idx = existingReports.findIndex(r => r.id === editId);
+                if (idx >= 0) existingReports[idx] = reportData;
+                else existingReports.push(reportData);
+            } else {
+                existingReports.push(reportData);
+            }
+
+            safeLocalStorageSet('sico_custom_reports', JSON.stringify(existingReports));
+            clearEditMode();
+
+            tabContents.forEach(tc => tc.style.display = 'none');
+            const sTitle = document.getElementById('successTitle');
+            if (sTitle) sTitle.textContent = editId ? 'Report Details Updated!' : 'Report Published to Archive!';
+            const sDesc = document.getElementById('successDesc');
+            if (sDesc) {
+                sDesc.innerHTML = `
+                    <strong>${reportData.title}</strong> has been added to the official reports repository for 
+                    academic year <em>${reportData.academicYear}</em>.
+                `;
+            }
+            const sLink = document.getElementById('successPreviewLink');
+            if (sLink) sLink.href = 'reports.html';
+            if (successCard) successCard.classList.add('active');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+            refreshRecordsManager();
+            showStudioToast(`📄 Published report "${reportData.title}"!`);
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 13. GALLERY FORM HANDLERS & SUBMIT
+    // ---------------------------------------------------------
+    let currentGalleryImg = '';
+    const galModeUpload = document.getElementById('galModeUpload');
+    const galModeUrl = document.getElementById('galModeUrl');
+    const galDropzoneWrap = document.getElementById('galDropzoneWrap');
+    const galUrlWrap = document.getElementById('galUrlWrap');
+    const galFileInput = document.getElementById('galFileInput');
+    const galUrlInput = document.getElementById('galUrlInput');
+    const galPreviewWrap = document.getElementById('galPreviewWrap');
+    const galImgDisplay = document.getElementById('galImgDisplay');
+    const galRemoveBtn = document.getElementById('galRemoveBtn');
+
+    if (galModeUpload) {
+        galModeUpload.addEventListener('click', () => {
+            galModeUpload.classList.add('active');
+            galModeUrl.classList.remove('active');
+            galDropzoneWrap.style.display = 'block';
+            galUrlWrap.style.display = 'none';
+        });
+    }
+
+    if (galModeUrl) {
+        galModeUrl.addEventListener('click', () => {
+            galModeUrl.classList.add('active');
+            galModeUpload.classList.remove('active');
+            galDropzoneWrap.style.display = 'none';
+            galUrlWrap.style.display = 'block';
+        });
+    }
+
+    if (galFileInput) {
+        galFileInput.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            currentGalleryImg = await compressImage(file, 1000, 0.78);
+            if (galImgDisplay) galImgDisplay.src = currentGalleryImg;
+            if (galPreviewWrap) galPreviewWrap.classList.add('active');
+            showStudioToast(`📸 Image optimized: ${file.name}`);
+        });
+    }
+
+    if (galUrlInput) {
+        galUrlInput.addEventListener('input', (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                currentGalleryImg = url;
+                if (galImgDisplay) galImgDisplay.src = currentGalleryImg;
+                if (galPreviewWrap) galPreviewWrap.classList.add('active');
+            } else {
+                if (galPreviewWrap) galPreviewWrap.classList.remove('active');
+            }
+        });
+    }
+
+    if (galRemoveBtn) {
+        galRemoveBtn.addEventListener('click', () => {
+            currentGalleryImg = '';
+            if (galFileInput) galFileInput.value = '';
+            if (galUrlInput) galUrlInput.value = '';
+            if (galPreviewWrap) galPreviewWrap.classList.remove('active');
+        });
+    }
+
+    const addGalleryForm = document.getElementById('addGalleryForm');
+    if (addGalleryForm) {
+        addGalleryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('galEditId').value;
+            if (!currentGalleryImg) {
+                showStudioToast('Please upload an image file or provide an image link.', 'warning');
+                return;
+            }
+
+            const photoData = {
+                id: editId || ('gal_' + Date.now()),
+                title: document.getElementById('galTitle').value.trim(),
+                category: document.getElementById('galCategory').value,
+                caption: document.getElementById('galCaption').value.trim() || document.getElementById('galTitle').value.trim(),
+                imageUrl: currentGalleryImg,
+                updatedAt: new Date().toISOString()
+            };
+
+            const existingPhotos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+            if (editId) {
+                const idx = existingPhotos.findIndex(p => p.id === editId);
+                if (idx >= 0) existingPhotos[idx] = photoData;
+                else existingPhotos.push(photoData);
+            } else {
+                existingPhotos.push(photoData);
+            }
+
+            safeLocalStorageSet('sico_custom_gallery', JSON.stringify(existingPhotos));
+            clearEditMode();
+
+            tabContents.forEach(tc => tc.style.display = 'none');
+            const sTitle = document.getElementById('successTitle');
+            if (sTitle) sTitle.textContent = editId ? 'Photo Details Updated!' : 'Photo Added to Gallery!';
+            const sDesc = document.getElementById('successDesc');
+            if (sDesc) {
+                sDesc.innerHTML = `
+                    <strong>${photoData.title}</strong> has been saved in the Photo Gallery under the 
+                    <em>${photoData.category.toUpperCase()}</em> collection with full-screen lightbox preview support.
+                `;
+            }
+            const sLink = document.getElementById('successPreviewLink');
+            if (sLink) sLink.href = 'gallery.html';
+            if (successCard) successCard.classList.add('active');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+            refreshRecordsManager();
+            showStudioToast(`📸 Added "${photoData.title}" to gallery!`);
+        });
+    }
+
+    // ---------------------------------------------------------
+    // 14. IN-PLACE EDIT TRIGGERS (MODIFY ANYTHING)
+    // ---------------------------------------------------------
+    window.editRecord = function(type, id) {
+        clearEditMode();
+
+        if (type === 'event') {
+            const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+            const ev = events.find(e => e.id === id);
+            if (!ev) return;
+
+            document.getElementById('evEditId').value = ev.id;
+            document.getElementById('evTitle').value = ev.title;
+            document.getElementById('evClub').value = ev.club;
+            document.getElementById('evCategory').value = ev.category || 'tech';
+            document.getElementById('evDate').value = ev.date;
+            document.getElementById('evTime').value = ev.time || '';
+            document.getElementById('evVenue').value = ev.venue;
+            document.getElementById('evPrize').value = ev.prize || '';
+            document.getElementById('evSnippet').value = ev.snippet || '';
+            document.getElementById('evDesc').value = ev.desc || '';
+            document.getElementById('evHighlights').value = ev.highlights || '';
+            document.getElementById('evRules').value = ev.rules || '';
+            document.getElementById('evCoordinators').value = ev.coordinators || '';
+            document.getElementById('evRegLink').value = ev.regLink || '';
+
+            if (ev.pdfUrl) {
+                currentEventPdf = { url: ev.pdfUrl, name: ev.pdfName || 'circular.pdf', size: 'Attached' };
+                if (evPdfNameDisplay) evPdfNameDisplay.textContent = currentEventPdf.name;
+                if (evPdfSizeDisplay) evPdfSizeDisplay.textContent = currentEventPdf.size;
+                if (evPdfPreviewWrap) evPdfPreviewWrap.classList.add('active');
+            } else {
+                if (evPdfPreviewWrap) evPdfPreviewWrap.classList.remove('active');
+            }
+
+            if (ev.posterUrl) {
+                currentEventPoster = ev.posterUrl;
+                if (evPosterImgDisplay) evPosterImgDisplay.src = currentEventPoster;
+                if (evPosterPreviewWrap) evPosterPreviewWrap.classList.add('active');
+            } else {
+                if (evPosterPreviewWrap) evPosterPreviewWrap.classList.remove('active');
+            }
+
+            updateLiveEventPreview();
+            if (editBannerTitle) editBannerTitle.textContent = ev.title;
+            if (globalEditBanner) globalEditBanner.classList.add('active');
+            const submitBtn = document.getElementById('submitEventBtnText');
+            if (submitBtn) submitBtn.textContent = '💾 Save Modifications to Live Website';
+            switchTab('eventTab');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+
+        } else if (type === 'completed') {
+            const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+            const comp = completed.find(c => c.id === id);
+            if (!comp) return;
+
+            document.getElementById('compEditId').value = comp.id;
+            document.getElementById('compTitle').value = comp.title;
+            document.getElementById('compClub').value = comp.club;
+            document.getElementById('compDate').value = comp.date;
+            document.getElementById('compVenue').value = comp.venue || '';
+            document.getElementById('compPrizePool').value = comp.prizePool || '';
+            document.getElementById('compSummary').value = comp.summary || '';
+
+            if (comp.pdfUrl) {
+                currentCompletedPdf = { url: comp.pdfUrl, name: comp.pdfName || 'results.pdf', size: 'Attached' };
+                if (compPdfNameDisplay) compPdfNameDisplay.textContent = currentCompletedPdf.name;
+                if (compPdfSizeDisplay) compPdfSizeDisplay.textContent = currentCompletedPdf.size;
+                if (compPdfPreviewWrap) compPdfPreviewWrap.classList.add('active');
+            } else {
+                if (compPdfPreviewWrap) compPdfPreviewWrap.classList.remove('active');
+            }
+
+            if (winnersRowsContainer) {
+                winnersRowsContainer.innerHTML = '';
+                if (comp.winners && comp.winners.length > 0) {
+                    comp.winners.forEach(w => createWinnerRow(w));
+                } else {
+                    document.getElementById('tpl123').click();
+                }
+            }
+
+            if (editBannerTitle) editBannerTitle.textContent = comp.title + ' (Winners)';
+            if (globalEditBanner) globalEditBanner.classList.add('active');
+            const submitBtn = document.getElementById('submitCompletedBtnText');
+            if (submitBtn) submitBtn.textContent = '💾 Save Modifications to Live Website';
+            switchTab('completedTab');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+
+        } else if (type === 'report') {
+            const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+            const rep = reports.find(r => r.id === id);
+            if (!rep) return;
+
+            document.getElementById('repEditId').value = rep.id;
+            document.getElementById('repTitle').value = rep.title;
+            document.getElementById('repYear').value = rep.academicYear;
+            document.getElementById('repCategory').value = rep.category || 'annual';
+            document.getElementById('repSummary').value = rep.summary;
+
+            if (rep.pdfUrl) {
+                currentReportPdf = { url: rep.pdfUrl, name: rep.pdfName || 'report.pdf', size: 'Attached' };
+                if (repPdfNameDisplay) repPdfNameDisplay.textContent = currentReportPdf.name;
+                if (repPdfSizeDisplay) repPdfSizeDisplay.textContent = currentReportPdf.size;
+                if (repPdfPreviewWrap) repPdfPreviewWrap.classList.add('active');
+            }
+
+            if (editBannerTitle) editBannerTitle.textContent = rep.title;
+            if (globalEditBanner) globalEditBanner.classList.add('active');
+            const submitBtn = document.getElementById('submitReportBtnText');
+            if (submitBtn) submitBtn.textContent = '💾 Save Modifications to Live Website';
+            switchTab('reportTab');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+
+        } else if (type === 'gallery') {
+            const photos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+            const photo = photos.find(p => p.id === id);
+            if (!photo) return;
+
+            document.getElementById('galEditId').value = photo.id;
+            document.getElementById('galTitle').value = photo.title;
+            document.getElementById('galCategory').value = photo.category || 'dance';
+            document.getElementById('galCaption').value = photo.caption || '';
+            currentGalleryImg = photo.imageUrl;
+            if (galImgDisplay) galImgDisplay.src = currentGalleryImg;
+            if (galPreviewWrap) galPreviewWrap.classList.add('active');
+
+            if (editBannerTitle) editBannerTitle.textContent = photo.title;
+            if (globalEditBanner) globalEditBanner.classList.add('active');
+            const submitBtn = document.getElementById('submitGalleryBtnText');
+            if (submitBtn) submitBtn.textContent = '💾 Save Modifications to Live Website';
+            switchTab('galleryTab');
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+        }
+    };
+
+    // ---------------------------------------------------------
+    // 15. LIVE RECORDS & STORAGE MANAGER WITH FILTER PILLS & SEARCH
+    // ---------------------------------------------------------
+    const recordsSearchInput = document.getElementById('recordsSearchInput');
+    if (recordsSearchInput) {
+        recordsSearchInput.addEventListener('input', () => refreshRecordsManager());
+    }
+
+    // Records Filter Pills
+    const filterPillsWrap = document.getElementById('recordsFilterPills');
+    let activeRecordsFilter = 'all';
+    if (filterPillsWrap) {
+        const pills = filterPillsWrap.querySelectorAll('.gform-preset-pill');
+        pills.forEach(p => {
+            p.addEventListener('click', () => {
+                pills.forEach(b => b.classList.remove('active'));
+                p.classList.add('active');
+                activeRecordsFilter = p.getAttribute('data-rec-filter') || 'all';
+                applyRecordsFilter();
+            });
+        });
+    }
+
+    function applyRecordsFilter() {
+        const blocks = document.querySelectorAll('.rec-card-block');
+        blocks.forEach(block => {
+            const blockType = block.getAttribute('data-rec-type');
+            if (activeRecordsFilter === 'all' || activeRecordsFilter === blockType) {
+                block.style.display = 'block';
+            } else {
+                block.style.display = 'none';
+            }
+        });
+    }
+
+    function refreshRecordsManager() {
+        const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
+        const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
+        const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
+        const gallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
+        const messages = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
+        const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
+
+        const filter = (recordsSearchInput ? recordsSearchInput.value : '').trim().toLowerCase();
+
+        const total = events.length + completed.length + reports.length + gallery.length;
+        const badge = document.getElementById('totalRecordsBadge');
+        if (badge) badge.textContent = total;
+
+        if (document.getElementById('statEventsCount')) document.getElementById('statEventsCount').textContent = events.length;
+        if (document.getElementById('statCompletedCount')) document.getElementById('statCompletedCount').textContent = completed.length;
+        if (document.getElementById('statReportsCount')) document.getElementById('statReportsCount').textContent = reports.length;
+        if (document.getElementById('statGalleryCount')) document.getElementById('statGalleryCount').textContent = gallery.length;
+        if (document.getElementById('statInboxCount')) document.getElementById('statInboxCount').textContent = messages.length;
+        if (document.getElementById('statVoicesCount')) document.getElementById('statVoicesCount').textContent = voices.length;
+        if (document.getElementById('countInboxList')) document.getElementById('countInboxList').textContent = messages.length;
+        if (document.getElementById('countVoicesList')) document.getElementById('countVoicesList').textContent = voices.length;
+
+        updateStorageMeter();
+
+        // 1. Render Completed Events
+        const compContainer = document.getElementById('recordsCompletedContainer');
+        const countCompList = document.getElementById('countCompletedList');
+        if (countCompList) countCompList.textContent = completed.length;
+
+        if (compContainer) {
+            const filteredCompleted = completed.filter(c => {
+                if (!filter) return true;
+                const matchTitle = (c.title || '').toLowerCase().includes(filter);
+                const matchClub = (c.club || '').toLowerCase().includes(filter);
+                const matchWinner = (c.winners || []).some(w => (w.name || '').toLowerCase().includes(filter) || (w.regd || '').toLowerCase().includes(filter));
+                return matchTitle || matchClub || matchWinner;
+            });
+
+            if (filteredCompleted.length === 0) {
+                compContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No completed events match your search query.' : 'No completed events published yet.'}</p>`;
+            } else {
+                compContainer.innerHTML = filteredCompleted.map(comp => `
+                    <div class="gform-record-item" style="border-left: 4px solid #10b981;">
+                        <div class="gform-record-meta">
+                            <div>
+                                <span class="gform-record-type" style="color:#10b981;">🏆 Completed Event &amp; Winners (${(comp.winners || []).length} Winners)</span>
+                                <h4 class="gform-record-title">${comp.title}</h4>
+                                <div class="gform-record-sub">
+                                    <span>📅 Concluded: ${comp.date}</span> &bull; 
+                                    <span>🏛️ ${comp.club}</span> &bull; 
+                                    <span>📍 ${comp.venue || 'Campus'}</span> &bull;
+                                    <span style="color:#10b981; font-weight:700;">💰 ${comp.prizePool || 'Cash Prizes'}</span>
+                                </div>
+                                <div style="margin-top:6px; font-size:0.8rem; color:var(--text-secondary);">
+                                    <strong>Winners:</strong> ${(comp.winners || []).map(w => `${w.rank}: ${w.name} (${w.regd}) - ${w.prize}`).join(' &bull; ') || 'No winners specified'}
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-tool" onclick="editRecord('completed', '${comp.id}')">✏️ Modify</button>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('completed', '${comp.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 2. Render Upcoming Events
+        const evContainer = document.getElementById('recordsEventsContainer');
+        const countEvList = document.getElementById('countEventsList');
+        if (countEvList) countEvList.textContent = events.length;
+
+        if (evContainer) {
+            const filteredEvents = events.filter(e => {
+                if (!filter) return true;
+                return (e.title || '').toLowerCase().includes(filter) || 
+                       (e.club || '').toLowerCase().includes(filter) || 
+                       (e.snippet || '').toLowerCase().includes(filter);
+            });
+
+            if (filteredEvents.length === 0) {
+                evContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No upcoming events match your search query.' : 'No custom upcoming events added yet.'}</p>`;
+            } else {
+                evContainer.innerHTML = filteredEvents.map(ev => `
+                    <div class="gform-record-item">
+                        <div class="gform-record-meta">
+                            <div>
+                                <span class="gform-record-type">🎪 Upcoming Event</span>
+                                <h4 class="gform-record-title">${ev.title}</h4>
+                                <div class="gform-record-sub">
+                                    <span>📅 ${ev.date}</span> &bull; 
+                                    <span>🏛️ ${ev.club}</span> &bull; 
+                                    <span>📍 ${ev.venue}</span> &bull; 
+                                    <span style="color:var(--accent-amber); font-weight:700;">${ev.prize || 'No Cash Prize'}</span>
+                                </div>
+                                <p style="font-size:0.82rem; color:var(--text-muted); margin:4px 0 0;">${ev.snippet || ''}</p>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-tool" onclick="editRecord('event', '${ev.id}')">✏️ Modify</button>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('event', '${ev.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 3. Render Inquiries in Records
+        const inboxRecContainer = document.getElementById('recordsInboxContainer');
+        if (inboxRecContainer) {
+            const filteredMessages = messages.filter(m => {
+                if (!filter) return true;
+                return (m.name || '').toLowerCase().includes(filter) || (m.email || '').toLowerCase().includes(filter) || (m.message || '').toLowerCase().includes(filter);
+            });
+
+            if (filteredMessages.length === 0) {
+                inboxRecContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No student messages match your search.' : 'No student queries received yet.'}</p>`;
+            } else {
+                inboxRecContainer.innerHTML = filteredMessages.slice(0, 5).map(m => `
+                    <div class="gform-record-item" style="border-left: 4px solid var(--accent-purple);">
+                        <div class="gform-record-meta">
+                            <div>
+                                <span class="gform-record-type" style="color:var(--accent-purple);">💬 Student Query</span>
+                                <h4 class="gform-record-title">${m.name} (${m.email})</h4>
+                                <div class="gform-record-sub">🕒 ${m.formattedDate || 'Recent'} &bull; Status: <strong>${m.status.toUpperCase()}</strong></div>
+                                <p style="font-size:0.82rem; color:var(--text-secondary); margin:4px 0 0;">${m.message.slice(0, 140)}${m.message.length > 140 ? '...' : ''}</p>
+                            </div>
+                            <div class="gform-record-actions">
+                                <a href="mailto:${m.email}?subject=Regarding your EC & CCAC inquiry" class="gform-btn-tool" style="text-decoration:none;">✉️ Reply</a>
+                                <button type="button" class="gform-btn-delete" onclick="deleteMessage('${m.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') + (filteredMessages.length > 5 ? `<div style="text-align:center; padding-top:8px;"><button type="button" class="gform-btn-template" onclick="document.querySelector('[data-tab=\\'inboxTab\\']').click()">View all ${filteredMessages.length} inquiries in Inbox Tab →</button></div>` : '');
+            }
+        }
+
+        // 4. Render Student Voices in Records
+        const voicesRecContainer = document.getElementById('recordsVoicesContainer');
+        if (voicesRecContainer) {
+            const filteredVoices = voices.filter(v => {
+                if (!filter) return true;
+                return (v.name || '').toLowerCase().includes(filter) || (v.role || '').toLowerCase().includes(filter) || (v.quote || '').toLowerCase().includes(filter);
+            });
+
+            if (filteredVoices.length === 0) {
+                voicesRecContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No student stories match your search.' : 'No stories configured.'}</p>`;
+            } else {
+                voicesRecContainer.innerHTML = filteredVoices.map(v => `
+                    <div class="gform-record-item" style="border-left: 4px solid #ec4899;">
+                        <div class="gform-record-meta">
+                            <div>
+                                <span class="gform-record-type" style="color:#ec4899;">✨ Student Reflection</span>
+                                <h4 class="gform-record-title">${v.name} (${v.branch})</h4>
+                                <div class="gform-record-sub">${v.role}</div>
+                                <p style="font-size:0.82rem; color:var(--text-secondary); font-style:italic; margin:4px 0 0;">&ldquo;${v.quote.slice(0, 120)}${v.quote.length > 120 ? '...' : ''}&rdquo;</p>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-tool" onclick="editVoice('${v.id}')">✏️ Modify</button>
+                                <button type="button" class="gform-btn-delete" onclick="deleteVoice('${v.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 5. Render Reports
+        const repContainer = document.getElementById('recordsReportsContainer');
+        const countRepList = document.getElementById('countReportsList');
+        if (countRepList) countRepList.textContent = reports.length;
+
+        if (repContainer) {
+            const filteredReports = reports.filter(r => {
+                if (!filter) return true;
+                return (r.title || '').toLowerCase().includes(filter) || (r.summary || '').toLowerCase().includes(filter);
+            });
+
+            if (filteredReports.length === 0) {
+                repContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No reports match your search query.' : 'No custom reports published yet.'}</p>`;
+            } else {
+                repContainer.innerHTML = filteredReports.map(rep => `
+                    <div class="gform-record-item">
+                        <div class="gform-record-meta">
+                            <div>
+                                <span class="gform-record-type">📄 Report Document</span>
+                                <h4 class="gform-record-title">${rep.title}</h4>
+                                <div class="gform-record-sub">
+                                    <span>🗓️ AY ${rep.academicYear}</span> &bull; 
+                                    <span>🏷️ ${rep.category.toUpperCase()}</span>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-tool" onclick="editRecord('report', '${rep.id}')">✏️ Modify</button>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('report', '${rep.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 6. Render Gallery
+        const galContainer = document.getElementById('recordsGalleryContainer');
+        const countGalList = document.getElementById('countGalleryList');
+        if (countGalList) countGalList.textContent = gallery.length;
+
+        if (galContainer) {
+            const filteredPhotos = gallery.filter(p => {
+                if (!filter) return true;
+                return (p.title || '').toLowerCase().includes(filter) || (p.caption || '').toLowerCase().includes(filter);
+            });
+
+            if (filteredPhotos.length === 0) {
+                galContainer.innerHTML = `<p style="color:var(--text-muted); font-size:0.88rem; margin:0;">${filter ? 'No photos match your search query.' : 'No custom photos in gallery yet.'}</p>`;
+            } else {
+                galContainer.innerHTML = filteredPhotos.map(p => `
+                    <div class="gform-record-item">
+                        <div class="gform-record-meta">
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <img src="${p.imageUrl}" alt="${p.title}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;">
+                                <div>
+                                    <span class="gform-record-type">📸 Photo Gallery</span>
+                                    <h4 class="gform-record-title">${p.title}</h4>
+                                    <div class="gform-record-sub">Category: ${p.category}</div>
+                                </div>
+                            </div>
+                            <div class="gform-record-actions">
+                                <button type="button" class="gform-btn-tool" onclick="editRecord('gallery', '${p.id}')">✏️ Modify</button>
+                                <button type="button" class="gform-btn-delete" onclick="deleteRecord('gallery', '${p.id}')">🗑️ Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        applyRecordsFilter();
+    }
+
+    // Delete Record Handler
+    window.deleteRecord = function(type, id) {
+        if (!confirm('Are you sure you want to delete this live record? It will be removed from the website immediately.')) return;
+
+        if (type === 'event') {
+            const events = JSON.parse(localStorage.getItem('sico_custom_events') || '[]').filter(e => e.id !== id);
+            safeLocalStorageSet('sico_custom_events', JSON.stringify(events));
+        } else if (type === 'completed') {
+            const completed = JSON.parse(localStorage.getItem('sico_completed_events') || '[]').filter(c => c.id !== id);
+            safeLocalStorageSet('sico_completed_events', JSON.stringify(completed));
+        } else if (type === 'report') {
+            const reports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]').filter(r => r.id !== id);
+            safeLocalStorageSet('sico_custom_reports', JSON.stringify(reports));
+        } else if (type === 'gallery') {
+            const photos = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]').filter(p => p.id !== id);
+            safeLocalStorageSet('sico_custom_gallery', JSON.stringify(photos));
+        }
+
+        refreshRecordsManager();
+        showStudioToast('Record removed from live website', 'delete');
+    };
+
+    // Export JSON Backup
+    const exportBackupBtn = document.getElementById('exportBackupBtn');
+    if (exportBackupBtn) {
+        exportBackupBtn.addEventListener('click', () => {
+            const backupData = {
+                version: '2.5',
+                site: 'EC & CCAC - SICO Portal',
+                exportedAt: new Date().toISOString(),
+                events: JSON.parse(localStorage.getItem('sico_custom_events') || '[]'),
+                completedEvents: JSON.parse(localStorage.getItem('sico_completed_events') || '[]'),
+                reports: JSON.parse(localStorage.getItem('sico_custom_reports') || '[]'),
+                gallery: JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]'),
+                announcement: JSON.parse(localStorage.getItem('sico_site_announcement') || 'null'),
+                contactMessages: JSON.parse(localStorage.getItem('sico_contact_messages') || '[]'),
+                studentVoices: JSON.parse(localStorage.getItem('sico_student_voices') || '[]')
+            };
+
+            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sico_complete_website_backup_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showStudioToast('📥 Full website backup downloaded successfully!');
+        });
+    }
+
+    // Import JSON Backup
+    const importBackupBtn = document.getElementById('importBackupBtn');
+    const importFileInput = document.getElementById('importFileInput');
+    if (importBackupBtn && importFileInput) {
+        importBackupBtn.addEventListener('click', () => importFileInput.click());
+        importFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    if (data.events) safeLocalStorageSet('sico_custom_events', JSON.stringify(data.events));
+                    if (data.completedEvents) safeLocalStorageSet('sico_completed_events', JSON.stringify(data.completedEvents));
+                    if (data.reports) safeLocalStorageSet('sico_custom_reports', JSON.stringify(data.reports));
+                    if (data.gallery) safeLocalStorageSet('sico_custom_gallery', JSON.stringify(data.gallery));
+                    if (data.announcement) safeLocalStorageSet('sico_site_announcement', JSON.stringify(data.announcement));
+                    if (data.contactMessages) safeLocalStorageSet('sico_contact_messages', JSON.stringify(data.contactMessages));
+                    if (data.studentVoices) safeLocalStorageSet('sico_student_voices', JSON.stringify(data.studentVoices));
+                    showStudioToast('✓ Backup successfully restored! Live website has been synchronized.');
+                    loadAnnouncementForm();
+                    refreshInboxTab();
+                    refreshVoicesManager();
+                    refreshRecordsManager();
+                } catch (err) {
+                    showStudioToast('Error parsing backup JSON file. Ensure valid SICO format.', 'error');
+                }
+            };
+            reader.readAsText(file);
+        });
+    }
+
+    // Clear All Data
+    const clearAllRecordsBtn = document.getElementById('clearAllRecordsBtn');
+    if (clearAllRecordsBtn) {
+        clearAllRecordsBtn.addEventListener('click', () => {
+            if (confirm('CAUTION: Are you sure you want to delete ALL custom website data (events, winners, reports, gallery, bulletin, student queries)? This action cannot be undone.')) {
+                localStorage.removeItem('sico_custom_events');
+                localStorage.removeItem('sico_completed_events');
+                localStorage.removeItem('sico_custom_reports');
+                localStorage.removeItem('sico_custom_gallery');
+                localStorage.removeItem('sico_site_announcement');
+                localStorage.removeItem('sico_contact_messages');
+                localStorage.removeItem('sico_student_voices');
+                showStudioToast('All custom dynamic records cleared from browser', 'delete');
+                seedInitialCompletedEvents();
+                loadAnnouncementForm();
+                refreshInboxTab();
+                refreshVoicesManager();
+                refreshRecordsManager();
+            }
+        });
+    }
+
+    // Success controls
+    if (document.getElementById('submitAnotherBtn')) {
+        document.getElementById('submitAnotherBtn').addEventListener('click', () => {
+            if (successCard) successCard.classList.remove('active');
+            tabBtns[0].click();
+        });
+    }
+    if (document.getElementById('viewAllRecordsBtn')) {
+        document.getElementById('viewAllRecordsBtn').addEventListener('click', () => {
+            if (successCard) successCard.classList.remove('active');
+            tabBtns[tabBtns.length - 1].click();
+        });
+    }
+
+    // Global Admin Shortcut: Ctrl + Shift + A
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+            e.preventDefault();
+            switchTab('recordsTab');
+        }
+    });
+
+    checkAuth();
+});
+
+        </script>
+</body>
+</html>
