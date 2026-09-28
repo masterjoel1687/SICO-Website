@@ -1251,7 +1251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Contact & FAQ Hub', sub: 'Campus address, student helpline & FAQs', url: 'contact.html', icon: '💬', category: 'Pages' },
         
         // Flagship Events
-        { title: 'COLORIDO 2026', sub: 'Flagship Cultural & Arts Extravaganza (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
+        { title: 'CLUB WALTZ 2026', sub: 'Flagship Dance Gala (05–06 Oct 2026)', url: 'events.html', icon: '💃', category: 'Events' },
         { title: 'Club Waltz (Mega Dance Gala)', sub: 'Two-day mega dance extravaganza & choreo battle (05–06 Oct 2026)', url: 'events.html', icon: '💃', category: 'Events' },
         { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off', url: 'events.html', icon: '🎸', category: 'Events' },
         { title: 'Website Dev & Anime Video', sub: 'Digital Club technical & creative multimedia duel', url: 'events.html', icon: '💻', category: 'Events' },
@@ -1540,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 20. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN (1-SECOND PRECISION)
+    // 20. LIVE CLUB WALTZ 2026 FLAGSHIP EVENT COUNTDOWN (1-SECOND PRECISION)
     // -------------------------------------------------------------
     const cdDays = document.getElementById('cdDays');
     const cdHours = document.getElementById('cdHours');
@@ -1550,8 +1550,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cdStatus = document.getElementById('cdStatus');
 
     if (cdDays && cdHours && cdMins && cdSecs) {
-        const festStart = new Date('2026-12-28T09:00:00+05:30').getTime();
-        const festEnd = new Date('2026-12-29T23:59:59+05:30').getTime();
+        const festStart = new Date('2026-10-05T12:00:00+05:30').getTime();
+        const festEnd = new Date('2026-10-06T23:59:59+05:30').getTime();
 
         function updateFestCountdown() {
             const now = Date.now();
@@ -1561,12 +1561,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 diff = festStart - now;
             } else if (now <= festEnd) {
                 diff = festEnd - now;
-                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL LIVE NOW · FINALE IN:';
-                if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">● LIVE NOW · COLORIDO 2026 UNDERWAY ON CAMPUS</span>';
+                if (cdTitle) cdTitle.textContent = 'CLUB WALTZ 2026 · LIVE NOW · FINALE IN:';
+                if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">● LIVE NOW · CLUB WALTZ 2026 UNDERWAY ON CAMPUS</span>';
             } else {
                 diff = 0;
-                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL CONCLUDED';
-                if (cdStatus) cdStatus.innerHTML = '<span>COLORIDO 2026 CONCLUDED · THANK YOU TO ALL 1,000+ PARTICIPANTS</span>';
+                if (cdTitle) cdTitle.textContent = 'CLUB WALTZ 2026 · EVENT CONCLUDED';
+                if (cdStatus) cdStatus.innerHTML = '<span>CLUB WALTZ 2026 CONCLUDED · THANK YOU TO ALL PARTICIPANTS</span>';
             }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
