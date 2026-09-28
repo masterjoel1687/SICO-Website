@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SICO | Student Integrated Committee | RVR&amp;JCCE</title>
-    <meta name="description" content="SICO — Student Integrated Committee at RVR &amp; JC College of Engineering. Discover Club Waltz 2026, student clubs, cultural events, competitions, community initiatives and campus life.">
+    <title>EC &amp; CCAC | Extracurricular &amp; Co-Curricular Activities Committee - RVR&amp;JCCE</title>
+    <meta name="description" content="Extracurricular &amp; Co-Curricular Activities Committee &amp; SICO - Where Culture Meets Creativity at RVR &amp; JC College of Engineering.">
     
     <!-- Preconnect & Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,18 +18,76 @@
     <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
     <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
 
-    <!-- Premium SICO page loader -->
-    <div class="sico-loader" id="sicoLoader" aria-hidden="true">
-        <div class="sico-loader-mark">
-            <div class="sico-loader-ring"></div>
-            <div class="sico-loader-core">SICO</div>
+    <!-- =========================================================================
+         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
+         Centralized and configurable in animations.css & script.js
+         ========================================================================= -->
+    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
+        <!-- 3D Starfield Warp Tunnel Canvas -->
+        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
+
+        <!-- Concentric Dimensional Wormhole Rings -->
+        <div class="wormhole-chamber">
+            <div class="wormhole-ring ring-1"></div>
+            <div class="wormhole-ring ring-2"></div>
+            <div class="wormhole-ring ring-3"></div>
+            <div class="wormhole-ring ring-4"></div>
+            <div class="wormhole-ring ring-5"></div>
+            <div class="wormhole-vortex-core"></div>
         </div>
-        <div class="sico-loader-copy">
-            <span class="sico-loader-kicker">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</span>
-            <strong>Student Integrated Committee</strong>
-            <span class="sico-loader-status" id="sicoLoaderStatus">Preparing your campus experience</span>
+
+        <!-- Hyperspace Telemetry HUD -->
+        <div class="teleport-hud">
+            <div class="teleport-hud-top">
+                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
+                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
+            </div>
+
+            <!-- Central Dimensional Nexus -->
+            <div class="teleport-nexus">
+                <div class="nexus-emblem-glow"></div>
+                <div class="nexus-crest-wrap">
+                    <div class="nexus-monogram">SICO</div>
+                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
+                </div>
+            </div>
+
+            <!-- Trajectory Readout & Status -->
+            <div class="teleport-trajectory">
+                <div class="trajectory-line">
+                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
+                    <span class="trajectory-arrow">══════►</span>
+                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
+                </div>
+                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
+            </div>
+
+            <!-- Progress Meter & 7-Second Countdown -->
+            <div class="teleport-meter">
+                <div class="teleport-meter-track">
+                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
+                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
+                </div>
+                <div class="teleport-meter-footer">
+                    <div class="teleport-timer-box">
+                        <span class="timer-label">DIVE REMAINING:</span>
+                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
+                    </div>
+                    <div class="teleport-percent" id="teleportPercent">00%</div>
+                </div>
+            </div>
+
+            <!-- Fast-Forward / Skip Control -->
+            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
+                <span>Skip Dive</span>
+                <kbd>ESC</kbd>
+            </button>
         </div>
-        <div class="sico-loader-progress" aria-hidden="true"><span id="sicoLoaderProgress"></span></div>
+
+        <!-- Supernova Arrival Flash & Iris Curtains -->
+        <div class="teleport-supernova-flash" id="teleportFlash"></div>
+        <div class="teleport-iris-top" id="teleportIrisTop"></div>
+        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
     </div>
 
     <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
@@ -143,19 +201,19 @@
                     <span class="human-script-note">✦ Handcrafted by students, for students &bull; Over 40 years of tradition ✦</span>
                 </div>
 
-                <!-- Flagship Event Pass Card (Club Waltz 2026) -->
+                <!-- Artisan Commemorative Festival Pass Card (Colorido 2026) -->
                 <div class="festival-pass-card" id="festCountdown">
                     <div class="festival-pass-header">
                         <div>
                             <div class="festival-pass-kicker">
                                 <span class="countdown-beacon"></span>
-                                <span>FLAGSHIP EVENT PASS &bull; CLUB WALTZ 2026</span>
+                                <span>OFFICIAL FESTIVAL PASS &bull; COLORIDO 2026</span>
                             </div>
-                            <h2 class="festival-pass-title" id="cdTitle">CLUB WALTZ 2026</h2>
-                            <p class="festival-pass-venue">05 &amp; 06 October 2026 &bull; Open Air Theatre </p>
+                            <h2 class="festival-pass-title" id="cdTitle">COLORIDO 2026</h2>
+                            <p class="festival-pass-venue">28 &amp; 29 December 2026 &bull; Open Air Theatre </p>
                         </div>
                         <div class="editorial-stamp">
-                            <span>PASS #WALTZ-2026</span>
+                            <span>PASS #CLR-2026</span>
                         </div>
                     </div>
                     <div class="festival-pass-grid">
@@ -178,10 +236,10 @@
                     </div>
                     <div class="festival-pass-footer">
                         <div class="festival-pass-status" id="cdStatus">
-                            <span>✨ Registrations Open · Solo, Group &amp; Jodi Rounds</span>
+                            <span>✨ Registrations Open Across All Engineering &amp; PG Departments</span>
                         </div>
                         <a href="events.html" class="btn-card-primary" style="padding: 10px 22px; text-decoration: none; border-radius: 999px;">
-                            <span>Explore Club Waltz &rarr;</span>
+                            <span>Explore Festival Lineup &rarr;</span>
                         </a>
                     </div>
                 </div>
@@ -195,14 +253,14 @@
     <!-- Running Ticker Ribbon -->
     <div class="ticker-ribbon">
         <div class="ticker-track">
-            <span class="ticker-item"><i>✦</i> CLUB WALTZ 2026 (05–06 Oct) · Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> COLORIDO 2026 (28–29 Dec) Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
             <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
             <span class="ticker-item"><i>✦</i> Inter-College Competitions &amp; Trophies</span>
             <span class="ticker-item"><i>✦</i> 13 Dynamic Student Clubs</span>
             <!-- Repeat loop -->
-            <span class="ticker-item"><i>✦</i> CLUB WALTZ 2026 (05–06 Oct) · Registrations Open</span>
+            <span class="ticker-item"><i>✦</i> COLORIDO 2026 (28–29 Dec) Registrations Open</span>
             <span class="ticker-item"><i>✦</i> 50+ Events Organized Annually</span>
             <span class="ticker-item"><i>✦</i> 1000+ Active Student Participants</span>
             <span class="ticker-item"><i>✦</i> SICO Community Initiatives AY 2026–2027</span>
