@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let width = canvas.width = canvas.parentElement.offsetWidth;
         let height = canvas.height = canvas.parentElement.offsetHeight;
         let embers = [];
-        const emberCount = window.innerWidth < 768 ? 22 : 45;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;\n        const emberCount = reduceMotion ? 0 : (window.innerWidth < 768 ? 10 : 26);
         let heroMouse = { x: null, y: null, radius: 160 };
 
         // Safe fallback for window.triggerWarpSpeed if invoked
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animateCanvas);
         }
 
-        animateCanvas();
+        if (!reduceMotion) animateCanvas();
 
         const heroSection = document.getElementById('home');
         if (heroSection) {
@@ -1484,7 +1484,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setTheme = applyTheme;
 
     // Initialize stored theme
-    const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'dark';
+    const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'light';
     applyTheme(storedTheme);
 
     // Bind interactive events for all theme rollers
@@ -2643,7 +2643,7 @@ document.addEventListener('click', (e) => {
 
     // Initialize all bespoke tactile human-made modules
     syncLiveAdminData();
-    initTeleportLoader();
+    // The old 7-second teleport loader is intentionally disabled in the human-first redesign.\n    // Navigation should feel immediate; motion belongs to the content, not a gate before it.
     initPageTransitions();
     initScrollReveals();
     initCampusStamp();
