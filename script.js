@@ -2391,5 +2391,378 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+/* ============================================================
+   SICO — CINEMATIC 5 SECOND LOADER
+   ============================================================ */
 
+(function () {
+
+    const loader = document.getElementById("pageLoader");
+
+    if (!loader) return;
+
+    const progressBar =
+        document.getElementById("loaderProgressBar");
+
+    const percentage =
+        document.getElementById("loaderPercentage");
+
+    const status =
+        document.getElementById("loaderStatus");
+
+    const message =
+        document.getElementById("loaderMessage");
+
+
+    const duration = 5000;
+
+    const stages = [
+        {
+            progress: 0,
+            status: "INITIALIZING",
+            message: "Preparing your experience..."
+        },
+        {
+            progress: 12,
+            status: "CONNECTING",
+            message: "Establishing campus interface..."
+        },
+        {
+            progress: 25,
+            status: "LOADING",
+            message: "Loading SICO resources..."
+        },
+        {
+            progress: 40,
+            status: "SYNCHRONIZING",
+            message: "Synchronizing student activities..."
+        },
+        {
+            progress: 55,
+            status: "BUILDING",
+            message: "Building your campus experience..."
+        },
+        {
+            progress: 70,
+            status: "PREPARING",
+            message: "Preparing events & initiatives..."
+        },
+        {
+            progress: 84,
+            status: "ALMOST READY",
+            message: "Everything is coming together..."
+        },
+        {
+            progress: 94,
+            status: "FINALIZING",
+            message: "Finalizing your experience..."
+        },
+        {
+            progress: 100,
+            status: "WELCOME",
+            message: "Welcome to SICO."
+        }
+    ];
+
+
+    let startTime = performance.now();
+
+    let stageIndex = 0;
+
+    let animationRunning = false;
+
+
+    /* ========================================================
+       UPDATE PROGRESS
+       ======================================================== */
+
+    function updateLoader(progress) {
+
+        progress = Math.min(
+            100,
+            Math.max(0, progress)
+        );
+
+        progressBar.style.width =
+            progress + "%";
+
+        percentage.textContent =
+            Math.floor(progress) + "%";
+
+
+        while (
+            stageIndex < stages.length - 1 &&
+            progress >= stages[stageIndex + 1].progress
+        ) {
+
+            stageIndex++;
+
+            const current =
+                stages[stageIndex];
+
+
+            message.classList.add(
+                "message-changing"
+            );
+
+
+            setTimeout(() => {
+
+                status.textContent =
+                    current.status;
+
+                message.textContent =
+                    current.message;
+
+                message.classList.remove(
+                    "message-changing"
+                );
+
+            }, 150);
+
+        }
+
+    }
+
+
+    /* ========================================================
+       ANIMATION LOOP
+       ======================================================== */
+
+    function animateLoader(currentTime) {
+
+        if (!animationRunning) return;
+
+        const elapsed =
+            currentTime - startTime;
+
+
+        const progress =
+            Math.min(
+                (elapsed / duration) * 100,
+                100
+            );
+
+
+        updateLoader(progress);
+
+
+        if (elapsed < duration) {
+
+            requestAnimationFrame(
+                animateLoader
+            );
+
+        } else {
+
+            finishLoader();
+
+        }
+
+    }
+
+
+    /* ========================================================
+       FINISH
+       ======================================================== */
+
+    function finishLoader() {
+
+        updateLoader(100);
+
+        status.textContent =
+            "WELCOME";
+
+        message.textContent =
+            "Welcome to SICO.";
+
+
+        /*
+         * Give the SICO letters a final synchronized
+         * cinematic impact.
+         */
+
+        const word =
+            document.getElementById("sicoWord");
+
+
+        if (word) {
+
+            word.classList.add(
+                "sico-final-impact"
+            );
+
+        }
+
+
+        setTimeout(() => {
+
+            loader.classList.add(
+                "loader-hidden"
+            );
+
+            document.body.classList.add(
+                "page-ready"
+            );
+
+            animationRunning = false;
+
+        }, 450);
+
+    }
+
+
+    /* ========================================================
+       START
+       ======================================================== */
+
+    function startLoader() {
+
+        animationRunning = true;
+
+        startTime =
+            performance.now();
+
+        stageIndex = 0;
+
+        progressBar.style.width =
+            "0%";
+
+        percentage.textContent =
+            "0%";
+
+        status.textContent =
+            "INITIALIZING";
+
+        message.textContent =
+            "Preparing your experience...";
+
+        loader.classList.remove(
+            "loader-hidden"
+        );
+
+        requestAnimationFrame(
+            animateLoader
+        );
+
+    }
+
+
+    /* ========================================================
+       INTERNAL PAGE NAVIGATION
+       ======================================================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const link =
+                event.target.closest("a");
+
+            if (!link) return;
+
+
+            const href =
+                link.getAttribute("href");
+
+            if (!href) return;
+
+
+            /*
+             * Ignore special links.
+             */
+
+            if (
+                href.startsWith("#") ||
+                href.startsWith("mailto:") ||
+                href.startsWith("tel:") ||
+                link.target === "_blank" ||
+                link.hasAttribute("download")
+            ) {
+                return;
+            }
+
+
+            let destination;
+
+
+            try {
+
+                destination =
+                    new URL(
+                        href,
+                        window.location.href
+                    );
+
+            } catch {
+
+                return;
+
+            }
+
+
+            /*
+             * External links remain normal.
+             */
+
+            if (
+                destination.origin !==
+                window.location.origin
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * Same page link.
+             */
+
+            if (
+                destination.pathname ===
+                window.location.pathname &&
+                destination.search ===
+                window.location.search
+            ) {
+
+                return;
+
+            }
+
+
+            event.preventDefault();
+
+
+            /*
+             * Start cinematic loader again.
+             */
+
+            startLoader();
+
+
+            /*
+             * Wait full 5 seconds.
+             */
+
+            setTimeout(() => {
+
+                window.location.href =
+                    destination.href;
+
+            }, duration);
+
+        },
+        true
+    );
+
+
+    /*
+     * Start only once when page initially loads.
+     */
+
+    startLoader();
+
+
+})();
 

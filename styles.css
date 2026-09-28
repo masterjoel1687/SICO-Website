@@ -8227,3 +8227,1184 @@ section {
     }
 
 }
+
+/* ============================================================
+   SICO — EXTREME CINEMATIC BLACK LOADER
+   ============================================================ */
+
+.sico-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999999;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #000000;
+
+    overflow: hidden;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.9s cubic-bezier(.77,0,.18,1),
+        visibility 0.9s;
+}
+
+.sico-loader.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   BACKGROUND GRID
+   ============================================================ */
+
+.sico-grid {
+    position: absolute;
+    inset: -50%;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(500px)
+        rotateX(65deg)
+        translateY(10%);
+
+    animation: sicoGridMove 7s linear infinite;
+
+    opacity: 0.35;
+}
+
+@keyframes sicoGridMove {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 550px;
+    }
+
+}
+
+
+/* ============================================================
+   CINEMATIC CENTER LIGHT
+   ============================================================ */
+
+.sico-loader::before {
+    content: "";
+
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.08),
+            rgba(120,80,255,0.025) 35%,
+            transparent 70%
+        );
+
+    animation: sicoCorePulse 2.2s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes sicoCorePulse {
+
+    0%,
+    100% {
+        transform: scale(.8);
+        opacity: .35;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: .8;
+    }
+
+}
+
+
+/* ============================================================
+   NOISE
+   ============================================================ */
+
+.sico-noise {
+    position: absolute;
+    inset: 0;
+
+    opacity: .045;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+
+.sico-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.sico-particles span {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 8px #ffffff,
+        0 0 18px rgba(255,255,255,.7);
+
+    animation:
+        particleFloat
+        var(--duration)
+        linear
+        infinite;
+
+    opacity: 0;
+}
+
+
+/* Individual particle positions */
+
+.sico-particles span:nth-child(1) {
+    left: 8%;
+    top: 80%;
+    --duration: 3.2s;
+}
+
+.sico-particles span:nth-child(2) {
+    left: 17%;
+    top: 30%;
+    --duration: 4.5s;
+}
+
+.sico-particles span:nth-child(3) {
+    left: 27%;
+    top: 75%;
+    --duration: 3.8s;
+}
+
+.sico-particles span:nth-child(4) {
+    left: 35%;
+    top: 20%;
+    --duration: 5s;
+}
+
+.sico-particles span:nth-child(5) {
+    left: 45%;
+    top: 85%;
+    --duration: 3.4s;
+}
+
+.sico-particles span:nth-child(6) {
+    left: 52%;
+    top: 15%;
+    --duration: 4.1s;
+}
+
+.sico-particles span:nth-child(7) {
+    left: 61%;
+    top: 78%;
+    --duration: 3.7s;
+}
+
+.sico-particles span:nth-child(8) {
+    left: 70%;
+    top: 25%;
+    --duration: 4.7s;
+}
+
+.sico-particles span:nth-child(9) {
+    left: 78%;
+    top: 70%;
+    --duration: 3.5s;
+}
+
+.sico-particles span:nth-child(10) {
+    left: 87%;
+    top: 35%;
+    --duration: 4.2s;
+}
+
+.sico-particles span:nth-child(11) {
+    left: 92%;
+    top: 82%;
+    --duration: 5.2s;
+}
+
+.sico-particles span:nth-child(12) {
+    left: 12%;
+    top: 55%;
+    --duration: 4s;
+}
+
+.sico-particles span:nth-child(13) {
+    left: 40%;
+    top: 60%;
+    --duration: 3.9s;
+}
+
+.sico-particles span:nth-child(14) {
+    left: 66%;
+    top: 45%;
+    --duration: 4.8s;
+}
+
+.sico-particles span:nth-child(15) {
+    left: 83%;
+    top: 58%;
+    --duration: 3.6s;
+}
+
+.sico-particles span:nth-child(16) {
+    left: 3%;
+    top: 15%;
+    --duration: 4.6s;
+}
+
+
+@keyframes particleFloat {
+
+    0% {
+        transform:
+            translate3d(0, 40px, 0)
+            scale(.2);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .9;
+    }
+
+    80% {
+        opacity: .7;
+    }
+
+    100% {
+        transform:
+            translate3d(30px, -180px, 0)
+            scale(1.5);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* ============================================================
+   SHOCKWAVES
+   ============================================================ */
+
+.sico-shockwave {
+    position: absolute;
+
+    width: 50px;
+    height: 50px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) scale(.1);
+
+    border: 1px solid rgba(255,255,255,.7);
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.shock-1 {
+    animation: shockwave 5s ease-out infinite;
+}
+
+.shock-2 {
+    animation:
+        shockwave
+        5s
+        ease-out
+        .5s
+        infinite;
+}
+
+.shock-3 {
+    animation:
+        shockwave
+        5s
+        ease-out
+        1s
+        infinite;
+}
+
+@keyframes shockwave {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(.1);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .8;
+    }
+
+    70% {
+        opacity: .18;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(18);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.sico-loader-content {
+    position: relative;
+    z-index: 10;
+
+    width: min(900px, 90vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   EYEBROW
+   ============================================================ */
+
+.sico-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 10px;
+    letter-spacing: 5px;
+    font-weight: 600;
+
+    color: rgba(255,255,255,.5);
+
+    margin-bottom: 25px;
+
+    opacity: 0;
+
+    animation:
+        eyebrowReveal
+        .8s
+        ease
+        .2s
+        forwards;
+}
+
+.sico-eyebrow span {
+    width: 35px;
+    height: 1px;
+
+    background: rgba(255,255,255,.35);
+}
+
+@keyframes eyebrowReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ============================================================
+   SICO WORD
+   ============================================================ */
+
+.sico-word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(5px, 1.8vw, 25px);
+
+    perspective: 1000px;
+
+    margin-bottom: 25px;
+}
+
+
+/* ============================================================
+   LETTERS
+   ============================================================ */
+
+.sico-letter {
+    position: relative;
+
+    display: inline-block;
+
+    font-family:
+        Impact,
+        Haettenschweiler,
+        "Arial Black",
+        sans-serif;
+
+    font-size: clamp(100px, 17vw, 220px);
+
+    font-weight: 900;
+
+    line-height: .8;
+
+    color: #050505;
+
+    -webkit-text-stroke:
+        2px rgba(255,255,255,.9);
+
+    opacity: 0;
+
+    transform:
+        translateY(100px)
+        rotateX(90deg)
+        scale(.4);
+
+    filter:
+        blur(12px);
+
+    text-shadow:
+        0 0 0 transparent;
+
+    will-change:
+        transform,
+        opacity,
+        filter,
+        color;
+}
+
+
+/* ============================================================
+   INDIVIDUAL LETTER ANIMATIONS
+   ============================================================ */
+
+.letter-s {
+    animation:
+        letterS
+        1.1s
+        cubic-bezier(.16,1,.3,1)
+        .55s
+        forwards;
+}
+
+.letter-i {
+    animation:
+        letterI
+        1.1s
+        cubic-bezier(.16,1,.3,1)
+        1.05s
+        forwards;
+}
+
+.letter-c {
+    animation:
+        letterC
+        1.1s
+        cubic-bezier(.16,1,.3,1)
+        1.55s
+        forwards;
+}
+
+.letter-o {
+    animation:
+        letterO
+        1.1s
+        cubic-bezier(.16,1,.3,1)
+        2.05s
+        forwards;
+}
+
+
+/* S */
+
+@keyframes letterS {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-300px)
+            rotateY(-120deg)
+            scale(.3);
+
+        filter: blur(25px);
+    }
+
+    55% {
+        opacity: 1;
+        color: #ffffff;
+
+        transform:
+            translateX(20px)
+            rotateY(10deg)
+            scale(1.1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 15px #ffffff,
+            0 0 50px rgba(255,255,255,.8),
+            0 0 100px rgba(255,255,255,.4);
+    }
+
+    100% {
+        opacity: 1;
+
+        color: #ffffff;
+
+        transform:
+            translateX(0)
+            rotateY(0)
+            scale(1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 10px rgba(255,255,255,.9),
+            0 0 35px rgba(255,255,255,.5);
+    }
+
+}
+
+
+/* I */
+
+@keyframes letterI {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(-250px)
+            rotateZ(180deg)
+            scale(.2);
+
+        filter: blur(25px);
+    }
+
+    60% {
+        opacity: 1;
+        color: #ffffff;
+
+        transform:
+            translateY(15px)
+            rotateZ(-10deg)
+            scale(1.15);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 70px rgba(255,255,255,.8);
+    }
+
+    100% {
+        opacity: 1;
+
+        color: #ffffff;
+
+        transform:
+            translateY(0)
+            rotateZ(0)
+            scale(1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 10px rgba(255,255,255,.9),
+            0 0 35px rgba(255,255,255,.5);
+    }
+
+}
+
+
+/* C */
+
+@keyframes letterC {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(300px)
+            rotateY(120deg)
+            scale(.3);
+
+        filter: blur(25px);
+    }
+
+    55% {
+        opacity: 1;
+        color: #ffffff;
+
+        transform:
+            translateX(-20px)
+            rotateY(-10deg)
+            scale(1.1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 70px rgba(255,255,255,.8);
+    }
+
+    100% {
+        opacity: 1;
+
+        color: #ffffff;
+
+        transform:
+            translateX(0)
+            rotateY(0)
+            scale(1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 10px rgba(255,255,255,.9),
+            0 0 35px rgba(255,255,255,.5);
+    }
+
+}
+
+
+/* O */
+
+@keyframes letterO {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(250px)
+            rotateX(-120deg)
+            scale(.3);
+
+        filter: blur(25px);
+    }
+
+    55% {
+        opacity: 1;
+        color: #ffffff;
+
+        transform:
+            translateY(-15px)
+            rotateX(10deg)
+            scale(1.12);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 70px rgba(255,255,255,.8);
+    }
+
+    100% {
+        opacity: 1;
+
+        color: #ffffff;
+
+        transform:
+            translateY(0)
+            rotateX(0)
+            scale(1);
+
+        filter: blur(0);
+
+        text-shadow:
+            0 0 10px rgba(255,255,255,.9),
+            0 0 35px rgba(255,255,255,.5);
+    }
+
+}
+
+
+/* ============================================================
+   FINAL SICO IMPACT
+   ============================================================ */
+
+.sico-word::after {
+    content: "";
+
+    position: absolute;
+
+    width: 0;
+    height: 4px;
+
+    left: 50%;
+    bottom: -15px;
+
+    transform: translateX(-50%);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 10px #ffffff,
+        0 0 30px #ffffff,
+        0 0 70px rgba(255,255,255,.8);
+
+    animation:
+        sicoEnergyLine
+        1s
+        cubic-bezier(.16,1,.3,1)
+        3.25s
+        forwards;
+}
+
+@keyframes sicoEnergyLine {
+
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        width: 90%;
+        opacity: 1;
+    }
+
+}
+
+
+/* ============================================================
+   SUBTITLE
+   ============================================================ */
+
+.sico-line {
+    width: 0;
+    height: 1px;
+
+    background: rgba(255,255,255,.35);
+
+    margin: 15px 0 18px;
+
+    animation:
+        lineReveal
+        1.2s
+        ease
+        3.35s
+        forwards;
+}
+
+@keyframes lineReveal {
+
+    to {
+        width: 420px;
+        max-width: 75vw;
+    }
+
+}
+
+.sico-subtitle {
+    display: flex;
+    gap: 10px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: rgba(255,255,255,.5);
+
+    opacity: 0;
+
+    animation:
+        subtitleReveal
+        .8s
+        ease
+        3.5s
+        forwards;
+}
+
+.sico-subtitle b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+@keyframes subtitleReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ============================================================
+   LOADING BAR
+   ============================================================ */
+
+.sico-loading {
+    width: min(500px, 80vw);
+
+    margin-top: 45px;
+}
+
+.sico-loading-top {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,.55);
+}
+
+.sico-progress {
+    position: relative;
+
+    width: 100%;
+    height: 2px;
+
+    background: rgba(255,255,255,.12);
+
+    overflow: visible;
+}
+
+.sico-progress-fill {
+    position: relative;
+
+    width: 0;
+    height: 100%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 8px #ffffff,
+        0 0 20px rgba(255,255,255,.8);
+
+    transition: width .08s linear;
+}
+
+.sico-progress-glow {
+    position: absolute;
+
+    top: -5px;
+    right: 0;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 10px #ffffff,
+        0 0 25px #ffffff,
+        0 0 50px rgba(255,255,255,.9);
+
+    transform: translateX(50%);
+
+    animation:
+        progressPulse
+        .8s
+        ease-in-out
+        infinite;
+}
+
+@keyframes progressPulse {
+
+    0%,
+    100% {
+        transform:
+            translateX(50%)
+            scale(.7);
+
+        opacity: .6;
+    }
+
+    50% {
+        transform:
+            translateX(50%)
+            scale(1.4);
+
+        opacity: 1;
+    }
+
+}
+
+
+/* ============================================================
+   MESSAGE
+   ============================================================ */
+
+.sico-message {
+    margin-top: 20px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.45);
+
+    min-height: 18px;
+
+    transition:
+        opacity .2s,
+        transform .2s;
+}
+
+.sico-message.message-changing {
+    opacity: 0;
+    transform: translateY(5px);
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.sico-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 40px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.28);
+}
+
+.sico-footer i {
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.6);
+
+    box-shadow:
+        0 0 8px rgba(255,255,255,.7);
+}
+
+
+/* ============================================================
+   FINAL PAGE REVEAL
+   ============================================================ */
+
+body.page-ready {
+    overflow: auto;
+}
+
+.sico-loader.loader-hidden .sico-loader-content {
+    transform:
+        scale(1.08)
+        translateY(-20px);
+
+    opacity: 0;
+
+    transition:
+        transform .8s cubic-bezier(.77,0,.18,1),
+        opacity .6s ease;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .sico-eyebrow {
+        font-size: 7px;
+        letter-spacing: 3px;
+        gap: 8px;
+    }
+
+    .sico-eyebrow span {
+        width: 20px;
+    }
+
+    .sico-word {
+        gap: 2px;
+    }
+
+    .sico-letter {
+        font-size: clamp(70px, 21vw, 120px);
+        -webkit-text-stroke: 1px rgba(255,255,255,.9);
+    }
+
+    .sico-subtitle {
+        flex-direction: column;
+        gap: 5px;
+
+        font-size: 7px;
+        letter-spacing: 2px;
+    }
+
+    .sico-loading {
+        width: 75vw;
+        margin-top: 35px;
+    }
+
+    .sico-footer {
+        font-size: 6px;
+        letter-spacing: 1px;
+    }
+
+}
+/* ============================================================
+   FINAL SICO SYNCHRONIZED IMPACT
+   ============================================================ */
+
+.sico-final-impact .sico-letter {
+
+    animation:
+        sicoFinalBlast
+        .55s
+        cubic-bezier(.16,1,.3,1)
+        forwards !important;
+
+}
+
+@keyframes sicoFinalBlast {
+
+    0% {
+        transform:
+            scale(1);
+        
+        color: #ffffff;
+
+        text-shadow:
+            0 0 10px #ffffff,
+            0 0 30px rgba(255,255,255,.5);
+    }
+
+    35% {
+
+        transform:
+            scale(1.22);
+
+        color: #ffffff;
+
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 60px #ffffff,
+            0 0 120px rgba(255,255,255,.9);
+    }
+
+    65% {
+
+        transform:
+            scale(.96);
+
+        text-shadow:
+            0 0 30px #ffffff,
+            0 0 80px rgba(255,255,255,.8);
+    }
+
+    100% {
+
+        transform:
+            scale(1.05);
+
+        color: #ffffff;
+
+        text-shadow:
+            0 0 15px #ffffff,
+            0 0 45px rgba(255,255,255,.65);
+    }
+
+}
