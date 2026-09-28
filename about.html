@@ -17,61 +17,18 @@
     <!-- Analog Film Grain Texture (Artisanal Photographic Layer) -->
     <div class="film-grain-layer" id="filmGrainLayer" aria-hidden="true"></div>
 
-    <!-- =========================================================================
-         TELEPORTATION HYPERSPACE DIVE LOADER (7 Seconds Duration)
-         Centralized and configurable in animations.css & script.js
-         ========================================================================= -->
-    <div class="teleport-space-dive" id="teleportLoader" aria-hidden="true">
-        <canvas class="teleport-canvas" id="teleportCanvas"></canvas>
-        <div class="wormhole-chamber">
-            <div class="wormhole-ring ring-1"></div>
-            <div class="wormhole-ring ring-2"></div>
-            <div class="wormhole-ring ring-3"></div>
-            <div class="wormhole-ring ring-4"></div>
-            <div class="wormhole-ring ring-5"></div>
-            <div class="wormhole-vortex-core"></div>
+    <!-- Premium SICO page loader -->
+    <div class="sico-loader" id="sicoLoader" aria-hidden="true">
+        <div class="sico-loader-mark">
+            <div class="sico-loader-ring"></div>
+            <div class="sico-loader-core">SICO</div>
         </div>
-        <div class="teleport-hud">
-            <div class="teleport-hud-top">
-                <div class="teleport-badge"><span class="teleport-live-dot"></span> QUANTUM TELEPORTATION DIVE</div>
-                <div class="teleport-warp-factor" id="teleportWarpFactor">WARP 9.85</div>
-            </div>
-            <div class="teleport-nexus">
-                <div class="nexus-emblem-glow"></div>
-                <div class="nexus-crest-wrap">
-                    <div class="nexus-monogram">SICO</div>
-                    <div class="nexus-sub">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</div>
-                </div>
-            </div>
-            <div class="teleport-trajectory">
-                <div class="trajectory-line">
-                    <span class="trajectory-origin">DIMENSIONAL SECTOR 07</span>
-                    <span class="trajectory-arrow">══════►</span>
-                    <span class="trajectory-dest">RVR&amp;JCCE SAC ATELIER [16.2570° N, 80.3235° E]</span>
-                </div>
-                <div class="teleport-stage-status" id="teleportStageStatus">ENGAGING QUANTUM WARP DRIVE...</div>
-            </div>
-            <div class="teleport-meter">
-                <div class="teleport-meter-track">
-                    <div class="teleport-meter-bar" id="teleportMeterBar"></div>
-                    <div class="teleport-laser-spark" id="teleportLaserSpark"></div>
-                </div>
-                <div class="teleport-meter-footer">
-                    <div class="teleport-timer-box">
-                        <span class="timer-label">DIVE REMAINING:</span>
-                        <span class="timer-countdown" id="teleportCountdown">07.0s</span>
-                    </div>
-                    <div class="teleport-percent" id="teleportPercent">00%</div>
-                </div>
-            </div>
-            <button class="teleport-skip-btn" id="teleportSkipBtn" type="button" title="Skip Warp Dive (or press ESC)">
-                <span>Skip Dive</span>
-                <kbd>ESC</kbd>
-            </button>
+        <div class="sico-loader-copy">
+            <span class="sico-loader-kicker">R.V.R. &amp; J.C. COLLEGE OF ENGINEERING</span>
+            <strong>Student Integrated Committee</strong>
+            <span class="sico-loader-status" id="sicoLoaderStatus">Preparing your campus experience</span>
         </div>
-        <div class="teleport-supernova-flash" id="teleportFlash"></div>
-        <div class="teleport-iris-top" id="teleportIrisTop"></div>
-        <div class="teleport-iris-bottom" id="teleportIrisBottom"></div>
+        <div class="sico-loader-progress" aria-hidden="true"><span id="sicoLoaderProgress"></span></div>
     </div>
 
     <!-- Seamless Page Transition Veil (Smooth navigation between pages) -->
