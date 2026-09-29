@@ -2766,3 +2766,1323 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })();
 
+/* ============================================================
+   SICO WEBSITE — INTERACTIVE ENHANCEMENTS
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ========================================================
+       HEADER SCROLL EFFECT
+       ======================================================== */
+
+    const header =
+        document.querySelector(
+            "header, .site-header, .navbar"
+        );
+
+    function updateHeader() {
+
+        if (!header) return;
+
+        if (window.scrollY > 40) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
+    }
+
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
+    );
+
+    updateHeader();
+
+
+    /* ========================================================
+       SCROLL REVEAL
+       ======================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            "section, .card, .team-card, .event-card, " +
+            ".faculty-card, .member-card, .gallery-card, " +
+            ".stat-card, .project-card"
+        );
+
+
+    revealElements.forEach(element => {
+
+        element.classList.add(
+            "sico-reveal"
+        );
+
+    });
+
+
+    const revealObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "sico-visible"
+                        );
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
+
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(
+            element
+        );
+
+    });
+
+
+    /* ========================================================
+       STAGGER GRID CHILDREN
+       ======================================================== */
+
+    const grids =
+        document.querySelectorAll(
+            ".team-grid-4th, " +
+            ".faculty-members-row, " +
+            ".events-grid, " +
+            ".gallery-grid, " +
+            ".cards-grid"
+        );
+
+
+    grids.forEach(grid => {
+
+        grid.classList.add(
+            "sico-stagger"
+        );
+
+        revealObserver.observe(
+            grid
+        );
+
+    });
+
+
+    /* ========================================================
+       MOUSE FOLLOW CARD LIGHT
+       ======================================================== */
+
+    const interactiveCards =
+        document.querySelectorAll(
+            ".card, " +
+            ".team-card, " +
+            ".event-card, " +
+            ".faculty-card, " +
+            ".member-card, " +
+            ".stat-card, " +
+            ".gallery-card, " +
+            ".project-card"
+        );
+
+
+    interactiveCards.forEach(card => {
+
+        card.addEventListener(
+            "pointermove",
+            event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                card.style.setProperty(
+                    "--mouse-x",
+                    `${x}px`
+                );
+
+                card.style.setProperty(
+                    "--mouse-y",
+                    `${y}px`
+                );
+
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerleave",
+            () => {
+
+                card.style.setProperty(
+                    "--mouse-x",
+                    "50%"
+                );
+
+                card.style.setProperty(
+                    "--mouse-y",
+                    "50%"
+                );
+
+            }
+        );
+
+    });
+
+
+    /* ========================================================
+       CREATE AMBIENT PARTICLES
+       ======================================================== */
+
+    const particleContainer =
+        document.createElement("div");
+
+    particleContainer.className =
+        "sico-page-particles";
+
+
+    for (
+        let i = 0;
+        i < 35;
+        i++
+    ) {
+
+        const particle =
+            document.createElement("span");
+
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+
+        particle.style.animationDelay =
+            Math.random() * 8 + "s";
+
+
+        particle.style.animationDuration =
+            6 + Math.random() * 8 + "s";
+
+
+        particle.style.opacity =
+            Math.random() * .5;
+
+
+        particleContainer.appendChild(
+            particle
+        );
+
+    }
+
+
+    document.body.appendChild(
+        particleContainer
+    );
+
+
+    /* ========================================================
+       BUTTON RIPPLE
+       ======================================================== */
+
+    const buttons =
+        document.querySelectorAll(
+            "button, .btn, .button, a.btn, a.button"
+        );
+
+
+    buttons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            event => {
+
+                const ripple =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                ripple.style.position =
+                    "absolute";
+
+                ripple.style.pointerEvents =
+                    "none";
+
+                ripple.style.width =
+                    "10px";
+
+                ripple.style.height =
+                    "10px";
+
+                ripple.style.borderRadius =
+                    "50%";
+
+                ripple.style.background =
+                    "rgba(255,255,255,.35)";
+
+                ripple.style.transform =
+                    "translate(-50%,-50%)";
+
+                ripple.style.left =
+                    `${event.offsetX}px`;
+
+                ripple.style.top =
+                    `${event.offsetY}px`;
+
+                ripple.style.animation =
+                    "sicoRipple .65s ease-out forwards";
+
+
+                button.appendChild(
+                    ripple
+                );
+
+
+                setTimeout(
+                    () => ripple.remove(),
+                    700
+                );
+
+            }
+        );
+
+    });
+
+
+    /* ========================================================
+       ACTIVE NAVIGATION
+       ======================================================== */
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+
+    document
+        .querySelectorAll(
+            "nav a, .navbar a"
+        )
+        .forEach(link => {
+
+            const href =
+                link.getAttribute("href");
+
+            if (!href) return;
+
+            const linkPage =
+                href
+                    .split("/")
+                    .pop()
+                    .split("?")[0]
+                    .toLowerCase();
+
+
+            if (
+                linkPage &&
+                linkPage === currentPage
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+
+
+    /* ========================================================
+       IMAGE LAZY LOADING
+       ======================================================== */
+
+    document
+        .querySelectorAll("img")
+        .forEach(img => {
+
+            if (
+                !img.hasAttribute(
+                    "loading"
+                )
+            ) {
+
+                img.setAttribute(
+                    "loading",
+                    "lazy"
+                );
+
+            }
+
+        });
+
+});
+
+
+/* ============================================================
+   RIPPLE ANIMATION
+   ============================================================ */
+
+const sicoRippleStyle =
+    document.createElement("style");
+
+sicoRippleStyle.textContent = `
+
+@keyframes sicoRipple {
+
+    from {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+    }
+
+    to {
+        width: 350px;
+        height: 350px;
+        opacity: 0;
+    }
+
+}
+
+`;
+
+document.head.appendChild(
+    sicoRippleStyle
+);
+
+/* ============================================================
+   ============================================================
+   SICO — ULTIMATE INTERACTION ENGINE
+   ============================================================
+   ============================================================ */
+
+(function () {
+
+    "use strict";
+
+
+    /* ========================================================
+       01 — HEADER SCROLL
+       ======================================================== */
+
+    const header =
+        document.querySelector(".header");
+
+
+    function updateHeader() {
+
+        if (!header) return;
+
+        header.classList.toggle(
+            "scrolled",
+            window.scrollY > 35
+        );
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
+    );
+
+
+    updateHeader();
+
+
+    /* ========================================================
+       02 — SCROLL REVEAL
+       ======================================================== */
+
+    const revealSelectors = [
+
+        ".section-header",
+
+        ".event-card",
+
+        ".team-card",
+
+        ".faculty-card",
+
+        ".member-card",
+
+        ".gallery-item",
+
+        ".feature-card",
+
+        ".report-card",
+
+        ".project-card",
+
+        ".contact-info",
+
+        ".contact-form",
+
+        ".stat-item"
+
+    ];
+
+
+    const revealElements = [];
+
+
+    revealSelectors.forEach(selector => {
+
+        document
+            .querySelectorAll(selector)
+            .forEach(element => {
+
+                if (
+                    !element.classList.contains(
+                        "sico-reveal"
+                    )
+                ) {
+
+                    element.classList.add(
+                        "sico-reveal"
+                    );
+
+                }
+
+                revealElements.push(
+                    element
+                );
+
+            });
+
+    });
+
+
+    if (
+        "IntersectionObserver"
+        in window
+    ) {
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "sico-visible"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: .12,
+                    rootMargin:
+                        "0px 0px -50px 0px"
+                }
+            );
+
+
+        revealElements.forEach(
+            element =>
+                observer.observe(element)
+        );
+
+    } else {
+
+        revealElements.forEach(
+            element =>
+                element.classList.add(
+                    "sico-visible"
+                )
+        );
+
+    }
+
+
+    /* ========================================================
+       03 — CARD CURSOR LIGHT
+       ======================================================== */
+
+    const interactiveCards =
+        document.querySelectorAll(
+            [
+                ".event-card",
+                ".team-card",
+                ".faculty-card",
+                ".member-card",
+                ".gallery-item",
+                ".feature-card",
+                ".report-card",
+                ".project-card"
+            ].join(",")
+        );
+
+
+    interactiveCards.forEach(card => {
+
+        card.classList.add(
+            "sico-interactive"
+        );
+
+
+        card.addEventListener(
+            "pointermove",
+            event => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+
+                const y =
+                    event.clientY -
+                    rect.top;
+
+
+                card.style.setProperty(
+                    "--mx",
+                    `${x}px`
+                );
+
+
+                card.style.setProperty(
+                    "--my",
+                    `${y}px`
+                );
+
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerleave",
+            () => {
+
+                card.style.setProperty(
+                    "--mx",
+                    "50%"
+                );
+
+                card.style.setProperty(
+                    "--my",
+                    "50%"
+                );
+
+            }
+        );
+
+    });
+
+
+    /* ========================================================
+       04 — SUBTLE 3D CARD TILT
+       ======================================================== */
+
+    const tiltCards =
+        document.querySelectorAll(
+            ".event-card, .feature-card, .project-card"
+        );
+
+
+    tiltCards.forEach(card => {
+
+        card.addEventListener(
+            "pointermove",
+            event => {
+
+                if (
+                    window.innerWidth < 800
+                ) return;
+
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const px =
+                    (event.clientX -
+                        rect.left) /
+                    rect.width;
+
+
+                const py =
+                    (event.clientY -
+                        rect.top) /
+                    rect.height;
+
+
+                const rotateY =
+                    (px - .5) * 5;
+
+
+                const rotateX =
+                    (.5 - py) * 5;
+
+
+                card.style.transform =
+                    `translateY(-8px)
+                     perspective(900px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)`;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "pointerleave",
+            () => {
+
+                card.style.transform =
+                    "";
+
+            }
+        );
+
+    });
+
+
+    /* ========================================================
+       05 — MAGNETIC BUTTONS
+       ======================================================== */
+
+    const magneticButtons =
+        document.querySelectorAll(
+            ".btn-primary, " +
+            ".btn-secondary, " +
+            ".btn-nav-cta, " +
+            ".sico-hero-button"
+        );
+
+
+    magneticButtons.forEach(button => {
+
+        button.addEventListener(
+            "pointermove",
+            event => {
+
+                if (
+                    window.innerWidth < 800
+                ) return;
+
+
+                const rect =
+                    button.getBoundingClientRect();
+
+
+                const x =
+                    event.clientX -
+                    rect.left -
+                    rect.width / 2;
+
+
+                const y =
+                    event.clientY -
+                    rect.top -
+                    rect.height / 2;
+
+
+                button.style.transform =
+                    `translate(
+                        ${x * .10}px,
+                        ${y * .10}px
+                    )`;
+
+            }
+        );
+
+
+        button.addEventListener(
+            "pointerleave",
+            () => {
+
+                button.style.transform =
+                    "";
+
+            }
+        );
+
+    });
+
+
+    /* ========================================================
+       06 — ACTIVE NAVIGATION
+       ======================================================== */
+
+    const currentFile =
+        window.location.pathname
+            .split("/")
+            .pop()
+            .toLowerCase();
+
+
+    document
+        .querySelectorAll(
+            ".nav-link"
+        )
+        .forEach(link => {
+
+            const href =
+                link.getAttribute(
+                    "href"
+                );
+
+
+            if (!href) return;
+
+
+            const linkFile =
+                href
+                    .split("/")
+                    .pop()
+                    .split("?")[0]
+                    .toLowerCase();
+
+
+            if (
+                linkFile ===
+                currentFile
+            ) {
+
+                document
+                    .querySelectorAll(
+                        ".nav-link.active"
+                    )
+                    .forEach(
+                        old =>
+                            old.classList.remove(
+                                "active"
+                            )
+                    );
+
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+        });
+
+
+    /* ========================================================
+       07 — SMOOTH INTERNAL ANCHORS
+       ======================================================== */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(anchor => {
+
+            anchor.addEventListener(
+                "click",
+                event => {
+
+                    const id =
+                        anchor.getAttribute(
+                            "href"
+                        );
+
+
+                    if (
+                        !id ||
+                        id === "#"
+                    ) return;
+
+
+                    const target =
+                        document.querySelector(
+                            id
+                        );
+
+
+                    if (!target) return;
+
+
+                    event.preventDefault();
+
+
+                    const offset =
+                        header
+                            ? header.offsetHeight + 20
+                            : 20;
+
+
+                    const top =
+                        target.getBoundingClientRect()
+                            .top +
+                        window.scrollY -
+                        offset;
+
+
+                    window.scrollTo({
+                        top,
+                        behavior:
+                            "smooth"
+                    });
+
+                }
+            );
+
+        });
+
+
+    /* ========================================================
+       08 — COUNTER ANIMATION
+       ======================================================== */
+
+    const counters =
+        document.querySelectorAll(
+            "[data-count]"
+        );
+
+
+    if (
+        counters.length &&
+        "IntersectionObserver"
+        in window
+    ) {
+
+        const counterObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (
+                            !entry.isIntersecting
+                        ) return;
+
+
+                        const element =
+                            entry.target;
+
+
+                        const target =
+                            parseFloat(
+                                element.dataset.count
+                            );
+
+
+                        if (
+                            Number.isNaN(target)
+                        ) return;
+
+
+                        const duration =
+                            1300;
+
+
+                        const start =
+                            performance.now();
+
+
+                        function animateCounter(
+                            now
+                        ) {
+
+                            const progress =
+                                Math.min(
+                                    (now - start) /
+                                    duration,
+                                    1
+                                );
+
+
+                            const eased =
+                                1 -
+                                Math.pow(
+                                    1 - progress,
+                                    3
+                                );
+
+
+                            const value =
+                                target *
+                                eased;
+
+
+                            element.textContent =
+                                Number.isInteger(
+                                    target
+                                )
+                                    ? Math.round(
+                                        value
+                                    )
+                                    : value.toFixed(
+                                        1
+                                    );
+
+
+                            if (
+                                progress < 1
+                            ) {
+
+                                requestAnimationFrame(
+                                    animateCounter
+                                );
+
+                            }
+
+                        }
+
+
+                        requestAnimationFrame(
+                            animateCounter
+                        );
+
+
+                        counterObserver.unobserve(
+                            element
+                        );
+
+                    });
+
+                },
+                {
+                    threshold: .7
+                }
+            );
+
+
+        counters.forEach(
+            counter =>
+                counterObserver.observe(
+                    counter
+                )
+        );
+
+    }
+
+
+    /* ========================================================
+       09 — BUTTON RIPPLE
+       ======================================================== */
+
+    document
+        .querySelectorAll(
+            ".btn, " +
+            ".btn-nav-cta, " +
+            ".sico-hero-button"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                event => {
+
+                    const ripple =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    const rect =
+                        button.getBoundingClientRect();
+
+
+                    ripple.style.position =
+                        "absolute";
+
+
+                    ripple.style.left =
+                        (
+                            event.clientX -
+                            rect.left
+                        ) + "px";
+
+
+                    ripple.style.top =
+                        (
+                            event.clientY -
+                            rect.top
+                        ) + "px";
+
+
+                    ripple.style.width =
+                        "10px";
+
+
+                    ripple.style.height =
+                        "10px";
+
+
+                    ripple.style.borderRadius =
+                        "50%";
+
+
+                    ripple.style.background =
+                        "rgba(255,255,255,.4)";
+
+
+                    ripple.style.transform =
+                        "translate(-50%,-50%)";
+
+
+                    ripple.style.pointerEvents =
+                        "none";
+
+
+                    ripple.style.zIndex =
+                        "10";
+
+
+                    ripple.style.animation =
+                        "sicoButtonRipple .7s ease-out forwards";
+
+
+                    button.appendChild(
+                        ripple
+                    );
+
+
+                    setTimeout(
+                        () => {
+                            ripple.remove();
+                        },
+                        750
+                    );
+
+                }
+            );
+
+        });
+
+
+    /* ========================================================
+       10 — CURSOR GLOW
+       ======================================================== */
+
+    const cursor =
+        document.getElementById(
+            "cursorGlow"
+        );
+
+
+    if (
+        cursor &&
+        window.matchMedia(
+            "(pointer:fine)"
+        ).matches
+    ) {
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+
+        document.addEventListener(
+            "pointermove",
+            event => {
+
+                mouseX =
+                    event.clientX;
+
+                mouseY =
+                    event.clientY;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        function animateCursor() {
+
+            currentX +=
+                (mouseX -
+                    currentX) *
+                .12;
+
+
+            currentY +=
+                (mouseY -
+                    currentY) *
+                .12;
+
+
+            cursor.style.transform =
+                `translate(
+                    ${currentX - 90}px,
+                    ${currentY - 90}px
+                )`;
+
+
+            requestAnimationFrame(
+                animateCursor
+            );
+
+        }
+
+
+        animateCursor();
+
+    }
+
+
+    /* ========================================================
+       11 — IMAGE PERFORMANCE
+       ======================================================== */
+
+    document
+        .querySelectorAll(
+            "img"
+        )
+        .forEach((img, index) => {
+
+            if (
+                !img.hasAttribute(
+                    "decoding"
+                )
+            ) {
+
+                img.setAttribute(
+                    "decoding",
+                    "async"
+                );
+
+            }
+
+
+            /*
+             * Keep the first few important images
+             * eager; lazy-load the rest.
+             */
+
+            if (
+                index > 4 &&
+                !img.hasAttribute(
+                    "loading"
+                )
+            ) {
+
+                img.setAttribute(
+                    "loading",
+                    "lazy"
+                );
+
+            }
+
+        });
+
+
+    /* ========================================================
+       12 — ESCAPE KEY
+       ======================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                document
+                    .querySelectorAll(
+                        ".lightbox.active, " +
+                        ".search-modal.active, " +
+                        ".modal.active"
+                    )
+                    .forEach(modal => {
+
+                        modal.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+            }
+
+        }
+    );
+
+
+})();
+
+
+/* ============================================================
+   RIPPLE ANIMATION
+   ============================================================ */
+
+(function () {
+
+    const style =
+        document.createElement(
+            "style"
+        );
+
+
+    style.textContent = `
+
+        @keyframes sicoButtonRipple {
+
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: .65;
+            }
+
+            100% {
+                width: 350px;
+                height: 350px;
+                opacity: 0;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        style
+    );
+
+})();
+

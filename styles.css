@@ -9408,3 +9408,3402 @@ body.page-ready {
     }
 
 }
+
+/* ============================================================
+   SICO WEBSITE — PREMIUM VISUAL ENHANCEMENT
+   Add this at the VERY END of styles.css
+   ============================================================ */
+
+/* ---------- GLOBAL ---------- */
+
+:root {
+    --sico-black: #000000;
+    --sico-black-2: #070707;
+    --sico-surface: #0d0d0d;
+    --sico-surface-2: #121212;
+    --sico-border: rgba(255,255,255,.10);
+    --sico-border-hover: rgba(255,255,255,.28);
+    --sico-white: #ffffff;
+    --sico-text: #f4f4f4;
+    --sico-muted: #929292;
+    --sico-dim: #5d5d5d;
+    --sico-glow: rgba(255,255,255,.14);
+    --sico-radius: 22px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--sico-black);
+    color: var(--sico-text);
+    overflow-x: hidden;
+}
+
+/* Better text selection */
+
+::selection {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Smooth image rendering */
+
+img {
+    image-rendering: auto;
+}
+
+
+/* ============================================================
+   GLOBAL AMBIENT LIGHT
+   ============================================================ */
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255,255,255,.035),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(255,255,255,.025),
+            transparent 30%
+        );
+
+    animation: ambientMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes ambientMove {
+
+    0% {
+        opacity: .55;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+header,
+.site-header,
+.navbar {
+    background:
+        rgba(0,0,0,.82) !important;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    transition:
+        background .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+header.scrolled,
+.site-header.scrolled,
+.navbar.scrolled {
+    background:
+        rgba(0,0,0,.94) !important;
+
+    border-bottom-color:
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.45);
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+nav a,
+.navbar a {
+    position: relative;
+
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+nav a::after,
+.navbar a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -7px;
+
+    width: 0;
+    height: 1px;
+
+    transform: translateX(-50%);
+
+    background: #fff;
+
+    box-shadow:
+        0 0 10px rgba(255,255,255,.8);
+
+    transition:
+        width .35s cubic-bezier(.16,1,.3,1);
+}
+
+nav a:hover,
+.navbar a:hover {
+    color: #fff !important;
+    transform: translateY(-1px);
+}
+
+nav a:hover::after,
+.navbar a:hover::after,
+nav a.active::after,
+.navbar a.active::after {
+    width: 70%;
+}
+
+
+/* ============================================================
+   HERO / BANNER
+   ============================================================ */
+
+.hero,
+.page-banner,
+.banner,
+.hero-section {
+    position: relative;
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+.hero::before,
+.page-banner::before,
+.banner::before,
+.hero-section::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.025),
+            transparent
+        );
+
+    transform: translateX(-100%);
+
+    animation:
+        heroScan 8s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+@keyframes heroScan {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    50%,
+    100% {
+        transform: translateX(100%);
+    }
+
+}
+
+
+/* ============================================================
+   HERO TITLE
+   ============================================================ */
+
+.hero h1,
+.page-banner h1,
+.banner h1 {
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 0 30px rgba(255,255,255,.10);
+
+    animation:
+        titleReveal
+        1s
+        cubic-bezier(.16,1,.3,1)
+        both;
+}
+
+@keyframes titleReveal {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(35px)
+            scale(.97);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+        filter: blur(0);
+    }
+
+}
+
+
+/* ============================================================
+   SECTION HEADINGS
+   ============================================================ */
+
+section h2 {
+    position: relative;
+
+    letter-spacing: -1px;
+}
+
+section h2::after {
+    content: "";
+
+    display: block;
+
+    width: 45px;
+    height: 2px;
+
+    margin-top: 12px;
+
+    background: #fff;
+
+    box-shadow:
+        0 0 12px rgba(255,255,255,.6);
+
+    transition:
+        width .5s cubic-bezier(.16,1,.3,1);
+}
+
+section:hover h2::after {
+    width: 90px;
+}
+
+
+/* ============================================================
+   PREMIUM CARDS
+   ============================================================ */
+
+.card,
+.team-card,
+.event-card,
+.faculty-card,
+.member-card,
+.stat-card,
+.gallery-card,
+.project-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.015)
+        ) !important;
+
+    border:
+        1px solid var(--sico-border) !important;
+
+    border-radius:
+        var(--sico-radius);
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.30);
+
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        border-color .35s ease,
+        box-shadow .45s ease,
+        background .35s ease;
+}
+
+
+/* Top light */
+
+.card::before,
+.team-card::before,
+.event-card::before,
+.faculty-card::before,
+.member-card::before,
+.stat-card::before,
+.gallery-card::before,
+.project-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.7),
+            transparent
+        );
+
+    opacity: .3;
+
+    transition:
+        opacity .35s ease;
+}
+
+
+/* Mouse-follow highlight */
+
+.card::after,
+.team-card::after,
+.event-card::after,
+.faculty-card::after,
+.member-card::after,
+.stat-card::after,
+.gallery-card::after,
+.project-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+
+    transform: translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.10),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition:
+        opacity .3s ease;
+}
+
+.card:hover,
+.team-card:hover,
+.event-card:hover,
+.faculty-card:hover,
+.member-card:hover,
+.stat-card:hover,
+.gallery-card:hover,
+.project-card:hover {
+
+    transform:
+        translateY(-9px);
+
+    border-color:
+        var(--sico-border-hover) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.55),
+        0 0 35px rgba(255,255,255,.035);
+}
+
+.card:hover::before,
+.team-card:hover::before,
+.event-card:hover::before,
+.faculty-card:hover::before,
+.member-card:hover::before,
+.stat-card:hover::before,
+.gallery-card:hover::before,
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.card:hover::after,
+.team-card:hover::after,
+.event-card:hover::after,
+.faculty-card:hover::after,
+.member-card:hover::after,
+.stat-card:hover::after,
+.gallery-card:hover::after,
+.project-card:hover::after {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   CARD IMAGES
+   ============================================================ */
+
+.card img,
+.team-card img,
+.event-card img,
+.faculty-card img,
+.member-card img,
+.gallery-card img,
+.project-card img {
+
+    transition:
+        transform .7s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.card:hover img,
+.team-card:hover img,
+.event-card:hover img,
+.faculty-card:hover img,
+.member-card:hover img,
+.gallery-card:hover img,
+.project-card:hover img {
+
+    transform:
+        scale(1.06);
+
+    filter:
+        brightness(1.08)
+        contrast(1.04);
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+button,
+.btn,
+.button,
+a.btn,
+a.button {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease,
+        color .3s ease;
+}
+
+button::before,
+.btn::before,
+.button::before,
+a.btn::before,
+a.button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    transform: skewX(-20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transition:
+        left .7s ease;
+}
+
+button:hover::before,
+.btn:hover::before,
+.button:hover::before,
+a.btn:hover::before,
+a.button:hover::before {
+    left: 140%;
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+a.btn:hover,
+a.button:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.4),
+        0 0 20px rgba(255,255,255,.08);
+}
+
+
+/* ============================================================
+   IMAGE HOVER FRAME
+   ============================================================ */
+
+.gallery-card,
+.gallery-item {
+    overflow: hidden;
+}
+
+.gallery-card::before,
+.gallery-item::before {
+    z-index: 2;
+}
+
+
+/* ============================================================
+   TEAM PAGE
+   ============================================================ */
+
+.faculty-principal-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111,
+            #050505
+        ) !important;
+
+    border:
+        1px solid rgba(255,255,255,.18) !important;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.55);
+}
+
+.faculty-principal-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 20%,
+            rgba(255,255,255,.2),
+            transparent 80%
+        );
+
+    z-index: -1;
+
+    animation:
+        borderSweep
+        5s
+        linear
+        infinite;
+}
+
+@keyframes borderSweep {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+
+}
+
+
+/* ============================================================
+   PROFILE PHOTOS
+   ============================================================ */
+
+.team-card img,
+.faculty-card img,
+.member-card img {
+
+    border-radius:
+        16px;
+
+    object-fit: cover;
+
+    background: #111;
+
+    transition:
+        transform .6s cubic-bezier(.16,1,.3,1),
+        filter .5s ease;
+}
+
+.team-card:hover img,
+.faculty-card:hover img,
+.member-card:hover img {
+
+    transform:
+        scale(1.08)
+        translateY(-2px);
+
+    filter:
+        grayscale(.05)
+        contrast(1.08);
+}
+
+
+/* ============================================================
+   STATS
+   ============================================================ */
+
+.stat-number,
+.counter,
+.counter-number {
+    font-variant-numeric: tabular-nums;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+
+    text-shadow:
+        0 0 25px rgba(255,255,255,.15);
+}
+
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+
+main a:not(.btn):not(.button) {
+    transition:
+        color .25s ease,
+        opacity .25s ease;
+}
+
+main a:not(.btn):not(.button):hover {
+    color: #fff;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer {
+    position: relative;
+
+    background:
+        #030303 !important;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    overflow: hidden;
+}
+
+footer::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.5),
+            transparent
+        );
+
+    animation:
+        footerLine
+        5s
+        linear
+        infinite;
+}
+
+@keyframes footerLine {
+
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+
+}
+
+
+/* ============================================================
+   SOCIAL ICONS
+   ============================================================ */
+
+.social-icons a,
+.social-links a {
+    transition:
+        transform .3s cubic-bezier(.16,1,.3,1),
+        background .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.social-icons a:hover,
+.social-links a:hover {
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    border-color:
+        rgba(255,255,255,.4);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.5),
+        0 0 20px rgba(255,255,255,.08);
+}
+
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+
+.sico-reveal {
+    opacity: 0;
+
+    transform:
+        translateY(35px);
+
+    filter:
+        blur(6px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.16,1,.3,1),
+        filter .8s ease;
+}
+
+.sico-reveal.sico-visible {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    filter:
+        blur(0);
+}
+
+
+/* ============================================================
+   STAGGERED CARDS
+   ============================================================ */
+
+.sico-stagger > * {
+    opacity: 0;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        opacity .65s ease,
+        transform .65s cubic-bezier(.16,1,.3,1);
+}
+
+.sico-stagger.sico-visible > * {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.sico-stagger.sico-visible > *:nth-child(1) {
+    transition-delay: .05s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(2) {
+    transition-delay: .12s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(3) {
+    transition-delay: .19s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(4) {
+    transition-delay: .26s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(5) {
+    transition-delay: .33s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(6) {
+    transition-delay: .40s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(7) {
+    transition-delay: .47s;
+}
+
+.sico-stagger.sico-visible > *:nth-child(8) {
+    transition-delay: .54s;
+}
+
+
+/* ============================================================
+   FLOATING BACKGROUND PARTICLES
+   ============================================================ */
+
+.sico-page-particles {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    overflow: hidden;
+}
+
+.sico-page-particles span {
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    background: rgba(255,255,255,.4);
+
+    border-radius: 50%;
+
+    animation:
+        pageParticleFloat
+        8s
+        linear
+        infinite;
+}
+
+@keyframes pageParticleFloat {
+
+    from {
+        transform:
+            translateY(100vh)
+            scale(.5);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .5;
+    }
+
+    80% {
+        opacity: .25;
+    }
+
+    to {
+        transform:
+            translateY(-10vh)
+            scale(1.5);
+
+        opacity: 0;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    .card,
+    .team-card,
+    .event-card,
+    .faculty-card,
+    .member-card,
+    .stat-card,
+    .gallery-card,
+    .project-card {
+        border-radius: 17px;
+    }
+
+    .hero h1,
+    .page-banner h1,
+    .banner h1 {
+        letter-spacing: -1px;
+    }
+
+}
+
+
+/* ============================================================
+   REDUCE MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+/* ============================================================
+   SICO PREMIUM HERO
+   ============================================================ */
+
+.sico-hero {
+    position: relative;
+
+    min-height: 82vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #000;
+
+    isolation: isolate;
+}
+
+.sico-hero-grid {
+    position: absolute;
+    inset: -50%;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    transform:
+        perspective(500px)
+        rotateX(65deg)
+        translateY(15%);
+
+    animation:
+        heroGrid 10s linear infinite;
+
+    opacity: .45;
+
+    z-index: -2;
+}
+
+@keyframes heroGrid {
+
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 600px;
+    }
+
+}
+
+.sico-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.09),
+            transparent 65%
+        );
+
+    filter: blur(30px);
+
+    animation:
+        heroGlow 5s ease-in-out infinite alternate;
+
+    z-index: -1;
+}
+
+@keyframes heroGlow {
+
+    from {
+        transform: scale(.8);
+        opacity: .4;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: .9;
+    }
+
+}
+
+.sico-hero-content {
+    width: min(1100px, 90%);
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.sico-hero-tag {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 14px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: rgba(255,255,255,.45);
+
+    margin-bottom: 25px;
+}
+
+.sico-hero-tag span {
+    width: 40px;
+    height: 1px;
+
+    background:
+        rgba(255,255,255,.35);
+}
+
+.hero-sico {
+    display: inline-block;
+
+    font-family:
+        Impact,
+        "Arial Black",
+        sans-serif;
+
+    font-size:
+        clamp(110px, 20vw, 270px);
+
+    line-height: .8;
+
+    letter-spacing:
+        clamp(4px, 1vw, 18px);
+
+    color: #fff;
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.25),
+        0 0 70px rgba(255,255,255,.12);
+
+    animation:
+        heroSicoPulse
+        4s
+        ease-in-out
+        infinite;
+}
+
+@keyframes heroSicoPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        text-shadow:
+            0 0 20px rgba(255,255,255,.2),
+            0 0 70px rgba(255,255,255,.08);
+    }
+
+    50% {
+        transform: scale(1.025);
+        text-shadow:
+            0 0 25px rgba(255,255,255,.45),
+            0 0 90px rgba(255,255,255,.18);
+    }
+
+}
+
+.sico-hero-title {
+    margin-top: 30px;
+
+    font-size:
+        clamp(16px, 2vw, 25px);
+
+    font-weight: 600;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    color: #fff;
+}
+
+.sico-hero-description {
+    max-width: 650px;
+
+    margin: 22px auto 0;
+
+    color: #888;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+}
+
+.sico-hero-actions {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 38px;
+
+    flex-wrap: wrap;
+}
+
+.sico-hero-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 160px;
+
+    padding: 14px 25px;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.sico-hero-button.primary {
+    color: #000;
+
+    background: #fff;
+}
+
+.sico-hero-button.secondary {
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid rgba(255,255,255,.18);
+}
+
+.sico-hero-button:hover {
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.5),
+        0 0 30px rgba(255,255,255,.08);
+}
+
+@media (max-width: 600px) {
+
+    .sico-hero {
+        min-height: 75vh;
+    }
+
+    .sico-hero-tag {
+        font-size: 7px;
+        letter-spacing: 2px;
+    }
+
+    .sico-hero-tag span {
+        width: 20px;
+    }
+
+    .sico-hero-title {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    .sico-hero-description {
+        font-size: 13px;
+    }
+
+}
+
+/* ============================================================
+   ============================================================
+   SICO — ULTIMATE WEBSITE DESIGN SYSTEM
+   FINAL VISUAL OVERRIDE
+   ============================================================
+   Designed for:
+   EC & CCAC
+   Student Integrated Committee
+   R.V.R. & J.C. College of Engineering
+
+   IMPORTANT:
+   Place this AFTER all existing CSS.
+   ============================================================
+   ============================================================ */
+
+
+/* ============================================================
+   01 — CORE DESIGN TOKENS
+   ============================================================ */
+
+:root {
+
+    --sico-bg: #000000;
+    --sico-bg-1: #050505;
+    --sico-bg-2: #0a0a0a;
+    --sico-bg-3: #101010;
+
+    --sico-white: #ffffff;
+    --sico-white-90: rgba(255,255,255,.90);
+    --sico-white-70: rgba(255,255,255,.70);
+    --sico-white-50: rgba(255,255,255,.50);
+    --sico-white-30: rgba(255,255,255,.30);
+    --sico-white-15: rgba(255,255,255,.15);
+    --sico-white-08: rgba(255,255,255,.08);
+    --sico-white-04: rgba(255,255,255,.04);
+
+    --sico-border:
+        rgba(255,255,255,.10);
+
+    --sico-border-hover:
+        rgba(255,255,255,.28);
+
+    --sico-shadow:
+        0 25px 80px rgba(0,0,0,.55);
+
+    --sico-shadow-soft:
+        0 15px 45px rgba(0,0,0,.35);
+
+    --sico-radius:
+        24px;
+
+    --sico-ease:
+        cubic-bezier(.16,1,.3,1);
+
+    --sico-font:
+        'Outfit',
+        'Plus Jakarta Sans',
+        Arial,
+        sans-serif;
+
+    --sico-display:
+        'Space Grotesk',
+        'Outfit',
+        Arial,
+        sans-serif;
+}
+
+
+/* ============================================================
+   02 — GLOBAL RESET / CANVAS
+   ============================================================ */
+
+html {
+    background: #000000 !important;
+    scroll-behavior: smooth;
+}
+
+body {
+
+    background:
+        #000000 !important;
+
+    color:
+        #ffffff;
+
+    font-family:
+        var(--sico-font);
+
+    overflow-x:
+        hidden;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    text-rendering:
+        optimizeLegibility;
+}
+
+
+/* Remove accidental light backgrounds */
+
+main,
+section {
+    position: relative;
+}
+
+
+/* Selection */
+
+::selection {
+    background:
+        #ffffff;
+
+    color:
+        #000000;
+}
+
+
+/* ============================================================
+   03 — PREMIUM SCROLLBAR
+   ============================================================ */
+
+html::-webkit-scrollbar {
+    width: 7px;
+}
+
+html::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+html::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #ffffff,
+            #555555
+        );
+
+    border-radius:
+        999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background:
+        #ffffff;
+}
+
+
+/* ============================================================
+   04 — GLOBAL AMBIENT ATMOSPHERE
+   ============================================================ */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: -5;
+
+    background:
+
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,255,255,.045),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 100% 70%,
+            rgba(255,255,255,.025),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 0% 80%,
+            rgba(255,255,255,.018),
+            transparent 35%
+        );
+
+    opacity:
+        .9;
+}
+
+
+/* ============================================================
+   05 — TOP ANNOUNCEMENT BAR
+   ============================================================ */
+
+.campus-announcement-bar {
+
+    background:
+        rgba(0,0,0,.92) !important;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07) !important;
+
+    color:
+        rgba(255,255,255,.55) !important;
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+
+    font-size:
+        10px !important;
+
+    letter-spacing:
+        .04em;
+
+    box-shadow:
+        0 5px 30px
+        rgba(0,0,0,.30);
+}
+
+
+.campus-pill-badge {
+
+    background:
+        rgba(255,255,255,.04) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:
+        999px;
+
+    padding:
+        4px 10px;
+
+    color:
+        rgba(255,255,255,.72);
+}
+
+
+.campus-live-dot {
+
+    background:
+        #ffffff !important;
+
+    box-shadow:
+        0 0 8px
+        rgba(255,255,255,.8) !important;
+}
+
+
+/* ============================================================
+   06 — READING PROGRESS
+   ============================================================ */
+
+.reading-progress-bar {
+
+    height:
+        2px !important;
+
+    background:
+        #ffffff !important;
+
+    box-shadow:
+        0 0 12px
+        rgba(255,255,255,.7) !important;
+}
+
+
+/* ============================================================
+   07 — HEADER
+   ============================================================ */
+
+.header {
+
+    background:
+        transparent !important;
+
+    box-shadow:
+        none !important;
+
+    border:
+        none !important;
+
+    padding:
+        10px 18px;
+
+    z-index:
+        2000 !important;
+}
+
+
+.header-pill {
+
+    background:
+        rgba(5,5,5,.78) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10) !important;
+
+    border-radius:
+        999px !important;
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.45) !important;
+
+    backdrop-filter:
+        blur(24px) saturate(120%);
+
+    -webkit-backdrop-filter:
+        blur(24px) saturate(120%);
+
+    transition:
+        all .45s
+        var(--sico-ease) !important;
+}
+
+
+.header.scrolled .header-pill {
+
+    background:
+        rgba(0,0,0,.94) !important;
+
+    border-color:
+        rgba(255,255,255,.16) !important;
+
+    box-shadow:
+        0 20px 80px
+        rgba(0,0,0,.65) !important;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ============================================================
+   08 — LOGO
+   ============================================================ */
+
+.header-logo {
+
+    filter:
+        brightness(1.08)
+        contrast(1.05)
+        drop-shadow(
+            0 0 12px
+            rgba(255,255,255,.08)
+        );
+
+    transition:
+        transform .45s
+        var(--sico-ease),
+        filter .45s ease;
+}
+
+
+.logo-link:hover .header-logo {
+
+    transform:
+        scale(1.05);
+
+    filter:
+        brightness(1.2)
+        drop-shadow(
+            0 0 22px
+            rgba(255,255,255,.20)
+        );
+}
+
+
+/* ============================================================
+   09 — NAVIGATION
+   ============================================================ */
+
+.nav-menu {
+
+    gap:
+        4px !important;
+}
+
+
+.nav-link {
+
+    color:
+        rgba(255,255,255,.58) !important;
+
+    padding:
+        9px 13px !important;
+
+    border-radius:
+        999px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        .02em;
+
+    transition:
+        color .3s ease,
+        background .3s ease,
+        transform .3s
+        var(--sico-ease) !important;
+}
+
+
+.nav-link::after {
+
+    display:
+        none !important;
+}
+
+
+.nav-link:hover {
+
+    color:
+        #ffffff !important;
+
+    background:
+        rgba(255,255,255,.055);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.nav-link.active {
+
+    color:
+        #000000 !important;
+
+    background:
+        #ffffff !important;
+
+    box-shadow:
+        0 5px 20px
+        rgba(255,255,255,.12);
+}
+
+
+/* ============================================================
+   10 — REGISTER BUTTON
+   ============================================================ */
+
+.btn-nav-cta {
+
+    background:
+        #ffffff !important;
+
+    color:
+        #000000 !important;
+
+    border:
+        none !important;
+
+    border-radius:
+        999px !important;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    padding:
+        10px 16px !important;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.35);
+
+    transition:
+        transform .35s
+        var(--sico-ease),
+        box-shadow .35s ease;
+}
+
+
+.btn-nav-cta:hover {
+
+    transform:
+        translateY(-3px)
+        scale(1.02);
+
+    box-shadow:
+        0 14px 40px
+        rgba(255,255,255,.14);
+}
+
+
+/* ============================================================
+   11 — GENERIC SECTIONS
+   ============================================================ */
+
+section {
+
+    background:
+        #000000 !important;
+
+    color:
+        #ffffff;
+}
+
+
+.section-title {
+
+    color:
+        #ffffff !important;
+
+    font-family:
+        var(--sico-display) !important;
+
+    font-weight:
+        700 !important;
+
+    letter-spacing:
+        -.035em !important;
+
+    line-height:
+        1.05 !important;
+}
+
+
+.title-underline {
+
+    width:
+        55px !important;
+
+    height:
+        2px !important;
+
+    background:
+        #ffffff !important;
+
+    border-radius:
+        999px;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,255,255,.45);
+}
+
+
+.section-description {
+
+    color:
+        rgba(255,255,255,.52) !important;
+
+    max-width:
+        680px;
+}
+
+
+/* ============================================================
+   12 — CINEMATIC HOMEPAGE HERO
+   ============================================================ */
+
+.sico-hero {
+
+    min-height:
+        calc(100vh - 32px);
+
+    background:
+        #000000 !important;
+
+    isolation:
+        isolate;
+
+    overflow:
+        hidden;
+}
+
+
+.sico-hero::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 25%,
+            rgba(0,0,0,.45) 75%,
+            #000000 100%
+        );
+
+    pointer-events:
+        none;
+
+    z-index:
+        -1;
+}
+
+
+.sico-hero-grid {
+
+    opacity:
+        .25 !important;
+
+    background-size:
+        70px 70px !important;
+}
+
+
+.sico-hero-content {
+
+    max-width:
+        1200px;
+
+    padding:
+        80px 20px;
+}
+
+
+/* University line */
+
+.sico-hero-tag {
+
+    color:
+        rgba(255,255,255,.42) !important;
+
+    letter-spacing:
+        5px !important;
+
+    font-size:
+        9px !important;
+}
+
+
+.sico-hero-tag span {
+
+    background:
+        rgba(255,255,255,.25) !important;
+}
+
+
+/* Main SICO */
+
+.hero-sico {
+
+    font-family:
+        Impact,
+        "Arial Black",
+        var(--sico-display),
+        sans-serif !important;
+
+    font-size:
+        clamp(
+            120px,
+            22vw,
+            310px
+        ) !important;
+
+    letter-spacing:
+        -.02em !important;
+
+    color:
+        #ffffff !important;
+
+    text-shadow:
+        0 0 25px
+        rgba(255,255,255,.10),
+
+        0 0 80px
+        rgba(255,255,255,.07) !important;
+}
+
+
+/* Subtitle */
+
+.sico-hero-title {
+
+    color:
+        #ffffff !important;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        6px !important;
+
+    font-size:
+        clamp(
+            14px,
+            2vw,
+            22px
+        ) !important;
+}
+
+
+.sico-hero-description {
+
+    color:
+        rgba(255,255,255,.48) !important;
+
+    max-width:
+        620px !important;
+
+    font-size:
+        14px !important;
+
+    line-height:
+        1.9 !important;
+}
+
+
+/* ============================================================
+   13 — HERO BUTTONS
+   ============================================================ */
+
+.sico-hero-button {
+
+    min-width:
+        170px;
+
+    padding:
+        14px 24px !important;
+
+    font-size:
+        11px !important;
+
+    letter-spacing:
+        1px;
+
+    transition:
+        transform .4s
+        var(--sico-ease),
+        box-shadow .4s ease,
+        background .4s ease !important;
+}
+
+
+.sico-hero-button.primary {
+
+    background:
+        #ffffff !important;
+
+    color:
+        #000000 !important;
+}
+
+
+.sico-hero-button.secondary {
+
+    background:
+        rgba(255,255,255,.04) !important;
+
+    color:
+        #ffffff !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.16) !important;
+}
+
+
+.sico-hero-button:hover {
+
+    transform:
+        translateY(-5px) !important;
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.55),
+
+        0 0 30px
+        rgba(255,255,255,.08) !important;
+}
+
+
+/* ============================================================
+   14 — ALL CARDS
+   ============================================================ */
+
+.event-card,
+.team-card,
+.faculty-card,
+.member-card,
+.gallery-item,
+.feature-card,
+.stat-item,
+.report-card,
+.project-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        ) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09) !important;
+
+    box-shadow:
+        0 12px 50px
+        rgba(0,0,0,.30) !important;
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    transition:
+        transform .55s
+        var(--sico-ease),
+        border-color .35s ease,
+        box-shadow .55s ease !important;
+}
+
+
+.event-card:hover,
+.team-card:hover,
+.faculty-card:hover,
+.member-card:hover,
+.gallery-item:hover,
+.feature-card:hover,
+.stat-item:hover,
+.report-card:hover,
+.project-card:hover {
+
+    transform:
+        translateY(-10px) !important;
+
+    border-color:
+        rgba(255,255,255,.25) !important;
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.55),
+
+        0 0 35px
+        rgba(255,255,255,.035) !important;
+}
+
+
+/* ============================================================
+   15 — CARD TOP LIGHT
+   ============================================================ */
+
+.event-card::before,
+.team-card::before,
+.faculty-card::before,
+.member-card::before,
+.gallery-item::before,
+.feature-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        8%;
+
+    right:
+        8%;
+
+    top:
+        0;
+
+    height:
+        1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.6),
+            transparent
+        );
+
+    opacity:
+        .35;
+
+    pointer-events:
+        none;
+
+    transition:
+        opacity .4s ease;
+}
+
+
+.event-card:hover::before,
+.team-card:hover::before,
+.faculty-card:hover::before,
+.member-card:hover::before,
+.gallery-item:hover::before,
+.feature-card:hover::before {
+
+    opacity:
+        1;
+}
+
+
+/* ============================================================
+   16 — EVENT CARDS
+   ============================================================ */
+
+.events-grid {
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                300px,
+                1fr
+            )
+        ) !important;
+
+    gap:
+        22px !important;
+}
+
+
+.event-image-wrapper {
+
+    height:
+        245px !important;
+}
+
+
+.event-image {
+
+    filter:
+        brightness(.78)
+        saturate(.75);
+
+    transition:
+        transform .8s
+        var(--sico-ease),
+        filter .6s ease !important;
+}
+
+
+.event-card:hover .event-image {
+
+    transform:
+        scale(1.08) !important;
+
+    filter:
+        brightness(.95)
+        saturate(1) !important;
+}
+
+
+.event-content {
+
+    background:
+        transparent !important;
+}
+
+
+.event-title {
+
+    color:
+        #ffffff !important;
+
+    font-family:
+        var(--sico-display);
+
+    letter-spacing:
+        -.025em;
+}
+
+
+.event-description {
+
+    color:
+        rgba(255,255,255,.48) !important;
+}
+
+
+/* ============================================================
+   17 — TEAM CARDS
+   ============================================================ */
+
+.team-card {
+
+    width:
+        100% !important;
+
+    min-width:
+        0 !important;
+
+    padding:
+        24px !important;
+
+    border-radius:
+        22px !important;
+}
+
+
+.team-card:hover {
+
+    animation:
+        none !important;
+
+    transform:
+        translateY(-10px) !important;
+}
+
+
+.team-photo {
+
+    width:
+        145px !important;
+
+    height:
+        145px !important;
+
+    border-radius:
+        50% !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+        #111111 !important;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.5);
+}
+
+
+.team-photo-img {
+
+    border-radius:
+        50% !important;
+
+    transition:
+        transform .7s
+        var(--sico-ease) !important;
+}
+
+
+.team-card:hover .team-photo-img {
+
+    transform:
+        scale(1.08) !important;
+}
+
+
+/* ============================================================
+   18 — FACULTY
+   ============================================================ */
+
+.faculty-principal-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #111111,
+            #050505
+        ) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.18) !important;
+
+    box-shadow:
+        0 35px 100px
+        rgba(0,0,0,.65) !important;
+}
+
+
+.faculty-card {
+
+    border-radius:
+        22px !important;
+}
+
+
+/* ============================================================
+   19 — GALLERY
+   ============================================================ */
+
+.gallery-grid {
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                250px,
+                1fr
+            )
+        ) !important;
+
+    gap:
+        18px !important;
+}
+
+
+.gallery-item {
+
+    border-radius:
+        20px !important;
+
+    aspect-ratio:
+        4 / 3;
+
+    overflow:
+        hidden;
+}
+
+
+.gallery-image img {
+
+    filter:
+        grayscale(.12)
+        brightness(.78);
+
+    transition:
+        transform .9s
+        var(--sico-ease),
+        filter .6s ease !important;
+}
+
+
+.gallery-item:hover .gallery-image img {
+
+    transform:
+        scale(1.10) !important;
+
+    filter:
+        grayscale(0)
+        brightness(1) !important;
+}
+
+
+.gallery-overlay {
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.95),
+            rgba(0,0,0,.1),
+            transparent
+        ) !important;
+}
+
+
+/* ============================================================
+   20 — SICO FEATURE CARDS
+   ============================================================ */
+
+.sico {
+
+    background:
+        #000000 !important;
+}
+
+
+.sico-features {
+
+    gap:
+        20px !important;
+}
+
+
+.feature-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #111111,
+            #070707
+        ) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10) !important;
+
+    border-radius:
+        24px !important;
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.45) !important;
+}
+
+
+.feature-card::before {
+
+    background:
+        #ffffff !important;
+}
+
+
+.feature-card:hover {
+
+    transform:
+        translateY(-10px) !important;
+
+    border-color:
+        rgba(255,255,255,.25) !important;
+}
+
+
+/* ============================================================
+   21 — REPORTS
+   ============================================================ */
+
+.reports-grid,
+.reports-preview-grid {
+
+    gap:
+        20px !important;
+}
+
+
+.report-card {
+
+    border-radius:
+        22px !important;
+}
+
+
+.report-card:hover {
+
+    transform:
+        translateY(-8px) !important;
+}
+
+
+/* ============================================================
+   22 — CONTACT
+   ============================================================ */
+
+.contact-content {
+
+    gap:
+        22px !important;
+}
+
+
+.contact-info,
+.contact-form,
+.contact-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.015)
+        ) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10) !important;
+
+    border-radius:
+        24px !important;
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.40);
+}
+
+
+/* Inputs */
+
+input,
+textarea,
+select {
+
+    background:
+        rgba(255,255,255,.035) !important;
+
+    color:
+        #ffffff !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10) !important;
+
+    border-radius:
+        14px !important;
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+
+input:focus,
+textarea:focus,
+select:focus {
+
+    outline:
+        none !important;
+
+    background:
+        rgba(255,255,255,.055) !important;
+
+    border-color:
+        rgba(255,255,255,.35) !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,255,255,.04),
+
+        0 0 25px
+        rgba(255,255,255,.04);
+}
+
+
+/* ============================================================
+   23 — BUTTON SYSTEM
+   ============================================================ */
+
+.btn,
+button,
+.sico-hero-button {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    isolation:
+        isolate;
+}
+
+
+.btn::before,
+button::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -120%;
+
+    width:
+        80%;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left .7s ease;
+
+    z-index:
+        -1;
+}
+
+
+.btn:hover::before,
+button:hover::before {
+
+    left:
+        140%;
+}
+
+
+/* ============================================================
+   24 — FOOTER
+   ============================================================ */
+
+.footer {
+
+    background:
+        #020202 !important;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+}
+
+
+.footer::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -100%;
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ffffff,
+            transparent
+        );
+
+    animation:
+        footerScan
+        7s
+        linear
+        infinite;
+}
+
+
+@keyframes footerScan {
+
+    to {
+        left:
+            100%;
+    }
+
+}
+
+
+.footer-section h3 {
+
+    color:
+        #ffffff !important;
+
+    background:
+        none !important;
+
+    -webkit-text-fill-color:
+        #ffffff !important;
+}
+
+
+.footer-section h4 {
+
+    color:
+        #ffffff !important;
+}
+
+
+.footer-section p,
+.footer-section ul li a {
+
+    color:
+        rgba(255,255,255,.45) !important;
+}
+
+
+.footer-section ul li a:hover {
+
+    color:
+        #ffffff !important;
+
+    padding-left:
+        7px;
+}
+
+
+/* ============================================================
+   25 — SOCIAL ICONS
+   ============================================================ */
+
+.footer-social-link {
+
+    background:
+        rgba(255,255,255,.04) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10) !important;
+
+    color:
+        rgba(255,255,255,.7) !important;
+
+    transition:
+        transform .4s
+        var(--sico-ease),
+        background .3s ease,
+        border-color .3s ease !important;
+}
+
+
+.footer-social-link:hover {
+
+    background:
+        #ffffff !important;
+
+    color:
+        #000000 !important;
+
+    border-color:
+        #ffffff !important;
+
+    transform:
+        translateY(-5px)
+        scale(1.08);
+}
+
+
+/* ============================================================
+   26 — SCROLL REVEAL
+   ============================================================ */
+
+.sico-reveal {
+
+    opacity:
+        0;
+
+    transform:
+        translateY(35px);
+
+    filter:
+        blur(5px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s
+        var(--sico-ease),
+        filter .8s ease;
+}
+
+
+.sico-reveal.sico-visible {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0);
+
+    filter:
+        blur(0);
+}
+
+
+/* ============================================================
+   27 — MAGNETIC / INTERACTIVE CARDS
+   ============================================================ */
+
+.sico-interactive {
+
+    --mx:
+        50%;
+
+    --my:
+        50%;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+}
+
+
+.sico-interactive::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        240px;
+
+    height:
+        240px;
+
+    left:
+        var(--mx);
+
+    top:
+        var(--my);
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.10),
+            transparent 68%
+        );
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        opacity .3s ease;
+}
+
+
+.sico-interactive:hover::after {
+
+    opacity:
+        1;
+}
+
+
+/* ============================================================
+   28 — FLOATING CURSOR GLOW
+   ============================================================ */
+
+.cursor-glow {
+
+    width:
+        180px !important;
+
+    height:
+        180px !important;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.09),
+            transparent 70%
+        ) !important;
+
+    filter:
+        blur(10px);
+
+    opacity:
+        .55;
+
+    mix-blend-mode:
+        screen;
+
+    pointer-events:
+        none !important;
+}
+
+
+/* ============================================================
+   29 — THEME ROLLER
+   ============================================================ */
+
+.theme-roller-btn {
+
+    background:
+        rgba(5,5,5,.88) !important;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12) !important;
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.45) !important;
+}
+
+
+.theme-roller-btn:hover {
+
+    border-color:
+        rgba(255,255,255,.30) !important;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.55),
+
+        0 0 25px
+        rgba(255,255,255,.07) !important;
+}
+
+
+/* ============================================================
+   30 — LIGHT THEME
+   ============================================================
+   Keeps your existing theme switch functional.
+   ============================================================ */
+
+[data-theme="light"] body,
+[data-theme="champagne"] body {
+
+    background:
+        #f5f5f5 !important;
+
+    color:
+        #111111 !important;
+}
+
+
+[data-theme="light"] section,
+[data-theme="champagne"] section {
+
+    background:
+        #f5f5f5 !important;
+
+    color:
+        #111111;
+}
+
+
+[data-theme="light"] .header-pill,
+[data-theme="champagne"] .header-pill {
+
+    background:
+        rgba(255,255,255,.90) !important;
+
+    border-color:
+        rgba(0,0,0,.08) !important;
+}
+
+
+[data-theme="light"] .nav-link,
+[data-theme="champagne"] .nav-link {
+
+    color:
+        rgba(0,0,0,.58) !important;
+}
+
+
+[data-theme="light"] .nav-link:hover,
+[data-theme="champagne"] .nav-link:hover {
+
+    color:
+        #000000 !important;
+
+    background:
+        rgba(0,0,0,.05);
+}
+
+
+[data-theme="light"] .nav-link.active,
+[data-theme="champagne"] .nav-link.active {
+
+    background:
+        #000000 !important;
+
+    color:
+        #ffffff !important;
+}
+
+
+[data-theme="light"] .section-title,
+[data-theme="champagne"] .section-title {
+
+    color:
+        #111111 !important;
+}
+
+
+[data-theme="light"] .section-description,
+[data-theme="champagne"] .section-description {
+
+    color:
+        rgba(0,0,0,.55) !important;
+}
+
+
+[data-theme="light"] .event-card,
+[data-theme="light"] .team-card,
+[data-theme="light"] .faculty-card,
+[data-theme="light"] .member-card,
+[data-theme="light"] .gallery-item,
+[data-theme="light"] .feature-card,
+[data-theme="light"] .stat-item,
+[data-theme="light"] .report-card,
+[data-theme="light"] .project-card,
+[data-theme="champagne"] .event-card,
+[data-theme="champagne"] .team-card,
+[data-theme="champagne"] .faculty-card,
+[data-theme="champagne"] .member-card,
+[data-theme="champagne"] .gallery-item,
+[data-theme="champagne"] .feature-card,
+[data-theme="champagne"] .stat-item,
+[data-theme="champagne"] .report-card,
+[data-theme="champagne"] .project-card {
+
+    background:
+        #ffffff !important;
+
+    border-color:
+        rgba(0,0,0,.09) !important;
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.08) !important;
+}
+
+
+[data-theme="light"] .event-title,
+[data-theme="light"] .team-card h3,
+[data-theme="light"] .faculty-card h3,
+[data-theme="light"] .member-card h3,
+[data-theme="champagne"] .event-title,
+[data-theme="champagne"] .team-card h3,
+[data-theme="champagne"] .faculty-card h3,
+[data-theme="champagne"] .member-card h3 {
+
+    color:
+        #111111 !important;
+}
+
+
+[data-theme="light"] .event-description,
+[data-theme="light"] .team-card p,
+[data-theme="light"] .faculty-card p,
+[data-theme="light"] .member-card p,
+[data-theme="champagne"] .event-description,
+[data-theme="champagne"] .team-card p,
+[data-theme="champagne"] .faculty-card p,
+[data-theme="champagne"] .member-card p {
+
+    color:
+        rgba(0,0,0,.55) !important;
+}
+
+
+[data-theme="light"] .footer,
+[data-theme="champagne"] .footer {
+
+    background:
+        #111111 !important;
+
+    color:
+        #ffffff !important;
+}
+
+
+/* ============================================================
+   31 — MOBILE NAVIGATION
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .header {
+
+        padding:
+            8px 10px;
+    }
+
+
+    .header-pill {
+
+        border-radius:
+            22px !important;
+
+        padding:
+            7px 10px !important;
+    }
+
+
+    .nav-menu {
+
+        background:
+            rgba(5,5,5,.97) !important;
+
+        border:
+            1px solid
+            rgba(255,255,255,.10) !important;
+
+        border-radius:
+            22px !important;
+
+        box-shadow:
+            0 25px 80px
+            rgba(0,0,0,.7) !important;
+
+        backdrop-filter:
+            blur(25px);
+    }
+
+
+    .nav-link {
+
+        width:
+            100%;
+
+        padding:
+            12px 15px !important;
+    }
+
+
+    .nav-link.active {
+
+        background:
+            #ffffff !important;
+
+        color:
+            #000000 !important;
+    }
+
+
+    .btn-nav-cta {
+
+        display:
+            none !important;
+    }
+
+}
+
+
+/* ============================================================
+   32 — MOBILE HERO
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .sico-hero {
+
+        min-height:
+            85vh;
+    }
+
+
+    .sico-hero-content {
+
+        padding:
+            100px 18px 60px;
+    }
+
+
+    .sico-hero-tag {
+
+        font-size:
+            7px !important;
+
+        letter-spacing:
+            2.5px !important;
+
+        gap:
+            8px !important;
+    }
+
+
+    .sico-hero-tag span {
+
+        width:
+            18px !important;
+    }
+
+
+    .hero-sico {
+
+        font-size:
+            clamp(
+                80px,
+                27vw,
+                150px
+            ) !important;
+    }
+
+
+    .sico-hero-title {
+
+        font-size:
+            12px !important;
+
+        letter-spacing:
+            3px !important;
+
+        margin-top:
+            22px !important;
+    }
+
+
+    .sico-hero-description {
+
+        font-size:
+            12px !important;
+
+        line-height:
+            1.75 !important;
+    }
+
+
+    .sico-hero-actions {
+
+        flex-direction:
+            column;
+
+        width:
+            100%;
+
+        max-width:
+            280px;
+
+        margin-left:
+            auto;
+
+        margin-right:
+            auto;
+    }
+
+
+    .sico-hero-button {
+
+        width:
+            100%;
+    }
+
+
+    .events-grid,
+    .gallery-grid {
+
+        grid-template-columns:
+            1fr !important;
+    }
+
+
+    .team-card {
+
+        width:
+            100% !important;
+    }
+
+}
+
+
+/* ============================================================
+   33 — ACCESSIBILITY
+   ============================================================ */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+
+    outline:
+        2px solid
+        #ffffff !important;
+
+    outline-offset:
+        4px;
+}
+
+
+/* ============================================================
+   34 — REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+
+}

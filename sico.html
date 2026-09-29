@@ -1,389 +1,2348 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SICO Portal | Student Initiatives &amp; Community Outreach - RVR&amp;JCCE</title>
-    <meta name="description" content="Discover SICO at RVR &amp; JC College of Engineering - Empowering students to lead transformative community and campus initiatives.">
-    
+
+    <title>SICO Portal | Student Initiatives & Community Outreach - RVR&JCCE</title>
+
+    <meta name="description"
+        content="Discover SICO at RVR & JC College of Engineering - Empowering students to lead transformative community and campus initiatives.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+
     <!-- =========================================================
-     EC & CCAC — 5 SECOND PAGE LOADER
-     ========================================================= -->
+         SICO PAGE — LOCAL OVERRIDES
+         These styles only affect sico.html.
+         ========================================================= -->
+    <style>
 
-<div class="page-loader" id="pageLoader">
+        /* =====================================================
+           PAGE BASE
+           ===================================================== */
 
-    <div class="loader-background-glow"></div>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <div class="loader-content">
+        body {
+            overflow-x: hidden;
+        }
 
-        <!-- Logo / Mark -->
-        <div class="loader-logo-wrap">
+        /* =====================================================
+           IMPORTANT:
+           HIDE ANY LEGACY LOADER STYLES THAT MAY EXIST
+           IN styles.css.
+           ===================================================== */
 
-            <div class="loader-ring loader-ring-outer"></div>
-            <div class="loader-ring loader-ring-middle"></div>
-            <div class="loader-ring loader-ring-inner"></div>
+        body > .page-loader {
+            display: none !important;
+        }
 
-            <div class="loader-logo">
-                <img src="assets/logo.png"
-                     alt="EC & CCAC"
-                     onerror="this.style.display='none'">
+        /* =====================================================
+           SICO CINEMATIC LOADER
+           ===================================================== */
 
-                <span class="loader-logo-fallback">
-                    EC<br>
-                    <small>&amp;</small><br>
-                    CCAC
-                </span>
-            </div>
+        .sico-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            width: 100%;
+            height: 100dvh;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #050505;
+            color: #ffffff;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
 
+        .sico-loader.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition:
+                opacity 0.75s ease,
+                visibility 0.75s ease;
+        }
+
+        .sico-grid {
+            position: absolute;
+            inset: -50%;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.035) 1px,
+                    transparent 1px
+                );
+            background-size: 70px 70px;
+            transform:
+                perspective(700px)
+                rotateX(65deg)
+                translateY(8%);
+            transform-origin: center center;
+            animation: sicoGridMove 12s linear infinite;
+            opacity: .55;
+        }
+
+        @keyframes sicoGridMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 700px;
+            }
+        }
+
+        .sico-noise {
+            position: absolute;
+            inset: 0;
+            opacity: .045;
+            pointer-events: none;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+        }
+
+        .sico-loader::before {
+            content: "";
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.075) 0%,
+                    rgba(255,255,255,.025) 30%,
+                    transparent 70%
+                );
+            filter: blur(20px);
+            animation: sicoCorePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes sicoCorePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(.8);
+                opacity: .45;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: .85;
+            }
+        }
+
+        .sico-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .sico-particles span {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: .3;
+            animation: sicoParticleFloat 6s ease-in-out infinite;
+        }
+
+        .sico-particles span:nth-child(1)  { left: 12%; top: 20%; animation-delay: .2s; }
+        .sico-particles span:nth-child(2)  { left: 25%; top: 72%; animation-delay: 1.1s; }
+        .sico-particles span:nth-child(3)  { left: 42%; top: 16%; animation-delay: 2.2s; }
+        .sico-particles span:nth-child(4)  { left: 68%; top: 24%; animation-delay: .7s; }
+        .sico-particles span:nth-child(5)  { left: 84%; top: 68%; animation-delay: 1.8s; }
+        .sico-particles span:nth-child(6)  { left: 74%; top: 45%; animation-delay: 3s; }
+        .sico-particles span:nth-child(7)  { left: 18%; top: 48%; animation-delay: 2.5s; }
+        .sico-particles span:nth-child(8)  { left: 52%; top: 82%; animation-delay: .4s; }
+        .sico-particles span:nth-child(9)  { left: 91%; top: 32%; animation-delay: 1.4s; }
+        .sico-particles span:nth-child(10) { left: 8%; top: 84%; animation-delay: 2.7s; }
+        .sico-particles span:nth-child(11) { left: 34%; top: 38%; animation-delay: 1.7s; }
+        .sico-particles span:nth-child(12) { left: 62%; top: 10%; animation-delay: 3.2s; }
+        .sico-particles span:nth-child(13) { left: 79%; top: 82%; animation-delay: 2s; }
+        .sico-particles span:nth-child(14) { left: 47%; top: 62%; animation-delay: .9s; }
+        .sico-particles span:nth-child(15) { left: 30%; top: 91%; animation-delay: 2.9s; }
+        .sico-particles span:nth-child(16) { left: 95%; top: 91%; animation-delay: 1.2s; }
+
+        @keyframes sicoParticleFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+                opacity: .15;
+            }
+
+            50% {
+                transform: translateY(-22px) scale(1.8);
+                opacity: .55;
+            }
+        }
+
+        .sico-shockwave {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(.3);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sicoShockwave 5s ease-out infinite;
+        }
+
+        .shock-2 {
+            animation-delay: 1.3s;
+        }
+
+        .shock-3 {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes sicoShockwave {
+            0% {
+                transform: translate(-50%, -50%) scale(.25);
+                opacity: 0;
+            }
+
+            12% {
+                opacity: .25;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(10);
+                opacity: 0;
+            }
+        }
+
+        .sico-loader-content {
+            position: relative;
+            z-index: 10;
+            width: min(760px, 90vw);
+            text-align: center;
+        }
+
+        .sico-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 26px;
+            color: rgba(255,255,255,.42);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 4px;
+        }
+
+        .sico-eyebrow span {
+            width: 45px;
+            height: 1px;
+            background: rgba(255,255,255,.25);
+        }
+
+        .sico-word {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(4px, 1vw, 13px);
+            height: clamp(120px, 19vw, 230px);
+            overflow: visible;
+        }
+
+        .sico-letter {
+            display: inline-block;
+            color: #ffffff;
+            font-family: Impact, "Arial Black", sans-serif;
+            font-size: clamp(105px, 18vw, 230px);
+            line-height: .8;
+            letter-spacing: -.045em;
+            opacity: 0;
+            transform: translateY(50px) scale(.75);
+            filter: blur(14px);
+            animation: sicoLetterReveal 1s cubic-bezier(.16,1,.3,1) forwards;
+        }
+
+        .letter-s {
+            animation-delay: .15s;
+        }
+
+        .letter-i {
+            animation-delay: .35s;
+        }
+
+        .letter-c {
+            animation-delay: .55s;
+        }
+
+        .letter-o {
+            animation-delay: .75s;
+        }
+
+        @keyframes sicoLetterReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(.75);
+                filter: blur(14px);
+            }
+
+            65% {
+                opacity: 1;
+                transform: translateY(-6px) scale(1.03);
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .sico-line {
+            width: min(300px, 45vw);
+            height: 1px;
+            margin: 28px auto 20px;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.75),
+                    transparent
+                );
+            transform-origin: center;
+            animation: sicoLineReveal 1.2s .8s ease forwards;
+            transform: scaleX(0);
+            opacity: 0;
+        }
+
+        @keyframes sicoLineReveal {
+            to {
+                transform: scaleX(1);
+                opacity: 1;
+            }
+        }
+
+        .sico-subtitle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,.38);
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        .sico-subtitle b {
+            color: rgba(255,255,255,.68);
+            font-weight: 500;
+        }
+
+        .sico-loading {
+            width: min(500px, 75vw);
+            margin: 50px auto 0;
+        }
+
+        .sico-loading-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 9px;
+            color: rgba(255,255,255,.45);
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+
+        .sico-progress {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            overflow: hidden;
+            background: rgba(255,255,255,.09);
+        }
+
+        .sico-progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: 0 0 12px rgba(255,255,255,.6);
+        }
+
+        .sico-progress-glow {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.2),
+                    transparent
+                );
+            animation: progressGlow 1.6s linear infinite;
+        }
+
+        @keyframes progressGlow {
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        .sico-message {
+            margin-top: 15px;
+            min-height: 18px;
+            color: rgba(255,255,255,.34);
+            font-family: "DM Mono", monospace;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            transition: opacity .2s ease;
+        }
+
+        .message-changing {
+            opacity: 0;
+        }
+
+        .sico-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin-top: 32px;
+            color: rgba(255,255,255,.22);
+            font-family: "DM Mono", monospace;
+            font-size: 7px;
+            letter-spacing: 2px;
+        }
+
+        .sico-footer i {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.3);
+        }
+
+        /* =====================================================
+           MAIN SICO HERO
+           ===================================================== */
+
+        .sico-page-hero {
+            position: relative;
+            min-height: 76vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            isolation: isolate;
+            background: #050505 !important;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+        }
+
+        .sico-page-hero::before {
+            content: "";
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            left: 50%;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.07),
+                    transparent 67%
+                );
+            filter: blur(20px);
+            z-index: -3;
+            animation: heroGlow 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            from {
+                transform: translate(-50%, -50%) scale(.75);
+                opacity: .35;
+            }
+
+            to {
+                transform: translate(-50%, -50%) scale(1.12);
+                opacity: .8;
+            }
+        }
+
+        .sico-page-hero-grid {
+            position: absolute;
+            left: -30%;
+            right: -30%;
+            bottom: -65%;
+            height: 125%;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.04) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.04) 1px,
+                    transparent 1px
+                );
+            background-size: 65px 65px;
+            transform:
+                perspective(650px)
+                rotateX(65deg);
+            opacity: .3;
+            z-index: -2;
+            animation: heroGridMove 12s linear infinite;
+        }
+
+        @keyframes heroGridMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 650px;
+            }
+        }
+
+        .sico-page-hero-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 145px 20px 105px;
+            text-align: center;
+        }
+
+        .sico-page-kicker {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 25px;
+            color: rgba(255,255,255,.42);
+            font-family: "DM Mono", monospace;
+            font-size: 9px;
+            letter-spacing: 4px;
+        }
+
+        .sico-page-kicker span {
+            width: 42px;
+            height: 1px;
+            background: rgba(255,255,255,.22);
+        }
+
+        .sico-page-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            line-height: .85;
+        }
+
+        .sico-page-title-main {
+            display: block;
+            color: #ffffff;
+            font-family: Impact, "Arial Black", sans-serif;
+            font-size: clamp(105px, 19vw, 240px);
+            letter-spacing: -.04em;
+            text-shadow:
+                0 0 30px rgba(255,255,255,.12),
+                0 0 100px rgba(255,255,255,.05);
+            animation: heroTitlePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes heroTitlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.018);
+            }
+        }
+
+        .sico-page-title-sub {
+            margin-top: 22px;
+            color: rgba(255,255,255,.7);
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(28px, 4.5vw, 52px);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .sico-page-description {
+            max-width: 610px;
+            margin: 30px auto 0;
+            color: rgba(255,255,255,.46);
+            font-family: "Outfit", sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .sico-page-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 35px;
+        }
+
+        .sico-page-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 155px;
+            padding: 13px 24px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: "Outfit", sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .6px;
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                background .3s ease;
+        }
+
+        .sico-page-button.primary {
+            color: #000000;
+            background: #ffffff;
+        }
+
+        .sico-page-button.secondary {
+            color: #ffffff;
+            background: rgba(255,255,255,.035);
+            border: 1px solid rgba(255,255,255,.16);
+        }
+
+        .sico-page-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 45px rgba(0,0,0,.55);
+        }
+
+        /* =====================================================
+           SICO CONTENT
+           ===================================================== */
+
+        .sico {
+            position: relative;
+            overflow: hidden;
+            background: #000000 !important;
+            color: #ffffff;
+            padding: 115px 0 125px !important;
+        }
+
+        .sico::before {
+            background:
+                radial-gradient(
+                    circle at 20% 30%,
+                    rgba(255,255,255,.025),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(255,255,255,.02),
+                    transparent 35%
+                ) !important;
+        }
+
+        .sico-header {
+            margin-bottom: 35px;
+        }
+
+        .sico-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 17px;
+        }
+
+        .sico-logo {
+            width: 58px !important;
+            height: 58px !important;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255,255,255,.16);
+            box-shadow: 0 12px 35px rgba(0,0,0,.55);
+        }
+
+        .sico .section-title {
+            color: #ffffff !important;
+        }
+
+        .sico .title-underline {
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #ffffff,
+                    transparent
+                ) !important;
+            opacity: .35;
+        }
+
+        .sico-content {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .sico-lead {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+            color: rgba(255,255,255,.5) !important;
+            font-size: 15px !important;
+            line-height: 1.9 !important;
+        }
+
+        /* =====================================================
+           THREE PILLARS
+           ===================================================== */
+
+        .sico-pillars {
+            position: relative;
+            display: grid !important;
+            grid-template-columns: 1fr auto 1fr auto 1fr !important;
+            align-items: center;
+            gap: 22px;
+            margin: 65px 0;
+            padding: 35px 0;
+            border-top: 1px solid rgba(255,255,255,.08);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .pillar-step {
+            text-align: center;
+        }
+
+        .pillar-num {
+            margin-bottom: 10px;
+            color: rgba(255,255,255,.32);
+            font-family: "DM Mono", monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .pillar-step h4 {
+            margin: 0 0 8px;
+            color: #ffffff !important;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 19px;
+        }
+
+        .pillar-step p {
+            margin: 0 auto;
+            max-width: 250px;
+            color: rgba(255,255,255,.4);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .pillar-divider {
+            color: rgba(255,255,255,.22);
+            font-size: 22px;
+        }
+
+        /* =====================================================
+           FEATURE CARDS
+           ===================================================== */
+
+        .sico-features {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+            gap: 22px !important;
+        }
+
+        .sico .feature-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            padding: 42px 35px !important;
+            border-radius: 24px !important;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.055),
+                    rgba(255,255,255,.012)
+                ) !important;
+            border: 1px solid rgba(255,255,255,.1) !important;
+            box-shadow: 0 25px 80px rgba(0,0,0,.45) !important;
+            transition:
+                transform .4s ease,
+                border-color .4s ease,
+                box-shadow .4s ease;
+        }
+
+        .sico .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #ffffff,
+                    transparent
+                );
+            opacity: .25;
+        }
+
+        .sico .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,.23) !important;
+            box-shadow: 0 35px 100px rgba(0,0,0,.65) !important;
+        }
+
+        .sico .feature-icon-wrapper {
+            position: relative;
+            width: fit-content;
+            margin-bottom: 24px;
+        }
+
+        .sico .feature-icon {
+            position: relative;
+            z-index: 2;
+            font-size: 3.2rem !important;
+            filter: grayscale(1) brightness(1.6);
+        }
+
+        .sico .icon-glow {
+            position: absolute;
+            inset: -25px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.11),
+                    transparent 70%
+                ) !important;
+            filter: blur(10px);
+        }
+
+        .sico .feature-card h3 {
+            margin-bottom: 14px;
+            color: #ffffff !important;
+            font-family: "Space Grotesk", sans-serif !important;
+            font-size: 24px !important;
+        }
+
+        .sico .feature-card p {
+            margin: 0;
+            color: rgba(255,255,255,.46) !important;
+            font-size: 13px !important;
+            line-height: 1.8 !important;
+        }
+
+        /* =====================================================
+           INITIATIVE GUIDE
+           ===================================================== */
+
+        .sico-guide {
+            position: relative;
+            overflow: hidden;
+            padding: 115px 0 120px !important;
+            background:
+                linear-gradient(
+                    180deg,
+                    #050505 0%,
+                    #090909 50%,
+                    #050505 100%
+                ) !important;
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .sico-guide::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.025),
+                    transparent 68%
+                );
+            pointer-events: none;
+        }
+
+        .sico-guide .section-header {
+            position: relative;
+            z-index: 2;
+        }
+
+        .sico-guide .section-title {
+            color: #ffffff !important;
+        }
+
+        .sico-guide .section-description {
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255,255,255,.43) !important;
+        }
+
+        .reports-preview-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 20px;
+            margin-top: 55px;
+        }
+
+        .report-preview-card {
+            position: relative;
+            padding: 34px 28px;
+            min-height: 245px;
+            border-radius: 20px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.045),
+                    rgba(255,255,255,.012)
+                );
+            border: 1px solid rgba(255,255,255,.08);
+            transition:
+                transform .35s ease,
+                border-color .35s ease,
+                background .35s ease;
+        }
+
+        .report-preview-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,255,255,.2);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.065),
+                    rgba(255,255,255,.018)
+                );
+        }
+
+        .report-preview-icon {
+            margin-bottom: 20px;
+            font-size: 30px;
+            filter: grayscale(1);
+        }
+
+        .report-preview-card h3 {
+            margin: 0 0 12px;
+            color: #ffffff;
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 17px;
+        }
+
+        .report-preview-card p {
+            margin: 0;
+            color: rgba(255,255,255,.4);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .sico-guide .btn-primary {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =====================================================
+           FOOTER DARK FIX
+           ===================================================== */
+
+        .footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .sico-pillars {
+                grid-template-columns: 1fr !important;
+                gap: 25px;
+            }
+
+            .pillar-divider {
+                transform: rotate(90deg);
+            }
+
+            .reports-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .sico-eyebrow {
+                font-size: 7px;
+                letter-spacing: 2.5px;
+                gap: 8px;
+            }
+
+            .sico-eyebrow span {
+                width: 20px;
+            }
+
+            .sico-subtitle {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 7px;
+            }
+
+            .sico-loading {
+                margin-top: 35px;
+            }
+
+            .sico-page-hero {
+                min-height: 72vh;
+            }
+
+            .sico-page-hero-content {
+                padding: 125px 18px 80px;
+            }
+
+            .sico-page-kicker {
+                font-size: 7px;
+                letter-spacing: 2.5px;
+                gap: 8px;
+            }
+
+            .sico-page-kicker span {
+                width: 18px;
+            }
+
+            .sico-page-title-main {
+                font-size: clamp(85px, 27vw, 150px);
+            }
+
+            .sico-page-title-sub {
+                margin-top: 17px;
+                font-size: 29px;
+            }
+
+            .sico-page-description {
+                font-size: 12px;
+                line-height: 1.75;
+            }
+
+            .sico-page-actions {
+                flex-direction: column;
+                width: min(270px, 100%);
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .sico-page-button {
+                width: 100%;
+            }
+
+            .sico {
+                padding: 90px 0 100px !important;
+            }
+
+            .sico-title-wrapper {
+                flex-direction: column;
+            }
+
+            .sico .feature-card {
+                min-height: auto;
+                padding: 32px 25px !important;
+            }
+
+            .sico-features {
+                grid-template-columns: 1fr !important;
+            }
+
+            .sico-guide {
+                padding: 90px 0 !important;
+            }
+
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .sico-grid,
+            .sico-particles span,
+            .sico-shockwave,
+            .sico-loader::before,
+            .sico-letter,
+            .sico-line,
+            .sico-page-hero::before,
+            .sico-page-hero-grid,
+            .sico-page-title-main {
+                animation: none !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         SICO — ONE AND ONLY PAGE LOADER
+         IMPORTANT:
+         There is intentionally only ONE element with id="pageLoader".
+         ========================================================= -->
+
+    <div class="sico-loader" id="pageLoader">
+
+        <div class="sico-grid"></div>
+        <div class="sico-noise"></div>
+
+        <div class="sico-particles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
+        <div class="sico-shockwave shock-1"></div>
+        <div class="sico-shockwave shock-2"></div>
+        <div class="sico-shockwave shock-3"></div>
 
-        <!-- Brand -->
-        <div class="loader-brand">
+        <div class="sico-loader-content">
 
-            <div class="loader-brand-title">
-                EC <span>&amp;</span> CCAC
-            </div>
-
-            <div class="loader-brand-subtitle">
+            <div class="sico-eyebrow">
+                <span></span>
                 STUDENT INTEGRATED COMMITTEE
+                <span></span>
             </div>
 
-        </div>
+            <div class="sico-word" id="sicoWord">
+                <span class="sico-letter letter-s">S</span>
+                <span class="sico-letter letter-i">I</span>
+                <span class="sico-letter letter-c">C</span>
+                <span class="sico-letter letter-o">O</span>
+            </div>
 
+            <div class="sico-line"></div>
 
-        <!-- Progress -->
-        <div class="loader-progress-wrapper">
+            <div class="sico-subtitle">
+                <span>R.V.R. &amp; J.C.</span>
+                <b>COLLEGE OF ENGINEERING</b>
+            </div>
 
-            <div class="loader-progress-track">
-                <div class="loader-progress-bar"
-                     id="loaderProgressBar">
+            <div class="sico-loading">
+
+                <div class="sico-loading-top">
+                    <span id="loaderStatus">INITIALIZING</span>
+                    <span id="loaderPercentage">0%</span>
                 </div>
+
+                <div class="sico-progress">
+                    <div
+                        class="sico-progress-fill"
+                        id="loaderProgressBar">
+                    </div>
+
+                    <div class="sico-progress-glow"></div>
+                </div>
+
             </div>
 
-            <div class="loader-progress-info">
+            <div
+                class="sico-message"
+                id="loaderMessage">
+                Preparing your experience...
+            </div>
 
-                <span id="loaderStatus">
-                    INITIALIZING CAMPUS
-                </span>
-
-                <span id="loaderPercentage">
-                    0%
-                </span>
-
+            <div class="sico-footer">
+                <span>EC &amp; CCAC</span>
+                <i></i>
+                <span>2026 — 2027</span>
             </div>
 
         </div>
 
-
-        <!-- Loading messages -->
-        <div class="loader-message"
-             id="loaderMessage">
-
-            Preparing your experience...
-
-        </div>
+    </div>
 
 
-        <!-- Bottom -->
-        <div class="loader-footer">
+    <!-- =========================================================
+         CAMPUS ANNOUNCEMENT BAR
+         ========================================================= -->
 
-            <span>
-                R.V.R. &amp; J.C. COLLEGE OF ENGINEERING
+    <div class="campus-announcement-bar">
+
+        <div class="announcement-left">
+            <span class="hud-tag">
+                <span class="hud-dot-live"></span>
+                <strong>R.V.R. &amp; J.C. College of Engineering</strong>
+                · Student Integrated Committee
             </span>
+        </div>
 
-            <span class="loader-dot"></span>
+        <div class="announcement-center">
+            <span class="hud-tag">
+                <span class="hud-dot-cyan"></span>
+                ✨ <strong>COLORIDO 2026:</strong>
+                Cultural Fest Registrations Open
+            </span>
+        </div>
 
-            <span>
+        <div class="announcement-right">
+
+            <span class="hud-tag">
+                <strong>ACADEMIC YEAR:</strong>
                 2026–2027
             </span>
 
+            <span class="hud-tag">
+                PRESS
+                <kbd class="hud-kbd-key">CTRL + K</kbd>
+                TO SEARCH
+            </span>
+
         </div>
 
     </div>
 
-</div>
-    <!-- Dignified Collegiate Announcement Bar -->
-    <div class="campus-announcement-bar">
-        <div class="announcement-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Integrated Committee</span>
-        </div>
-        <div class="announcement-center">
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
-        </div>
-        <div class="announcement-right">
-            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
-            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
-        </div>
+
+    <!-- Reading Progress -->
+
+    <div
+        class="reading-progress-bar"
+        id="readingProgressBar">
     </div>
 
-    <!-- Reading Progress Bar -->
-    <div class="reading-progress-bar" id="readingProgressBar"></div>
 
-    <!-- Ambient Floating Glows -->
+    <!-- Ambient Glows -->
+
     <div class="ambient-glow-wrapper">
+
         <div class="ambient-orb orb-1"></div>
         <div class="ambient-orb orb-2"></div>
         <div class="ambient-orb orb-3"></div>
         <div class="ambient-orb orb-4"></div>
+
     </div>
 
-    <!-- Interactive Cursor Glow Follower -->
-    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Floating Pill Header -->
+    <!-- Cursor -->
+
+    <div
+        class="cursor-glow"
+        id="cursorGlow">
+    </div>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
     <header class="header" id="header">
+
         <div class="header-pill">
+
             <div class="logo-section">
-                <a href="index.html" class="logo-link" aria-label="Go to homepage">
-                    <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
+
+                <a
+                    href="index.html"
+                    class="logo-link"
+                    aria-label="Go to homepage">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="EC & CCAC logo"
+                        class="header-logo"
+                        loading="lazy">
+
                 </a>
+
             </div>
-            <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="events.html" class="nav-link">Events</a>
-                <a href="sico.html" class="nav-link active">Sico</a>
-                <a href="reports.html" class="nav-link">Reports</a>
-                <a href="team.html" class="nav-link">Team</a>
-                <a href="gallery.html" class="nav-link">Gallery</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+
+
+            <nav
+                class="nav-menu"
+                id="navMenu"
+                role="navigation"
+                aria-label="Primary">
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a href="about.html" class="nav-link">
+                    About
+                </a>
+
+                <a href="events.html" class="nav-link">
+                    Events
+                </a>
+
+                <a
+                    href="sico.html"
+                    class="nav-link active">
+                    Sico
+                </a>
+
+                <a href="reports.html" class="nav-link">
+                    Reports
+                </a>
+
+                <a href="team.html" class="nav-link">
+                    Team
+                </a>
+
+                <a href="gallery.html" class="nav-link">
+                    Gallery
+                </a>
+
+                <a href="contact.html" class="nav-link">
+                    Contact
+                </a>
+
             </nav>
+
+
             <div class="header-actions">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
-                   class="btn-nav-cta"
-                   target="_blank"
-                   rel="noopener noreferrer">
+
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420"
+                    class="btn-nav-cta"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
                     <span>Register SICO</span>
                     <i>↗</i>
+
                 </a>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
+
+
+                <button
+                    class="mobile-menu-toggle"
+                    id="mobileMenuToggle"
+                    aria-label="Toggle menu"
+                    type="button">
+
                     <span></span>
                     <span></span>
                     <span></span>
+
                 </button>
+
             </div>
+
         </div>
+
     </header>
 
-    <!-- Page Banner -->
-    <section class="page-banner">
+
+    <!-- =========================================================
+         SICO HERO
+         ========================================================= -->
+
+    <section class="sico-page-hero">
+
+        <div class="sico-page-hero-grid"></div>
+
         <div class="container">
-            <div class="page-banner-content">
-                <div class="kicker-pill"><span class="dot"></span> 03 / STUDENT LEADERSHIP &amp; OUTREACH</div>
-                <h1 class="page-banner-title">SICO <span class="editorial-italic">Initiatives</span></h1>
-                <p class="page-banner-subtitle">Student Integrated Committee — Translating ideas into real-world social impact.</p>
+
+            <div class="sico-page-hero-content">
+
+                <div class="sico-page-kicker">
+                    <span></span>
+                    03 / STUDENT LEADERSHIP &amp; OUTREACH
+                    <span></span>
+                </div>
+
+
+                <h1 class="sico-page-title">
+
+                    <span class="sico-page-title-main">
+                        SICO
+                    </span>
+
+                    <span class="sico-page-title-sub">
+                        Initiatives
+                    </span>
+
+                </h1>
+
+
+                <p class="sico-page-description">
+                    Student Integrated Committee —
+                    translating ideas into real-world
+                    social impact.
+                </p>
+
+
+                <div class="sico-page-actions">
+
+                    <a
+                        href="#sico-portal"
+                        class="sico-page-button primary">
+                        Explore SICO
+                    </a>
+
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420"
+                        class="sico-page-button secondary"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Register ↗
+                    </a>
+
+                </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- SICO Section -->
-    <section class="sico" id="sico-portal">
+
+    <!-- =========================================================
+         ABOUT SICO
+         ========================================================= -->
+
+    <section
+        class="sico"
+        id="sico-portal">
+
         <div class="container">
+
             <div class="section-header sico-header">
+
                 <div class="sico-title-wrapper">
-                    <img src="sico-logo/sico logo.jpg" alt="SICO Logo" class="sico-logo" loading="lazy">
-                    <h2 class="section-title">About SICO</h2>
+
+                    <img
+                        src="sico-logo/sico logo.jpg"
+                        alt="SICO Logo"
+                        class="sico-logo"
+                        loading="lazy">
+
+                    <h2 class="section-title">
+                        About SICO
+                    </h2>
+
                 </div>
+
                 <div class="title-underline"></div>
+
             </div>
+
 
             <div class="sico-content">
-                <p class="sico-lead">SICO (Student Integrated Committee) represents our commitment to student-driven initiatives, creative problem solving, and impactful community engagement.</p>
 
-                <!-- 3 Pillars of SICO -->
+                <p class="sico-lead">
+                    SICO (Student Integrated Committee)
+                    represents our commitment to student-driven
+                    initiatives, creative problem solving,
+                    and impactful community engagement.
+                </p>
+
+
+                <!-- =================================================
+                     THREE PILLARS
+                     ================================================= -->
+
                 <div class="sico-pillars">
+
                     <div class="pillar-step">
-                        <div class="pillar-num">01</div>
-                        <h4>Ideate</h4>
-                        <p>Providing mentorship and resources to help students pitch and develop community projects.</p>
+
+                        <div class="pillar-num">
+                            01
+                        </div>
+
+                        <h4>
+                            Ideate
+                        </h4>
+
+                        <p>
+                            Providing mentorship and resources
+                            to help students pitch and develop
+                            community projects.
+                        </p>
+
                     </div>
-                    <div class="pillar-divider">→</div>
+
+
+                    <div class="pillar-divider">
+                        →
+                    </div>
+
+
                     <div class="pillar-step">
-                        <div class="pillar-num">02</div>
-                        <h4>Collaborate</h4>
-                        <p>Building cross-departmental coalitions uniting engineering, design, and social action.</p>
+
+                        <div class="pillar-num">
+                            02
+                        </div>
+
+                        <h4>
+                            Collaborate
+                        </h4>
+
+                        <p>
+                            Building cross-departmental
+                            coalitions uniting engineering,
+                            design, and social action.
+                        </p>
+
                     </div>
-                    <div class="pillar-divider">→</div>
+
+
+                    <div class="pillar-divider">
+                        →
+                    </div>
+
+
                     <div class="pillar-step">
-                        <div class="pillar-num">03</div>
-                        <h4>Impact</h4>
-                        <p>Executing volunteering, educational workshops, and outreach across the region.</p>
+
+                        <div class="pillar-num">
+                            03
+                        </div>
+
+                        <h4>
+                            Impact
+                        </h4>
+
+                        <p>
+                            Executing volunteering,
+                            educational workshops,
+                            and outreach across the region.
+                        </p>
+
                     </div>
+
                 </div>
+
+
+                <!-- =================================================
+                     FEATURE CARDS
+                     ================================================= -->
 
                 <div class="sico-features">
+
                     <div class="feature-card">
+
                         <div class="feature-icon-wrapper">
-                            <div class="feature-icon">🤝</div>
+
+                            <div class="feature-icon">
+                                🤝
+                            </div>
+
                             <div class="icon-glow"></div>
+
                         </div>
-                        <h3>Community Outreach</h3>
-                        <p>Connecting with local communities through service projects, volunteer initiatives, and social awareness campaigns that spark lasting positive change.</p>
+
+                        <h3>
+                            Community Outreach
+                        </h3>
+
+                        <p>
+                            Connecting with local communities
+                            through service projects, volunteer
+                            initiatives, and social awareness
+                            campaigns that spark lasting positive
+                            change.
+                        </p>
+
                     </div>
+
+
                     <div class="feature-card">
+
                         <div class="feature-icon-wrapper">
-                            <div class="feature-icon">💡</div>
+
+                            <div class="feature-icon">
+                                💡
+                            </div>
+
                             <div class="icon-glow"></div>
+
                         </div>
-                        <h3>Student Initiatives</h3>
-                        <p>Empowering students to lead transformative projects, launch innovative clubs, and turn their creative ideas into impactful campus realities.</p>
+
+                        <h3>
+                            Student Initiatives
+                        </h3>
+
+                        <p>
+                            Empowering students to lead
+                            transformative projects, launch
+                            innovative clubs, and turn their
+                            creative ideas into impactful
+                            campus realities.
+                        </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- How to Propose an Initiative -->
-    <section class="sico-guide" style="padding: 4rem 0;">
+
+    <!-- =========================================================
+         LAUNCH YOUR OWN INITIATIVE
+         ========================================================= -->
+
+    <section class="sico-guide">
+
         <div class="container">
+
             <div class="section-header">
-                <div class="kicker-pill"><span class="dot"></span> GET INVOLVED</div>
-                <h2 class="section-title">Launch Your Own Initiative</h2>
+
+                <div class="kicker-pill">
+                    <span class="dot"></span>
+                    GET INVOLVED
+                </div>
+
+                <h2 class="section-title">
+                    Launch Your Own Initiative
+                </h2>
+
                 <div class="title-underline"></div>
-                <p class="section-description">Have an idea that could benefit students or the community? SICO provides the platform, funding, and mentorship to bring it to life.</p>
+
+                <p class="section-description">
+                    Have an idea that could benefit students
+                    or the community? SICO provides the
+                    platform, funding, and mentorship to
+                    bring it to life.
+                </p>
+
             </div>
+
 
             <div class="reports-preview-grid">
+
                 <div class="report-preview-card">
-                    <div class="report-preview-icon">📋</div>
-                    <h3>1. Draft Your Proposal</h3>
-                    <p>Prepare a 1-page overview detailing your project goals, target audience, timeline, and estimated resource requirements.</p>
+
+                    <div class="report-preview-icon">
+                        📋
+                    </div>
+
+                    <h3>
+                        1. Draft Your Proposal
+                    </h3>
+
+                    <p>
+                        Prepare a 1-page overview detailing
+                        your project goals, target audience,
+                        timeline, and estimated resource
+                        requirements.
+                    </p>
+
                 </div>
+
+
                 <div class="report-preview-card">
-                    <div class="report-preview-icon">👥</div>
-                    <h3>2. Review with Coordinators</h3>
-                    <p>Meet with the EC &amp; CCAC student coordinators to refine the concept, logistics, and institutional permissions.</p>
+
+                    <div class="report-preview-icon">
+                        👥
+                    </div>
+
+                    <h3>
+                        2. Review with Coordinators
+                    </h3>
+
+                    <p>
+                        Meet with the EC &amp; CCAC student
+                        coordinators to refine the concept,
+                        logistics, and institutional
+                        permissions.
+                    </p>
+
                 </div>
+
+
                 <div class="report-preview-card">
-                    <div class="report-preview-icon">🚀</div>
-                    <h3>3. Execute on Campus</h3>
-                    <p>Launch with full promotional support across college networks, auditorium spaces, and institutional backing.</p>
+
+                    <div class="report-preview-icon">
+                        🚀
+                    </div>
+
+                    <h3>
+                        3. Execute on Campus
+                    </h3>
+
+                    <p>
+                        Launch with full promotional support
+                        across college networks, auditorium
+                        spaces, and institutional backing.
+                    </p>
+
                 </div>
+
             </div>
 
-            <div style="text-align: center; margin-top: 3.5rem;">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
-                   class="btn btn-primary"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    <span>Register for SICO Now</span>
+
+            <div
+                style="
+                    position:relative;
+                    z-index:2;
+                    text-align:center;
+                    margin-top:3.5rem;
+                ">
+
+                <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <span>
+                        Register for SICO Now
+                    </span>
+
                     <i>↗</i>
+
                 </a>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Floating Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to Top">
-        <svg class="progress-ring" width="48" height="48">
-            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
-            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
+
+    <!-- =========================================================
+         BACK TO TOP
+         ========================================================= -->
+
+    <button
+        class="back-to-top"
+        id="backToTop"
+        aria-label="Back to Top">
+
+        <svg
+            class="progress-ring"
+            width="48"
+            height="48">
+
+            <circle
+                class="progress-ring-bg"
+                stroke="rgba(255,255,255,0.1)"
+                stroke-width="3"
+                fill="transparent"
+                r="21"
+                cx="24"
+                cy="24">
+            </circle>
+
+            <circle
+                class="progress-ring-circle"
+                id="progressCircle"
+                stroke="url(#circleGradient)"
+                stroke-width="3"
+                stroke-linecap="round"
+                fill="transparent"
+                r="21"
+                cx="24"
+                cy="24">
+            </circle>
+
             <defs>
-                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#00f2fe"/>
-                    <stop offset="50%" stop-color="#7768e5"/>
-                    <stop offset="100%" stop-color="#fc6441"/>
+
+                <linearGradient
+                    id="circleGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%">
+
+                    <stop
+                        offset="0%"
+                        stop-color="#00f2fe">
+                    </stop>
+
+                    <stop
+                        offset="50%"
+                        stop-color="#7768e5">
+                    </stop>
+
+                    <stop
+                        offset="100%"
+                        stop-color="#fc6441">
+                    </stop>
+
                 </linearGradient>
+
             </defs>
+
         </svg>
-        <span class="arrow-up">↑</span>
+
+        <span class="arrow-up">
+            ↑
+        </span>
+
     </button>
 
-    <!-- Footer -->
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
     <footer class="footer">
+
         <div class="container">
+
             <div class="footer-content">
+
                 <div class="footer-section">
-                    <h3>EC &amp; CCAC</h3>
-                    <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
+
+                    <h3>
+                        EC &amp; CCAC
+                    </h3>
+
+                    <p>
+                        Extracurricular &amp; Co-Curricular
+                        Activities Committee<br>
+                        R.V.R. &amp; J.C. College of Engineering
+                    </p>
+
                 </div>
+
+
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
+
+                    <h4>
+                        Quick Links
+                    </h4>
+
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="events.html">Flagship Events</a></li>
-                        <li><a href="sico.html">SICO Portal</a></li>
-                        <li><a href="reports.html">Reports &amp; Archives</a></li>
-                        <li><a href="team.html">Our Team</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
+
+                        <li>
+                            <a href="index.html">
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="about.html">
+                                About
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="events.html">
+                                Flagship Events
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="sico.html">
+                                SICO Portal
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="reports.html">
+                                Reports &amp; Archives
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="team.html">
+                                Our Team
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="gallery.html">
+                                Gallery
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="contact.html">
+                                Contact Us
+                            </a>
+                        </li>
+
                     </ul>
+
                 </div>
+
+
                 <div class="footer-section">
-                    <h4>Connect</h4>
+
+                    <h4>
+                        Connect
+                    </h4>
+
                     <div class="footer-social">
-                        <a href="https://www.facebook.com/rvrjcce.official" class="footer-social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+
+                        <a
+                            href="https://www.facebook.com/rvrjcce.official"
+                            class="footer-social-link"
+                            aria-label="Facebook"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor">
+
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
+                                </path>
+
+                            </svg>
+
                         </a>
-                        <a href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo" class="footer-social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+
+
+                        <a
+                            href="https://www.instagram.com/rvrjc_cultural_club?igsh=ZzJpY2hqczExOTdo"
+                            class="footer-social-link"
+                            aria-label="Instagram"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor">
+
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.689-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.79 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z">
+                                </path>
+
+                            </svg>
+
                         </a>
-                        <a href="https://x.com/rvrjc_official" class="footer-social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+
+
+                        <a
+                            href="https://x.com/rvrjc_official"
+                            class="footer-social-link"
+                            aria-label="Twitter"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor">
+
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z">
+                                </path>
+
+                            </svg>
+
                         </a>
-                        <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+
+
+                        <a
+                            href="https://www.linkedin.com/school/r.v.r.-&-j.c.-college-of-engineering/"
+                            class="footer-social-link"
+                            aria-label="LinkedIn"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="currentColor">
+
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                                </path>
+
+                            </svg>
+
                         </a>
+
                     </div>
+
                 </div>
+
+
                 <div class="footer-section">
-                    <h4>Campus Address</h4>
-                    <p>Student Integrated Committee<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
+
+                    <h4>
+                        Campus Address
+                    </h4>
+
+                    <p>
+                        Student Integrated Committee<br>
+                        R.V.R. &amp; J.C. College of Engineering<br>
+                        Chandramoulipuram, Chowdavaram<br>
+                        Guntur, Andhra Pradesh 522019
+                    </p>
+
                 </div>
+
             </div>
+
+
             <div class="footer-bottom">
-                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="admin.html" class="footer-admin-link" title="Authorized Coordinator Studio">🔒 Coordinator Studio</a></p>
+
+                <p>
+                    &copy; 2026 EC &amp; CCAC ·
+                    R.V.R. &amp; J.C. College of Engineering.
+                    All rights reserved.
+
+                    <span class="footer-admin-sep">
+                        ·
+                    </span>
+
+                    <a
+                        href="admin.html"
+                        class="footer-admin-link"
+                        title="Authorized Coordinator Studio">
+
+                        🔒 Coordinator Studio
+
+                    </a>
+
+                </p>
+
             </div>
+
         </div>
+
     </footer>
 
-    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
+
+    <!-- =========================================================
+         FLOATING CONTROLS
+         ========================================================= -->
+
     <div class="hud-floating-controls">
-        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
+
+        <div
+            class="theme-roller-btn"
+            id="themeRoller"
+            role="switch"
+            aria-checked="false"
+            aria-label="Toggle Light and Dark Mode"
+            tabindex="0">
+
             <span class="roller-slider"></span>
-            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
-                <span class="roller-icon">🌙</span>
-                <span class="roller-text">Dark</span>
+
+            <span
+                class="roller-opt roller-opt-dark active"
+                data-theme-val="dark">
+
+                <span class="roller-icon">
+                    🌙
+                </span>
+
+                <span class="roller-text">
+                    Dark
+                </span>
+
             </span>
-            <span class="roller-opt roller-opt-light" data-theme-val="light">
-                <span class="roller-icon">☀️</span>
-                <span class="roller-text">Light</span>
+
+
+            <span
+                class="roller-opt roller-opt-light"
+                data-theme-val="light">
+
+                <span class="roller-icon">
+                    ☀️
+                </span>
+
+                <span class="roller-text">
+                    Light
+                </span>
+
             </span>
+
         </div>
-        <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
-            <span>🔍 SEARCH SPOTLIGHT</span>
-            <kbd class="hud-kbd-key">Ctrl + K</kbd>
+
+
+        <button
+            class="hud-ctrl-btn"
+            id="hudCmdTrigger"
+            aria-label="Open Campus Spotlight Search">
+
+            <span>
+                🔍 SEARCH SPOTLIGHT
+            </span>
+
+            <kbd class="hud-kbd-key">
+                Ctrl + K
+            </kbd>
+
         </button>
+
     </div>
 
-    <!-- Campus Spotlight Modal -->
-    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
+
+    <!-- =========================================================
+         SEARCH MODAL
+         ========================================================= -->
+
+    <div
+        class="cmd-palette-overlay"
+        id="cmdPaletteOverlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Campus Spotlight Search">
+
         <div class="cmd-palette">
+
             <div class="cmd-search-box">
-                <span class="cmd-search-icon">🔍</span>
-                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
-                <kbd class="hud-kbd-key">ESC</kbd>
+
+                <span class="cmd-search-icon">
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    class="cmd-input"
+                    id="cmdInput"
+                    placeholder="Search campus events, clubs, teams, quick actions..."
+                    autocomplete="off"
+                    spellcheck="false">
+
+                <kbd class="hud-kbd-key">
+                    ESC
+                </kbd>
+
             </div>
-            <div class="cmd-results" id="cmdResults">
+
+
+            <div
+                class="cmd-results"
+                id="cmdResults">
+
                 <!-- Results rendered dynamically by script.js -->
+
             </div>
+
+
             <div class="cmd-footer">
-                <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
-                <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
-                <span>EC &amp; CCAC · SICO Portal</span>
+
+                <span>
+                    Navigate:
+                    <kbd class="hud-kbd-key">↑</kbd>
+                    <kbd class="hud-kbd-key">↓</kbd>
+                </span>
+
+                <span>
+                    Select:
+                    <kbd class="hud-kbd-key">ENTER</kbd>
+                </span>
+
+                <span>
+                    EC &amp; CCAC · SICO Portal
+                </span>
+
             </div>
+
         </div>
+
     </div>
+
+
+    <!-- =========================================================
+         LOADER CONTROL
+         This does NOT replace script.js.
+         It only protects this page from duplicate loader
+         initialization and ensures the loader finishes once.
+         ========================================================= -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+            const loader = document.getElementById("pageLoader");
+
+            if (!loader) return;
+
+            let finished = false;
+
+            /*
+             * The main script.js controls the loader.
+             * This guard prevents accidental duplicate
+             * initialization if another script tries to
+             * create/show a second legacy loader.
+             */
+
+            window.__SICO_SINGLE_LOADER__ = true;
+
+            window.addEventListener("pageshow", function () {
+
+                if (
+                    sessionStorage.getItem("sicoNavigationLoader") === "1"
+                ) {
+
+                    sessionStorage.removeItem("sicoNavigationLoader");
+
+                    loader.classList.add("loader-hidden");
+
+                    document.body.classList.add("page-ready");
+
+                }
+
+            });
+
+            /*
+             * Safety fallback.
+             * If script.js fails to remove the loader,
+             * don't leave the entire website blocked.
+             */
+
+            setTimeout(function () {
+
+                if (finished) return;
+
+                finished = true;
+
+                loader.classList.add("loader-hidden");
+
+                document.body.classList.add("page-ready");
+
+            }, 6500);
+
+        })();
+
+    </script>
+
+
+    <!-- =========================================================
+         MAIN JAVASCRIPT
+         ========================================================= -->
 
     <script src="script.js"></script>
+
+
+    <!-- =========================================================
+         SICO NAVIGATION FIX
+         Prevents script.js from starting the loader twice
+         when this page is navigated to.
+         ========================================================= -->
+
+    <script>
+
+        (function () {
+
+            "use strict";
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    const link =
+                        event.target.closest("a");
+
+                    if (!link) return;
+
+                    const href =
+                        link.getAttribute("href");
+
+                    if (!href) return;
+
+                    if (
+                        href.startsWith("#") ||
+                        href.startsWith("mailto:") ||
+                        href.startsWith("tel:") ||
+                        link.target === "_blank" ||
+                        link.hasAttribute("download")
+                    ) {
+                        return;
+                    }
+
+                    let destination;
+
+                    try {
+
+                        destination = new URL(
+                            href,
+                            window.location.href
+                        );
+
+                    } catch (error) {
+
+                        return;
+
+                    }
+
+                    if (
+                        destination.origin !==
+                        window.location.origin
+                    ) {
+                        return;
+                    }
+
+                    /*
+                     * Do not interfere with script.js navigation
+                     * if the loader system is already handling it.
+                     */
+
+                    if (
+                        window.__SICO_SINGLE_LOADER__
+                    ) {
+
+                        sessionStorage.setItem(
+                            "sicoNavigationLoader",
+                            "1"
+                        );
+
+                    }
+
+                },
+                true
+            );
+
+        })();
+
+    </script>
+
 </body>
+
 </html>
