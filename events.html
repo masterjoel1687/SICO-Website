@@ -12,7 +12,7 @@
     
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="events-page">
     <!-- =========================================================
      SICO — CINEMATIC 5 SECOND LOADER
      ========================================================= -->
@@ -153,14 +153,29 @@
         </div>
     </header>
 
-    <!-- Page Banner -->
-    <section class="page-banner">
-        <div class="container">
+    <!-- Events Hero -->
+    <section class="page-banner events-page-hero">
+        <div class="container events-hero-layout">
             <div class="page-banner-content">
-                <div class="kicker-pill"><span class="dot"></span> 02 / CAMPUS HIGHLIGHTS</div>
-                <h1 class="page-banner-title">Flagship <span class="editorial-italic">Events &amp; Calendar</span></h1>
-                <p class="page-banner-subtitle">Official AY 2026–2027 calendar of celebrations, performances, exhibitions, and student competitions.</p>
+                <div class="events-hero-kicker"><span></span> EC &amp; CCAC · CAMPUS HIGHLIGHTS</div>
+                <h1 class="page-banner-title">A year made for <span class="editorial-italic">big moments.</span></h1>
+                <p class="page-banner-subtitle">Find your next stage, showcase, competition, or celebration in the official 2026–2027 campus calendar.</p>
+                <div class="events-hero-actions">
+                    <a href="#events" class="events-hero-button primary">Explore upcoming events <span aria-hidden="true">↓</span></a>
+                    <a href="#calendar" class="events-hero-button secondary">View full calendar <span aria-hidden="true">↗</span></a>
+                </div>
             </div>
+            <aside class="events-hero-edition" aria-label="Academic year at a glance">
+                <div class="events-hero-edition-top"><span>THE YEAR AHEAD</span><span>AY 26—27</span></div>
+                <div class="events-hero-edition-count">24</div>
+                <div class="events-hero-edition-label">events on the calendar</div>
+                <div class="events-hero-edition-stats">
+                    <div><strong>13</strong><span>upcoming</span></div>
+                    <div><strong>₹30k+</strong><span>in prizes</span></div>
+                </div>
+                <div class="events-hero-edition-rule"></div>
+                <div class="events-hero-edition-foot">MAKE ROOM FOR WHAT MOVES YOU <span>✳</span></div>
+            </aside>
         </div>
     </section>
  
@@ -193,6 +208,7 @@
                          data-title="Website Development &amp; Anime Video Making"
                          data-catname="Technical &amp; Multimedia"
                          data-date="30th September 2026"
+                         data-start="2026-09-30T13:00:00+05:30"
                          data-time="1:00 PM"
                          data-venue="SJB Seminar Hall"
                          data-prize="Web Dev: Up to ₹3,000 | Anime Making: Up to ₹1,500"
@@ -251,6 +267,7 @@
                          data-title="Club Waltz (Inter College Dance Competition)"
                          data-catname="Dance Club · Flagship Performing Arts"
                          data-date="05th &amp; 06th October 2026"
+                         data-start="2026-10-05T13:00:00+05:30"
                          data-time="1:00 Noon onwards"
                          data-venue="Open Air Theatre (OAT)"
                          data-prize="Solo: ₹1,500 | Jodi: ₹1,500 | Group: ₹3,000 Cash Awards"
@@ -309,6 +326,7 @@
                          data-title="Helping Hands Community Service Drive"
                          data-catname="Community Service &amp; Outreach"
                          data-date="24th October 2026"
+                         data-start="2026-10-24T10:00:00+05:30"
                          data-time="10:00 AM"
                          data-venue="Blind School &amp; Aged Home"
                          data-prize="Certificate of Commendation &amp; On-Duty Attendance"
@@ -367,6 +385,7 @@
                          data-title="Video Editing &amp; Graphic Design Contest"
                          data-catname="Digital Art &amp; Design"
                          data-date="05th December 2026"
+                         data-start="2026-12-05T14:00:00+05:30"
                          data-time="2:00 PM"
                          data-venue="SJB Seminar Hall"
                          data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
@@ -425,6 +444,7 @@
                          data-title="COLORIDO 2026 (Flagship Cultural &amp; Sports Fest)"
                          data-catname="Flagship Festival"
                          data-date="28th &amp; 29th December 2026"
+                         data-start="2026-12-28T09:00:00+05:30"
                          data-time="Full Day (2-Day Extravaganza)"
                          data-venue="Open Air Auditorium &amp; SAC Grounds"
                          data-prize="Institutional Trophies, Merit Citations &amp; ₹50,000+ Honors"
@@ -483,6 +503,7 @@
                          data-title="Rangoli &amp; Kite Flying Competition"
                          data-catname="Cultural Heritage"
                          data-date="08th January 2027"
+                         data-start="2027-01-08T14:00:00+05:30"
                          data-time="2:00 PM"
                          data-venue="SJB Portico"
                          data-prize="Up to ₹1,500 + 10 Consolation Prizes"
@@ -541,6 +562,7 @@
                          data-title="Western, Rap &amp; Band Showdown"
                          data-catname="Music &amp; Acoustic Bands"
                          data-date="06th February 2027"
+                         data-start="2027-02-06T14:00:00+05:30"
                          data-time="2:00 PM"
                          data-venue="SJB Seminar Hall"
                          data-prize="Group: ₹3,000 | Solo: ₹1,500"
@@ -599,6 +621,7 @@
                          data-title="Annual Campus Photography Contest"
                          data-catname="Visual &amp; Lens Media"
                          data-date="12th February 2027"
+                         data-start="2027-02-12T14:00:00+05:30"
                          data-time="2:00 PM"
                          data-venue="SJB Seminar Hall"
                          data-prize="I - ₹1500 | II - ₹1000 | III - ₹750"
@@ -657,6 +680,7 @@
                          data-title="42nd Annual Day Celebrations"
                          data-catname="Institutional Convocation"
                          data-date="05th March 2027"
+                         data-start="2027-03-05T09:00:00+05:30"
                          data-time="Full Day"
                          data-venue="Open Air Auditorium"
                          data-prize="Institutional Gold Medals, Merit Citations &amp; Rolling Trophies"
@@ -1153,6 +1177,15 @@
                 <span class="section-kicker-tag">🏆 MERIT &amp; HONORS DIRECTORY</span>
                 <h2 class="events-header-title">Champions &amp; Winners <span class="editorial-italic">Hall of Fame</span></h2>
                 <p class="events-header-subtitle">Official verified merit lists, student registration numbers, and cash prize awards for completed campus events and club competitions.</p>
+            </div>
+
+            <div class="winners-directory-toolbar" role="search">
+                <label class="winners-search-field" for="winnersSearchInput">
+                    <span aria-hidden="true">⌕</span>
+                    <input type="search" id="winnersSearchInput" placeholder="Search events, winners, registration numbers, or departments..." autocomplete="off">
+                </label>
+                <p class="winners-results-count" id="winnersResultsCount" role="status" aria-live="polite">Loading published results...</p>
+                <button class="winners-search-clear" id="winnersSearchClear" type="button" aria-label="Clear merit list search" title="Clear search" hidden>Clear</button>
             </div>
 
             <!-- Dynamic & Live Synchronized Completed Events Grid -->

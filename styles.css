@@ -12807,3 +12807,398 @@ select:focus-visible {
     }
 
 }
+
+/* ============================================================
+   EVENTS PAGE — HOMEPAGE EDITORIAL THEME
+   ============================================================ */
+body.events-page .page-banner {
+    padding: clamp(150px, 18vw, 210px) 0 clamp(76px, 9vw, 112px);
+    text-align: left;
+    background: radial-gradient(ellipse at 74% 42%, rgba(234, 88, 12, 0.16), transparent 38%),
+        radial-gradient(ellipse at 12% 78%, rgba(245, 158, 11, 0.09), transparent 35%),
+        linear-gradient(180deg, rgba(19, 23, 34, 0.4), transparent 88%);
+}
+
+body.events-page .events-hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+    align-items: center;
+    gap: clamp(40px, 8vw, 120px);
+}
+
+body.events-page .page-banner-content { max-width: 760px; margin: 0; }
+
+body.events-page .events-hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    color: var(--accent-gold);
+    font: 700 0.78rem/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+}
+
+body.events-page .events-hero-kicker span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-coral);
+    box-shadow: 0 0 14px rgba(234, 88, 12, 0.75);
+}
+
+body.events-page .page-banner-title {
+    max-width: 760px;
+    margin: 0 0 20px;
+    color: var(--text-primary);
+    font: 700 clamp(3rem, 6.5vw, 5.4rem)/1.05 var(--font-serif);
+    letter-spacing: 0;
+}
+
+body.events-page .page-banner-title .editorial-italic {
+    color: var(--accent-gold);
+    background: var(--grad-text-rainbow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.events-page .page-banner-subtitle {
+    max-width: 600px;
+    color: var(--text-secondary);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.75;
+}
+
+body.events-page .events-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+body.events-page .events-hero-button {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 0 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font: 700 0.9rem/1.2 var(--font-body);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+body.events-page .events-hero-button.primary { background: var(--grad-primary); color: #fff; box-shadow: var(--glow-coral); }
+body.events-page .events-hero-button.secondary { border-color: var(--border-card); background: rgba(255, 255, 255, 0.035); }
+body.events-page .events-hero-button:hover { transform: translateY(-3px); border-color: var(--accent-gold); }
+
+body.events-page .events-hero-edition {
+    position: relative;
+    max-width: 390px;
+    width: 100%;
+    justify-self: end;
+    padding: 26px 28px 22px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 158, 11, 0.28);
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(26, 32, 48, 0.92), rgba(19, 23, 34, 0.78));
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32), inset 0 1px rgba(255, 255, 255, 0.08);
+    animation: eventsEditionReveal 0.8s 0.15s both;
+}
+
+body.events-page .events-hero-edition::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    right: -76px;
+    top: -88px;
+    border: 1px solid rgba(245, 158, 11, 0.19);
+    border-radius: 50%;
+    box-shadow: 0 0 0 22px rgba(245, 158, 11, 0.025), 0 0 0 44px rgba(245, 158, 11, 0.02);
+    pointer-events: none;
+}
+
+body.events-page .events-hero-edition-top,
+body.events-page .events-hero-edition-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-muted); font: 500 0.68rem/1.4 var(--font-mono); letter-spacing: 0.05em; }
+body.events-page .events-hero-edition-top span:last-child,
+body.events-page .events-hero-edition-foot span { color: var(--accent-coral); }
+body.events-page .events-hero-edition-count { margin-top: 20px; color: var(--text-primary); font: 700 clamp(5rem, 8vw, 6.5rem)/0.95 var(--font-serif); }
+body.events-page .events-hero-edition-label { margin-top: 8px; color: var(--text-secondary); font-size: 0.95rem; }
+body.events-page .events-hero-edition-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 27px; }
+body.events-page .events-hero-edition-stats div { display: flex; flex-direction: column; gap: 3px; }
+body.events-page .events-hero-edition-stats strong { color: var(--accent-gold); font: 700 1.3rem/1.2 var(--font-heading); }
+body.events-page .events-hero-edition-stats span { color: var(--text-muted); font: 500 0.72rem/1.4 var(--font-mono); }
+body.events-page .events-hero-edition-rule { height: 1px; margin: 22px 0 15px; background: linear-gradient(90deg, var(--accent-coral), rgba(245, 158, 11, 0.08)); }
+body.events-page .events-hero-edition-foot { color: var(--text-secondary); font-size: 0.6rem; }
+
+@keyframes eventsEditionReveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body.events-page .events-showcase-wrap,
+body.events-page .calendar-official-banner {
+    border-color: var(--border-card);
+    background: linear-gradient(145deg, rgba(26, 32, 48, 0.9), rgba(19, 23, 34, 0.9));
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+body.events-page .events-showcase-wrap::before,
+body.events-page .calendar-official-banner::before { background: var(--grad-primary); }
+body.events-page .events-header-title,
+body.events-page .event-card-title,
+body.events-page .banner-institute-title,
+body.events-page .banner-stat-item strong,
+body.events-page .cal-date-day,
+body.events-page .cal-club-name { color: var(--text-primary); }
+body.events-page .events-header-subtitle,
+body.events-page .event-card-snippet,
+body.events-page .cal-event-desc { color: var(--text-secondary); }
+body.events-page .section-kicker-tag,
+body.events-page .banner-top-meta,
+body.events-page .banner-academic-badge,
+body.events-page .event-date-pill { color: var(--accent-gold); }
+
+body.events-page .event-date-pill,
+body.events-page .banner-academic-badge,
+body.events-page .cal-club-badge,
+body.events-page .prize-badge {
+    border-color: rgba(245, 158, 11, 0.25);
+    background: rgba(245, 158, 11, 0.08);
+}
+
+body.events-page .event-card-modern { border-color: var(--border-card); border-radius: 12px; background: rgba(12, 15, 23, 0.62); }
+body.events-page .event-card-modern:hover { border-color: rgba(245, 158, 11, 0.58); box-shadow: var(--glow-amber); }
+body.events-page .event-card-modern.card-imminent { border-color: rgba(16, 185, 129, 0.38); background: linear-gradient(160deg, rgba(16, 185, 129, 0.08), rgba(12, 15, 23, 0.72) 55%); }
+body.events-page .event-card-modern.card-fest { border-color: rgba(234, 88, 12, 0.45); background: linear-gradient(160deg, rgba(234, 88, 12, 0.11), rgba(12, 15, 23, 0.72) 55%); }
+body.events-page .event-details-box { border-color: var(--border-card); background: rgba(8, 10, 16, 0.5); }
+body.events-page .detail-value { color: var(--text-primary); }
+body.events-page .event-card-modern .status-prize { color: var(--accent-gold); border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.1); }
+body.events-page .btn-card-primary:hover { border-color: var(--accent-coral); background: rgba(234, 88, 12, 0.14); box-shadow: var(--glow-coral); }
+body.events-page .events-bottom-cta { border-color: rgba(245, 158, 11, 0.2); background: rgba(12, 15, 23, 0.48); }
+body.events-page .cta-info { color: var(--text-secondary); }
+
+body.events-page .calendar-controls-bar,
+body.events-page .calendar-table-responsive { border-color: var(--border-card); background: rgba(19, 23, 34, 0.82); box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22); }
+body.events-page .calendar-search-box input { border-color: var(--border-card); background: rgba(12, 15, 23, 0.75); color: var(--text-primary); }
+body.events-page .calendar-search-box input:focus,
+body.events-page .cal-filter-btn:hover,
+body.events-page .cal-filter-btn.active { border-color: var(--accent-amber); color: var(--accent-gold); box-shadow: var(--glow-amber); }
+body.events-page .cal-filter-btn:hover,
+body.events-page .cal-filter-btn.active { background: rgba(245, 158, 11, 0.12); }
+body.events-page .editorial-table thead tr,
+body.events-page .cyber-table thead tr { background: var(--bg-dark-alt); }
+body.events-page .editorial-table th,
+body.events-page .cyber-table th { color: var(--accent-gold); }
+body.events-page .cal-club-badge,
+body.events-page .prize-badge { color: var(--accent-gold); }
+
+body.events-page .events { background: linear-gradient(180deg, var(--bg-dark), var(--bg-dark-surface)); }
+body.events-page .events::before { background: radial-gradient(circle at 18% 24%, rgba(234, 88, 12, 0.08), transparent 46%), radial-gradient(circle at 84% 75%, rgba(245, 158, 11, 0.06), transparent 45%); }
+body.events-page .event-card { border: 1px solid var(--border-card); border-radius: 12px; background: var(--bg-card); box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24); }
+body.events-page .event-card::before { border-radius: 11px; border-color: rgba(255, 255, 255, 0.05); }
+body.events-page .event-card::after { background: radial-gradient(circle at 20% 20%, rgba(234, 88, 12, 0.12), transparent 58%); }
+body.events-page .event-card:hover { border-color: rgba(245, 158, 11, 0.52); box-shadow: var(--glow-amber); }
+body.events-page .event-content { background: transparent; }
+body.events-page .event-title { color: var(--text-primary); }
+body.events-page .event-description { color: var(--text-secondary); }
+body.events-page .event-card:hover .event-title { background: var(--grad-text-rainbow); -webkit-background-clip: text; background-clip: text; }
+body.events-page .event-category { color: var(--accent-gold); background: rgba(245, 158, 11, 0.1); }
+body.events-page .event-card:hover .event-category { background: var(--grad-primary); color: #fff; }
+body.events-page .highlight-pill { border-color: rgba(245, 158, 11, 0.2); background: rgba(245, 158, 11, 0.07); color: var(--text-secondary); box-shadow: none; }
+body.events-page .highlight-pill::before { background: var(--grad-primary); box-shadow: 0 0 8px rgba(234, 88, 12, 0.35); }
+body.events-page .highlight-pill:hover { border-color: rgba(245, 158, 11, 0.42); background: rgba(245, 158, 11, 0.13); color: var(--text-primary); }
+body.events-page .event-footer-note { border-color: var(--border-card); color: var(--text-muted); }
+
+body.events-page .events-showcase-section { padding-top: 24px; }
+body.events-page .events-showcase-wrap { gap: 30px; }
+body.events-page .events-section-header { align-items: center; }
+body.events-page .events-filter-bar { gap: 4px; padding: 5px; border-radius: 10px; }
+body.events-page .filter-pill { border-radius: 7px; padding: 9px 12px; }
+body.events-page .filter-pill.active { border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.13); color: var(--accent-gold); box-shadow: none; }
+body.events-page .filter-pill:focus-visible,
+body.events-page .btn-card-primary:focus-visible,
+body.events-page .btn-card-register:focus-visible,
+body.events-page .btn-winner-details:focus-visible,
+body.events-page .winners-search-clear:focus-visible,
+body.events-page .winners-search-field input:focus-visible { outline: 3px solid var(--accent-gold); outline-offset: 3px; }
+body.events-page .event-card-modern { min-height: 100%; }
+body.events-page .event-card-modern::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--accent-amber); opacity: 0.45; }
+body.events-page .event-card-modern.card-imminent::before { background: var(--accent-green); opacity: 0.9; }
+body.events-page .event-card-modern.card-fest::before { background: var(--accent-coral); opacity: 0.9; }
+body.events-page .event-card-modern[hidden],
+body.events-page .winner-event-card[hidden] { display: none !important; }
+
+body.events-page .winners-hall-section { padding-top: clamp(4rem, 7vw, 6rem); }
+body.events-page .winners-hall-header { margin-bottom: 28px; }
+body.events-page .winners-hall-header .events-header-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.1rem); }
+body.events-page .winners-directory-toolbar {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) auto auto;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    margin: 0 0 22px;
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    background: rgba(19, 23, 34, 0.68);
+}
+body.events-page .winners-search-field {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    color: var(--accent-gold);
+}
+body.events-page .winners-search-field > span { font-size: 1.45rem; line-height: 1; }
+body.events-page .winners-search-field input {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid var(--border-card);
+    border-radius: 7px;
+    background: rgba(12, 15, 23, 0.75);
+    color: var(--text-primary);
+    font: 500 0.9rem/1.4 var(--font-body);
+}
+body.events-page .winners-search-field input::placeholder { color: var(--text-muted); }
+body.events-page .winners-search-field input:focus { border-color: var(--accent-amber); outline: 0; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12); }
+body.events-page .winners-results-count { margin: 0; color: var(--text-secondary); font: 500 0.76rem/1.5 var(--font-mono); white-space: nowrap; }
+body.events-page .winners-search-clear {
+    min-height: 38px;
+    padding: 0 13px;
+    border: 1px solid var(--border-card);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-primary);
+    font: 600 0.8rem var(--font-body);
+    cursor: pointer;
+}
+body.events-page .winners-search-clear:hover { border-color: var(--accent-coral); color: var(--accent-coral); }
+body.events-page .winners-hall-grid { grid-template-columns: 1fr; gap: 18px; }
+body.events-page .winner-event-card {
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    background: linear-gradient(145deg, rgba(26, 32, 48, 0.84), rgba(19, 23, 34, 0.9));
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+body.events-page .winner-event-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: var(--grad-primary); opacity: 0.85; }
+body.events-page .winner-event-card:hover { transform: translateY(-3px); border-color: rgba(245, 158, 11, 0.4); box-shadow: var(--glow-amber); }
+body.events-page .winner-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 22px 24px 17px;
+    border-bottom: 1px solid var(--border-card);
+}
+body.events-page .winner-club-badge {
+    display: inline-flex;
+    margin-bottom: 8px;
+    color: var(--accent-gold);
+    font: 700 0.7rem/1.4 var(--font-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+body.events-page .winner-event-title { font: 700 clamp(1.1rem, 2vw, 1.45rem)/1.25 var(--font-heading); }
+body.events-page .winner-event-meta { display: flex; flex-wrap: wrap; gap: 7px 16px; color: var(--text-muted); font: 500 0.72rem/1.5 var(--font-mono); }
+body.events-page .winner-prize-pool { border-color: rgba(16, 185, 129, 0.24); background: rgba(16, 185, 129, 0.1); color: #34d399; text-align: right; }
+body.events-page .winner-card-actions { display: flex; justify-content: flex-end; padding: 0 24px 20px; }
+body.events-page .btn-winner-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+    padding: 0 14px;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 7px;
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--accent-gold);
+    font: 700 0.78rem var(--font-body);
+    cursor: pointer;
+    transition: var(--transition);
+}
+body.events-page .btn-winner-details:hover { transform: translateY(-2px); background: rgba(245, 158, 11, 0.16); box-shadow: var(--glow-amber); }
+body.events-page .winner-event-summary { margin: 14px 24px 4px; color: var(--text-secondary); font-size: 0.88rem; line-height: 1.65; }
+body.events-page .winner-table-wrap { padding: 14px 24px 18px; }
+body.events-page .winner-table { min-width: 900px; font-size: 0.82rem; }
+body.events-page .winner-table th { color: var(--accent-gold); font: 600 0.67rem/1.4 var(--font-mono); letter-spacing: 0.04em; }
+body.events-page .winner-table td { color: var(--text-secondary); line-height: 1.45; }
+body.events-page .winner-regd-pill { display: inline-block; color: var(--accent-cyan); white-space: nowrap; }
+body.events-page .winner-cash-text { color: #34d399; }
+body.events-page .winners-no-results { grid-column: 1 / -1; margin: 0; padding: 32px 20px; border: 1px dashed var(--border-card); border-radius: 10px; color: var(--text-secondary); text-align: center; }
+
+[data-theme="light"] body.events-page .winners-directory-toolbar,
+[data-theme="champagne"] body.events-page .winners-directory-toolbar { background: rgba(255, 255, 255, 0.78); }
+[data-theme="light"] body.events-page .winners-search-field input,
+[data-theme="champagne"] body.events-page .winners-search-field input { background: #fff; }
+[data-theme="light"] body.events-page .winner-event-card,
+[data-theme="champagne"] body.events-page .winner-event-card { background: linear-gradient(145deg, #fff, var(--bg-dark-surface)); }
+[data-theme="light"] body.events-page .winner-table td,
+[data-theme="champagne"] body.events-page .winner-table td { color: var(--text-secondary); }
+
+@media (max-width: 700px) {
+    body.events-page .winners-directory-toolbar { grid-template-columns: 1fr auto; gap: 10px; }
+    body.events-page .winners-search-field { grid-column: 1 / -1; }
+    body.events-page .winner-card-header { flex-direction: column; gap: 14px; padding: 20px 18px 15px; }
+    body.events-page .winner-card-header > div:last-child { align-items: flex-start !important; }
+    body.events-page .winner-prize-pool { text-align: left; }
+    body.events-page .winner-table-wrap { padding: 12px 16px 16px; overflow: visible; }
+    body.events-page .winner-table { min-width: 0; }
+    body.events-page .winner-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+    body.events-page .winner-table,
+    body.events-page .winner-table tbody,
+    body.events-page .winner-table tr { display: block; width: 100%; }
+    body.events-page .winner-table tr { margin: 0 0 12px; padding: 8px 12px; border: 1px solid var(--border-card); border-radius: 8px; background: rgba(255, 255, 255, 0.025); }
+    body.events-page .winner-table td { display: grid; grid-template-columns: minmax(92px, 0.7fr) minmax(0, 1.3fr); gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border-card); overflow-wrap: anywhere; }
+    body.events-page .winner-table td:last-child { border-bottom: 0; }
+    body.events-page .winner-table td::before { color: var(--text-muted); font: 500 0.62rem/1.5 var(--font-mono); text-transform: uppercase; }
+    body.events-page .winner-table td:nth-child(1)::before { content: "Rank"; }
+    body.events-page .winner-table td:nth-child(2)::before { content: "Winner"; }
+    body.events-page .winner-table td:nth-child(3)::before { content: "Reg. No."; }
+    body.events-page .winner-table td:nth-child(4)::before { content: "Dept."; }
+    body.events-page .winner-table td:nth-child(5)::before { content: "Prize"; }
+    body.events-page .winner-table td:nth-child(6)::before { content: "Project"; }
+    body.events-page .winner-table .rank-badge-1,
+    body.events-page .winner-table .rank-badge-2,
+    body.events-page .winner-table .rank-badge-3 { justify-self: start; }
+    body.events-page .winner-card-actions { padding: 0 18px 18px; }
+}
+
+@media (max-width: 420px) {
+    body.events-page .winners-results-count { white-space: normal; font-size: 0.68rem; }
+    body.events-page .event-card-footer { align-items: stretch; flex-direction: column; }
+    body.events-page .btn-card-primary,
+    body.events-page .btn-card-register { width: 100%; }
+    body.events-page .winner-table td { grid-template-columns: 82px minmax(0, 1fr); }
+}
+
+[data-theme="light"] body.events-page .events-hero-edition,
+[data-theme="champagne"] body.events-page .events-hero-edition { border-color: rgba(180, 83, 9, 0.22); background: linear-gradient(145deg, #fff, var(--bg-dark-surface)); box-shadow: 0 24px 60px rgba(120, 53, 15, 0.1); }
+[data-theme="light"] body.events-page .event-card-modern,
+[data-theme="champagne"] body.events-page .event-card-modern { background: rgba(255, 255, 255, 0.86); }
+[data-theme="light"] body.events-page .event-card-modern.card-imminent,
+[data-theme="champagne"] body.events-page .event-card-modern.card-imminent { background: linear-gradient(160deg, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.9) 60%); }
+[data-theme="light"] body.events-page .event-card-modern.card-fest,
+[data-theme="champagne"] body.events-page .event-card-modern.card-fest { background: linear-gradient(160deg, rgba(234, 88, 12, 0.09), rgba(255, 255, 255, 0.9) 60%); }
+[data-theme="light"] body.events-page .calendar-controls-bar,
+[data-theme="champagne"] body.events-page .calendar-controls-bar,
+[data-theme="light"] body.events-page .calendar-table-responsive,
+[data-theme="champagne"] body.events-page .calendar-table-responsive { background: rgba(255, 255, 255, 0.88); }
+[data-theme="light"] body.events-page .calendar-search-box input,
+[data-theme="champagne"] body.events-page .calendar-search-box input { background: #fff; color: var(--text-primary); }
+[data-theme="light"] body.events-page .event-card,
+[data-theme="champagne"] body.events-page .event-card { background: rgba(255, 255, 255, 0.92); box-shadow: 0 16px 42px rgba(120, 53, 15, 0.08); }
+
+@media (max-width: 760px) {
+    body.events-page .page-banner { padding-top: 135px; text-align: left; }
+    body.events-page .events-hero-layout { grid-template-columns: 1fr; gap: 38px; }
+    body.events-page .events-hero-edition { max-width: none; justify-self: stretch; }
+    body.events-page .page-banner-title { font-size: clamp(2.8rem, 12vw, 4.2rem); }
+}
+
+@media (max-width: 480px) {
+    body.events-page .events-hero-actions { align-items: stretch; flex-direction: column; }
+    body.events-page .events-hero-button { justify-content: space-between; }
+    body.events-page .calendar-official-banner { padding: 22px 18px; }
+    body.events-page .banner-institute-title { font-size: 1.25rem; }
+}

@@ -1645,6 +1645,65 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventCardsModern = document.querySelectorAll('.event-card-modern, .spotlight-card');
     const spotlightDigitalCountdown = document.getElementById('spotlightDigitalCountdown');
     const spotlightDigitalCountdownEvents = document.getElementById('spotlightDigitalCountdownEvents');
+    const datedEventCards = [...document.querySelectorAll('#eventsGridModern .event-card-modern[data-start]')];
+
+    function updateUpcomingEvents() {
+        const now = Date.now();
+        const dayLength = 24 * 60 * 60 * 1000;
+
+        datedEventCards.forEach(card => {
+            const startTime = Date.parse(card.dataset.start);
+            const isPast = !Number.isFinite(startTime) || startTime <= now;
+            const daysUntil = isPast ? 0 : Math.ceil((startTime - now) / dayLength);
+            const categories = (card.dataset.type || '').split(/\s+/).filter(Boolean).filter(type => type !== 'imminent');
+            const status = card.querySelector('.event-status-pill');
+
+            card.dataset.expired = String(isPast);
+            if (status && !status.dataset.defaultLabel) status.dataset.defaultLabel = status.textContent;
+
+            if (isPast) {
+                card.classList.add('hidden');
+                card.classList.remove('card-imminent');
+                if (status) {
+                    status.classList.remove('status-imminent');
+                    status.textContent = '✓ Completed';
+                }
+                card.dataset.type = categories.join(' ');
+                return;
+            }
+
+            if (daysUntil <= 30) {
+                categories.push('imminent');
+                card.classList.add('card-imminent');
+                if (status) {
+                    status.classList.add('status-imminent');
+                    status.textContent = daysUntil === 0 ? '⚡ Today' : `⚡ In ${daysUntil} day${daysUntil === 1 ? '' : 's'}`;
+                }
+            } else {
+                card.classList.remove('card-imminent');
+                if (status) {
+                    status.classList.remove('status-imminent');
+                    status.textContent = status.dataset.defaultLabel;
+                }
+            }
+
+            card.dataset.type = categories.join(' ');
+        });
+
+        const filterBar = document.getElementById('eventsFilterBar');
+        if (filterBar) {
+            filterBar.querySelectorAll('.filter-pill').forEach(pill => {
+                const filter = pill.dataset.filter;
+                if (!pill.dataset.label) pill.dataset.label = pill.textContent.replace(/\s*\(\d+\)$/, '');
+                const count = datedEventCards.filter(card => card.dataset.expired !== 'true' &&
+                    (filter === 'all' || (card.dataset.type || '').split(/\s+/).includes(filter))).length;
+                pill.textContent = `${pill.dataset.label} (${count})`;
+            });
+        }
+    }
+
+    updateUpcomingEvents();
+    if (datedEventCards.length) setInterval(updateUpcomingEvents, 60000);
 
     // 1. Live Countdown for Digital Club Event (30 Sep 2026, 1:00 PM IST)
     const digitalEventTime = new Date('2026-09-30T13:00:00+05:30').getTime();
@@ -1660,8 +1719,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = badgeStr;
             if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = badgeStr;
         } else {
-            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = '⚡ Event Live Now';
-            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = '⚡ Event Live Now';
+            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = '✓ Completed · 30 Sep';
+            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = '✓ Completed · 30 Sep';
         }
     }
     tickDigitalCountdown();
@@ -1677,7 +1736,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 eventCardsModern.forEach(card => {
                     const cardType = card.getAttribute('data-type') || '';
-                    if (filter === 'all' || cardType.includes(filter)) {
+                    const isExpired = card.dataset.expired === 'true';
+                    if (!isExpired && (filter === 'all' || cardType.split(/\s+/).includes(filter))) {
                         card.classList.remove('hidden');
                         card.style.opacity = '0';
                         card.style.transform = 'translateY(12px)';
@@ -2057,7 +2117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                 </div>
 
-                                ${comp.summary ? `<p style="padding: 0 1.5rem 0.5rem; font-size: 0.88rem; color: var(--text-secondary); margin: 0;">${comp.summary}</p>` : ''}
+                                ${comp.summary ? `<p class="winner-event-summary">${comp.summary}</p>` : ''}
 
                                 <div class="winner-table-wrap">
                                     <table class="winner-table">
@@ -2093,10 +2153,70 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="winner-card-actions">
+                                    <button type="button" class="btn-winner-details" data-winner-id="${comp.id}">
+                                        <span>View full merit list</span><span aria-hidden="true">↗</span>
+                                    </button>
+                                </div>
                             </div>
                         `;
                     }).join('');
                 }
+
+                const winnersSearchInput = document.getElementById('winnersSearchInput');
+                const winnersResultsCount = document.getElementById('winnersResultsCount');
+                const winnersSearchClear = document.getElementById('winnersSearchClear');
+                const updateWinnersDirectory = () => {
+                    const cards = [...winnersGrid.querySelectorAll('.winner-event-card')];
+                    const query = (winnersSearchInput?.value || '').trim().toLowerCase();
+                    let visibleEvents = 0;
+                    let visibleAwardees = 0;
+
+                    cards.forEach(card => {
+                        const matches = !query || card.textContent.toLowerCase().includes(query);
+                        card.hidden = !matches;
+                        if (matches) {
+                            visibleEvents++;
+                            visibleAwardees += card.querySelectorAll('.winner-table tbody tr').length;
+                        }
+                    });
+
+                    if (winnersResultsCount) {
+                        winnersResultsCount.textContent = query
+                            ? `${visibleEvents} of ${cards.length} merit lists match`
+                            : `${cards.length} completed events · ${visibleAwardees} awardees`;
+                    }
+                    if (winnersSearchClear) winnersSearchClear.hidden = !query;
+
+                    let emptyMessage = winnersGrid.querySelector('.winners-no-results');
+                    if (query && visibleEvents === 0) {
+                        if (!emptyMessage) {
+                            emptyMessage = document.createElement('p');
+                            emptyMessage.className = 'winners-no-results';
+                            emptyMessage.textContent = 'No merit lists match that search. Try a name, registration number, or event.';
+                            winnersGrid.appendChild(emptyMessage);
+                        }
+                    } else {
+                        emptyMessage?.remove();
+                    }
+                };
+
+                if (winnersSearchInput) winnersSearchInput.oninput = updateWinnersDirectory;
+                if (winnersSearchClear) {
+                    winnersSearchClear.onclick = () => {
+                        if (!winnersSearchInput) return;
+                        winnersSearchInput.value = '';
+                        updateWinnersDirectory();
+                        winnersSearchInput.focus();
+                    };
+                }
+                winnersGrid.onclick = event => {
+                    const button = event.target.closest('.btn-winner-details');
+                    if (!button || !window.viewCompletedWinnersModal) return;
+                    const selectedEvent = completedEvents.find(item => String(item.id) === button.dataset.winnerId);
+                    if (selectedEvent) window.viewCompletedWinnersModal(selectedEvent.id);
+                };
+                updateWinnersDirectory();
             }
 
             // Connect completed calendar table rows to view merit winners
