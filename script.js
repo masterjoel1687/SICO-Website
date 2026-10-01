@@ -2,11 +2,90 @@
 // EC & CCAC - SICO ULTIMATE UI & UX SCRIPT
 // ============================================
 
+/* ============================================================
+   SICO — CINEMATIC LOADER (MAIN DRIVER)
+   Total runtime: 5.0s  →  letter reveal, underline, subtitle
+   ============================================================ */
+(function () {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+
+    const progressBar = document.getElementById('loaderProgressBar');
+    const percentage  = document.getElementById('loaderPercentage');
+    const status      = document.getElementById('loaderStatus');
+    const message     = document.getElementById('loaderMessage');
+
+    const duration = 5000; // 5 seconds total
+
+    const stages = [
+        { progress: 0,   status: 'INITIALIZING',  message: 'Preparing your experience...' },
+        { progress: 10,  status: 'CONNECTING',    message: 'Establishing campus interface...' },
+        { progress: 22,  status: 'LOADING',       message: 'Loading SICO resources...' },
+        { progress: 36,  status: 'SYNCHRONIZING', message: 'Synchronizing student activities...' },
+        { progress: 50,  status: 'BUILDING',      message: 'Building your campus experience...' },
+        { progress: 64,  status: 'PREPARING',     message: 'Preparing events & initiatives...' },
+        { progress: 78,  status: 'ALMOST READY',  message: 'Everything is coming together...' },
+        { progress: 90,  status: 'FINALIZING',    message: 'Finalizing your experience...' },
+        { progress: 100, status: 'WELCOME',       message: 'Welcome to SICO.' }
+    ];
+
+    let startTime = performance.now();
+    let stageIndex = 0;
+    let animationRunning = true;
+
+    function updateLoader(progress) {
+        progress = Math.min(100, Math.max(0, progress));
+        if (progressBar) progressBar.style.width = progress + '%';
+        if (percentage)  percentage.textContent  = Math.floor(progress) + '%';
+
+        while (stageIndex < stages.length - 1 &&
+               progress >= stages[stageIndex + 1].progress) {
+            stageIndex++;
+            const current = stages[stageIndex];
+            if (message) message.classList.add('message-changing');
+            setTimeout(() => {
+                if (status)  status.textContent  = current.status;
+                if (message) {
+                    message.textContent = current.message;
+                    message.classList.remove('message-changing');
+                }
+            }, 150);
+        }
+    }
+
+    function animateLoader(currentTime) {
+        if (!animationRunning) return;
+        const elapsed  = currentTime - startTime;
+        const progress = Math.min((elapsed / duration) * 100, 100);
+        updateLoader(progress);
+        if (elapsed < duration) {
+            requestAnimationFrame(animateLoader);
+        } else {
+            finishLoader();
+        }
+    }
+
+    function finishLoader() {
+        updateLoader(100);
+        if (status)  status.textContent  = 'WELCOME';
+        if (message) message.textContent = 'Welcome to SICO.';
+
+        const word = document.getElementById('sicoWord');
+        if (word) word.classList.add('sico-final-impact');
+
+        setTimeout(() => {
+            loader.classList.add('loader-hidden');
+            document.body.classList.add('page-ready');
+            animationRunning = false;
+            setTimeout(() => loader.remove(), 1000);
+        }, 450);
+    }
+
+    requestAnimationFrame(animateLoader);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // -------------------------------------------------------------
-    // 1. HERO CANVAS PARTICLE NETWORK
-    // -------------------------------------------------------------
     // -------------------------------------------------------------
     // 1. WARM AMBIENT LIGHT & FLOATING EMBERS CANVAS
     // -------------------------------------------------------------
@@ -19,9 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const emberCount = window.innerWidth < 768 ? 22 : 45;
         let heroMouse = { x: null, y: null, radius: 160 };
 
-        // Safe fallback for window.triggerWarpSpeed if invoked
         window.triggerWarpSpeed = function() {
-            // Soft warm pulse instead of sci-fi warp
             embers.forEach(e => {
                 e.vy -= 2;
                 e.alpha = Math.min(0.8, e.alpha + 0.3);
@@ -29,17 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const warmPalettes = [
-            'rgba(245, 158, 11, ',   // Warm Amber Gold
-            'rgba(225, 29, 72, ',    // Festival Vermilion
-            'rgba(251, 191, 36, ',   // Soft Champagne
-            'rgba(234, 88, 12, '     // Warm Coral
+            'rgba(245, 158, 11, ',
+            'rgba(225, 29, 72, ',
+            'rgba(251, 191, 36, ',
+            'rgba(234, 88, 12, '
         ];
 
         class WarmEmber {
-            constructor() {
-                this.reset(true);
-            }
-
+            constructor() { this.reset(true); }
             reset(initial = false) {
                 this.x = Math.random() * width;
                 this.y = initial ? Math.random() * height : height + Math.random() * 40;
@@ -52,14 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.pulseSpeed = Math.random() * 0.02 + 0.01;
                 this.pulseAngle = Math.random() * Math.PI * 2;
             }
-
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
                 this.pulseAngle += this.pulseSpeed;
                 this.alpha = this.baseAlpha + Math.sin(this.pulseAngle) * 0.12;
 
-                // Subtle gentle deflection away from cursor
                 if (heroMouse.x !== null) {
                     const dx = heroMouse.x - this.x;
                     const dy = heroMouse.y - this.y;
@@ -75,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.reset(false);
                 }
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -87,21 +158,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        for (let i = 0; i < emberCount; i++) {
-            embers.push(new WarmEmber());
-        }
+        for (let i = 0; i < emberCount; i++) embers.push(new WarmEmber());
 
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
-
-            embers.forEach(ember => {
-                ember.update();
-                ember.draw();
-            });
-
+            embers.forEach(ember => { ember.update(); ember.draw(); });
             requestAnimationFrame(animateCanvas);
         }
-
         animateCanvas();
 
         const heroSection = document.getElementById('home');
@@ -139,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
-
         function animateCursor() {
             currentX += (mouseX - currentX) * 0.12;
             currentY += (mouseY - currentY) * 0.12;
@@ -159,25 +221,18 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#' || !targetId.startsWith('#')) return;
-
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
                 e.preventDefault();
                 const headerEl = document.querySelector('.header');
                 const headerHeight = headerEl ? headerEl.offsetHeight : 80;
                 const targetPosition = targetSection.offsetTop - headerHeight + 10;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 const navMenu = document.getElementById('navMenu');
                 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
                 if (navMenu) navMenu.classList.remove('active');
                 if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
                 document.body.classList.remove('nav-open');
-
                 updateActiveNavLink(targetId);
             }
         });
@@ -186,9 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateActiveNavLink(hash) {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === hash) {
-                link.classList.add('active');
-            }
+            if (link.getAttribute('href') === hash) link.classList.add('active');
         });
     }
 
@@ -199,14 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         let current = '';
         const headerHeight = header ? header.offsetHeight : 80;
-
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             if (window.pageYOffset >= (sectionTop - headerHeight - 140)) {
                 current = section.getAttribute('id');
             }
         });
-
         if (current) {
             const hasHashLinks = Array.from(navLinks).some(link => {
                 const href = link.getAttribute('href');
@@ -217,22 +268,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     const href = link.getAttribute('href');
                     if (href && href.startsWith('#')) {
                         link.classList.remove('active');
-                        if (href === `#${current}`) {
-                            link.classList.add('active');
-                        }
+                        if (href === `#${current}`) link.classList.add('active');
                     }
                 });
             }
         }
-
         if (header) {
-            if (window.scrollY > 40) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 40) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         }
-
         const readingProgressBar = document.getElementById('readingProgressBar');
         if (readingProgressBar) {
             const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
@@ -242,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Mobile Menu Toggle
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const navMenu = document.getElementById('navMenu');
 
@@ -252,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileMenuToggle.classList.toggle('active');
             document.body.classList.toggle('nav-open');
         });
-
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target) && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
@@ -273,25 +315,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = parseInt(item.getAttribute('data-count'), 10);
             const suffix = item.getAttribute('data-suffix') || '';
             const numberEl = item.querySelector('.stat-number');
-            const duration = 1800; // 1.8s
+            const duration = 1800;
             const startTime = performance.now();
-
             function updateNumber(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                // Ease-out cubic formula
                 const easeOut = 1 - Math.pow(1 - progress, 3);
                 const currentVal = Math.floor(easeOut * target);
-
-                if (numberEl) {
-                    numberEl.textContent = `${currentVal.toLocaleString()}${suffix}`;
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(updateNumber);
-                } else if (numberEl) {
-                    numberEl.textContent = `${target.toLocaleString()}${suffix}`;
-                }
+                if (numberEl) numberEl.textContent = `${currentVal.toLocaleString()}${suffix}`;
+                if (progress < 1) requestAnimationFrame(updateNumber);
+                else if (numberEl) numberEl.textContent = `${target.toLocaleString()}${suffix}`;
             }
             requestAnimationFrame(updateNumber);
         });
@@ -308,9 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.3 });
 
     const statsSection = document.querySelector('.about-stats');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
+    if (statsSection) statsObserver.observe(statsSection);
 
     // -------------------------------------------------------------
     // 5. ABOUT CAROUSEL WITH MANUAL CONTROLS & AUTO-PLAY
@@ -335,32 +366,19 @@ document.addEventListener('DOMContentLoaded', () => {
         function updateCarousel() {
             const translateX = -currentSlide * 100;
             track.style.transform = `translateX(${translateX}%)`;
-            slides.forEach((slide, index) => {
-                slide.classList.toggle('active', index === currentSlide);
-            });
+            slides.forEach((slide, index) => slide.classList.toggle('active', index === currentSlide));
             resetProgress();
         }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateCarousel();
-        }
-
+        function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateCarousel(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + slides.length) % slides.length; updateCarousel(); }
         function resetProgress() {
             if (!progressBar) return;
             progressWidth = 0;
             progressBar.style.width = '0%';
         }
-
         function animateProgress() {
             if (!progressBar || !isPlaying) return;
             progressWidth += progressIncrement;
-
             if (progressWidth >= 100) {
                 progressWidth = 100;
                 progressBar.style.width = '100%';
@@ -369,27 +387,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 progressBar.style.width = `${progressWidth}%`;
             }
         }
-
         function startCarousel() {
             if (progressInterval) clearInterval(progressInterval);
             resetProgress();
             progressInterval = setInterval(animateProgress, progressUpdateInterval);
         }
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                if (isPlaying) startCarousel();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                if (isPlaying) startCarousel();
-            });
-        }
-
+        if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); if (isPlaying) startCarousel(); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); if (isPlaying) startCarousel(); });
         if (playPauseBtn) {
             playPauseBtn.addEventListener('click', () => {
                 isPlaying = !isPlaying;
@@ -398,11 +402,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isPlaying) startCarousel();
             });
         }
-
         updateCarousel();
         startCarousel();
-
-        // Slide shine sweep
         slides.forEach(slide => {
             const shine = slide.querySelector('.slide-shine');
             if (shine) {
@@ -425,27 +426,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // -------------------------------------------------------------
     const eventFilterBtns = document.querySelectorAll('#eventFilters .filter-btn');
     const eventCards = document.querySelectorAll('#eventsGrid .event-card');
-
     eventFilterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             eventFilterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const filter = btn.getAttribute('data-filter');
-
             eventCards.forEach(card => {
                 const category = card.getAttribute('data-category');
                 if (filter === 'all' || category === filter) {
                     card.classList.remove('hidden');
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 50);
-                } else {
-                    card.classList.add('hidden');
-                }
+                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                } else card.classList.add('hidden');
             });
         });
     });
@@ -456,63 +449,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventModal = document.getElementById('eventModal');
     const eventModalClose = document.getElementById('eventModalClose');
 
-    // Universal iCalendar (.ics) Downloader
     window.downloadEventICS = function(title, desc, location, dateStr) {
         let dtStart = '20260930T130000';
         let dtEnd = '20260930T170000';
         const d = (dateStr || '').toUpperCase();
-        
         if (d.includes('OCT') || d.includes('OCTOBER')) {
-            if (d.includes('24')) {
-                dtStart = '20261024T100000';
-                dtEnd = '20261024T160000';
-            } else {
-                dtStart = '20261005T120000';
-                dtEnd = '20261006T210000';
-            }
+            if (d.includes('24')) { dtStart = '20261024T100000'; dtEnd = '20261024T160000'; }
+            else { dtStart = '20261005T120000'; dtEnd = '20261006T210000'; }
         } else if (d.includes('DEC') || d.includes('DECEMBER')) {
-            if (d.includes('05') || d.includes('5TH')) {
-                dtStart = '20261205T140000';
-                dtEnd = '20261205T180000';
-            } else {
-                dtStart = '20261228T090000';
-                dtEnd = '20261229T220000';
-            }
-        } else if (d.includes('JAN') || d.includes('JANUARY')) {
-            dtStart = '20270108T140000';
-            dtEnd = '20270108T180000';
-        } else if (d.includes('FEB') || d.includes('FEBRUARY')) {
-            if (d.includes('12')) {
-                dtStart = '20270212T140000';
-                dtEnd = '20270212T180000';
-            } else {
-                dtStart = '20270206T140000';
-                dtEnd = '20270206T180000';
-            }
-        } else if (d.includes('MAR') || d.includes('MARCH')) {
-            dtStart = '20270305T090000';
-            dtEnd = '20270305T200000';
-        }
+            if (d.includes('05') || d.includes('5TH')) { dtStart = '20261205T140000'; dtEnd = '20261205T180000'; }
+            else { dtStart = '20261228T090000'; dtEnd = '20261229T220000'; }
+        } else if (d.includes('JAN') || d.includes('JANUARY')) { dtStart = '20270108T140000'; dtEnd = '20270108T180000'; }
+        else if (d.includes('FEB') || d.includes('FEBRUARY')) {
+            if (d.includes('12')) { dtStart = '20270212T140000'; dtEnd = '20270212T180000'; }
+            else { dtStart = '20270206T140000'; dtEnd = '20270206T180000'; }
+        } else if (d.includes('MAR') || d.includes('MARCH')) { dtStart = '20270305T090000'; dtEnd = '20270305T200000'; }
 
         const cleanTitle = (title || 'Campus Event').replace(/,/g, '\\,');
         const cleanDesc = (desc || 'EC & CCAC Campus Event at RVR&JCCE').replace(/,/g, '\\,').replace(/\n/g, '\\n');
         const cleanLoc = (location || 'RVR & JC College of Engineering').replace(/,/g, '\\,');
 
         const icsData = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
+            'BEGIN:VCALENDAR', 'VERSION:2.0',
             'PRODID:-//RVRJCCE//EC & CCAC SICO EVENTS//EN',
-            'CALSCALE:GREGORIAN',
-            'METHOD:PUBLISH',
-            'BEGIN:VEVENT',
-            `SUMMARY:${cleanTitle}`,
-            `DESCRIPTION:${cleanDesc}`,
-            `LOCATION:${cleanLoc}`,
-            `DTSTART:${dtStart}`,
-            `DTEND:${dtEnd}`,
-            `STATUS:CONFIRMED`,
-            'END:VEVENT',
-            'END:VCALENDAR'
+            'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
+            `SUMMARY:${cleanTitle}`, `DESCRIPTION:${cleanDesc}`,
+            `LOCATION:${cleanLoc}`, `DTSTART:${dtStart}`, `DTEND:${dtEnd}`,
+            'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'
         ].join('\r\n');
 
         const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
@@ -527,7 +490,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof playSynthSound === 'function') playSynthSound('blip');
     };
 
-    // Upgraded Event Details Modal with Event Delegation & Circular PDF Attachment
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.btn-event-details');
         if (!btn) return;
@@ -568,7 +530,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalRules) modalRules.textContent = rules;
         if (modalCoordinators) modalCoordinators.textContent = coordinators;
 
-        // Render circular download link inside modal if present
         let modalCircularSection = document.getElementById('modalCircularSection');
         if (!modalCircularSection) {
             const modalBody = eventModal.querySelector('.event-modal-body');
@@ -597,25 +558,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                     </div>
                 `;
-            } else {
-                modalCircularSection.style.display = 'none';
-            }
+            } else modalCircularSection.style.display = 'none';
         }
 
-        // Wire up modal's Add to Calendar button
         const modalCalBtn = document.getElementById('modalAddToCalBtn');
-        if (modalCalBtn) {
-            modalCalBtn.onclick = () => {
-                downloadEventICS(title, desc, venue, date);
-            };
-        }
+        if (modalCalBtn) modalCalBtn.onclick = () => downloadEventICS(title, desc, venue, date);
 
         eventModal.classList.add('active');
         document.body.style.overflow = 'hidden';
         if (typeof playSynthSound === 'function') playSynthSound('click');
     });
 
-    // Wire up direct Add to Calendar buttons on spotlight cards
     document.querySelectorAll('.btn-add-cal').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -640,7 +593,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Modal Viewer for Completed Events & Verified Winners Directory
     window.viewCompletedWinnersModal = function(id) {
         const completedList = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
         const ev = completedList.find(c => c.id === id);
@@ -686,7 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
                                 else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
                                 else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
-
                                 return `
                                     <tr>
                                         <td>${rankBadge}</td>
@@ -704,13 +655,8 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        if (modalRules) {
-            modalRules.innerHTML = 'All cash awards, certificates, and merit standings have been verified and disbursed under the aegis of the EC & CCAC Committee and Convener.';
-        }
-
-        if (modalCoordinators) {
-            modalCoordinators.textContent = `${ev.club} Student Coordinators`;
-        }
+        if (modalRules) modalRules.innerHTML = 'All cash awards, certificates, and merit standings have been verified and disbursed under the aegis of the EC & CCAC Committee and Convener.';
+        if (modalCoordinators) modalCoordinators.textContent = `${ev.club} Student Coordinators`;
 
         let modalCircularSection = document.getElementById('modalCircularSection');
         if (!modalCircularSection) {
@@ -740,9 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                     </div>
                 `;
-            } else {
-                modalCircularSection.style.display = 'none';
-            }
+            } else modalCircularSection.style.display = 'none';
         }
 
         if (modalRegisterBtn) modalRegisterBtn.style.display = 'none';
@@ -754,29 +698,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (eventModalClose) eventModalClose.addEventListener('click', closeEventModal);
-    if (eventModal) {
-        eventModal.addEventListener('click', (e) => {
-            if (e.target === eventModal) closeEventModal();
-        });
-    }
+    if (eventModal) eventModal.addEventListener('click', (e) => { if (e.target === eventModal) closeEventModal(); });
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && eventModal && eventModal.classList.contains('active')) {
-            closeEventModal();
-        }
+        if (e.key === 'Escape' && eventModal && eventModal.classList.contains('active')) closeEventModal();
     });
 
     // -------------------------------------------------------------
     // 8. FAQ ACCORDION
     // -------------------------------------------------------------
     const faqItems = document.querySelectorAll('.faq-item');
-
     faqItems.forEach(item => {
         const questionBtn = item.querySelector('.faq-question');
         if (questionBtn) {
             questionBtn.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
-
-                // Close other open items
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -784,8 +719,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
                     }
                 });
-
-                // Toggle current item
                 item.classList.toggle('active', !isActive);
                 questionBtn.setAttribute('aria-expanded', String(!isActive));
             });
@@ -796,34 +729,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. GALLERY CATEGORY FILTER TABS
     // -------------------------------------------------------------
     const galleryFilterBtns = document.querySelectorAll('#galleryFilters .filter-btn');
-
     galleryFilterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             galleryFilterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
             const filter = btn.getAttribute('data-filter');
             const allItems = document.querySelectorAll('#galleryGrid .gallery-item');
-
             allItems.forEach(item => {
                 const category = item.getAttribute('data-category');
                 if (filter === 'all' || category === filter) {
                     item.classList.remove('hidden');
                     item.style.opacity = '0';
                     item.style.transform = 'translateY(15px)';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, 50);
-                } else {
-                    item.classList.add('hidden');
-                }
+                    setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
+                } else item.classList.add('hidden');
             });
         });
     });
 
     // -------------------------------------------------------------
-    // 10. ENHANCED GALLERY LIGHTBOX WITH NEXT / PREV & KEYBOARD
+    // 10. ENHANCED GALLERY LIGHTBOX
     // -------------------------------------------------------------
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
@@ -839,22 +764,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateLightboxImage(index) {
         visibleGalleryItems = Array.from(document.querySelectorAll('#galleryGrid .gallery-item:not(.hidden)'));
         if (visibleGalleryItems.length === 0) return;
-
         currentGalleryIndex = (index + visibleGalleryItems.length) % visibleGalleryItems.length;
         const targetItem = visibleGalleryItems[currentGalleryIndex];
         const img = targetItem.querySelector('.gallery-image img');
         const caption = targetItem.getAttribute('data-caption') || '';
-
-        if (lightboxImage && img) {
-            lightboxImage.innerHTML = `<img src="${img.src}" alt="${caption}">`;
-        }
+        if (lightboxImage && img) lightboxImage.innerHTML = `<img src="${img.src}" alt="${caption}">`;
         if (lightboxCaption) lightboxCaption.textContent = caption;
-        if (lightboxCounter) {
-            lightboxCounter.textContent = `${currentGalleryIndex + 1} / ${visibleGalleryItems.length}`;
-        }
+        if (lightboxCounter) lightboxCounter.textContent = `${currentGalleryIndex + 1} / ${visibleGalleryItems.length}`;
     }
 
-    // Event delegation on #galleryGrid for both static and dynamically added gallery photos
     const galleryGridContainer = document.getElementById('galleryGrid');
     if (galleryGridContainer) {
         galleryGridContainer.addEventListener('click', (e) => {
@@ -870,34 +788,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (lightboxPrev) {
-        lightboxPrev.addEventListener('click', (e) => {
-            e.stopPropagation();
-            updateLightboxImage(currentGalleryIndex - 1);
-        });
-    }
-
-    if (lightboxNext) {
-        lightboxNext.addEventListener('click', (e) => {
-            e.stopPropagation();
-            updateLightboxImage(currentGalleryIndex + 1);
-        });
-    }
+    if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); updateLightboxImage(currentGalleryIndex - 1); });
+    if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); updateLightboxImage(currentGalleryIndex + 1); });
 
     function closeLightbox() {
-        if (lightbox) {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        if (lightbox) { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
     }
-
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    if (lightbox) {
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-    }
-
+    if (lightbox) lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => {
         if (!lightbox || !lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
@@ -906,11 +804,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 11. FLOATING BACK TO TOP BUTTON WITH SCROLL PROGRESS RING
+    // 11. FLOATING BACK TO TOP BUTTON
     // -------------------------------------------------------------
     const backToTopBtn = document.getElementById('backToTop');
     const progressCircle = document.getElementById('progressCircle');
-    const circumference = 2 * Math.PI * 21; // ~131.95
+    const circumference = 2 * Math.PI * 21;
 
     if (progressCircle) {
         progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
@@ -921,32 +819,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) : 0;
-
         if (progressCircle) {
             const offset = circumference - (scrollPercent * circumference);
             progressCircle.style.strokeDashoffset = `${offset}`;
         }
-
         if (backToTopBtn) {
-            if (scrollTop > 350) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
+            if (scrollTop > 350) backToTopBtn.classList.add('visible');
+            else backToTopBtn.classList.remove('visible');
         }
     });
 
     if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
     // -------------------------------------------------------------
-    // 12. 3D SUBTLE TILT EFFECT ON CARDS
+    // 12. 3D SUBTLE TILT EFFECT
     // -------------------------------------------------------------
     if (window.matchMedia('(pointer: fine)').matches) {
         const tiltCards = document.querySelectorAll('.event-card, .feature-card, .stat-item, .report-preview-card, .pillar-step');
@@ -961,9 +849,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rotateY = ((x - centerX) / centerX) * 5;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
+            card.addEventListener('mouseleave', () => card.style.transform = '');
         });
     }
 
@@ -979,44 +865,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameInput = document.getElementById('name');
             const emailInput = document.getElementById('email');
             const messageInput = document.getElementById('message');
-
             const name = (nameInput ? nameInput.value : '').trim();
             const email = (emailInput ? emailInput.value : '').trim();
             const message = (messageInput ? messageInput.value : '').trim();
-
             if (!name || !email || !message) return;
-
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `<span>Sending to Coordinators...</span>`;
-            }
-
-            // Save message into localStorage sico_contact_messages
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = `<span>Sending to Coordinators...</span>`; }
             try {
                 const existingMsgs = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
                 const newMsg = {
                     id: 'msg_' + Date.now(),
-                    name: name,
-                    email: email,
-                    message: message,
+                    name, email, message,
                     timestamp: new Date().toISOString(),
                     formattedDate: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                     status: 'unread'
                 };
                 existingMsgs.unshift(newMsg);
                 localStorage.setItem('sico_contact_messages', JSON.stringify(existingMsgs));
-            } catch (err) {
-                console.error('Error saving contact message:', err);
-            }
-
+            } catch (err) { console.error('Error saving contact message:', err); }
             setTimeout(() => {
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = `<span>Sent to Coordinators! ✓</span>`;
                     submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 }
-
-                // Show warm human feedback notice under form
                 let noteEl = contactForm.querySelector('.contact-feedback-note');
                 if (!noteEl) {
                     noteEl = document.createElement('div');
@@ -1025,14 +896,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     contactForm.appendChild(noteEl);
                 }
                 noteEl.innerHTML = `<strong>✨ Thanks ${name}!</strong> Your message has been received by our student coordinators. We will reply to <em>${email}</em> within 24 hours between classes.`;
-
                 contactForm.reset();
-
                 setTimeout(() => {
-                    if (submitBtn) {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.style.background = '';
-                    }
+                    if (submitBtn) { submitBtn.innerHTML = originalText; submitBtn.style.background = ''; }
                 }, 4000);
             }, 600);
         });
@@ -1059,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 15. PROCEDURAL WEB AUDIO SYNTHESIZER (ZERO-DEPENDENCY)
+    // 15. PROCEDURAL WEB AUDIO SYNTHESIZER
     // -------------------------------------------------------------
     let audioCtx = null;
     let audioEnabled = localStorage.getItem('ec_hud_audio') === 'true';
@@ -1067,118 +933,71 @@ document.addEventListener('DOMContentLoaded', () => {
     function initAudio() {
         if (!audioCtx) {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) {
-                audioCtx = new AudioContext();
-            }
+            if (AudioContext) audioCtx = new AudioContext();
         }
-        if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     }
 
-    // Harmonic Pentatonic Scale for UI Audio (F major pentatonic / D minor: F4, G4, A4, C5, D5, F5, G5, A5)
     const pentatonicNotes = [349.23, 392.00, 440.00, 523.25, 587.33, 698.46, 783.99, 880.00];
     let noteIndex = 0;
 
     function playSynthSound(type) {
         if (!audioEnabled || !audioCtx) return;
         try {
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
+            if (audioCtx.state === 'suspended') audioCtx.resume();
             const now = audioCtx.currentTime;
-
-            // Master soft lowpass filter to create warm organic feel
             const filter = audioCtx.createBiquadFilter();
             filter.type = 'lowpass';
             filter.frequency.setValueAtTime(3400, now);
             filter.connect(audioCtx.destination);
-
             if (type === 'blip') {
-                // Crystal bell chime (dual oscillator harmonic pair)
                 const freq = pentatonicNotes[noteIndex % pentatonicNotes.length];
                 noteIndex = (noteIndex + 1) % pentatonicNotes.length;
-
                 const osc1 = audioCtx.createOscillator();
                 const osc2 = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
-
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(freq, now);
-
-                // Overtone harmonic 2.01x higher with gentle decay
-                osc2.type = 'sine';
-                osc2.frequency.setValueAtTime(freq * 2.01, now);
-
-                osc1.connect(gain);
-                osc2.connect(gain);
-                gain.connect(filter);
-
+                osc1.type = 'sine'; osc1.frequency.setValueAtTime(freq, now);
+                osc2.type = 'sine'; osc2.frequency.setValueAtTime(freq * 2.01, now);
+                osc1.connect(gain); osc2.connect(gain); gain.connect(filter);
                 gain.gain.setValueAtTime(0.045, now);
                 gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
-
-                osc1.start(now);
-                osc2.start(now);
-                osc1.stop(now + 0.14);
-                osc2.stop(now + 0.14);
-
+                osc1.start(now); osc2.start(now);
+                osc1.stop(now + 0.14); osc2.stop(now + 0.14);
             } else if (type === 'click') {
-                // Warm acoustic tactile click
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(440, now);
                 osc.frequency.exponentialRampToValueAtTime(90, now + 0.05);
-
                 gain.gain.setValueAtTime(0.075, now);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-                osc.connect(gain);
-                gain.connect(filter);
-
-                osc.start(now);
-                osc.stop(now + 0.05);
-
+                osc.connect(gain); gain.connect(filter);
+                osc.start(now); osc.stop(now + 0.05);
             } else if (type === 'teleport') {
-                // Celestial Ascending Arpeggio (magical portal warp)
                 const chord = [349.23, 440.00, 523.25, 698.46, 880.00];
                 chord.forEach((note, idx) => {
                     const noteTime = now + idx * 0.038;
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
-
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(note, noteTime);
-
                     gain.gain.setValueAtTime(0.04, noteTime);
                     gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.22);
-
-                    osc.connect(gain);
-                    gain.connect(filter);
-
-                    osc.start(noteTime);
-                    osc.stop(noteTime + 0.22);
+                    osc.connect(gain); gain.connect(filter);
+                    osc.start(noteTime); osc.stop(noteTime + 0.22);
                 });
             }
-        } catch (e) {
-            // Silently ignore audio context restrictions
-        }
+        } catch (e) {}
     }
 
     const audioToggleBtn = document.getElementById('hudAudioToggle');
     function updateAudioUI() {
         if (!audioToggleBtn) return;
         const textSpan = audioToggleBtn.querySelector('.hud-audio-text');
-        if (audioEnabled) {
-            audioToggleBtn.classList.add('active');
-            if (textSpan) textSpan.textContent = 'AUDIO: ON';
-        } else {
-            audioToggleBtn.classList.remove('active');
-            if (textSpan) textSpan.textContent = 'AUDIO: OFF';
-        }
+        if (audioEnabled) { audioToggleBtn.classList.add('active'); if (textSpan) textSpan.textContent = 'AUDIO: ON'; }
+        else { audioToggleBtn.classList.remove('active'); if (textSpan) textSpan.textContent = 'AUDIO: OFF'; }
     }
     updateAudioUI();
-
     if (audioToggleBtn) {
         audioToggleBtn.addEventListener('click', () => {
             initAudio();
@@ -1188,11 +1007,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioEnabled) playSynthSound('click');
         });
     }
-
-    // -------------------------------------------------------------
-    // 16. HEADINGS & TYPOGRAPHY READABILITY (CLEAN & STABLE)
-    // -------------------------------------------------------------
-    // Text decoding scramblers removed in favor of crisp, human-crafted editorial typography
 
     // -------------------------------------------------------------
     // 17. TACTILE CARD INTERACTION & ELEVATION
@@ -1208,20 +1022,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const centerY = rect.height / 2;
                 const rotX = ((y - centerY) / centerY) * -4.5;
                 const rotY = ((x - centerX) / centerX) * 4.5;
-
                 if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd')) {
                     card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
                 }
             });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
+            card.addEventListener('mouseleave', () => card.style.transform = '');
         });
     }
 
     // -------------------------------------------------------------
-    // 18. FUTURISTIC COMMAND PALETTE & CYBER TERMINAL (Ctrl + K)
+    // 18. FUTURISTIC COMMAND PALETTE (Ctrl + K)
     // -------------------------------------------------------------
     const cmdOverlay = document.getElementById('cmdPaletteOverlay');
     const cmdInput = document.getElementById('cmdInput');
@@ -1229,7 +1039,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cmdTriggerBtn = document.getElementById('hudCmdTrigger');
 
     const cmdDestinations = [
-        // Pages
         { title: 'Home / Campus Life Hub', sub: 'Interactive highlights, stats & overview', url: 'index.html', icon: '🏛️', category: 'Pages' },
         { title: 'About EC & CCAC', sub: 'Our mission, vision, leadership & history', url: 'about.html', icon: '📜', category: 'Pages' },
         { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Pages' },
@@ -1239,8 +1048,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Champions & Winners Hall of Fame', sub: 'Verified merit lists, student regd numbers & cash prizes', url: 'events.html#winnersHallOfFame', icon: '🏆', category: 'Pages' },
         { title: 'Visual Stories & Gallery', sub: 'Curated photo memories from campus celebrations', url: 'gallery.html', icon: '📸', category: 'Pages' },
         { title: 'Contact & FAQ Hub', sub: 'Campus address, student helpline & FAQs', url: 'contact.html', icon: '💬', category: 'Pages' },
-        
-        // Flagship Events
         { title: 'COLORIDO 2026', sub: 'Flagship Cultural & Arts Extravaganza (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
         { title: 'Club Waltz (Mega Dance Gala)', sub: 'Two-day mega dance extravaganza & choreo battle (05–06 Oct 2026)', url: 'events.html', icon: '💃', category: 'Events' },
         { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off', url: 'events.html', icon: '🎸', category: 'Events' },
@@ -1250,8 +1057,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Rangoli & Kite Flying Contest', sub: 'Red Ants cultural Sankranti celebration', url: 'events.html', icon: '🪁', category: 'Events' },
         { title: 'Campus Photography Contest', sub: 'Visual lens contest for candid campus moments', url: 'events.html', icon: '📷', category: 'Events' },
         { title: '42nd Annual Day Celebrations', sub: 'Grand convocation finale & rolling trophies', url: 'events.html', icon: '🎖️', category: 'Events' },
-
-        // Student Clubs
         { title: 'Dance Club', sub: 'Performing arts, classical, hip-hop & western choreo', url: 'events.html', icon: '💃', category: 'Clubs' },
         { title: 'Music Club', sub: 'Vocalists, live acoustic bands & sound engineering', url: 'events.html', icon: '🎵', category: 'Clubs' },
         { title: 'Digital Club', sub: 'Web development, coding challenges & anime production', url: 'events.html', icon: '⚡', category: 'Clubs' },
@@ -1259,15 +1064,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: 'Helping Hands Club', sub: 'Social service, community welfare & outreach drives', url: 'sico.html', icon: '🤲', category: 'Clubs' },
         { title: 'Photography Club', sub: 'DSLR, mobile lens photography & photojournalism', url: 'gallery.html', icon: '📸', category: 'Clubs' },
         { title: 'Red Ants Cultural Club', sub: 'Heritage, folk traditions & festive celebrations', url: 'events.html', icon: '🪔', category: 'Clubs' },
-
-        // Coordinator Admin Studio
         { title: 'Coordinator Admin Studio (Protected)', sub: 'Update events, circular PDFs, posters, reports & gallery', url: 'admin.html', icon: '🔒', category: 'Admin' },
-
-        // Quick Actions
         { title: 'Register for SICO 2026–27', sub: 'Official Google Form registration', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Actions', external: true },
         { title: 'View Full Academic Calendar', sub: 'Complete schedule of all 24 annual events', url: 'events.html#calendar', icon: '📅', category: 'Actions' },
-
-        // Aesthetic Themes (Dark & Light)
         { title: 'Switch to Dark Mode', sub: 'Deep midnight obsidian with warm amber accents', action: () => applyTheme('dark'), icon: '🌙', category: 'Theme' },
         { title: 'Switch to Light Mode', sub: 'Editorial daylight porcelain with warm amber accents', action: () => applyTheme('light'), icon: '☀️', category: 'Theme' }
     ];
@@ -1282,15 +1081,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cmdResults.innerHTML = `<div style="padding: 28px; text-align: center; color: var(--text-muted); font-size: 0.95rem;">No matching campus results found. Try searching &ldquo;Colorido&rdquo;, &ldquo;Dance&rdquo;, &ldquo;Team&rdquo; or &ldquo;Register&rdquo;.</div>`;
             return;
         }
-
         filteredCmds.forEach((item, idx) => {
             const a = document.createElement('a');
             a.className = `cmd-item ${idx === activeCmdIndex ? 'active' : ''}`;
             a.href = item.url || '#';
-            if (item.external) {
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-            }
+            if (item.external) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
             a.innerHTML = `
                 <div class="cmd-item-left">
                     <span class="cmd-item-icon">${item.icon}</span>
@@ -1301,20 +1096,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <span class="cmd-badge">${item.category}</span>
             `;
-            a.addEventListener('mouseenter', () => {
-                activeCmdIndex = idx;
-                updateActiveCmdItem();
-                playSynthSound('blip');
-            });
+            a.addEventListener('mouseenter', () => { activeCmdIndex = idx; updateActiveCmdItem(); playSynthSound('blip'); });
             a.addEventListener('click', (e) => {
-                if (item.action) {
-                    e.preventDefault();
-                    item.action();
-                    closeCmdPalette();
-                } else {
-                    playSynthSound('teleport');
-                    closeCmdPalette();
-                }
+                if (item.action) { e.preventDefault(); item.action(); closeCmdPalette(); }
+                else { playSynthSound('teleport'); closeCmdPalette(); }
             });
             cmdResults.appendChild(a);
         });
@@ -1323,22 +1108,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateActiveCmdItem() {
         const items = cmdResults.querySelectorAll('.cmd-item');
         items.forEach((item, idx) => {
-            if (idx === activeCmdIndex) {
-                item.classList.add('active');
-                item.scrollIntoView({ block: 'nearest' });
-            } else {
-                item.classList.remove('active');
-            }
+            if (idx === activeCmdIndex) { item.classList.add('active'); item.scrollIntoView({ block: 'nearest' }); }
+            else item.classList.remove('active');
         });
     }
 
     function openCmdPalette() {
         if (!cmdOverlay) return;
         cmdOverlay.classList.add('active');
-        if (cmdInput) {
-            cmdInput.value = '';
-            cmdInput.focus();
-        }
+        if (cmdInput) { cmdInput.value = ''; cmdInput.focus(); }
         filteredCmds = [...cmdDestinations];
         activeCmdIndex = 0;
         renderCmdResults();
@@ -1350,41 +1128,31 @@ document.addEventListener('DOMContentLoaded', () => {
         cmdOverlay.classList.remove('active');
     }
 
-    if (cmdTriggerBtn) {
-        cmdTriggerBtn.addEventListener('click', openCmdPalette);
-    }
+    if (cmdTriggerBtn) cmdTriggerBtn.addEventListener('click', openCmdPalette);
 
     window.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
             e.preventDefault();
-            if (cmdOverlay && cmdOverlay.classList.contains('active')) {
-                closeCmdPalette();
-            } else {
-                openCmdPalette();
-            }
+            if (cmdOverlay && cmdOverlay.classList.contains('active')) closeCmdPalette();
+            else openCmdPalette();
         } else if (e.key === 'Escape' && cmdOverlay && cmdOverlay.classList.contains('active')) {
             closeCmdPalette();
         }
     });
 
-    if (cmdOverlay) {
-        cmdOverlay.addEventListener('click', (e) => {
-            if (e.target === cmdOverlay) closeCmdPalette();
-        });
-    }
+    if (cmdOverlay) cmdOverlay.addEventListener('click', (e) => { if (e.target === cmdOverlay) closeCmdPalette(); });
 
     if (cmdInput) {
         cmdInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            filteredCmds = cmdDestinations.filter(d => 
-                d.title.toLowerCase().includes(query) || 
-                d.sub.toLowerCase().includes(query) || 
+            filteredCmds = cmdDestinations.filter(d =>
+                d.title.toLowerCase().includes(query) ||
+                d.sub.toLowerCase().includes(query) ||
                 d.category.toLowerCase().includes(query)
             );
             activeCmdIndex = 0;
             renderCmdResults();
         });
-
         cmdInput.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowDown') {
                 e.preventDefault();
@@ -1400,15 +1168,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 if (filteredCmds[activeCmdIndex]) {
                     const target = filteredCmds[activeCmdIndex];
-                    if (target.action) {
-                        target.action();
-                    } else if (target.external) {
-                        playSynthSound('teleport');
-                        window.open(target.url, '_blank');
-                    } else {
-                        playSynthSound('teleport');
-                        window.location.href = target.url;
-                    }
+                    if (target.action) target.action();
+                    else if (target.external) { playSynthSound('teleport'); window.open(target.url, '_blank'); }
+                    else { playSynthSound('teleport'); window.location.href = target.url; }
                     closeCmdPalette();
                 }
             }
@@ -1416,12 +1178,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 19. TACTILE MECHANICAL THEME ROLLER & EDITORIAL MANAGER
+    // 19. TACTILE MECHANICAL THEME ROLLER
     // -------------------------------------------------------------
     function applyTheme(themeName) {
         const isLight = themeName === 'light' || themeName === 'champagne';
         const effectiveTheme = isLight ? 'light' : 'dark';
-
         if (isLight) {
             document.documentElement.setAttribute('data-theme', 'light');
             document.body.setAttribute('data-theme', 'light');
@@ -1429,13 +1190,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.removeAttribute('data-theme');
             document.body.removeAttribute('data-theme');
         }
-
         try {
             localStorage.setItem('sico_theme', effectiveTheme);
             localStorage.setItem('sico_editorial_theme', effectiveTheme);
         } catch (err) {}
 
-        // Update all theme rollers across the DOM
         const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
         themeRollers.forEach(roller => {
             roller.setAttribute('aria-checked', isLight ? 'true' : 'false');
@@ -1454,30 +1213,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Backward compatibility for legacy labels and dropdowns
         const themeLabel = document.getElementById('hudThemeLabel');
-        if (themeLabel) {
-            themeLabel.textContent = isLight ? 'EDITORIAL LIGHT' : 'VELVET MIDNIGHT';
-        }
+        if (themeLabel) themeLabel.textContent = isLight ? 'EDITORIAL LIGHT' : 'VELVET MIDNIGHT';
         const legacyOpts = document.querySelectorAll('.hud-theme-opt');
         legacyOpts.forEach(opt => {
             const optTheme = opt.getAttribute('data-set-theme');
-            if ((isLight && (optTheme === 'champagne' || optTheme === 'light')) || (!isLight && (optTheme === 'obsidian' || optTheme === 'dark'))) {
-                opt.classList.add('active');
-            } else {
-                opt.classList.remove('active');
-            }
+            if ((isLight && (optTheme === 'champagne' || optTheme === 'light')) || (!isLight && (optTheme === 'obsidian' || optTheme === 'dark'))) opt.classList.add('active');
+            else opt.classList.remove('active');
         });
     }
 
-    // Expose setTheme globally for backward compatibility
     window.setTheme = applyTheme;
-
-    // Initialize stored theme
     const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'dark';
     applyTheme(storedTheme);
 
-    // Bind interactive events for all theme rollers
     const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
     themeRollers.forEach(roller => {
         roller.addEventListener('click', (e) => {
@@ -1491,7 +1240,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyTheme(isCurrentlyLight ? 'dark' : 'light');
             }
         });
-
         roller.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -1502,7 +1250,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Legacy dropdown handler fallback if present on any auxiliary page
     const themeTrigger = document.getElementById('hudThemeTrigger');
     const themeDropdown = document.getElementById('hudThemeDropdown');
     if (themeTrigger && themeDropdown) {
@@ -1510,27 +1257,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             themeDropdown.classList.toggle('active');
         });
-
         document.addEventListener('click', (e) => {
-            if (!themeTrigger.contains(e.target) && !themeDropdown.contains(e.target)) {
-                themeDropdown.classList.remove('active');
-            }
+            if (!themeTrigger.contains(e.target) && !themeDropdown.contains(e.target)) themeDropdown.classList.remove('active');
         });
     }
-
     const legacyThemeOpts = document.querySelectorAll('.hud-theme-opt');
     legacyThemeOpts.forEach(opt => {
         opt.addEventListener('click', () => {
             const targetTheme = opt.getAttribute('data-set-theme');
             applyTheme(targetTheme);
-            if (themeDropdown) {
-                themeDropdown.classList.remove('active');
-            }
+            if (themeDropdown) themeDropdown.classList.remove('active');
         });
     });
 
     // -------------------------------------------------------------
-    // 20. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN (1-SECOND PRECISION)
+    // 20. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN
     // -------------------------------------------------------------
     const cdDays = document.getElementById('cdDays');
     const cdHours = document.getElementById('cdHours');
@@ -1542,14 +1283,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cdDays && cdHours && cdMins && cdSecs) {
         const festStart = new Date('2026-12-28T09:00:00+05:30').getTime();
         const festEnd = new Date('2026-12-29T23:59:59+05:30').getTime();
-
         function updateFestCountdown() {
             const now = Date.now();
             let diff = 0;
-
-            if (now < festStart) {
-                diff = festStart - now;
-            } else if (now <= festEnd) {
+            if (now < festStart) diff = festStart - now;
+            else if (now <= festEnd) {
                 diff = festEnd - now;
                 if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL LIVE NOW · FINALE IN:';
                 if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">● LIVE NOW · COLORIDO 2026 UNDERWAY ON CAMPUS</span>';
@@ -1558,24 +1296,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL CONCLUDED';
                 if (cdStatus) cdStatus.innerHTML = '<span>COLORIDO 2026 CONCLUDED · THANK YOU TO ALL 1,000+ PARTICIPANTS</span>';
             }
-
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
             const mins = Math.floor((diff / (1000 * 60)) % 60);
             const secs = Math.floor((diff / 1000) % 60);
-
             cdDays.textContent = String(days).padStart(2, '0');
             cdHours.textContent = String(hours).padStart(2, '0');
             cdMins.textContent = String(mins).padStart(2, '0');
             cdSecs.textContent = String(secs).padStart(2, '0');
         }
-
         updateFestCountdown();
         setInterval(updateFestCountdown, 1000);
     }
 
     // -------------------------------------------------------------
-    // 21. AY 2026-2027 OFFICIAL CALENDAR & UPCOMING RADAR CONTROLLER
+    // 21. AY 2026-2027 OFFICIAL CALENDAR CONTROLLER
     // -------------------------------------------------------------
     const calSearchInput = document.getElementById('calendarSearchInput');
     const calStatusFilters = document.querySelectorAll('#calStatusFilters .cal-filter-btn');
@@ -1592,22 +1327,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const rowText = row.textContent.toLowerCase();
             const matchesStatus = (currentCalFilter === 'all') || (rowStatus === currentCalFilter);
             const matchesSearch = !currentSearchTerm || rowText.includes(currentSearchTerm);
-
-            if (matchesStatus && matchesSearch) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+            if (matchesStatus && matchesSearch) row.style.display = '';
+            else row.style.display = 'none';
         });
     }
 
-    if (calSearchInput) {
-        calSearchInput.addEventListener('input', (e) => {
-            currentSearchTerm = e.target.value.toLowerCase().trim();
-            filterCalendarRows();
-        });
-    }
-
+    if (calSearchInput) calSearchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value.toLowerCase().trim(); filterCalendarRows(); });
     if (calStatusFilters.length) {
         calStatusFilters.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1620,7 +1345,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Dynamic Countdown for Next Upcoming Event (30 Sep 2026, 1:00 PM IST)
     if (nextEventCountdownEl) {
         const nextTarget = new Date('2026-09-30T13:00:00+05:30').getTime();
         function updateNextEventClock() {
@@ -1630,16 +1354,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
                 nextEventCountdownEl.textContent = `${days}D ${hours}H REMAINING`;
-            } else {
-                nextEventCountdownEl.textContent = 'EVENT IN PROGRESS';
-            }
+            } else nextEventCountdownEl.textContent = 'EVENT IN PROGRESS';
         }
         updateNextEventClock();
         setInterval(updateNextEventClock, 60000);
     }
 
     // -------------------------------------------------------------
-    // 22. UPCOMING EVENTS & COMPETITIONS SHOWCASE CONTROLLER
+    // 22. UPCOMING EVENTS SHOWCASE CONTROLLER
     // -------------------------------------------------------------
     const eventsFilterPills = document.querySelectorAll('#eventsFilterBar .filter-pill, #spotlightFilterPills .spotlight-pill');
     const eventCardsModern = document.querySelectorAll('.event-card-modern, .spotlight-card');
@@ -1650,28 +1372,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateUpcomingEvents() {
         const now = Date.now();
         const dayLength = 24 * 60 * 60 * 1000;
-
         datedEventCards.forEach(card => {
             const startTime = Date.parse(card.dataset.start);
             const isPast = !Number.isFinite(startTime) || startTime <= now;
             const daysUntil = isPast ? 0 : Math.ceil((startTime - now) / dayLength);
             const categories = (card.dataset.type || '').split(/\s+/).filter(Boolean).filter(type => type !== 'imminent');
             const status = card.querySelector('.event-status-pill');
-
             card.dataset.expired = String(isPast);
             if (status && !status.dataset.defaultLabel) status.dataset.defaultLabel = status.textContent;
-
             if (isPast) {
                 card.classList.add('hidden');
                 card.classList.remove('card-imminent');
-                if (status) {
-                    status.classList.remove('status-imminent');
-                    status.textContent = '✓ Completed';
-                }
+                if (status) { status.classList.remove('status-imminent'); status.textContent = '✓ Completed'; }
                 card.dataset.type = categories.join(' ');
                 return;
             }
-
             if (daysUntil <= 30) {
                 categories.push('imminent');
                 card.classList.add('card-imminent');
@@ -1681,15 +1396,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 card.classList.remove('card-imminent');
-                if (status) {
-                    status.classList.remove('status-imminent');
-                    status.textContent = status.dataset.defaultLabel;
-                }
+                if (status) { status.classList.remove('status-imminent'); status.textContent = status.dataset.defaultLabel; }
             }
-
             card.dataset.type = categories.join(' ');
         });
-
         const filterBar = document.getElementById('eventsFilterBar');
         if (filterBar) {
             filterBar.querySelectorAll('.filter-pill').forEach(pill => {
@@ -1705,7 +1415,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateUpcomingEvents();
     if (datedEventCards.length) setInterval(updateUpcomingEvents, 60000);
 
-    // 1. Live Countdown for Digital Club Event (30 Sep 2026, 1:00 PM IST)
     const digitalEventTime = new Date('2026-09-30T13:00:00+05:30').getTime();
     function tickDigitalCountdown() {
         const now = Date.now();
@@ -1713,9 +1422,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (diff > 0) {
             const d = Math.floor(diff / (1000 * 60 * 60 * 24));
             const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / (1000 * 60)) % 60);
             const badgeStr = `⚡ In ${d} Days (${h}h left)`;
-            
             if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = badgeStr;
             if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = badgeStr;
         } else {
@@ -1726,14 +1433,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tickDigitalCountdown();
     setInterval(tickDigitalCountdown, 1000);
 
-    // 2. Simple, High-Visibility Filter Tabs
     if (eventsFilterPills.length && eventCardsModern.length) {
         eventsFilterPills.forEach(pill => {
             pill.addEventListener('click', () => {
                 eventsFilterPills.forEach(p => p.classList.remove('active'));
                 pill.classList.add('active');
                 const filter = pill.getAttribute('data-filter');
-
                 eventCardsModern.forEach(card => {
                     const cardType = card.getAttribute('data-type') || '';
                     const isExpired = card.dataset.expired === 'true';
@@ -1741,22 +1446,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         card.classList.remove('hidden');
                         card.style.opacity = '0';
                         card.style.transform = 'translateY(12px)';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 50);
-                    } else {
-                        card.classList.add('hidden');
-                    }
+                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+                    } else card.classList.add('hidden');
                 });
-
                 if (typeof playSynthSound === 'function') playSynthSound('blip');
             });
         });
     }
 
     // =============================================================
-    // SECTION 23: 3rd Year Student Coordinators Filtering & Live Search
+    // SECTION 23: 3rd Year Student Coordinators Filtering
     // =============================================================
     const thirdYearFilterBtns = document.querySelectorAll('#thirdYearFilters .team-filter-btn');
     const thirdYearCards = document.querySelectorAll('#thirdYearGrid .team-card-3rd');
@@ -1766,33 +1465,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (thirdYearCards.length) {
         let activeCategory = 'all';
         let searchQuery = '';
-
         function updateTeamDisplay() {
             let visibleCount = 0;
             const query = searchQuery.trim().toLowerCase();
-
             thirdYearCards.forEach(card => {
                 const category = card.getAttribute('data-category') || '';
                 const name = (card.getAttribute('data-name') || '').toLowerCase();
                 const role = (card.getAttribute('data-role') || '').toLowerCase();
                 const branch = (card.getAttribute('data-branch') || '').toLowerCase();
-
                 const matchesCategory = (activeCategory === 'all' || category === activeCategory);
                 const matchesSearch = !query || name.includes(query) || role.includes(query) || branch.includes(query);
-
-                if (matchesCategory && matchesSearch) {
-                    card.classList.remove('hidden-member');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden-member');
-                }
+                if (matchesCategory && matchesSearch) { card.classList.remove('hidden-member'); visibleCount++; }
+                else card.classList.add('hidden-member');
             });
-
-            if (teamResultsCount) {
-                teamResultsCount.textContent = `Showing ${visibleCount} of ${thirdYearCards.length} student coordinators`;
-            }
+            if (teamResultsCount) teamResultsCount.textContent = `Showing ${visibleCount} of ${thirdYearCards.length} student coordinators`;
         }
-
         thirdYearFilterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 thirdYearFilterBtns.forEach(b => b.classList.remove('active'));
@@ -1802,30 +1489,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof playSynthSound === 'function') playSynthSound('click');
             });
         });
-
-        if (teamSearchInput) {
-            teamSearchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value;
-                updateTeamDisplay();
-            });
-        }
+        if (teamSearchInput) teamSearchInput.addEventListener('input', (e) => { searchQuery = e.target.value; updateTeamDisplay(); });
     }
 
     // =============================================================
-    // 27. UNIVERSAL LIVE DATA SYNCHRONIZATION (ADMIN GOOGLE FORM -> WEBSITE)
+    // 27. UNIVERSAL LIVE DATA SYNCHRONIZATION
     // =============================================================
     function syncLiveAdminData() {
-        // A. Synchronize Custom Events into #eventsGridModern (index.html & events.html)
         try {
             const customEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
             const eventsGrid = document.getElementById('eventsGridModern');
             const calendarTable = document.getElementById('calendarTable');
-
             if (eventsGrid && customEvents.length > 0) {
-                // Remove previous dynamic cards to avoid duplicates on re-render
                 eventsGrid.querySelectorAll('.dynamic-admin-card').forEach(el => el.remove());
-
-                // Prepend cards so newest events appear first
                 [...customEvents].reverse().forEach(ev => {
                     const card = document.createElement('div');
                     card.className = 'event-card-modern dynamic-admin-card card-imminent';
@@ -1845,30 +1521,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (ev.pdfName) card.setAttribute('data-pdfname', ev.pdfName);
 
                     let posterMarkup = '';
-                    if (ev.posterUrl) {
-                        posterMarkup = `
-                            <div class="event-card-poster-thumb">
-                                <img src="${ev.posterUrl}" alt="${ev.title}" loading="lazy">
-                            </div>
-                        `;
-                    }
-
+                    if (ev.posterUrl) posterMarkup = `<div class="event-card-poster-thumb"><img src="${ev.posterUrl}" alt="${ev.title}" loading="lazy"></div>`;
                     let circularBtn = '';
-                    if (ev.pdfUrl) {
-                        circularBtn = `
-                            <a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF">
-                                <span>📄 Circular (PDF)</span>
-                            </a>
-                        `;
-                    }
+                    if (ev.pdfUrl) circularBtn = `<a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF"><span>📄 Circular (PDF)</span></a>`;
 
                     card.innerHTML = `
                         ${posterMarkup}
                         <div class="event-card-header">
-                            <div class="event-date-pill">
-                                <span>📅</span>
-                                <span>${ev.date}</span>
-                            </div>
+                            <div class="event-date-pill"><span>📅</span><span>${ev.date}</span></div>
                             <span class="event-status-pill status-live-sync">✨ LIVE UPDATE</span>
                         </div>
                         <div class="event-card-main">
@@ -1880,41 +1540,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <p class="event-card-snippet">${ev.snippet || (ev.desc ? ev.desc.slice(0, 120) + '...' : 'Student club competition and cultural activity.')}</p>
                         <div class="event-details-box">
-                            <div class="detail-row">
-                                <span class="detail-label">📍 Venue:</span>
-                                <strong class="detail-value">${ev.venue || 'Campus Venue'}</strong>
-                            </div>
-                            <div class="detail-row">
-                                <span class="detail-label">⏰ Time:</span>
-                                <strong class="detail-value">${ev.time || '10:00 AM IST'}</strong>
-                            </div>
-                            ${ev.prize ? `
-                            <div class="detail-row detail-prize-row">
-                                <span class="detail-label">🏆 Cash Prizes:</span>
-                                <strong class="detail-value prize-highlight">${ev.prize}</strong>
-                            </div>` : ''}
+                            <div class="detail-row"><span class="detail-label">📍 Venue:</span><strong class="detail-value">${ev.venue || 'Campus Venue'}</strong></div>
+                            <div class="detail-row"><span class="detail-label">⏰ Time:</span><strong class="detail-value">${ev.time || '10:00 AM IST'}</strong></div>
+                            ${ev.prize ? `<div class="detail-row detail-prize-row"><span class="detail-label">🏆 Cash Prizes:</span><strong class="detail-value prize-highlight">${ev.prize}</strong></div>` : ''}
                         </div>
                         <div class="event-card-footer">
-                            <button class="btn-event-details btn-card-primary" type="button">
-                                <span>View Details &amp; Rules</span>
-                                <i>→</i>
-                            </button>
+                            <button class="btn-event-details btn-card-primary" type="button"><span>View Details &amp; Rules</span><i>→</i></button>
                             ${circularBtn}
-                            <a href="${ev.regLink || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'}"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               class="btn-card-register">
-                                <span>Register</span>
-                                <i>↗</i>
-                            </a>
+                            <a href="${ev.regLink || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'}" target="_blank" rel="noopener noreferrer" class="btn-card-register"><span>Register</span><i>↗</i></a>
                         </div>
                     `;
-
                     eventsGrid.prepend(card);
                 });
             }
 
-            // Sync into Calendar Table on events.html if present
             if (calendarTable && customEvents.length > 0) {
                 const tbody = calendarTable.querySelector('tbody');
                 if (tbody) {
@@ -1937,10 +1576,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     ${ev.pdfUrl ? `<br><a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" style="font-size:0.8rem; color:var(--accent-cyan); font-weight:600;">📥 Download Circular (PDF)</a>` : ''}
                                 </div>
                             </td>
-                            <td class="cal-venue-time">
-                                <span>📍 ${ev.venue || 'Campus'}</span>
-                                <span>⏰ ${ev.time || 'TBA'}</span>
-                            </td>
+                            <td class="cal-venue-time"><span>📍 ${ev.venue || 'Campus'}</span><span>⏰ ${ev.time || 'TBA'}</span></td>
                             <td class="cal-prize-cell">${ev.prize || '--'}</td>
                             <td><span class="status-tag imminent" style="background:#10b981; color:#fff;">⚡ Live Entry</span></td>
                         `;
@@ -1948,11 +1584,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             }
-        } catch (err) {
-            console.error('Error syncing dynamic events:', err);
-        }
+        } catch (err) { console.error('Error syncing dynamic events:', err); }
 
-        // B. Synchronize Custom Reports into reports.html
         try {
             const customReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
             const reportsGrid = document.querySelector('.reports-preview-grid');
@@ -1990,11 +1623,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             }
-        } catch (err) {
-            console.error('Error syncing dynamic reports:', err);
-        }
+        } catch (err) { console.error('Error syncing dynamic reports:', err); }
 
-        // C. Synchronize Custom Gallery Photos into gallery.html
         try {
             const customGallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
             const galleryGrid = document.getElementById('galleryGrid');
@@ -2006,9 +1636,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     gItem.setAttribute('data-category', item.category || 'cultural');
                     gItem.setAttribute('data-caption', item.caption || item.title);
                     gItem.innerHTML = `
-                        <div class="gallery-image">
-                            <img src="${item.imageUrl}" alt="${item.title}" loading="lazy">
-                        </div>
+                        <div class="gallery-image"><img src="${item.imageUrl}" alt="${item.title}" loading="lazy"></div>
                         <div class="gallery-overlay">
                             <span class="gallery-caption">${item.caption || item.title}</span>
                             <span style="position:absolute; top:12px; right:12px; font-size:0.68rem; background:rgba(245,158,11,0.92); color:#000; padding:2px 8px; border-radius:99px; font-weight:700;">✨ NEW</span>
@@ -2017,13 +1645,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     galleryGrid.prepend(gItem);
                 });
             }
-        } catch (err) {
-            console.error('Error syncing dynamic gallery:', err);
-        }
+        } catch (err) { console.error('Error syncing dynamic gallery:', err); }
 
-        // D. Synchronize Completed Events & Winners List into events.html
         try {
-            // Seed default completed events if empty
             if (!localStorage.getItem('sico_completed_events')) {
                 const defaultCompleted = [
                     {
@@ -2034,8 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         venue: 'SJB Seminar Hall',
                         prizePool: '₹6,000 Cash Prizes Awarded',
                         summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations. Judged by senior electrical engineering faculty.',
-                        pdfUrl: '',
-                        pdfName: 'Clean_Energy_Poster_Winners.pdf',
+                        pdfUrl: '', pdfName: 'Clean_Energy_Poster_Winners.pdf',
                         winners: [
                             { rank: '1st', name: 'K. Vamsi Krishna', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
                             { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
@@ -2050,8 +1673,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         venue: 'Open Air Theatre (OAT)',
                         prizePool: '₹4,000 Cash & Trophies',
                         summary: 'Annual campus oratorical conclave on ethics in technology and social impact. Evaluated by humanities department and alumni guests.',
-                        pdfUrl: '',
-                        pdfName: 'Inspiraze_Oratory_Results.pdf',
+                        pdfUrl: '', pdfName: 'Inspiraze_Oratory_Results.pdf',
                         winners: [
                             { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
                             { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
@@ -2065,8 +1687,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         venue: 'Open Air Theatre (OAT)',
                         prizePool: '₹2,500 Cash & Medals',
                         summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
-                        pdfUrl: '',
-                        pdfName: 'Yoga_Day_Official_Results.pdf',
+                        pdfUrl: '', pdfName: 'Yoga_Day_Official_Results.pdf',
                         winners: [
                             { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
                             { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
@@ -2097,7 +1718,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </a>
                             `;
                         }
-
                         return `
                             <div class="winner-event-card">
                                 <div class="winner-card-header">
@@ -2110,15 +1730,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </div>
                                     </div>
                                     <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-                                        <div class="winner-prize-pool">
-                                            <span>💰 ${totalCash}</span>
-                                        </div>
+                                        <div class="winner-prize-pool"><span>💰 ${totalCash}</span></div>
                                         ${downloadPdfBtn}
                                     </div>
                                 </div>
-
                                 ${comp.summary ? `<p class="winner-event-summary">${comp.summary}</p>` : ''}
-
                                 <div class="winner-table-wrap">
                                     <table class="winner-table">
                                         <thead>
@@ -2138,7 +1754,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                                 else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
                                                 else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
                                                 else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
-
                                                 return `
                                                     <tr>
                                                         <td>${rankBadge}</td>
@@ -2171,7 +1786,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const query = (winnersSearchInput?.value || '').trim().toLowerCase();
                     let visibleEvents = 0;
                     let visibleAwardees = 0;
-
                     cards.forEach(card => {
                         const matches = !query || card.textContent.toLowerCase().includes(query);
                         card.hidden = !matches;
@@ -2180,14 +1794,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             visibleAwardees += card.querySelectorAll('.winner-table tbody tr').length;
                         }
                     });
-
                     if (winnersResultsCount) {
                         winnersResultsCount.textContent = query
                             ? `${visibleEvents} of ${cards.length} merit lists match`
                             : `${cards.length} completed events · ${visibleAwardees} awardees`;
                     }
                     if (winnersSearchClear) winnersSearchClear.hidden = !query;
-
                     let emptyMessage = winnersGrid.querySelector('.winners-no-results');
                     if (query && visibleEvents === 0) {
                         if (!emptyMessage) {
@@ -2196,11 +1808,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             emptyMessage.textContent = 'No merit lists match that search. Try a name, registration number, or event.';
                             winnersGrid.appendChild(emptyMessage);
                         }
-                    } else {
-                        emptyMessage?.remove();
-                    }
+                    } else emptyMessage?.remove();
                 };
-
                 if (winnersSearchInput) winnersSearchInput.oninput = updateWinnersDirectory;
                 if (winnersSearchClear) {
                     winnersSearchClear.onclick = () => {
@@ -2219,7 +1828,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateWinnersDirectory();
             }
 
-            // Connect completed calendar table rows to view merit winners
             const calTable = document.getElementById('calendarTable');
             if (calTable && completedEvents.length > 0) {
                 const completedRows = calTable.querySelectorAll('tr[data-status="completed"]');
@@ -2227,13 +1835,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (row.querySelector('.btn-cal-winners')) return;
                     const clubNameEl = row.querySelector('.cal-club-name');
                     const clubName = clubNameEl ? clubNameEl.textContent.trim().toLowerCase() : '';
-                    
-                    // Match with completed events
-                    const matchedComp = completedEvents.find(c => 
+                    const matchedComp = completedEvents.find(c =>
                         (c.club && clubName.includes(c.club.toLowerCase())) ||
                         (c.title && row.textContent.toLowerCase().includes(c.title.toLowerCase().slice(0, 15)))
                     );
-
                     const actionCell = row.querySelector('td:last-child');
                     if (actionCell) {
                         const winnerBtn = document.createElement('a');
@@ -2254,13 +1859,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-
-        } catch (err) {
-            console.error('Error syncing dynamic completed events & winners:', err);
-        }
+        } catch (err) { console.error('Error syncing dynamic completed events & winners:', err); }
     }
 
-    // Call live admin synchronization immediately
     syncLiveAdminData();
 
     // -------------------------------------------------------------
@@ -2272,7 +1873,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!raw) return;
             const ann = JSON.parse(raw);
             if (!ann || !ann.enabled || !ann.message) return;
-
             const bars = document.querySelectorAll('.campus-announcement-bar');
             bars.forEach(bar => {
                 bar.innerHTML = `
@@ -2294,14 +1894,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             });
-        } catch (err) {
-            console.error('Error syncing campus bulletin:', err);
-        }
+        } catch (err) { console.error('Error syncing campus bulletin:', err); }
     }
     syncCampusAnnouncement();
 
     // -------------------------------------------------------------
-    // 29. DYNAMIC STUDENT VOICES (HUMAN STORIES & TESTIMONIALS)
+    // 29. DYNAMIC STUDENT VOICES
     // -------------------------------------------------------------
     function syncStudentVoices() {
         try {
@@ -2331,11 +1929,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     initials: 'RT'
                 }
             ];
-
             if (!localStorage.getItem('sico_student_voices')) {
                 localStorage.setItem('sico_student_voices', JSON.stringify(defaultVoices));
             }
-
             const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
             const grid = document.getElementById('studentVoicesGrid') || document.querySelector('.voices-grid');
             if (grid && voices.length > 0) {
@@ -2356,9 +1952,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }).join('');
             }
-        } catch (err) {
-            console.error('Error syncing student voices:', err);
-        }
+        } catch (err) { console.error('Error syncing student voices:', err); }
     }
     syncStudentVoices();
 
@@ -2369,92 +1963,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const tribeGrid = document.getElementById('tribeMatcherGrid');
         const matchResult = document.getElementById('tribeMatchResult');
         if (!tribeGrid || !matchResult) return;
-
         const clubsData = {
-            dance: {
-                name: 'Dance Club',
-                category: 'Performing Arts & Choreography',
-                tagline: 'Feel the rhythm, own the stage, ignite the campus!',
-                desc: 'Whether you are into hip-hop battles, classical fusion, contemporary duels, or mass cinematic crew performances, Dance Club is RVR&JC’s biggest high-voltage stage. No prior audition required for semester beginner bootcamps!',
-                lead: 'S. Priya & M. Leeladhar (Dance Leads)',
-                flagship: 'Club Waltz (Mega Dance Gala) & Colorido Crew Showdowns',
-                accentColor: 'linear-gradient(135deg, #e11d48, #ea580c)'
-            },
-            music: {
-                name: 'Music & Acoustic Band Club',
-                category: 'Vocals, Acoustic & Instrumental',
-                tagline: 'Where campus melodies turn into rock anthems.',
-                desc: 'Home to the official RVR&JC collegiate acoustic rock band, classical carnatic vocalists, solo guitarists, and beatboxers. Practice sessions at the SAC music room with full audio gear.',
-                lead: 'M. Kalyan & Band Leads',
-                flagship: 'Acoustic Unplugged Night & Colorido Symphony Stage',
-                accentColor: 'linear-gradient(135deg, #8b5cf6, #3b82f6)'
-            },
-            tech: {
-                name: 'Digital Club',
-                category: 'Web Dev, Hackathons & Anime Creation',
-                tagline: 'Code the future, edit cinematic duel films, and build websites.',
-                desc: 'For software hackers, UI/UX designers, and video editors. Organizes Web Dev Hackathons, Anime & Manga Video Duels, and technical symposium media production.',
-                lead: 'R. Joel Livingstone & Digital Team',
-                flagship: 'Web Dev Duel, Anime Film Fest & Cyber Hackathons',
-                accentColor: 'linear-gradient(135deg, #0ea5e9, #059669)'
-            },
-            art: {
-                name: 'Pixel Craft & Fine Arts Club',
-                category: 'Visual Arts, Sketching & Digital Design',
-                tagline: 'Translating imaginations onto canvases and digital screens.',
-                desc: 'From pencil sketching and oil painting to Figma UI design, brand identities, and campus mural artwork. Perfect for creative visual thinkers wanting to design institutional publications.',
-                lead: 'Art Coordinators & Design Leads',
-                flagship: 'Art & Design Expo, Live Sketch Duel & Poster Championships',
-                accentColor: 'linear-gradient(135deg, #f59e0b, #e11d48)'
-            },
-            photo: {
-                name: 'Photography & Cinematography Club',
-                category: 'Lenses, Shutter Speed & Visual Stories',
-                tagline: 'Framing every golden campus memory through the lens.',
-                desc: 'Captures every cultural fest, flagship celebration, guest lecture, and campus portrait. Organizes photowalks, DSLR cinematography masterclasses, and mobile editing workshops.',
-                lead: 'Media Team & Photo Leads',
-                flagship: 'Campus Photowalk, Short Film Screenings & Colorido Photo Wall',
-                accentColor: 'linear-gradient(135deg, #06b6d4, #3b82f6)'
-            },
-            social: {
-                name: 'Helping Hands Club & SICO',
-                category: 'Community Outreach & Social Leadership',
-                tagline: 'Empathy in action: Transforming communities with heart.',
-                desc: 'Leading social initiatives across Guntur and AP: teaching digital literacy at schools for visually impaired children, organizing mega blood donation camps, environmental cleanups, and rural aid.',
-                lead: 'R. Tarun & SICO Outreach Team',
-                flagship: 'SICO Community Mission, Blood Donation & Green Campus Drives',
-                accentColor: 'linear-gradient(135deg, #10b981, #059669)'
-            },
-            literary: {
-                name: 'Literary & Debate Club (Inspiraze)',
-                category: 'Oratory, Parliamentary Debate & Creative Writing',
-                tagline: 'Words that inspire, arguments that convince, stories that resonate.',
-                desc: 'Sharpen your stage confidence, impromptu speech, creative writing, poetry slams, and parliamentary debate skills. Regular mock conclaves with constructive faculty mentorship.',
-                lead: 'G. Ananya & Debate Leads',
-                flagship: 'Youth Leadership Conclave & Inter-Collegiate Oratory Duel',
-                accentColor: 'linear-gradient(135deg, #f59e0b, #d97706)'
-            },
-            sports: {
-                name: 'Sports & Fitness Club',
-                category: 'Athletics, Yoga & Physical Wellness',
-                tagline: 'Endurance, sportsmanship, and high-energy competition.',
-                desc: 'Promotes wellness, yoga asana championships, campus badminton leagues, athletics, and annual sports days in collaboration with the physical education department.',
-                lead: 'Sports Secretary & Fitness Leads',
-                flagship: 'International Yoga Day Championship & Inter-Dept Sports Meet',
-                accentColor: 'linear-gradient(135deg, #ec4899, #8b5cf6)'
-            }
+            dance: { name: 'Dance Club', category: 'Performing Arts & Choreography', tagline: 'Feel the rhythm, own the stage, ignite the campus!', desc: 'Whether you are into hip-hop battles, classical fusion, contemporary duels, or mass cinematic crew performances, Dance Club is RVR&JC’s biggest high-voltage stage. No prior audition required for semester beginner bootcamps!', lead: 'S. Priya & M. Leeladhar (Dance Leads)', flagship: 'Club Waltz (Mega Dance Gala) & Colorido Crew Showdowns', accentColor: 'linear-gradient(135deg, #e11d48, #ea580c)' },
+            music: { name: 'Music & Acoustic Band Club', category: 'Vocals, Acoustic & Instrumental', tagline: 'Where campus melodies turn into rock anthems.', desc: 'Home to the official RVR&JC collegiate acoustic rock band, classical carnatic vocalists, solo guitarists, and beatboxers. Practice sessions at the SAC music room with full audio gear.', lead: 'M. Kalyan & Band Leads', flagship: 'Acoustic Unplugged Night & Colorido Symphony Stage', accentColor: 'linear-gradient(135deg, #8b5cf6, #3b82f6)' },
+            tech: { name: 'Digital Club', category: 'Web Dev, Hackathons & Anime Creation', tagline: 'Code the future, edit cinematic duel films, and build websites.', desc: 'For software hackers, UI/UX designers, and video editors. Organizes Web Dev Hackathons, Anime & Manga Video Duels, and technical symposium media production.', lead: 'R. Joel Livingstone & Digital Team', flagship: 'Web Dev Duel, Anime Film Fest & Cyber Hackathons', accentColor: 'linear-gradient(135deg, #0ea5e9, #059669)' },
+            art: { name: 'Pixel Craft & Fine Arts Club', category: 'Visual Arts, Sketching & Digital Design', tagline: 'Translating imaginations onto canvases and digital screens.', desc: 'From pencil sketching and oil painting to Figma UI design, brand identities, and campus mural artwork. Perfect for creative visual thinkers wanting to design institutional publications.', lead: 'Art Coordinators & Design Leads', flagship: 'Art & Design Expo, Live Sketch Duel & Poster Championships', accentColor: 'linear-gradient(135deg, #f59e0b, #e11d48)' },
+            photo: { name: 'Photography & Cinematography Club', category: 'Lenses, Shutter Speed & Visual Stories', tagline: 'Framing every golden campus memory through the lens.', desc: 'Captures every cultural fest, flagship celebration, guest lecture, and campus portrait. Organizes photowalks, DSLR cinematography masterclasses, and mobile editing workshops.', lead: 'Media Team & Photo Leads', flagship: 'Campus Photowalk, Short Film Screenings & Colorido Photo Wall', accentColor: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
+            social: { name: 'Helping Hands Club & SICO', category: 'Community Outreach & Social Leadership', tagline: 'Empathy in action: Transforming communities with heart.', desc: 'Leading social initiatives across Guntur and AP: teaching digital literacy at schools for visually impaired children, organizing mega blood donation camps, environmental cleanups, and rural aid.', lead: 'R. Tarun & SICO Outreach Team', flagship: 'SICO Community Mission, Blood Donation & Green Campus Drives', accentColor: 'linear-gradient(135deg, #10b981, #059669)' },
+            literary: { name: 'Literary & Debate Club (Inspiraze)', category: 'Oratory, Parliamentary Debate & Creative Writing', tagline: 'Words that inspire, arguments that convince, stories that resonate.', desc: 'Sharpen your stage confidence, impromptu speech, creative writing, poetry slams, and parliamentary debate skills. Regular mock conclaves with constructive faculty mentorship.', lead: 'G. Ananya & Debate Leads', flagship: 'Youth Leadership Conclave & Inter-Collegiate Oratory Duel', accentColor: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+            sports: { name: 'Sports & Fitness Club', category: 'Athletics, Yoga & Physical Wellness', tagline: 'Endurance, sportsmanship, and high-energy competition.', desc: 'Promotes wellness, yoga asana championships, campus badminton leagues, athletics, and annual sports days in collaboration with the physical education department.', lead: 'Sports Secretary & Fitness Leads', flagship: 'International Yoga Day Championship & Inter-Dept Sports Meet', accentColor: 'linear-gradient(135deg, #ec4899, #8b5cf6)' }
         };
-
         const buttons = tribeGrid.querySelectorAll('.tribe-vibe-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
                 buttons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
                 const vibeKey = btn.getAttribute('data-vibe');
                 const club = clubsData[vibeKey];
                 if (!club) return;
-
                 matchResult.style.display = 'block';
                 matchResult.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
@@ -2469,10 +1995,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 &ldquo;${club.tagline}&rdquo;
                             </div>
                         </div>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing" 
-                           target="_blank" 
-                           rel="noopener noreferrer" 
-                           class="btn btn-primary" 
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-primary"
                            style="padding:10px 20px; font-size:0.88rem;">
                             <span>Join ${club.name}</span>
                             <i>↗</i>
@@ -2502,7 +2028,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initTribeMatcher();
 
-    // Global Admin Shortcut: Ctrl + Shift + A (or Cmd + Shift + A)
+    // Global Admin Shortcut: Ctrl + Shift + A
     window.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
             e.preventDefault();
@@ -2511,1698 +2037,225 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
-/* ============================================================
-   SICO — CINEMATIC 5 SECOND LOADER
-   ============================================================ */
-
-(function () {
-
-    const loader = document.getElementById("pageLoader");
-
-    if (!loader) return;
-
-    const progressBar =
-        document.getElementById("loaderProgressBar");
-
-    const percentage =
-        document.getElementById("loaderPercentage");
-
-    const status =
-        document.getElementById("loaderStatus");
-
-    const message =
-        document.getElementById("loaderMessage");
-
-
-    const duration = 5000;
-
-    const stages = [
-        {
-            progress: 0,
-            status: "INITIALIZING",
-            message: "Preparing your experience..."
-        },
-        {
-            progress: 12,
-            status: "CONNECTING",
-            message: "Establishing campus interface..."
-        },
-        {
-            progress: 25,
-            status: "LOADING",
-            message: "Loading SICO resources..."
-        },
-        {
-            progress: 40,
-            status: "SYNCHRONIZING",
-            message: "Synchronizing student activities..."
-        },
-        {
-            progress: 55,
-            status: "BUILDING",
-            message: "Building your campus experience..."
-        },
-        {
-            progress: 70,
-            status: "PREPARING",
-            message: "Preparing events & initiatives..."
-        },
-        {
-            progress: 84,
-            status: "ALMOST READY",
-            message: "Everything is coming together..."
-        },
-        {
-            progress: 94,
-            status: "FINALIZING",
-            message: "Finalizing your experience..."
-        },
-        {
-            progress: 100,
-            status: "WELCOME",
-            message: "Welcome to SICO."
-        }
-    ];
-
-
-    let startTime = performance.now();
-
-    let stageIndex = 0;
-
-    let animationRunning = false;
-
-
-    /* ========================================================
-       UPDATE PROGRESS
-       ======================================================== */
-
-    function updateLoader(progress) {
-
-        progress = Math.min(
-            100,
-            Math.max(0, progress)
-        );
-
-        progressBar.style.width =
-            progress + "%";
-
-        percentage.textContent =
-            Math.floor(progress) + "%";
-
-
-        while (
-            stageIndex < stages.length - 1 &&
-            progress >= stages[stageIndex + 1].progress
-        ) {
-
-            stageIndex++;
-
-            const current =
-                stages[stageIndex];
-
-
-            message.classList.add(
-                "message-changing"
-            );
-
-
-            setTimeout(() => {
-
-                status.textContent =
-                    current.status;
-
-                message.textContent =
-                    current.message;
-
-                message.classList.remove(
-                    "message-changing"
-                );
-
-            }, 150);
-
-        }
-
-    }
-
-
-    /* ========================================================
-       ANIMATION LOOP
-       ======================================================== */
-
-    function animateLoader(currentTime) {
-
-        if (!animationRunning) return;
-
-        const elapsed =
-            currentTime - startTime;
-
-
-        const progress =
-            Math.min(
-                (elapsed / duration) * 100,
-                100
-            );
-
-
-        updateLoader(progress);
-
-
-        if (elapsed < duration) {
-
-            requestAnimationFrame(
-                animateLoader
-            );
-
-        } else {
-
-            finishLoader();
-
-        }
-
-    }
-
-
-    /* ========================================================
-       FINISH
-       ======================================================== */
-
-    function finishLoader() {
-
-        updateLoader(100);
-
-        status.textContent =
-            "WELCOME";
-
-        message.textContent =
-            "Welcome to SICO.";
-
-
-        /*
-         * Give the SICO letters a final synchronized
-         * cinematic impact.
-         */
-
-        const word =
-            document.getElementById("sicoWord");
-
-
-        if (word) {
-
-            word.classList.add(
-                "sico-final-impact"
-            );
-
-        }
-
-
-        setTimeout(() => {
-
-            loader.classList.add(
-                "loader-hidden"
-            );
-
-            document.body.classList.add(
-                "page-ready"
-            );
-
-            animationRunning = false;
-
-        }, 450);
-
-    }
-
-
-    /* ========================================================
-       START
-       ======================================================== */
-
-    function startLoader() {
-
-        animationRunning = true;
-
-        startTime =
-            performance.now();
-
-        stageIndex = 0;
-
-        progressBar.style.width =
-            "0%";
-
-        percentage.textContent =
-            "0%";
-
-        status.textContent =
-            "INITIALIZING";
-
-        message.textContent =
-            "Preparing your experience...";
-
-        loader.classList.remove(
-            "loader-hidden"
-        );
-
-        requestAnimationFrame(
-            animateLoader
-        );
-
-    }
-
-
-    /* ========================================================
-       INTERNAL PAGE NAVIGATION
-       ======================================================== */
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            const link =
-                event.target.closest("a");
-
-            if (!link) return;
-
-
-            const href =
-                link.getAttribute("href");
-
-            if (!href) return;
-
-
-            /*
-             * Ignore special links.
-             */
-
-            if (
-                href.startsWith("#") ||
-                href.startsWith("mailto:") ||
-                href.startsWith("tel:") ||
-                link.target === "_blank" ||
-                link.hasAttribute("download")
-            ) {
-                return;
-            }
-
-
-            let destination;
-
-
-            try {
-
-                destination =
-                    new URL(
-                        href,
-                        window.location.href
-                    );
-
-            } catch {
-
-                return;
-
-            }
-
-
-            /*
-             * External links remain normal.
-             */
-
-            if (
-                destination.origin !==
-                window.location.origin
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-             * Same page link.
-             */
-
-            if (
-                destination.pathname ===
-                window.location.pathname &&
-                destination.search ===
-                window.location.search
-            ) {
-
-                return;
-
-            }
-
-
-            event.preventDefault();
-
-
-            /*
-             * Start cinematic loader again.
-             */
-
-            startLoader();
-
-
-            /*
-             * Wait full 5 seconds.
-             */
-
-            setTimeout(() => {
-
-                window.location.href =
-                    destination.href;
-
-            }, duration);
-
-        },
-        true
-    );
-
-
-    /*
-     * Start only once when page initially loads.
-     */
-
-    startLoader();
-
-
-})();
-
-/* ============================================================
-   SICO WEBSITE — INTERACTIVE ENHANCEMENTS
-   ============================================================ */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* ========================================================
-       HEADER SCROLL EFFECT
-       ======================================================== */
-
-    const header =
-        document.querySelector(
-            "header, .site-header, .navbar"
-        );
-
-    function updateHeader() {
-
-        if (!header) return;
-
-        if (window.scrollY > 40) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-    }
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        { passive: true }
-    );
-
-    updateHeader();
-
-
-    /* ========================================================
-       SCROLL REVEAL
-       ======================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            "section, .card, .team-card, .event-card, " +
-            ".faculty-card, .member-card, .gallery-card, " +
-            ".stat-card, .project-card"
-        );
-
-
-    revealElements.forEach(element => {
-
-        element.classList.add(
-            "sico-reveal"
-        );
-
-    });
-
-
-    const revealObserver =
-        new IntersectionObserver(
-            entries => {
-
-                entries.forEach(entry => {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        entry.target.classList.add(
-                            "sico-visible"
-                        );
-
-                        revealObserver.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.12,
-                rootMargin: "0px 0px -40px 0px"
-            }
-        );
-
-
-    revealElements.forEach(element => {
-
-        revealObserver.observe(
-            element
-        );
-
-    });
-
-
-    /* ========================================================
-       STAGGER GRID CHILDREN
-       ======================================================== */
-
-    const grids =
-        document.querySelectorAll(
-            ".team-grid-4th, " +
-            ".faculty-members-row, " +
-            ".events-grid, " +
-            ".gallery-grid, " +
-            ".cards-grid"
-        );
-
-
-    grids.forEach(grid => {
-
-        grid.classList.add(
-            "sico-stagger"
-        );
-
-        revealObserver.observe(
-            grid
-        );
-
-    });
-
-
-    /* ========================================================
-       MOUSE FOLLOW CARD LIGHT
-       ======================================================== */
-
-    const interactiveCards =
-        document.querySelectorAll(
-            ".card, " +
-            ".team-card, " +
-            ".event-card, " +
-            ".faculty-card, " +
-            ".member-card, " +
-            ".stat-card, " +
-            ".gallery-card, " +
-            ".project-card"
-        );
-
-
-    interactiveCards.forEach(card => {
-
-        card.addEventListener(
-            "pointermove",
-            event => {
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left;
-
-
-                const y =
-                    event.clientY -
-                    rect.top;
-
-
-                card.style.setProperty(
-                    "--mouse-x",
-                    `${x}px`
-                );
-
-                card.style.setProperty(
-                    "--mouse-y",
-                    `${y}px`
-                );
-
-            }
-        );
-
-
-        card.addEventListener(
-            "pointerleave",
-            () => {
-
-                card.style.setProperty(
-                    "--mouse-x",
-                    "50%"
-                );
-
-                card.style.setProperty(
-                    "--mouse-y",
-                    "50%"
-                );
-
-            }
-        );
-
-    });
-
-
-    /* ========================================================
-       CREATE AMBIENT PARTICLES
-       ======================================================== */
-
-    const particleContainer =
-        document.createElement("div");
-
-    particleContainer.className =
-        "sico-page-particles";
-
-
-    for (
-        let i = 0;
-        i < 35;
-        i++
-    ) {
-
-        const particle =
-            document.createElement("span");
-
-
-        particle.style.left =
-            Math.random() * 100 + "%";
-
-
-        particle.style.animationDelay =
-            Math.random() * 8 + "s";
-
-
-        particle.style.animationDuration =
-            6 + Math.random() * 8 + "s";
-
-
-        particle.style.opacity =
-            Math.random() * .5;
-
-
-        particleContainer.appendChild(
-            particle
-        );
-
-    }
-
-
-    document.body.appendChild(
-        particleContainer
-    );
-
-
-    /* ========================================================
-       BUTTON RIPPLE
-       ======================================================== */
-
-    const buttons =
-        document.querySelectorAll(
-            "button, .btn, .button, a.btn, a.button"
-        );
-
-
-    buttons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            event => {
-
-                const ripple =
-                    document.createElement(
-                        "span"
-                    );
-
-
-                ripple.style.position =
-                    "absolute";
-
-                ripple.style.pointerEvents =
-                    "none";
-
-                ripple.style.width =
-                    "10px";
-
-                ripple.style.height =
-                    "10px";
-
-                ripple.style.borderRadius =
-                    "50%";
-
-                ripple.style.background =
-                    "rgba(255,255,255,.35)";
-
-                ripple.style.transform =
-                    "translate(-50%,-50%)";
-
-                ripple.style.left =
-                    `${event.offsetX}px`;
-
-                ripple.style.top =
-                    `${event.offsetY}px`;
-
-                ripple.style.animation =
-                    "sicoRipple .65s ease-out forwards";
-
-
-                button.appendChild(
-                    ripple
-                );
-
-
-                setTimeout(
-                    () => ripple.remove(),
-                    700
-                );
-
-            }
-        );
-
-    });
-
-
-    /* ========================================================
-       ACTIVE NAVIGATION
-       ======================================================== */
-
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-
-    document
-        .querySelectorAll(
-            "nav a, .navbar a"
-        )
-        .forEach(link => {
-
-            const href =
-                link.getAttribute("href");
-
-            if (!href) return;
-
-            const linkPage =
-                href
-                    .split("/")
-                    .pop()
-                    .split("?")[0]
-                    .toLowerCase();
-
-
-            if (
-                linkPage &&
-                linkPage === currentPage
-            ) {
-
-                link.classList.add(
-                    "active"
-                );
-
-            }
-
-        });
-
-
-    /* ========================================================
-       IMAGE LAZY LOADING
-       ======================================================== */
-
-    document
-        .querySelectorAll("img")
-        .forEach(img => {
-
-            if (
-                !img.hasAttribute(
-                    "loading"
-                )
-            ) {
-
-                img.setAttribute(
-                    "loading",
-                    "lazy"
-                );
-
-            }
-
-        });
-
-});
 
 
 /* ============================================================
-   RIPPLE ANIMATION
-   ============================================================ */
-
-const sicoRippleStyle =
-    document.createElement("style");
-
-sicoRippleStyle.textContent = `
-
-@keyframes sicoRipple {
-
-    from {
-        width: 10px;
-        height: 10px;
-        opacity: 1;
-    }
-
-    to {
-        width: 350px;
-        height: 350px;
-        opacity: 0;
-    }
-
-}
-
-`;
-
-document.head.appendChild(
-    sicoRippleStyle
-);
-
-/* ============================================================
-   ============================================================
    SICO — ULTIMATE INTERACTION ENGINE
-   ============================================================
    ============================================================ */
-
 (function () {
-
     "use strict";
 
-
-    /* ========================================================
-       01 — HEADER SCROLL
-       ======================================================== */
-
-    const header =
-        document.querySelector(".header");
-
+    const header = document.querySelector(".header");
 
     function updateHeader() {
-
         if (!header) return;
-
-        header.classList.toggle(
-            "scrolled",
-            window.scrollY > 35
-        );
-
+        header.classList.toggle("scrolled", window.scrollY > 35);
     }
-
-
-    window.addEventListener(
-        "scroll",
-        updateHeader,
-        { passive: true }
-    );
-
-
+    window.addEventListener("scroll", updateHeader, { passive: true });
     updateHeader();
 
-
-    /* ========================================================
-       02 — SCROLL REVEAL
-       ======================================================== */
-
     const revealSelectors = [
-
-        ".section-header",
-
-        ".event-card",
-
-        ".team-card",
-
-        ".faculty-card",
-
-        ".member-card",
-
-        ".gallery-item",
-
-        ".feature-card",
-
-        ".report-card",
-
-        ".project-card",
-
-        ".contact-info",
-
-        ".contact-form",
-
-        ".stat-item"
-
+        ".section-header", ".event-card", ".team-card", ".faculty-card", ".member-card",
+        ".gallery-item", ".feature-card", ".report-card", ".project-card",
+        ".contact-info", ".contact-form", ".stat-item"
     ];
-
-
     const revealElements = [];
-
-
     revealSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(element => {
+            if (!element.classList.contains("sico-reveal")) element.classList.add("sico-reveal");
+            revealElements.push(element);
+        });
+    });
 
-        document
-            .querySelectorAll(selector)
-            .forEach(element => {
-
-                if (
-                    !element.classList.contains(
-                        "sico-reveal"
-                    )
-                ) {
-
-                    element.classList.add(
-                        "sico-reveal"
-                    );
-
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("sico-visible");
+                    observer.unobserve(entry.target);
                 }
-
-                revealElements.push(
-                    element
-                );
-
             });
-
-    });
-
-
-    if (
-        "IntersectionObserver"
-        in window
-    ) {
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "sico-visible"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: .12,
-                    rootMargin:
-                        "0px 0px -50px 0px"
-                }
-            );
-
-
-        revealElements.forEach(
-            element =>
-                observer.observe(element)
-        );
-
+        }, { threshold: .12, rootMargin: "0px 0px -50px 0px" });
+        revealElements.forEach(element => observer.observe(element));
     } else {
-
-        revealElements.forEach(
-            element =>
-                element.classList.add(
-                    "sico-visible"
-                )
-        );
-
+        revealElements.forEach(element => element.classList.add("sico-visible"));
     }
 
-
-    /* ========================================================
-       03 — CARD CURSOR LIGHT
-       ======================================================== */
-
-    const interactiveCards =
-        document.querySelectorAll(
-            [
-                ".event-card",
-                ".team-card",
-                ".faculty-card",
-                ".member-card",
-                ".gallery-item",
-                ".feature-card",
-                ".report-card",
-                ".project-card"
-            ].join(",")
-        );
-
-
-    interactiveCards.forEach(card => {
-
-        card.classList.add(
-            "sico-interactive"
-        );
-
-
-        card.addEventListener(
-            "pointermove",
-            event => {
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left;
-
-
-                const y =
-                    event.clientY -
-                    rect.top;
-
-
-                card.style.setProperty(
-                    "--mx",
-                    `${x}px`
-                );
-
-
-                card.style.setProperty(
-                    "--my",
-                    `${y}px`
-                );
-
-            }
-        );
-
-
-        card.addEventListener(
-            "pointerleave",
-            () => {
-
-                card.style.setProperty(
-                    "--mx",
-                    "50%"
-                );
-
-                card.style.setProperty(
-                    "--my",
-                    "50%"
-                );
-
-            }
-        );
-
-    });
-
-
-    /* ========================================================
-       04 — SUBTLE 3D CARD TILT
-       ======================================================== */
-
-    const tiltCards =
-        document.querySelectorAll(
-            ".event-card, .feature-card, .project-card"
-        );
-
-
-    tiltCards.forEach(card => {
-
-        card.addEventListener(
-            "pointermove",
-            event => {
-
-                if (
-                    window.innerWidth < 800
-                ) return;
-
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const px =
-                    (event.clientX -
-                        rect.left) /
-                    rect.width;
-
-
-                const py =
-                    (event.clientY -
-                        rect.top) /
-                    rect.height;
-
-
-                const rotateY =
-                    (px - .5) * 5;
-
-
-                const rotateX =
-                    (.5 - py) * 5;
-
-
-                card.style.transform =
-                    `translateY(-8px)
-                     perspective(900px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)`;
-
-            }
-        );
-
-
-        card.addEventListener(
-            "pointerleave",
-            () => {
-
-                card.style.transform =
-                    "";
-
-            }
-        );
-
-    });
-
-
-    /* ========================================================
-       05 — MAGNETIC BUTTONS
-       ======================================================== */
-
-    const magneticButtons =
-        document.querySelectorAll(
-            ".btn-primary, " +
-            ".btn-secondary, " +
-            ".btn-nav-cta, " +
-            ".sico-hero-button"
-        );
-
-
-    magneticButtons.forEach(button => {
-
-        button.addEventListener(
-            "pointermove",
-            event => {
-
-                if (
-                    window.innerWidth < 800
-                ) return;
-
-
-                const rect =
-                    button.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left -
-                    rect.width / 2;
-
-
-                const y =
-                    event.clientY -
-                    rect.top -
-                    rect.height / 2;
-
-
-                button.style.transform =
-                    `translate(
-                        ${x * .10}px,
-                        ${y * .10}px
-                    )`;
-
-            }
-        );
-
-
-        button.addEventListener(
-            "pointerleave",
-            () => {
-
-                button.style.transform =
-                    "";
-
-            }
-        );
-
-    });
-
-
-    /* ========================================================
-       06 — ACTIVE NAVIGATION
-       ======================================================== */
-
-    const currentFile =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-
-    document
-        .querySelectorAll(
-            ".nav-link"
-        )
-        .forEach(link => {
-
-            const href =
-                link.getAttribute(
-                    "href"
-                );
-
-
-            if (!href) return;
-
-
-            const linkFile =
-                href
-                    .split("/")
-                    .pop()
-                    .split("?")[0]
-                    .toLowerCase();
-
-
-            if (
-                linkFile ===
-                currentFile
-            ) {
-
-                document
-                    .querySelectorAll(
-                        ".nav-link.active"
-                    )
-                    .forEach(
-                        old =>
-                            old.classList.remove(
-                                "active"
-                            )
-                    );
-
-
-                link.classList.add(
-                    "active"
-                );
-
-            }
-
-        });
-
-
-    /* ========================================================
-       07 — SMOOTH INTERNAL ANCHORS
-       ======================================================== */
-
-    document
-        .querySelectorAll(
-            'a[href^="#"]'
-        )
-        .forEach(anchor => {
-
-            anchor.addEventListener(
-                "click",
-                event => {
-
-                    const id =
-                        anchor.getAttribute(
-                            "href"
-                        );
-
-
-                    if (
-                        !id ||
-                        id === "#"
-                    ) return;
-
-
-                    const target =
-                        document.querySelector(
-                            id
-                        );
-
-
-                    if (!target) return;
-
-
-                    event.preventDefault();
-
-
-                    const offset =
-                        header
-                            ? header.offsetHeight + 20
-                            : 20;
-
-
-                    const top =
-                        target.getBoundingClientRect()
-                            .top +
-                        window.scrollY -
-                        offset;
-
-
-                    window.scrollTo({
-                        top,
-                        behavior:
-                            "smooth"
-                    });
-
-                }
-            );
-
-        });
-
-
-    /* ========================================================
-       08 — COUNTER ANIMATION
-       ======================================================== */
-
-    const counters =
-        document.querySelectorAll(
-            "[data-count]"
-        );
-
-
-    if (
-        counters.length &&
-        "IntersectionObserver"
-        in window
-    ) {
-
-        const counterObserver =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            !entry.isIntersecting
-                        ) return;
-
-
-                        const element =
-                            entry.target;
-
-
-                        const target =
-                            parseFloat(
-                                element.dataset.count
-                            );
-
-
-                        if (
-                            Number.isNaN(target)
-                        ) return;
-
-
-                        const duration =
-                            1300;
-
-
-                        const start =
-                            performance.now();
-
-
-                        function animateCounter(
-                            now
-                        ) {
-
-                            const progress =
-                                Math.min(
-                                    (now - start) /
-                                    duration,
-                                    1
-                                );
-
-
-                            const eased =
-                                1 -
-                                Math.pow(
-                                    1 - progress,
-                                    3
-                                );
-
-
-                            const value =
-                                target *
-                                eased;
-
-
-                            element.textContent =
-                                Number.isInteger(
-                                    target
-                                )
-                                    ? Math.round(
-                                        value
-                                    )
-                                    : value.toFixed(
-                                        1
-                                    );
-
-
-                            if (
-                                progress < 1
-                            ) {
-
-                                requestAnimationFrame(
-                                    animateCounter
-                                );
-
-                            }
-
-                        }
-
-
-                        requestAnimationFrame(
-                            animateCounter
-                        );
-
-
-                        counterObserver.unobserve(
-                            element
-                        );
-
-                    });
-
-                },
-                {
-                    threshold: .7
-                }
-            );
-
-
-        counters.forEach(
-            counter =>
-                counterObserver.observe(
-                    counter
-                )
-        );
-
-    }
-
-
-    /* ========================================================
-       09 — BUTTON RIPPLE
-       ======================================================== */
-
-    document
-        .querySelectorAll(
-            ".btn, " +
-            ".btn-nav-cta, " +
-            ".sico-hero-button"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                event => {
-
-                    const ripple =
-                        document.createElement(
-                            "span"
-                        );
-
-
-                    const rect =
-                        button.getBoundingClientRect();
-
-
-                    ripple.style.position =
-                        "absolute";
-
-
-                    ripple.style.left =
-                        (
-                            event.clientX -
-                            rect.left
-                        ) + "px";
-
-
-                    ripple.style.top =
-                        (
-                            event.clientY -
-                            rect.top
-                        ) + "px";
-
-
-                    ripple.style.width =
-                        "10px";
-
-
-                    ripple.style.height =
-                        "10px";
-
-
-                    ripple.style.borderRadius =
-                        "50%";
-
-
-                    ripple.style.background =
-                        "rgba(255,255,255,.4)";
-
-
-                    ripple.style.transform =
-                        "translate(-50%,-50%)";
-
-
-                    ripple.style.pointerEvents =
-                        "none";
-
-
-                    ripple.style.zIndex =
-                        "10";
-
-
-                    ripple.style.animation =
-                        "sicoButtonRipple .7s ease-out forwards";
-
-
-                    button.appendChild(
-                        ripple
-                    );
-
-
-                    setTimeout(
-                        () => {
-                            ripple.remove();
-                        },
-                        750
-                    );
-
-                }
-            );
-
-        });
-
-
-    /* ========================================================
-       10 — CURSOR GLOW
-       ======================================================== */
-
-    const cursor =
-        document.getElementById(
-            "cursorGlow"
-        );
-
-
-    if (
-        cursor &&
-        window.matchMedia(
-            "(pointer:fine)"
-        ).matches
-    ) {
-
-        let mouseX = 0;
-        let mouseY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
-
-
-        document.addEventListener(
-            "pointermove",
-            event => {
-
-                mouseX =
-                    event.clientX;
-
-                mouseY =
-                    event.clientY;
-
-            },
-            {
-                passive: true
-            }
-        );
-
-
-        function animateCursor() {
-
-            currentX +=
-                (mouseX -
-                    currentX) *
-                .12;
-
-
-            currentY +=
-                (mouseY -
-                    currentY) *
-                .12;
-
-
-            cursor.style.transform =
-                `translate(
-                    ${currentX - 90}px,
-                    ${currentY - 90}px
-                )`;
-
-
-            requestAnimationFrame(
-                animateCursor
-            );
-
-        }
-
-
-        animateCursor();
-
-    }
-
-
-    /* ========================================================
-       11 — IMAGE PERFORMANCE
-       ======================================================== */
-
-    document
-        .querySelectorAll(
-            "img"
-        )
-        .forEach((img, index) => {
-
-            if (
-                !img.hasAttribute(
-                    "decoding"
-                )
-            ) {
-
-                img.setAttribute(
-                    "decoding",
-                    "async"
-                );
-
-            }
-
-
-            /*
-             * Keep the first few important images
-             * eager; lazy-load the rest.
-             */
-
-            if (
-                index > 4 &&
-                !img.hasAttribute(
-                    "loading"
-                )
-            ) {
-
-                img.setAttribute(
-                    "loading",
-                    "lazy"
-                );
-
-            }
-
-        });
-
-
-    /* ========================================================
-       12 — ESCAPE KEY
-       ======================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                document
-                    .querySelectorAll(
-                        ".lightbox.active, " +
-                        ".search-modal.active, " +
-                        ".modal.active"
-                    )
-                    .forEach(modal => {
-
-                        modal.classList.remove(
-                            "active"
-                        );
-
-                    });
-
-            }
-
-        }
+    const interactiveCards = document.querySelectorAll(
+        [".event-card", ".team-card", ".faculty-card", ".member-card", ".gallery-item",
+         ".feature-card", ".report-card", ".project-card"].join(",")
     );
+    interactiveCards.forEach(card => {
+        card.classList.add("sico-interactive");
+        card.addEventListener("pointermove", event => {
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            card.style.setProperty("--mx", `${x}px`);
+            card.style.setProperty("--my", `${y}px`);
+        });
+        card.addEventListener("pointerleave", () => {
+            card.style.setProperty("--mx", "50%");
+            card.style.setProperty("--my", "50%");
+        });
+    });
 
+    const tiltCards = document.querySelectorAll(".event-card, .feature-card, .project-card");
+    tiltCards.forEach(card => {
+        card.addEventListener("pointermove", event => {
+            if (window.innerWidth < 800) return;
+            const rect = card.getBoundingClientRect();
+            const px = (event.clientX - rect.left) / rect.width;
+            const py = (event.clientY - rect.top) / rect.height;
+            const rotateY = (px - .5) * 5;
+            const rotateX = (.5 - py) * 5;
+            card.style.transform = `translateY(-8px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener("pointerleave", () => card.style.transform = "");
+    });
+
+    const magneticButtons = document.querySelectorAll(".btn-primary, .btn-secondary, .btn-nav-cta, .sico-hero-button");
+    magneticButtons.forEach(button => {
+        button.addEventListener("pointermove", event => {
+            if (window.innerWidth < 800) return;
+            const rect = button.getBoundingClientRect();
+            const x = event.clientX - rect.left - rect.width / 2;
+            const y = event.clientY - rect.top - rect.height / 2;
+            button.style.transform = `translate(${x * .10}px, ${y * .10}px)`;
+        });
+        button.addEventListener("pointerleave", () => button.style.transform = "");
+    });
+
+    const currentFile = window.location.pathname.split("/").pop().toLowerCase();
+    document.querySelectorAll(".nav-link").forEach(link => {
+        const href = link.getAttribute("href");
+        if (!href) return;
+        const linkFile = href.split("/").pop().split("?")[0].toLowerCase();
+        if (linkFile === currentFile) {
+            document.querySelectorAll(".nav-link.active").forEach(old => old.classList.remove("active"));
+            link.classList.add("active");
+        }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", event => {
+            const id = anchor.getAttribute("href");
+            if (!id || id === "#") return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            event.preventDefault();
+            const offset = header ? header.offsetHeight + 20 : 20;
+            const top = target.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: "smooth" });
+        });
+    });
+
+    const counters = document.querySelectorAll("[data-count]");
+    if (counters.length && "IntersectionObserver" in window) {
+        const counterObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const element = entry.target;
+                const target = parseFloat(element.dataset.count);
+                if (Number.isNaN(target)) return;
+                const duration = 1300;
+                const start = performance.now();
+                function animateCounter(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const value = target * eased;
+                    element.textContent = Number.isInteger(target) ? Math.round(value) : value.toFixed(1);
+                    if (progress < 1) requestAnimationFrame(animateCounter);
+                }
+                requestAnimationFrame(animateCounter);
+                counterObserver.unobserve(element);
+            });
+        }, { threshold: .7 });
+        counters.forEach(counter => counterObserver.observe(counter));
+    }
+
+    document.querySelectorAll(".btn, .btn-nav-cta, .sico-hero-button").forEach(button => {
+        button.addEventListener("click", event => {
+            const ripple = document.createElement("span");
+            const rect = button.getBoundingClientRect();
+            ripple.style.position = "absolute";
+            ripple.style.left = (event.clientX - rect.left) + "px";
+            ripple.style.top = (event.clientY - rect.top) + "px";
+            ripple.style.width = "10px";
+            ripple.style.height = "10px";
+            ripple.style.borderRadius = "50%";
+            ripple.style.background = "rgba(255,255,255,.4)";
+            ripple.style.transform = "translate(-50%,-50%)";
+            ripple.style.pointerEvents = "none";
+            ripple.style.zIndex = "10";
+            ripple.style.animation = "sicoButtonRipple .7s ease-out forwards";
+            button.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 750);
+        });
+    });
+
+    const cursor = document.getElementById("cursorGlow");
+    if (cursor && window.matchMedia("(pointer:fine)").matches) {
+        let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
+        document.addEventListener("pointermove", event => {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+        }, { passive: true });
+        function animateCursor() {
+            currentX += (mouseX - currentX) * .12;
+            currentY += (mouseY - currentY) * .12;
+            cursor.style.transform = `translate(${currentX - 90}px, ${currentY - 90}px)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+    }
+
+    document.querySelectorAll("img").forEach((img, index) => {
+        if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+        if (index > 4 && !img.hasAttribute("loading")) img.setAttribute("loading", "lazy");
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".lightbox.active, .search-modal.active, .modal.active").forEach(modal => modal.classList.remove("active"));
+        }
+    });
 
 })();
-
-
-/* ============================================================
-   RIPPLE ANIMATION
-   ============================================================ */
 
 (function () {
-
-    const style =
-        document.createElement(
-            "style"
-        );
-
-
+    const style = document.createElement("style");
     style.textContent = `
-
         @keyframes sicoButtonRipple {
-
-            0% {
-                width: 10px;
-                height: 10px;
-                opacity: .65;
-            }
-
-            100% {
-                width: 350px;
-                height: 350px;
-                opacity: 0;
-            }
-
+            0% { width: 10px; height: 10px; opacity: .65; }
+            100% { width: 350px; height: 350px; opacity: 0; }
         }
-
     `;
-
-
-    document.head.appendChild(
-        style
-    );
-
+    document.head.appendChild(style);
 })();
 
+/* ============================================================
+   FINAL SAFETY NETS
+   ============================================================ */
+window.addEventListener('pageshow', () => {
+    if (document.body.style.overflow === 'hidden') {
+        const anyModalOpen = document.querySelector(
+            '.event-modal-backdrop.active, .lightbox.active, ' +
+            '.cmd-palette-overlay.active, .admin-auth-overlay:not(.hidden)'
+        );
+        if (!anyModalOpen) document.body.style.overflow = '';
+    }
+});
+
+// 2. Force loader to auto-dismiss after 5.5s max as a fallback
+(function () {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+    setTimeout(() => {
+        if (!loader.classList.contains('loader-hidden')) {
+            loader.classList.add('loader-hidden');
+            document.body.classList.add('page-ready');
+            setTimeout(() => loader.remove(), 1000);
+        }
+    }, 5500);
+})();

@@ -1,0 +1,123 @@
+/* ============================================================
+   SICO LOADER — 5 SECOND CINEMATIC SEQUENCE OVERRIDE
+   Load this AFTER styles.css — it only touches loader timing
+   ============================================================ */
+
+/* --- Base letter state (before animation) --- */
+.sico-word .sico-letter {
+    opacity: 0;
+    transform: translateY(60px) scale(.55);
+    filter: blur(14px);
+    color: #050505;
+    -webkit-text-stroke: 2px rgba(255,255,255,.9);
+    text-shadow: none;
+    will-change: transform, opacity, filter, color, text-shadow;
+}
+
+/* --- All four letters complete BEFORE 3s (well within 5s window) --- */
+.sico-letter.letter-s {
+    animation: sicoLetterIn 1s cubic-bezier(.16,1,.3,1) 0.50s forwards !important;
+}
+.sico-letter.letter-i {
+    animation: sicoLetterIn 1s cubic-bezier(.16,1,.3,1) 0.90s forwards !important;
+}
+.sico-letter.letter-c {
+    animation: sicoLetterIn 1s cubic-bezier(.16,1,.3,1) 1.30s forwards !important;
+}
+.sico-letter.letter-o {
+    animation: sicoLetterIn 1s cubic-bezier(.16,1,.3,1) 1.70s forwards !important;
+}
+
+@keyframes sicoLetterIn {
+    0% {
+        opacity: 0;
+        transform: translateY(60px) scale(.55);
+        filter: blur(14px);
+        color: #050505;
+        text-shadow: none;
+    }
+    55% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.10);
+        filter: blur(0);
+        color: #ffffff;
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 60px rgba(255,255,255,.85),
+            0 0 110px rgba(255,255,255,.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+        color: #ffffff;
+        text-shadow:
+            0 0 12px rgba(255,255,255,.95),
+            0 0 40px rgba(255,255,255,.55);
+    }
+}
+
+/* --- Underline (energy line) drawn beneath SICO at ~3.1s --- */
+.sico-word::after {
+    animation: sicoUnderline 1s cubic-bezier(.16,1,.3,1) 3.10s forwards !important;
+}
+
+@keyframes sicoUnderline {
+    0%   { width: 0;    opacity: 0; }
+    25%  { opacity: 1; }
+    100% { width: 90%;  opacity: 1; }
+}
+
+/* --- Divider line between SICO and subtitle at ~3.4s --- */
+.sico-line {
+    width: 0;
+    opacity: 0;
+    animation: sicoLineReveal5s 1s ease 3.40s forwards !important;
+}
+
+@keyframes sicoLineReveal5s {
+    from { width: 0;     opacity: 0; }
+    to   { width: 420px; opacity: 1; }
+}
+
+/* --- Subtitle "R.V.R. & J.C. / COLLEGE OF ENGINEERING" at ~3.6s --- */
+.sico-subtitle {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: sicoSubtitleReveal5s 1s ease 3.60s forwards !important;
+}
+
+@keyframes sicoSubtitleReveal5s {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Final synchronized letter blast at ~4.5s (before 5s finish) --- */
+.sico-final-impact .sico-letter {
+    animation: sicoFinalBlast5s .55s cubic-bezier(.16,1,.3,1) forwards !important;
+}
+
+@keyframes sicoFinalBlast5s {
+    0% {
+        transform: scale(1);
+        color: #ffffff;
+        text-shadow: 0 0 10px #ffffff, 0 0 30px rgba(255,255,255,.5);
+    }
+    35% {
+        transform: scale(1.22);
+        color: #ffffff;
+        text-shadow:
+            0 0 20px #ffffff,
+            0 0 60px #ffffff,
+            0 0 120px rgba(255,255,255,.9);
+    }
+    65% {
+        transform: scale(.96);
+        text-shadow: 0 0 30px #ffffff, 0 0 80px rgba(255,255,255,.8);
+    }
+    100% {
+        transform: scale(1.05);
+        color: #ffffff;
+        text-shadow: 0 0 15px #ffffff, 0 0 45px rgba(255,255,255,.65);
+    }
+}

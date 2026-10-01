@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SICO Portal | Student Initiatives & Community Outreach - RVR&JCCE</title>
-
+    
+    <!-- Pre-paint theme init — prevents dark/light flash -->
+    <script src="theme-init.js"></script>
+    
     <meta name="description"
         content="Discover SICO at RVR & JC College of Engineering - Empowering students to lead transformative community and campus initiatives.">
 
@@ -17,6 +20,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loader-5s.css">
 
     <!-- =========================================================
          SICO PAGE — LOCAL OVERRIDES
@@ -1109,7 +1113,56 @@
             }
 
         }
+    /* --------------------------------------------------------
+   LIGHT THEME OVERRIDES FOR SICO PAGE
+   -------------------------------------------------------- */
+[data-theme="light"] .sico-page-hero,
+[data-theme="light"] .sico,
+[data-theme="light"] .sico-guide {
+    background: #fbf9f4 !important;
+    color: #1c1917 !important;
+    border-color: rgba(180, 83, 9, 0.18) !important;
+}
 
+[data-theme="light"] .sico-page-title-main,
+[data-theme="light"] .sico-page-title-sub,
+[data-theme="light"] .sico .section-title,
+[data-theme="light"] .pillar-step h4,
+[data-theme="light"] .sico .feature-card h3,
+[data-theme="light"] .report-preview-card h3 {
+    color: #1c1917 !important;
+}
+
+[data-theme="light"] .sico-lead,
+[data-theme="light"] .sico-page-description,
+[data-theme="light"] .pillar-step p,
+[data-theme="light"] .sico .feature-card p,
+[data-theme="light"] .report-preview-card p,
+[data-theme="light"] .sico-guide .section-description {
+    color: #57534e !important;
+}
+
+[data-theme="light"] .sico .feature-card,
+[data-theme="light"] .report-preview-card {
+    background: linear-gradient(145deg, #ffffff, #f5f0ea) !important;
+    border-color: rgba(180, 83, 9, 0.2) !important;
+}
+
+[data-theme="light"] .sico-page-button.primary {
+    background: #1c1917 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .sico-page-button.secondary {
+    background: rgba(0, 0, 0, 0.04) !important;
+    color: #1c1917 !important;
+    border-color: rgba(0, 0, 0, 0.14) !important;
+}
+
+[data-theme="light"] .sico-page-kicker,
+[data-theme="light"] .sico-eyebrow {
+    color: #78716c !important;
+}
     </style>
 </head>
 
@@ -2187,72 +2240,7 @@
     </div>
 
 
-    <!-- =========================================================
-         LOADER CONTROL
-         This does NOT replace script.js.
-         It only protects this page from duplicate loader
-         initialization and ensures the loader finishes once.
-         ========================================================= -->
-
-    <script>
-
-        (function () {
-
-            "use strict";
-
-            const loader = document.getElementById("pageLoader");
-
-            if (!loader) return;
-
-            let finished = false;
-
-            /*
-             * The main script.js controls the loader.
-             * This guard prevents accidental duplicate
-             * initialization if another script tries to
-             * create/show a second legacy loader.
-             */
-
-            window.__SICO_SINGLE_LOADER__ = true;
-
-            window.addEventListener("pageshow", function () {
-
-                if (
-                    sessionStorage.getItem("sicoNavigationLoader") === "1"
-                ) {
-
-                    sessionStorage.removeItem("sicoNavigationLoader");
-
-                    loader.classList.add("loader-hidden");
-
-                    document.body.classList.add("page-ready");
-
-                }
-
-            });
-
-            /*
-             * Safety fallback.
-             * If script.js fails to remove the loader,
-             * don't leave the entire website blocked.
-             */
-
-            setTimeout(function () {
-
-                if (finished) return;
-
-                finished = true;
-
-                loader.classList.add("loader-hidden");
-
-                document.body.classList.add("page-ready");
-
-            }, 6500);
-
-        })();
-
-    </script>
-
+    
 
     <!-- =========================================================
          MAIN JAVASCRIPT
@@ -2261,88 +2249,7 @@
     <script src="script.js"></script>
 
 
-    <!-- =========================================================
-         SICO NAVIGATION FIX
-         Prevents script.js from starting the loader twice
-         when this page is navigated to.
-         ========================================================= -->
-
-    <script>
-
-        (function () {
-
-            "use strict";
-
-            document.addEventListener(
-                "click",
-                function (event) {
-
-                    const link =
-                        event.target.closest("a");
-
-                    if (!link) return;
-
-                    const href =
-                        link.getAttribute("href");
-
-                    if (!href) return;
-
-                    if (
-                        href.startsWith("#") ||
-                        href.startsWith("mailto:") ||
-                        href.startsWith("tel:") ||
-                        link.target === "_blank" ||
-                        link.hasAttribute("download")
-                    ) {
-                        return;
-                    }
-
-                    let destination;
-
-                    try {
-
-                        destination = new URL(
-                            href,
-                            window.location.href
-                        );
-
-                    } catch (error) {
-
-                        return;
-
-                    }
-
-                    if (
-                        destination.origin !==
-                        window.location.origin
-                    ) {
-                        return;
-                    }
-
-                    /*
-                     * Do not interfere with script.js navigation
-                     * if the loader system is already handling it.
-                     */
-
-                    if (
-                        window.__SICO_SINGLE_LOADER__
-                    ) {
-
-                        sessionStorage.setItem(
-                            "sicoNavigationLoader",
-                            "1"
-                        );
-
-                    }
-
-                },
-                true
-            );
-
-        })();
-
-    </script>
-
+    
 </body>
 
 </html>
