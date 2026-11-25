@@ -2066,11 +2066,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const trigger = document.getElementById('coloridoExploreTrigger');
-        if (trigger) {
-            trigger.addEventListener('click', openColoridoLetter);
-        }
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('#coloridoExploreTrigger');
+        if (!trigger) return;
+        openColoridoLetter(e);
     });
 })();
 
