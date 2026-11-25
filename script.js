@@ -3,19 +3,30 @@
 // ============================================
 
 /* ============================================================
-   SICO — CINEMATIC LOADER (MAIN DRIVER)
-   Total runtime: 5.0s  →  letter reveal, underline, subtitle
+   SICO — CINEMATIC 5 SECOND LOADER (FIRST VISIT ONLY)
+   Plays once per session; skipped with zero flash on page nav
    ============================================================ */
 (function () {
     const loader = document.getElementById('pageLoader');
     if (!loader) return;
+
+    let alreadyShown = false;
+    try {
+        alreadyShown = sessionStorage.getItem('sico_loader_shown') === 'true';
+    } catch (e) {}
+
+    if (alreadyShown) {
+        loader.remove();
+        document.body.classList.add('page-ready');
+        return;
+    }
 
     const progressBar = document.getElementById('loaderProgressBar');
     const percentage  = document.getElementById('loaderPercentage');
     const status      = document.getElementById('loaderStatus');
     const message     = document.getElementById('loaderMessage');
 
-    const duration = 5000; // 5 seconds total
+    const duration = 5000;
 
     const stages = [
         { progress: 0,   status: 'INITIALIZING',  message: 'Preparing your experience...' },
@@ -70,6 +81,10 @@
         if (status)  status.textContent  = 'WELCOME';
         if (message) message.textContent = 'Welcome to SICO.';
 
+        try {
+            sessionStorage.setItem('sico_loader_shown', 'true');
+        } catch (e) {}
+
         const word = document.getElementById('sicoWord');
         if (word) word.classList.add('sico-final-impact');
 
@@ -84,6 +99,179 @@
     requestAnimationFrame(animateLoader);
 })();
 
+/* ============================================================
+   OFFICIAL COMPLETED EVENTS & MERIT LIST DIRECTORY
+   (Edit names / regd numbers / cash prizes anytime here)
+   ============================================================ */
+window.SICO_COMPLETED_EVENTS = [
+    {
+        id: 'comp_waltz',
+        matchKey: 'waltz',
+        title: 'Club Waltz (Inter-College Dance Competition)',
+        club: 'CLUB WALTZ',
+        date: '05th & 06th October 2026',
+        venue: 'Open Air Theatre (OAT)',
+        prizePool: '₹7,500 Total Cash Prizes Awarded',
+        summary: 'Two-day inter-college dance competition featuring Solo, Jodi, and Group crew showdowns judged by professional choreographers.',
+        winners: [
+            { rank: '1st', name: 'N. Harsha Vardhan & Crew', regd: 'Y23CS041', branch: 'CSE', prize: '₹3,000 Cash', project: 'Group Western Fusion' },
+            { rank: '2nd', name: 'D. Keerthi & Team', regd: 'Y23IT029', branch: 'IT', prize: '₹2,000 Cash', project: 'Classical & Folk Medley' },
+            { rank: '1st', name: 'A. Sravani', regd: 'Y24EC019', branch: 'ECE', prize: '₹1,500 Cash', project: 'Solo Contemporary' },
+            { rank: '2nd', name: 'K. Rohit', regd: 'Y23ME054', branch: 'MECH', prize: '₹1,000 Cash', project: 'Solo Hip-Hop Freestyle' }
+        ]
+    },
+    {
+        id: 'comp_web_anime',
+        matchKey: 'website development',
+        title: 'Website Development & Anime Video Making',
+        club: 'Digital Club',
+        date: '30th September 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹7,500 Total Cash Prizes Awarded',
+        summary: 'Dual technical and creative contest combining live responsive web development and original anime video storytelling.',
+        winners: [
+            { rank: '1st', name: 'R. Karthikeya', regd: 'Y23CS112', branch: 'CSE', prize: '₹3,000 Cash', project: 'Campus Smart Portal (Web Dev)' },
+            { rank: '2nd', name: 'S. Meghana', regd: 'Y23AI034', branch: 'CSM', prize: '₹2,000 Cash', project: 'Interactive Event Hub (Web Dev)' },
+            { rank: '1st', name: 'K. Pranav', regd: 'Y24IT048', branch: 'IT', prize: '₹1,500 Cash', project: 'Cyber Dawn (Anime Short)' },
+            { rank: '2nd', name: 'P. Kavya', regd: 'Y24CS077', branch: 'CSE', prize: '₹1,000 Cash', project: 'Neon Horizon (Anime Short)' }
+        ]
+    },
+    {
+        id: 'comp_endeavour',
+        matchKey: 'endeavour',
+        title: 'General Quiz Championship',
+        club: 'CLUB ENDEAVOUR',
+        date: '19th September 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹3,250 Cash Prizes Awarded',
+        summary: 'Multi-disciplinary campus quiz covering science, current affairs, literature, and technology across 38 participating teams.',
+        winners: [
+            { rank: '1st', name: 'R. Siddharth', regd: 'Y23EC088', branch: 'ECE', prize: '₹1,500 Cash', project: 'Grand Quiz Champion' },
+            { rank: '2nd', name: 'G. Poojitha', regd: 'Y23CS063', branch: 'CSE', prize: '₹1,000 Cash', project: 'Runner-Up' },
+            { rank: '3rd', name: 'T. Manish', regd: 'Y24EE021', branch: 'EEE', prize: '₹750 Cash', project: 'Second Runner-Up' }
+        ]
+    },
+    {
+        id: 'comp_theatrix',
+        matchKey: 'theatrix',
+        title: 'Mime, Skit & Standup Comedy Showcase',
+        club: 'CLUB THEATRIX',
+        date: '11th September 2026',
+        venue: 'SJB & Decennial Hall',
+        prizePool: '₹7,500 Total Cash Prizes Awarded',
+        summary: 'Dramatics evening featuring thought-provoking group mimes, original skits, and high-energy solo standup comedy sets.',
+        winners: [
+            { rank: '1st', name: 'V. Nikhil & Group', regd: 'Y23ME072', branch: 'MECH', prize: '₹3,000 Cash', project: 'Group Mime — Silent Earth' },
+            { rank: '2nd', name: 'Ch. Nandini & Team', regd: 'Y23CS015', branch: 'CSE', prize: '₹2,000 Cash', project: 'Campus Chronicles (Skit)' },
+            { rank: '1st', name: 'B. Varun', regd: 'Y24IT014', branch: 'IT', prize: '₹1,500 Cash', project: 'Solo Standup Comedy' },
+            { rank: '2nd', name: 'K. Deepika', regd: 'Y23EC051', branch: 'ECE', prize: '₹1,000 Cash', project: 'Solo Standup Comedy' }
+        ]
+    },
+    {
+        id: 'comp_redants',
+        matchKey: 'face painting',
+        title: 'Fine Arts Championship (Painting & Mehandi)',
+        club: 'RED ANTS',
+        date: '29th August 2026',
+        venue: 'SJB Portico & Ground',
+        prizePool: '₹3,250 Cash Prizes Awarded',
+        summary: 'Creative fine arts competition across Face Painting, Pencil Shading, Mehandi, and Conceptual Painting.',
+        winners: [
+            { rank: '1st', name: 'V. Bhargavi', regd: 'Y23CE024', branch: 'CIVIL', prize: '₹1,500 Cash', project: 'Conceptual Acrylic Canvas' },
+            { rank: '2nd', name: 'M. Swathi', regd: 'Y24CS092', branch: 'CSE', prize: '₹1,000 Cash', project: 'Portrait Pencil Shading' },
+            { rank: '3rd', name: 'N. Akhil', regd: 'Y23ME039', branch: 'MECH', prize: '₹750 Cash', project: 'Traditional Face Art' }
+        ]
+    },
+    {
+        id: 'comp_spectrum',
+        matchKey: 'spectrum',
+        title: 'Short Film & Rhythm in Motion Festival',
+        club: 'Club Spectrum',
+        date: '14th August 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹8,000 Total Cash Prizes Awarded',
+        summary: 'Student filmmaking festival showcasing original 15-minute short films and 4-minute rhythmic visual edits.',
+        winners: [
+            { rank: '1st', name: 'P. Aditya & Crew', regd: 'Y23CS128', branch: 'CSE', prize: '₹4,000 Cash', project: 'Best Short Film — Echoes' },
+            { rank: '2nd', name: 'R. Charan & Team', regd: 'Y23IT067', branch: 'IT', prize: '₹2,500 Cash', project: 'Second Best Short Film — Frame Zero' },
+            { rank: '3rd', name: 'D. Pavani', regd: 'Y24EC030', branch: 'ECE', prize: '₹1,500 Cash', project: 'Best Direction & Editing' }
+        ]
+    },
+    {
+        id: 'comp_logo',
+        matchKey: 'logo design',
+        title: 'Logo Design Championship & Brand Identity',
+        club: 'Digital Club',
+        date: '11th August 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹3,250 Cash Prizes Awarded',
+        summary: 'Creative branding sprint challenging students to craft original minimalist logos and visual identity guidelines.',
+        winners: [
+            { rank: '1st', name: 'M. Sai Pranathi', regd: 'Y23CS074', branch: 'CSE', prize: '₹1,500 Cash', project: 'Minimalist Tech Brand Kit' },
+            { rank: '2nd', name: 'K. Harish', regd: 'Y23IT045', branch: 'IT', prize: '₹1,000 Cash', project: 'Eco-Campus Identity System' },
+            { rank: '3rd', name: 'P. Revathi', regd: 'Y24EC028', branch: 'ECE', prize: '₹750 Cash', project: 'Cultural Fest Monogram' }
+        ]
+    },
+    {
+        id: 'comp_spark',
+        matchKey: 'spark',
+        title: 'Technical Poster Presentation & Innovation Expo',
+        club: 'CLUB SPARK',
+        date: '06th August 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹6,500 Cash Prizes Awarded',
+        summary: 'Inter-departmental technical poster showcase featuring prototypes in IoT, AI diagnostics, and sustainable materials.',
+        winners: [
+            { rank: '1st', name: 'S. Naveen', regd: 'Y23EC011', branch: 'ECE', prize: '₹3,000 Cash', project: 'Edge AI Health Monitor' },
+            { rank: '2nd', name: 'M. Teja', regd: 'Y23CS055', branch: 'CSE', prize: '₹2,000 Cash', project: 'Smart Campus Energy Grid' },
+            { rank: '3rd', name: 'S. Lakshmi', regd: 'Y24CH009', branch: 'CHE', prize: '₹1,500 Cash', project: 'Bio-Polymer Water Filter' }
+        ]
+    },
+    {
+        id: 'comp_1',
+        matchKey: 'renewable',
+        title: 'Clean Energy Poster Presentation',
+        club: 'Renewable Energy Club',
+        date: '01st August 2026',
+        venue: 'SJB Seminar Hall',
+        prizePool: '₹6,500 Cash Prizes Awarded',
+        summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations.',
+        winners: [
+            { rank: '1st', name: 'K. Aditya Verma', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
+            { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
+            { rank: '3rd', name: 'T. Rahul', regd: 'Y24CS105', branch: 'CSE', prize: '₹1,500 Cash', project: 'AI Solar Tracking Panel' }
+        ]
+    },
+    {
+        id: 'comp_2',
+        matchKey: 'inspiraze',
+        title: 'Youth Leadership & Oratory Conclave',
+        club: 'Club Inspiraze',
+        date: '25th July 2026',
+        venue: 'Open Air Theatre (OAT)',
+        prizePool: '₹4,000 Cash & Trophies',
+        summary: 'Annual campus oratorical conclave on ethics in technology and social impact.',
+        winners: [
+            { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
+            { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
+        ]
+    },
+    {
+        id: 'comp_3',
+        matchKey: 'yoga',
+        title: 'International Yoga Day Asana Championship',
+        club: 'International Yoga Day',
+        date: '21st June 2026',
+        venue: 'Open Air Theatre (OAT)',
+        prizePool: '₹2,500 Cash & Medals',
+        summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
+        winners: [
+            { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
+            { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
+        ]
+    }
+];
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // -------------------------------------------------------------
@@ -97,13 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let embers = [];
         const emberCount = window.innerWidth < 768 ? 22 : 45;
         let heroMouse = { x: null, y: null, radius: 160 };
-
-        window.triggerWarpSpeed = function() {
-            embers.forEach(e => {
-                e.vy -= 2;
-                e.alpha = Math.min(0.8, e.alpha + 0.3);
-            });
-        };
 
         const warmPalettes = [
             'rgba(245, 158, 11, ',
@@ -136,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dx = heroMouse.x - this.x;
                     const dy = heroMouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < heroMouse.radius) {
+                    if (dist < heroMouse.radius && dist > 0) {
                         const force = (heroMouse.radius - dist) / heroMouse.radius;
                         this.x -= (dx / dist) * force * 1.8;
                         this.y -= (dy / dist) * force * 1.8;
@@ -173,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rect = canvas.getBoundingClientRect();
                 heroMouse.x = e.clientX - rect.left;
                 heroMouse.y = e.clientY - rect.top;
-            });
+            }, { passive: true });
             heroSection.addEventListener('mouseleave', () => {
                 heroMouse.x = null;
                 heroMouse.y = null;
@@ -189,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 2. INTERACTIVE CURSOR GLOW
+    // 2. INTERACTIVE CURSOR GLOW (Single 60fps Loop)
     // -------------------------------------------------------------
     const cursorGlow = document.getElementById('cursorGlow');
     let mouseX = window.innerWidth / 2;
@@ -201,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
+        }, { passive: true });
         function animateCursor() {
             currentX += (mouseX - currentX) * 0.12;
             currentY += (mouseY - currentY) * 0.12;
@@ -274,8 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         if (header) {
-            if (window.scrollY > 40) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
+            header.classList.toggle('scrolled', window.scrollY > 40);
         }
         const readingProgressBar = document.getElementById('readingProgressBar');
         if (readingProgressBar) {
@@ -284,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
             readingProgressBar.style.width = `${scrolled}%`;
         }
-    });
+    }, { passive: true });
 
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const navMenu = document.getElementById('navMenu');
@@ -404,307 +584,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateCarousel();
         startCarousel();
-        slides.forEach(slide => {
-            const shine = slide.querySelector('.slide-shine');
-            if (shine) {
-                const observer = new MutationObserver(() => {
-                    if (slide.classList.contains('active')) {
-                        shine.style.left = '-100%';
-                        setTimeout(() => {
-                            shine.style.left = '100%';
-                            shine.style.transition = 'left 0.8s ease';
-                        }, 80);
-                    }
-                });
-                observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
-            }
-        });
     }
 
     // -------------------------------------------------------------
-    // 6. EVENT CATEGORY FILTER TABS
-    // -------------------------------------------------------------
-    const eventFilterBtns = document.querySelectorAll('#eventFilters .filter-btn');
-    const eventCards = document.querySelectorAll('#eventsGrid .event-card');
-    eventFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            eventFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.getAttribute('data-filter');
-            eventCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    card.classList.remove('hidden');
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
-                } else card.classList.add('hidden');
-            });
-        });
-    });
-
-    // -------------------------------------------------------------
-    // 7. EVENT DETAILS MODAL & CALENDAR EXPORT
-    // -------------------------------------------------------------
-    const eventModal = document.getElementById('eventModal');
-    const eventModalClose = document.getElementById('eventModalClose');
-
-    window.downloadEventICS = function(title, desc, location, dateStr) {
-        let dtStart = '20260930T130000';
-        let dtEnd = '20260930T170000';
-        const d = (dateStr || '').toUpperCase();
-        if (d.includes('OCT') || d.includes('OCTOBER')) {
-            if (d.includes('24')) { dtStart = '20261024T100000'; dtEnd = '20261024T160000'; }
-            else { dtStart = '20261005T120000'; dtEnd = '20261006T210000'; }
-        } else if (d.includes('DEC') || d.includes('DECEMBER')) {
-            if (d.includes('05') || d.includes('5TH')) { dtStart = '20261205T140000'; dtEnd = '20261205T180000'; }
-            else { dtStart = '20261228T090000'; dtEnd = '20261229T220000'; }
-        } else if (d.includes('JAN') || d.includes('JANUARY')) { dtStart = '20270108T140000'; dtEnd = '20270108T180000'; }
-        else if (d.includes('FEB') || d.includes('FEBRUARY')) {
-            if (d.includes('12')) { dtStart = '20270212T140000'; dtEnd = '20270212T180000'; }
-            else { dtStart = '20270206T140000'; dtEnd = '20270206T180000'; }
-        } else if (d.includes('MAR') || d.includes('MARCH')) { dtStart = '20270305T090000'; dtEnd = '20270305T200000'; }
-
-        const cleanTitle = (title || 'Campus Event').replace(/,/g, '\\,');
-        const cleanDesc = (desc || 'EC & CCAC Campus Event at RVR&JCCE').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-        const cleanLoc = (location || 'RVR & JC College of Engineering').replace(/,/g, '\\,');
-
-        const icsData = [
-            'BEGIN:VCALENDAR', 'VERSION:2.0',
-            'PRODID:-//RVRJCCE//EC & CCAC SICO EVENTS//EN',
-            'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'BEGIN:VEVENT',
-            `SUMMARY:${cleanTitle}`, `DESCRIPTION:${cleanDesc}`,
-            `LOCATION:${cleanLoc}`, `DTSTART:${dtStart}`, `DTEND:${dtEnd}`,
-            'STATUS:CONFIRMED', 'END:VEVENT', 'END:VCALENDAR'
-        ].join('\r\n');
-
-        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', `${cleanTitle.replace(/[^a-zA-Z0-9]/g, '_')}.ics`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-        if (typeof playSynthSound === 'function') playSynthSound('blip');
-    };
-
-    document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.btn-event-details');
-        if (!btn) return;
-        e.stopPropagation();
-        const card = btn.closest('.event-card, .spotlight-card, .event-card-modern');
-        if (!card || !eventModal) return;
-
-        const title = card.getAttribute('data-title') || 'Event Details';
-        const category = card.getAttribute('data-catname') || card.getAttribute('data-category') || 'Campus Event';
-        const date = card.getAttribute('data-date') || 'To be announced';
-        const time = card.getAttribute('data-time') || '';
-        const venue = card.getAttribute('data-venue') || 'Campus Venue';
-        const prize = card.getAttribute('data-prize') || '--';
-        const desc = card.getAttribute('data-desc') || (card.querySelector('.event-description, .event-card-snippet') ? card.querySelector('.event-description, .event-card-snippet').textContent : '');
-        const highlights = card.getAttribute('data-highlights') || 'Workshops, competitions, and student performances.';
-        const rules = card.getAttribute('data-rules') || 'College ID card mandatory for entry.';
-        const coordinators = card.getAttribute('data-coordinators') || 'EC & CCAC Student Leads';
-        const pdfUrl = card.getAttribute('data-pdfurl');
-        const pdfName = card.getAttribute('data-pdfname') || 'Official_Circular.pdf';
-
-        const modalTitle = document.getElementById('modalTitle');
-        const modalCategory = document.getElementById('modalCategory');
-        const modalDate = document.getElementById('modalDate');
-        const modalVenue = document.getElementById('modalVenue');
-        const modalPrize = document.getElementById('modalPrize');
-        const modalDesc = document.getElementById('modalDesc');
-        const modalHighlights = document.getElementById('modalHighlights');
-        const modalRules = document.getElementById('modalRules');
-        const modalCoordinators = document.getElementById('modalCoordinators');
-
-        if (modalTitle) modalTitle.textContent = title;
-        if (modalCategory) modalCategory.textContent = category.toUpperCase();
-        if (modalDate) modalDate.textContent = time ? `${date} · ${time}` : date;
-        if (modalVenue) modalVenue.textContent = venue;
-        if (modalPrize) modalPrize.textContent = prize;
-        if (modalDesc) modalDesc.textContent = desc;
-        if (modalHighlights) modalHighlights.textContent = highlights;
-        if (modalRules) modalRules.textContent = rules;
-        if (modalCoordinators) modalCoordinators.textContent = coordinators;
-
-        let modalCircularSection = document.getElementById('modalCircularSection');
-        if (!modalCircularSection) {
-            const modalBody = eventModal.querySelector('.event-modal-body');
-            if (modalBody) {
-                modalCircularSection = document.createElement('div');
-                modalCircularSection.id = 'modalCircularSection';
-                modalCircularSection.className = 'modal-section';
-                modalBody.appendChild(modalCircularSection);
-            }
-        }
-        if (modalCircularSection) {
-            if (pdfUrl) {
-                modalCircularSection.style.display = 'block';
-                modalCircularSection.innerHTML = `
-                    <h4>Official Circular &amp; Poster Attachment</h4>
-                    <div style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 1.6rem;">📄</span>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">${pdfName}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">Verified Administrative Circular · PDF Document</div>
-                            </div>
-                        </div>
-                        <a href="${pdfUrl}" target="_blank" download="${pdfName}" class="btn-card-circular" style="padding: 8px 16px; font-size: 0.85rem; background: var(--accent-cyan); color: #000; font-weight: 700; text-decoration:none;">
-                            <span>📥 Download Circular (PDF)</span>
-                        </a>
-                    </div>
-                `;
-            } else modalCircularSection.style.display = 'none';
-        }
-
-        const modalCalBtn = document.getElementById('modalAddToCalBtn');
-        if (modalCalBtn) modalCalBtn.onclick = () => downloadEventICS(title, desc, venue, date);
-
-        eventModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (typeof playSynthSound === 'function') playSynthSound('click');
-    });
-
-    document.querySelectorAll('.btn-add-cal').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const card = btn.closest('.spotlight-card, .event-card');
-            if (!card) return;
-            const title = card.getAttribute('data-title') || 'Campus Event';
-            const desc = card.getAttribute('data-desc') || '';
-            const venue = card.getAttribute('data-venue') || 'Campus Venue';
-            const date = card.getAttribute('data-date') || '';
-            downloadEventICS(title, desc, venue, date);
-        });
-    });
-
-    function closeEventModal() {
-        if (eventModal) {
-            eventModal.classList.remove('active');
-            document.body.style.overflow = '';
-            const modalRegisterBtn = document.getElementById('modalRegisterBtn');
-            if (modalRegisterBtn) modalRegisterBtn.style.display = '';
-            const modalCalBtn = document.getElementById('modalAddToCalBtn');
-            if (modalCalBtn) modalCalBtn.style.display = '';
-        }
-    }
-
-    window.viewCompletedWinnersModal = function(id) {
-        const completedList = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
-        const ev = completedList.find(c => c.id === id);
-        if (!ev || !eventModal) return;
-
-        const modalTitle = document.getElementById('modalTitle');
-        const modalCategory = document.getElementById('modalCategory');
-        const modalDate = document.getElementById('modalDate');
-        const modalVenue = document.getElementById('modalVenue');
-        const modalPrize = document.getElementById('modalPrize');
-        const modalDesc = document.getElementById('modalDesc');
-        const modalHighlights = document.getElementById('modalHighlights');
-        const modalRules = document.getElementById('modalRules');
-        const modalCoordinators = document.getElementById('modalCoordinators');
-        const modalRegisterBtn = document.getElementById('modalRegisterBtn');
-        const modalCalBtn = document.getElementById('modalAddToCalBtn');
-
-        if (modalTitle) modalTitle.textContent = ev.title;
-        if (modalCategory) modalCategory.textContent = 'COMPLETED · OFFICIAL MERIT LIST';
-        if (modalDate) modalDate.textContent = `Concluded on ${ev.date}`;
-        if (modalVenue) modalVenue.textContent = ev.venue || 'Campus Venue';
-        if (modalPrize) modalPrize.textContent = ev.prizePool || 'Cash Prizes Awarded';
-        if (modalDesc) modalDesc.textContent = ev.summary || 'Official campus competition results and verified awardees.';
-
-        if (modalHighlights) {
-            modalHighlights.innerHTML = `
-                <div class="winner-table-wrap" style="padding: 4px 0 10px; overflow-x: auto;">
-                    <table class="winner-table">
-                        <thead>
-                            <tr>
-                                <th>Rank / Honor</th>
-                                <th>Winner Student</th>
-                                <th>Regd. No</th>
-                                <th>Dept</th>
-                                <th>Cash Prize Won</th>
-                                <th>Performance / Project</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${(ev.winners || []).map(w => {
-                                let rankBadge = `<span class="rank-badge-3">${w.rank}</span>`;
-                                if (w.rank === '1st') rankBadge = `<span class="rank-badge-1">🥇 1st Prize</span>`;
-                                else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
-                                else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
-                                else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
-                                return `
-                                    <tr>
-                                        <td>${rankBadge}</td>
-                                        <td><strong style="color:var(--text-primary); font-weight:700;">${w.name}</strong></td>
-                                        <td><span class="winner-regd-pill">${w.regd}</span></td>
-                                        <td><span style="font-weight:600; font-size:0.8rem; color:var(--text-secondary);">${w.branch || '--'}</span></td>
-                                        <td><span class="winner-cash-text">${w.prize}</span></td>
-                                        <td style="font-size:0.82rem; color:var(--text-muted);">${w.project || 'Merit Presentation'}</td>
-                                    </tr>
-                                `;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-        }
-
-        if (modalRules) modalRules.innerHTML = 'All cash awards, certificates, and merit standings have been verified and disbursed under the aegis of the EC & CCAC Committee and Convener.';
-        if (modalCoordinators) modalCoordinators.textContent = `${ev.club} Student Coordinators`;
-
-        let modalCircularSection = document.getElementById('modalCircularSection');
-        if (!modalCircularSection) {
-            const modalBody = eventModal.querySelector('.event-modal-body');
-            if (modalBody) {
-                modalCircularSection = document.createElement('div');
-                modalCircularSection.id = 'modalCircularSection';
-                modalCircularSection.className = 'modal-section';
-                modalBody.appendChild(modalCircularSection);
-            }
-        }
-        if (modalCircularSection) {
-            if (ev.pdfUrl) {
-                modalCircularSection.style.display = 'block';
-                modalCircularSection.innerHTML = `
-                    <h4>Official Signed Result Sheet &amp; Circular PDF</h4>
-                    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 1.6rem;">📄</span>
-                            <div>
-                                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.95rem;">${ev.pdfName || 'Results_Circular.pdf'}</div>
-                                <div style="font-size: 0.75rem; color: var(--text-muted);">Official Administrative Result Circular · PDF Document</div>
-                            </div>
-                        </div>
-                        <a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'results.pdf'}" class="btn-card-circular" style="padding: 8px 16px; font-size: 0.85rem; background: #10b981; color: #fff; font-weight: 700; text-decoration:none; border-radius:8px;">
-                            <span>📥 Download Result Sheet (PDF)</span>
-                        </a>
-                    </div>
-                `;
-            } else modalCircularSection.style.display = 'none';
-        }
-
-        if (modalRegisterBtn) modalRegisterBtn.style.display = 'none';
-        if (modalCalBtn) modalCalBtn.style.display = 'none';
-
-        eventModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (typeof playSynthSound === 'function') playSynthSound('click');
-    };
-
-    if (eventModalClose) eventModalClose.addEventListener('click', closeEventModal);
-    if (eventModal) eventModal.addEventListener('click', (e) => { if (e.target === eventModal) closeEventModal(); });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && eventModal && eventModal.classList.contains('active')) closeEventModal();
-    });
-
-    // -------------------------------------------------------------
-    // 8. FAQ ACCORDION
+    // 6. FAQ ACCORDION
     // -------------------------------------------------------------
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
@@ -726,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 9. GALLERY CATEGORY FILTER TABS
+    // 7. GALLERY CATEGORY FILTER TABS & LIGHTBOX
     // -------------------------------------------------------------
     const galleryFilterBtns = document.querySelectorAll('#galleryFilters .filter-btn');
     galleryFilterBtns.forEach(btn => {
@@ -747,9 +630,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // -------------------------------------------------------------
-    // 10. ENHANCED GALLERY LIGHTBOX
-    // -------------------------------------------------------------
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightboxImage');
     const lightboxCaption = document.getElementById('lightboxCaption');
@@ -804,7 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // -------------------------------------------------------------
-    // 11. FLOATING BACK TO TOP BUTTON
+    // 8. FLOATING BACK TO TOP BUTTON
     // -------------------------------------------------------------
     const backToTopBtn = document.getElementById('backToTop');
     const progressCircle = document.getElementById('progressCircle');
@@ -824,37 +704,16 @@ document.addEventListener('DOMContentLoaded', () => {
             progressCircle.style.strokeDashoffset = `${offset}`;
         }
         if (backToTopBtn) {
-            if (scrollTop > 350) backToTopBtn.classList.add('visible');
-            else backToTopBtn.classList.remove('visible');
+            backToTopBtn.classList.toggle('visible', scrollTop > 350);
         }
-    });
+    }, { passive: true });
 
     if (backToTopBtn) {
         backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
     // -------------------------------------------------------------
-    // 12. 3D SUBTLE TILT EFFECT
-    // -------------------------------------------------------------
-    if (window.matchMedia('(pointer: fine)').matches) {
-        const tiltCards = document.querySelectorAll('.event-card, .feature-card, .stat-item, .report-preview-card, .pillar-step');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -5;
-                const rotateY = ((x - centerX) / centerX) * 5;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-            });
-            card.addEventListener('mouseleave', () => card.style.transform = '');
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 13. QUICK CONTACT FORM HANDLING
+    // 9. QUICK CONTACT FORM HANDLING
     // -------------------------------------------------------------
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -869,23 +728,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = (emailInput ? emailInput.value : '').trim();
             const message = (messageInput ? messageInput.value : '').trim();
             if (!name || !email || !message) return;
-            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = `<span>Sending to Coordinators...</span>`; }
-            try {
-                const existingMsgs = JSON.parse(localStorage.getItem('sico_contact_messages') || '[]');
-                const newMsg = {
-                    id: 'msg_' + Date.now(),
-                    name, email, message,
-                    timestamp: new Date().toISOString(),
-                    formattedDate: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                    status: 'unread'
-                };
-                existingMsgs.unshift(newMsg);
-                localStorage.setItem('sico_contact_messages', JSON.stringify(existingMsgs));
-            } catch (err) { console.error('Error saving contact message:', err); }
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = `<span>Sending...</span>`; }
+
             setTimeout(() => {
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<span>Sent to Coordinators! ✓</span>`;
+                    submitBtn.innerHTML = `<span>Message Sent! ✓</span>`;
                     submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 }
                 let noteEl = contactForm.querySelector('.contact-feedback-note');
@@ -895,143 +743,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     noteEl.style.cssText = 'margin-top:14px; padding:12px 14px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:10px; color:#10b981; font-size:0.88rem; line-height:1.4;';
                     contactForm.appendChild(noteEl);
                 }
-                noteEl.innerHTML = `<strong>✨ Thanks ${name}!</strong> Your message has been received by our student coordinators. We will reply to <em>${email}</em> within 24 hours between classes.`;
+                noteEl.innerHTML = `<strong>Thanks ${name}!</strong> Your message has been received. Our team will reply to <em>${email}</em> soon.`;
                 contactForm.reset();
                 setTimeout(() => {
                     if (submitBtn) { submitBtn.innerHTML = originalText; submitBtn.style.background = ''; }
                 }, 4000);
-            }, 600);
+            }, 500);
         });
     }
 
     // -------------------------------------------------------------
-    // 14. INTERSECTION OBSERVER FOR FADE-IN ANIMATIONS
-    // -------------------------------------------------------------
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                fadeObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.event-card, .feature-card, .report-preview-card, .stat-item, .gallery-item, .pillar-step, .faq-item, .portal-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(25px)';
-        el.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        fadeObserver.observe(el);
-    });
-
-    // -------------------------------------------------------------
-    // 15. PROCEDURAL WEB AUDIO SYNTHESIZER
-    // -------------------------------------------------------------
-    let audioCtx = null;
-    let audioEnabled = localStorage.getItem('ec_hud_audio') === 'true';
-
-    function initAudio() {
-        if (!audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (AudioContext) audioCtx = new AudioContext();
-        }
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-    }
-
-    const pentatonicNotes = [349.23, 392.00, 440.00, 523.25, 587.33, 698.46, 783.99, 880.00];
-    let noteIndex = 0;
-
-    function playSynthSound(type) {
-        if (!audioEnabled || !audioCtx) return;
-        try {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const now = audioCtx.currentTime;
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(3400, now);
-            filter.connect(audioCtx.destination);
-            if (type === 'blip') {
-                const freq = pentatonicNotes[noteIndex % pentatonicNotes.length];
-                noteIndex = (noteIndex + 1) % pentatonicNotes.length;
-                const osc1 = audioCtx.createOscillator();
-                const osc2 = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc1.type = 'sine'; osc1.frequency.setValueAtTime(freq, now);
-                osc2.type = 'sine'; osc2.frequency.setValueAtTime(freq * 2.01, now);
-                osc1.connect(gain); osc2.connect(gain); gain.connect(filter);
-                gain.gain.setValueAtTime(0.045, now);
-                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
-                osc1.start(now); osc2.start(now);
-                osc1.stop(now + 0.14); osc2.stop(now + 0.14);
-            } else if (type === 'click') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(440, now);
-                osc.frequency.exponentialRampToValueAtTime(90, now + 0.05);
-                gain.gain.setValueAtTime(0.075, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-                osc.connect(gain); gain.connect(filter);
-                osc.start(now); osc.stop(now + 0.05);
-            } else if (type === 'teleport') {
-                const chord = [349.23, 440.00, 523.25, 698.46, 880.00];
-                chord.forEach((note, idx) => {
-                    const noteTime = now + idx * 0.038;
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(note, noteTime);
-                    gain.gain.setValueAtTime(0.04, noteTime);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.22);
-                    osc.connect(gain); gain.connect(filter);
-                    osc.start(noteTime); osc.stop(noteTime + 0.22);
-                });
-            }
-        } catch (e) {}
-    }
-
-    const audioToggleBtn = document.getElementById('hudAudioToggle');
-    function updateAudioUI() {
-        if (!audioToggleBtn) return;
-        const textSpan = audioToggleBtn.querySelector('.hud-audio-text');
-        if (audioEnabled) { audioToggleBtn.classList.add('active'); if (textSpan) textSpan.textContent = 'AUDIO: ON'; }
-        else { audioToggleBtn.classList.remove('active'); if (textSpan) textSpan.textContent = 'AUDIO: OFF'; }
-    }
-    updateAudioUI();
-    if (audioToggleBtn) {
-        audioToggleBtn.addEventListener('click', () => {
-            initAudio();
-            audioEnabled = !audioEnabled;
-            localStorage.setItem('ec_hud_audio', audioEnabled);
-            updateAudioUI();
-            if (audioEnabled) playSynthSound('click');
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 17. TACTILE CARD INTERACTION & ELEVATION
-    // -------------------------------------------------------------
-    if (window.matchMedia('(pointer: fine)').matches) {
-        const tiltCards = document.querySelectorAll('.portal-card, .tilt-card, .stat-card, .feature-card, .event-card, .team-card');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotX = ((y - centerY) / centerY) * -4.5;
-                const rotY = ((x - centerX) / centerX) * 4.5;
-                if (!card.classList.contains('team-card') && !card.classList.contains('team-card-3rd')) {
-                    card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-4px)`;
-                }
-            });
-            card.addEventListener('mouseleave', () => card.style.transform = '');
-        });
-    }
-
-    // -------------------------------------------------------------
-    // 18. FUTURISTIC COMMAND PALETTE (Ctrl + K)
+    // 10. COMMAND PALETTE (Ctrl + K)
     // -------------------------------------------------------------
     const cmdOverlay = document.getElementById('cmdPaletteOverlay');
     const cmdInput = document.getElementById('cmdInput');
@@ -1041,34 +763,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const cmdDestinations = [
         { title: 'Home / Campus Life Hub', sub: 'Interactive highlights, stats & overview', url: 'index.html', icon: '🏛️', category: 'Pages' },
         { title: 'About EC & CCAC', sub: 'Our mission, vision, leadership & history', url: 'about.html', icon: '📜', category: 'Pages' },
-        { title: 'Flagship Events & Fests', sub: 'Cultural fests, dance, and music calendar', url: 'events.html', icon: '🎭', category: 'Pages' },
+        { title: 'Events & Calendar', sub: 'Upcoming & completed campus events and full schedule', url: 'events.html', icon: '🎭', category: 'Pages' },
         { title: 'SICO Community Outreach', sub: 'Student initiatives & social impact programs', url: 'sico.html', icon: '🤝', category: 'Pages' },
         { title: 'Reports & Archives', sub: 'Annual documentation & retrospective PDFs', url: 'reports.html', icon: '📊', category: 'Pages' },
         { title: 'Student Coordinators', sub: 'Core leadership directory & committee leads', url: 'team.html', icon: '👥', category: 'Pages' },
         { title: 'Champions & Winners Hall of Fame', sub: 'Verified merit lists, student regd numbers & cash prizes', url: 'events.html#winnersHallOfFame', icon: '🏆', category: 'Pages' },
         { title: 'Visual Stories & Gallery', sub: 'Curated photo memories from campus celebrations', url: 'gallery.html', icon: '📸', category: 'Pages' },
         { title: 'Contact & FAQ Hub', sub: 'Campus address, student helpline & FAQs', url: 'contact.html', icon: '💬', category: 'Pages' },
-        { title: 'COLORIDO 2026', sub: 'Flagship Cultural & Arts Extravaganza (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
-        { title: 'Club Waltz (Mega Dance Gala)', sub: 'Two-day mega dance extravaganza & choreo battle (05–06 Oct 2026)', url: 'events.html', icon: '💃', category: 'Events' },
-        { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off', url: 'events.html', icon: '🎸', category: 'Events' },
-        { title: 'Website Dev & Anime Video', sub: 'Digital Club technical & creative multimedia duel', url: 'events.html', icon: '💻', category: 'Events' },
-        { title: 'Helping Hands Service Drive', sub: 'Volunteer outreach at blind schools & senior homes', url: 'events.html', icon: '🤝', category: 'Events' },
-        { title: 'Graphic Design & Video Editing', sub: 'Pixel Craft visual storytelling & motion contest', url: 'events.html', icon: '🎨', category: 'Events' },
-        { title: 'Rangoli & Kite Flying Contest', sub: 'Red Ants cultural Sankranti celebration', url: 'events.html', icon: '🪁', category: 'Events' },
-        { title: 'Campus Photography Contest', sub: 'Visual lens contest for candid campus moments', url: 'events.html', icon: '📷', category: 'Events' },
-        { title: '42nd Annual Day Celebrations', sub: 'Grand convocation finale & rolling trophies', url: 'events.html', icon: '🎖️', category: 'Events' },
-        { title: 'Dance Club', sub: 'Performing arts, classical, hip-hop & western choreo', url: 'events.html', icon: '💃', category: 'Clubs' },
-        { title: 'Music Club', sub: 'Vocalists, live acoustic bands & sound engineering', url: 'events.html', icon: '🎵', category: 'Clubs' },
-        { title: 'Digital Club', sub: 'Web development, coding challenges & anime production', url: 'events.html', icon: '⚡', category: 'Clubs' },
-        { title: 'Pixel Craft Club', sub: 'Graphic design, digital art & cinematic video editing', url: 'events.html', icon: '🖌️', category: 'Clubs' },
-        { title: 'Helping Hands Club', sub: 'Social service, community welfare & outreach drives', url: 'sico.html', icon: '🤲', category: 'Clubs' },
-        { title: 'Photography Club', sub: 'DSLR, mobile lens photography & photojournalism', url: 'gallery.html', icon: '📸', category: 'Clubs' },
-        { title: 'Red Ants Cultural Club', sub: 'Heritage, folk traditions & festive celebrations', url: 'events.html', icon: '🪔', category: 'Clubs' },
-        { title: 'Coordinator Admin Studio (Protected)', sub: 'Update events, circular PDFs, posters, reports & gallery', url: 'admin.html', icon: '🔒', category: 'Admin' },
+        { title: 'COLORIDO 2026', sub: 'Annual Cultural & Sports Fest (28–29 Dec 2026)', url: 'events.html', icon: '🎪', category: 'Events' },
+        { title: 'Video Editing & Graphic Design', sub: 'Pixel Craft motion & design contest (05 Dec 2026)', url: 'events.html', icon: '🎨', category: 'Events' },
+        { title: 'Rangoli & Kite Flying Contest', sub: 'Red Ants cultural Sankranti celebration (08 Jan 2027)', url: 'events.html', icon: '🪁', category: 'Events' },
+        { title: 'Western, Rap & Band Showdown', sub: 'Music Club live acoustic and band face-off (06 Feb 2027)', url: 'events.html', icon: '🎸', category: 'Events' },
+        { title: 'Annual Photography Contest', sub: 'Campus lens competition (12 Feb 2027)', url: 'events.html', icon: '📷', category: 'Events' },
+        { title: '42nd Annual Day Celebrations', sub: 'Grand convocation finale & rolling trophies (05 Mar 2027)', url: 'events.html', icon: '🎖️', category: 'Events' },
         { title: 'Register for SICO 2026–27', sub: 'Official Google Form registration', url: 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420', icon: '✍️', category: 'Actions', external: true },
         { title: 'View Full Academic Calendar', sub: 'Complete schedule of all 24 annual events', url: 'events.html#calendar', icon: '📅', category: 'Actions' },
-        { title: 'Switch to Dark Mode', sub: 'Deep midnight obsidian with warm amber accents', action: () => applyTheme('dark'), icon: '🌙', category: 'Theme' },
-        { title: 'Switch to Light Mode', sub: 'Editorial daylight porcelain with warm amber accents', action: () => applyTheme('light'), icon: '☀️', category: 'Theme' }
+        { title: 'Switch to Dark Mode', sub: 'Deep obsidian studio dark theme', action: () => applyTheme('dark'), icon: '🌙', category: 'Theme' },
+        { title: 'Switch to Light Mode', sub: 'Crisp modern light theme', action: () => applyTheme('light'), icon: '☀️', category: 'Theme' }
     ];
 
     let activeCmdIndex = 0;
@@ -1078,7 +789,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cmdResults) return;
         cmdResults.innerHTML = '';
         if (filteredCmds.length === 0) {
-            cmdResults.innerHTML = `<div style="padding: 28px; text-align: center; color: var(--text-muted); font-size: 0.95rem;">No matching campus results found. Try searching &ldquo;Colorido&rdquo;, &ldquo;Dance&rdquo;, &ldquo;Team&rdquo; or &ldquo;Register&rdquo;.</div>`;
+            cmdResults.innerHTML = `<div style="padding: 28px; text-align: center; color: var(--text-muted); font-size: 0.95rem;">No matching campus results found.</div>`;
             return;
         }
         filteredCmds.forEach((item, idx) => {
@@ -1096,10 +807,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <span class="cmd-badge">${item.category}</span>
             `;
-            a.addEventListener('mouseenter', () => { activeCmdIndex = idx; updateActiveCmdItem(); playSynthSound('blip'); });
+            a.addEventListener('mouseenter', () => { activeCmdIndex = idx; updateActiveCmdItem(); });
             a.addEventListener('click', (e) => {
                 if (item.action) { e.preventDefault(); item.action(); closeCmdPalette(); }
-                else { playSynthSound('teleport'); closeCmdPalette(); }
+                else closeCmdPalette();
             });
             cmdResults.appendChild(a);
         });
@@ -1120,7 +831,6 @@ document.addEventListener('DOMContentLoaded', () => {
         filteredCmds = [...cmdDestinations];
         activeCmdIndex = 0;
         renderCmdResults();
-        playSynthSound('teleport');
     }
 
     function closeCmdPalette() {
@@ -1158,19 +868,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 activeCmdIndex = (activeCmdIndex + 1) % filteredCmds.length;
                 updateActiveCmdItem();
-                playSynthSound('blip');
             } else if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 activeCmdIndex = (activeCmdIndex - 1 + filteredCmds.length) % filteredCmds.length;
                 updateActiveCmdItem();
-                playSynthSound('blip');
             } else if (e.key === 'Enter') {
                 e.preventDefault();
                 if (filteredCmds[activeCmdIndex]) {
                     const target = filteredCmds[activeCmdIndex];
                     if (target.action) target.action();
-                    else if (target.external) { playSynthSound('teleport'); window.open(target.url, '_blank'); }
-                    else { playSynthSound('teleport'); window.location.href = target.url; }
+                    else if (target.external) window.open(target.url, '_blank');
+                    else window.location.href = target.url;
                     closeCmdPalette();
                 }
             }
@@ -1178,7 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 19. TACTILE MECHANICAL THEME ROLLER
+    // 11. TACTILE MECHANICAL THEME ROLLER (DARK / LIGHT)
     // -------------------------------------------------------------
     function applyTheme(themeName) {
         const isLight = themeName === 'light' || themeName === 'champagne';
@@ -1195,8 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('sico_editorial_theme', effectiveTheme);
         } catch (err) {}
 
-        const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
-        themeRollers.forEach(roller => {
+        document.querySelectorAll('.theme-roller-btn, #themeRoller').forEach(roller => {
             roller.setAttribute('aria-checked', isLight ? 'true' : 'false');
             const darkOpt = roller.querySelector('.roller-opt-dark');
             const lightOpt = roller.querySelector('.roller-opt-light');
@@ -1212,66 +919,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (lightOpt) lightOpt.classList.remove('active');
             }
         });
-
-        const themeLabel = document.getElementById('hudThemeLabel');
-        if (themeLabel) themeLabel.textContent = isLight ? 'EDITORIAL LIGHT' : 'VELVET MIDNIGHT';
-        const legacyOpts = document.querySelectorAll('.hud-theme-opt');
-        legacyOpts.forEach(opt => {
-            const optTheme = opt.getAttribute('data-set-theme');
-            if ((isLight && (optTheme === 'champagne' || optTheme === 'light')) || (!isLight && (optTheme === 'obsidian' || optTheme === 'dark'))) opt.classList.add('active');
-            else opt.classList.remove('active');
-        });
     }
 
     window.setTheme = applyTheme;
-    const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || localStorage.getItem('sico_cyber_theme') || 'dark';
+    const storedTheme = localStorage.getItem('sico_theme') || localStorage.getItem('sico_editorial_theme') || 'dark';
     applyTheme(storedTheme);
 
-    const themeRollers = document.querySelectorAll('.theme-roller-btn, #themeRoller');
-    themeRollers.forEach(roller => {
+    document.querySelectorAll('.theme-roller-btn, #themeRoller').forEach(roller => {
         roller.addEventListener('click', (e) => {
             const clickedOpt = e.target.closest('.roller-opt');
-            if (clickedOpt) {
-                const targetTheme = clickedOpt.getAttribute('data-theme-val') || 'dark';
-                applyTheme(targetTheme);
-            } else {
-                const isCurrentlyLight = document.documentElement.getAttribute('data-theme') === 'light' ||
-                                         document.documentElement.getAttribute('data-theme') === 'champagne';
-                applyTheme(isCurrentlyLight ? 'dark' : 'light');
-            }
+            if (clickedOpt) applyTheme(clickedOpt.getAttribute('data-theme-val') || 'dark');
+            else applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
         });
         roller.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                const isCurrentlyLight = document.documentElement.getAttribute('data-theme') === 'light' ||
-                                         document.documentElement.getAttribute('data-theme') === 'champagne';
-                applyTheme(isCurrentlyLight ? 'dark' : 'light');
+                applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
             }
         });
     });
 
-    const themeTrigger = document.getElementById('hudThemeTrigger');
-    const themeDropdown = document.getElementById('hudThemeDropdown');
-    if (themeTrigger && themeDropdown) {
-        themeTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            themeDropdown.classList.toggle('active');
-        });
-        document.addEventListener('click', (e) => {
-            if (!themeTrigger.contains(e.target) && !themeDropdown.contains(e.target)) themeDropdown.classList.remove('active');
-        });
-    }
-    const legacyThemeOpts = document.querySelectorAll('.hud-theme-opt');
-    legacyThemeOpts.forEach(opt => {
-        opt.addEventListener('click', () => {
-            const targetTheme = opt.getAttribute('data-set-theme');
-            applyTheme(targetTheme);
-            if (themeDropdown) themeDropdown.classList.remove('active');
-        });
-    });
-
     // -------------------------------------------------------------
-    // 20. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN
+    // 12. LIVE COLORIDO 2026 FESTIVAL PASS COUNTDOWN
     // -------------------------------------------------------------
     const cdDays = document.getElementById('cdDays');
     const cdHours = document.getElementById('cdHours');
@@ -1289,12 +958,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (now < festStart) diff = festStart - now;
             else if (now <= festEnd) {
                 diff = festEnd - now;
-                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL LIVE NOW · FINALE IN:';
-                if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">● LIVE NOW · COLORIDO 2026 UNDERWAY ON CAMPUS</span>';
+                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · LIVE NOW';
+                if (cdStatus) cdStatus.innerHTML = '<span style="color:#e11d48;font-weight:700;">LIVE NOW · COLORIDO 2026 UNDERWAY ON CAMPUS</span>';
             } else {
                 diff = 0;
-                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · FESTIVAL CONCLUDED';
-                if (cdStatus) cdStatus.innerHTML = '<span>COLORIDO 2026 CONCLUDED · THANK YOU TO ALL 1,000+ PARTICIPANTS</span>';
+                if (cdTitle) cdTitle.textContent = 'COLORIDO 2026 · CONCLUDED';
+                if (cdStatus) cdStatus.innerHTML = '<span>COLORIDO 2026 CONCLUDED · THANK YOU TO ALL PARTICIPANTS</span>';
             }
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -1310,29 +979,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 21. AY 2026-2027 OFFICIAL CALENDAR CONTROLLER
+    // 13. MASTER CALENDAR SEARCH & FILTER
     // -------------------------------------------------------------
     const calSearchInput = document.getElementById('calendarSearchInput');
     const calStatusFilters = document.querySelectorAll('#calStatusFilters .cal-filter-btn');
-    const calTableRows = document.querySelectorAll('#calendarTable tbody tr');
-    const nextEventCountdownEl = document.getElementById('nextEventCountdown');
 
     let currentCalFilter = 'all';
     let currentSearchTerm = '';
 
     function filterCalendarRows() {
-        if (!calTableRows.length) return;
-        calTableRows.forEach(row => {
+        const rows = document.querySelectorAll('#calendarTable tbody tr');
+        if (!rows.length) return;
+        rows.forEach(row => {
             const rowStatus = row.getAttribute('data-status');
             const rowText = row.textContent.toLowerCase();
             const matchesStatus = (currentCalFilter === 'all') || (rowStatus === currentCalFilter);
             const matchesSearch = !currentSearchTerm || rowText.includes(currentSearchTerm);
-            if (matchesStatus && matchesSearch) row.style.display = '';
-            else row.style.display = 'none';
+            row.style.display = (matchesStatus && matchesSearch) ? '' : 'none';
         });
     }
 
-    if (calSearchInput) calSearchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value.toLowerCase().trim(); filterCalendarRows(); });
+    if (calSearchInput) {
+        calSearchInput.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value.toLowerCase().trim();
+            filterCalendarRows();
+        });
+    }
+
     if (calStatusFilters.length) {
         calStatusFilters.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1340,653 +1013,231 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('active');
                 currentCalFilter = btn.getAttribute('data-status');
                 filterCalendarRows();
-                playSynthSound('blip');
             });
         });
-    }
-
-    if (nextEventCountdownEl) {
-        const nextTarget = new Date('2026-09-30T13:00:00+05:30').getTime();
-        function updateNextEventClock() {
-            const now = Date.now();
-            const diff = nextTarget - now;
-            if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                nextEventCountdownEl.textContent = `${days}D ${hours}H REMAINING`;
-            } else nextEventCountdownEl.textContent = 'EVENT IN PROGRESS';
-        }
-        updateNextEventClock();
-        setInterval(updateNextEventClock, 60000);
     }
 
     // -------------------------------------------------------------
-    // 22. UPCOMING EVENTS SHOWCASE CONTROLLER
+    // 14. CHAMPIONS & WINNERS HALL OF FAME (Links to 3D Flip Merit Card)
     // -------------------------------------------------------------
-    const eventsFilterPills = document.querySelectorAll('#eventsFilterBar .filter-pill, #spotlightFilterPills .spotlight-pill');
-    const eventCardsModern = document.querySelectorAll('.event-card-modern, .spotlight-card');
-    const spotlightDigitalCountdown = document.getElementById('spotlightDigitalCountdown');
-    const spotlightDigitalCountdownEvents = document.getElementById('spotlightDigitalCountdownEvents');
-    const datedEventCards = [...document.querySelectorAll('#eventsGridModern .event-card-modern[data-start]')];
+    function renderWinnersHallOfFame() {
+        const completedEventsData = window.SICO_COMPLETED_EVENTS || [];
+        const winnersGrid = document.getElementById('winnersHallGrid');
 
-    function updateUpcomingEvents() {
-        const now = Date.now();
-        const dayLength = 24 * 60 * 60 * 1000;
-        datedEventCards.forEach(card => {
-            const startTime = Date.parse(card.dataset.start);
-            const isPast = !Number.isFinite(startTime) || startTime <= now;
-            const daysUntil = isPast ? 0 : Math.ceil((startTime - now) / dayLength);
-            const categories = (card.dataset.type || '').split(/\s+/).filter(Boolean).filter(type => type !== 'imminent');
-            const status = card.querySelector('.event-status-pill');
-            card.dataset.expired = String(isPast);
-            if (status && !status.dataset.defaultLabel) status.dataset.defaultLabel = status.textContent;
-            if (isPast) {
-                card.classList.add('hidden');
-                card.classList.remove('card-imminent');
-                if (status) { status.classList.remove('status-imminent'); status.textContent = '✓ Completed'; }
-                card.dataset.type = categories.join(' ');
-                return;
-            }
-            if (daysUntil <= 30) {
-                categories.push('imminent');
-                card.classList.add('card-imminent');
-                if (status) {
-                    status.classList.add('status-imminent');
-                    status.textContent = daysUntil === 0 ? '⚡ Today' : `⚡ In ${daysUntil} day${daysUntil === 1 ? '' : 's'}`;
-                }
-            } else {
-                card.classList.remove('card-imminent');
-                if (status) { status.classList.remove('status-imminent'); status.textContent = status.dataset.defaultLabel; }
-            }
-            card.dataset.type = categories.join(' ');
-        });
-        const filterBar = document.getElementById('eventsFilterBar');
-        if (filterBar) {
-            filterBar.querySelectorAll('.filter-pill').forEach(pill => {
-                const filter = pill.dataset.filter;
-                if (!pill.dataset.label) pill.dataset.label = pill.textContent.replace(/\s*\(\d+\)$/, '');
-                const count = datedEventCards.filter(card => card.dataset.expired !== 'true' &&
-                    (filter === 'all' || (card.dataset.type || '').split(/\s+/).includes(filter))).length;
-                pill.textContent = `${pill.dataset.label} (${count})`;
-            });
-        }
-    }
-
-    updateUpcomingEvents();
-    if (datedEventCards.length) setInterval(updateUpcomingEvents, 60000);
-
-    const digitalEventTime = new Date('2026-09-30T13:00:00+05:30').getTime();
-    function tickDigitalCountdown() {
-        const now = Date.now();
-        const diff = digitalEventTime - now;
-        if (diff > 0) {
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const badgeStr = `⚡ In ${d} Days (${h}h left)`;
-            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = badgeStr;
-            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = badgeStr;
-        } else {
-            if (spotlightDigitalCountdown) spotlightDigitalCountdown.textContent = '✓ Completed · 30 Sep';
-            if (spotlightDigitalCountdownEvents) spotlightDigitalCountdownEvents.textContent = '✓ Completed · 30 Sep';
-        }
-    }
-    tickDigitalCountdown();
-    setInterval(tickDigitalCountdown, 1000);
-
-    if (eventsFilterPills.length && eventCardsModern.length) {
-        eventsFilterPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                eventsFilterPills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                const filter = pill.getAttribute('data-filter');
-                eventCardsModern.forEach(card => {
-                    const cardType = card.getAttribute('data-type') || '';
-                    const isExpired = card.dataset.expired === 'true';
-                    if (!isExpired && (filter === 'all' || cardType.split(/\s+/).includes(filter))) {
-                        card.classList.remove('hidden');
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(12px)';
-                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
-                    } else card.classList.add('hidden');
-                });
-                if (typeof playSynthSound === 'function') playSynthSound('blip');
-            });
-        });
-    }
-
-    // =============================================================
-    // SECTION 23: 3rd Year Student Coordinators Filtering
-    // =============================================================
-    const thirdYearFilterBtns = document.querySelectorAll('#thirdYearFilters .team-filter-btn');
-    const thirdYearCards = document.querySelectorAll('#thirdYearGrid .team-card-3rd');
-    const teamSearchInput = document.getElementById('teamSearchInput');
-    const teamResultsCount = document.getElementById('teamResultsCount');
-
-    if (thirdYearCards.length) {
-        let activeCategory = 'all';
-        let searchQuery = '';
-        function updateTeamDisplay() {
-            let visibleCount = 0;
-            const query = searchQuery.trim().toLowerCase();
-            thirdYearCards.forEach(card => {
-                const category = card.getAttribute('data-category') || '';
-                const name = (card.getAttribute('data-name') || '').toLowerCase();
-                const role = (card.getAttribute('data-role') || '').toLowerCase();
-                const branch = (card.getAttribute('data-branch') || '').toLowerCase();
-                const matchesCategory = (activeCategory === 'all' || category === activeCategory);
-                const matchesSearch = !query || name.includes(query) || role.includes(query) || branch.includes(query);
-                if (matchesCategory && matchesSearch) { card.classList.remove('hidden-member'); visibleCount++; }
-                else card.classList.add('hidden-member');
-            });
-            if (teamResultsCount) teamResultsCount.textContent = `Showing ${visibleCount} of ${thirdYearCards.length} student coordinators`;
-        }
-        thirdYearFilterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                thirdYearFilterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                activeCategory = btn.getAttribute('data-filter') || 'all';
-                updateTeamDisplay();
-                if (typeof playSynthSound === 'function') playSynthSound('click');
-            });
-        });
-        if (teamSearchInput) teamSearchInput.addEventListener('input', (e) => { searchQuery = e.target.value; updateTeamDisplay(); });
-    }
-
-    // =============================================================
-    // 27. UNIVERSAL LIVE DATA SYNCHRONIZATION
-    // =============================================================
-    function syncLiveAdminData() {
-        try {
-            const customEvents = JSON.parse(localStorage.getItem('sico_custom_events') || '[]');
-            const eventsGrid = document.getElementById('eventsGridModern');
-            const calendarTable = document.getElementById('calendarTable');
-            if (eventsGrid && customEvents.length > 0) {
-                eventsGrid.querySelectorAll('.dynamic-admin-card').forEach(el => el.remove());
-                [...customEvents].reverse().forEach(ev => {
-                    const card = document.createElement('div');
-                    card.className = 'event-card-modern dynamic-admin-card card-imminent';
-                    card.setAttribute('data-category', ev.category || 'tech');
-                    card.setAttribute('data-type', 'imminent prizes dynamic');
-                    card.setAttribute('data-title', ev.title || 'Campus Event');
-                    card.setAttribute('data-catname', ev.catname || ev.club || 'Student Activity');
-                    card.setAttribute('data-date', ev.date || 'TBA');
-                    card.setAttribute('data-time', ev.time || '');
-                    card.setAttribute('data-venue', ev.venue || 'Campus Venue');
-                    card.setAttribute('data-prize', ev.prize || '--');
-                    card.setAttribute('data-desc', ev.desc || ev.snippet || 'Join the event organized by EC & CCAC.');
-                    card.setAttribute('data-highlights', ev.highlights || 'Organized by EC & CCAC, Certificates, Campus Credits');
-                    card.setAttribute('data-rules', ev.rules || 'College ID card mandatory for entry.');
-                    card.setAttribute('data-coordinators', ev.coordinators || 'Student Leads');
-                    if (ev.pdfUrl) card.setAttribute('data-pdfurl', ev.pdfUrl);
-                    if (ev.pdfName) card.setAttribute('data-pdfname', ev.pdfName);
-
-                    let posterMarkup = '';
-                    if (ev.posterUrl) posterMarkup = `<div class="event-card-poster-thumb"><img src="${ev.posterUrl}" alt="${ev.title}" loading="lazy"></div>`;
-                    let circularBtn = '';
-                    if (ev.pdfUrl) circularBtn = `<a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF"><span>📄 Circular (PDF)</span></a>`;
-
-                    card.innerHTML = `
-                        ${posterMarkup}
-                        <div class="event-card-header">
-                            <div class="event-date-pill"><span>📅</span><span>${ev.date}</span></div>
-                            <span class="event-status-pill status-live-sync">✨ LIVE UPDATE</span>
-                        </div>
-                        <div class="event-card-main">
-                            <h3 class="event-card-title">${ev.title}</h3>
-                            <div class="event-club-badge">
-                                <span class="club-dot" style="background:var(--accent-amber)"></span>
-                                <span>${ev.club} · ${ev.catname || 'Official'}</span>
+        if (winnersGrid) {
+            winnersGrid.innerHTML = completedEventsData.map(comp => `
+                <div class="winner-event-card">
+                    <div class="winner-card-header">
+                        <div>
+                            <span class="winner-club-badge">${comp.club}</span>
+                            <h3 class="winner-event-title">${comp.title}</h3>
+                            <div class="winner-event-meta">
+                                <span>Concluded: ${comp.date}</span>
+                                <span>&middot; ${comp.venue}</span>
                             </div>
                         </div>
-                        <p class="event-card-snippet">${ev.snippet || (ev.desc ? ev.desc.slice(0, 120) + '...' : 'Student club competition and cultural activity.')}</p>
-                        <div class="event-details-box">
-                            <div class="detail-row"><span class="detail-label">📍 Venue:</span><strong class="detail-value">${ev.venue || 'Campus Venue'}</strong></div>
-                            <div class="detail-row"><span class="detail-label">⏰ Time:</span><strong class="detail-value">${ev.time || '10:00 AM IST'}</strong></div>
-                            ${ev.prize ? `<div class="detail-row detail-prize-row"><span class="detail-label">🏆 Cash Prizes:</span><strong class="detail-value prize-highlight">${ev.prize}</strong></div>` : ''}
-                        </div>
-                        <div class="event-card-footer">
-                            <button class="btn-event-details btn-card-primary" type="button"><span>View Details &amp; Rules</span><i>→</i></button>
-                            ${circularBtn}
-                            <a href="${ev.regLink || 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing'}" target="_blank" rel="noopener noreferrer" class="btn-card-register"><span>Register</span><i>↗</i></a>
-                        </div>
-                    `;
-                    eventsGrid.prepend(card);
-                });
-            }
-
-            if (calendarTable && customEvents.length > 0) {
-                const tbody = calendarTable.querySelector('tbody');
-                if (tbody) {
-                    tbody.querySelectorAll('.dynamic-admin-row').forEach(el => el.remove());
-                    [...customEvents].reverse().forEach(ev => {
-                        const tr = document.createElement('tr');
-                        tr.className = 'dynamic-admin-row';
-                        tr.setAttribute('data-status', 'upcoming');
-                        tr.setAttribute('data-club', ev.club);
-                        tr.innerHTML = `
-                            <td class="cal-sno-col">✨</td>
-                            <td class="cal-date-cell"><span class="cal-date-day">${ev.date}</span></td>
-                            <td>
-                                <div class="cal-club-name">${ev.club}</div>
-                                <span class="cal-club-badge" style="background:rgba(245,158,11,0.2); color:var(--accent-amber)">Live Update</span>
-                            </td>
-                            <td>
-                                <div class="cal-event-desc">
-                                    <strong>${ev.title}</strong> - ${ev.snippet || (ev.desc ? ev.desc.slice(0, 80) : '')}
-                                    ${ev.pdfUrl ? `<br><a href="${ev.pdfUrl}" target="_blank" download="${ev.pdfName || 'circular.pdf'}" style="font-size:0.8rem; color:var(--accent-cyan); font-weight:600;">📥 Download Circular (PDF)</a>` : ''}
-                                </div>
-                            </td>
-                            <td class="cal-venue-time"><span>📍 ${ev.venue || 'Campus'}</span><span>⏰ ${ev.time || 'TBA'}</span></td>
-                            <td class="cal-prize-cell">${ev.prize || '--'}</td>
-                            <td><span class="status-tag imminent" style="background:#10b981; color:#fff;">⚡ Live Entry</span></td>
-                        `;
-                        tbody.prepend(tr);
-                    });
-                }
-            }
-        } catch (err) { console.error('Error syncing dynamic events:', err); }
-
-        try {
-            const customReports = JSON.parse(localStorage.getItem('sico_custom_reports') || '[]');
-            const reportsGrid = document.querySelector('.reports-preview-grid');
-            if (reportsGrid && customReports.length > 0) {
-                let dynamicCard = document.getElementById('dynamicReportsCard');
-                if (!dynamicCard) {
-                    dynamicCard = document.createElement('div');
-                    dynamicCard.id = 'dynamicReportsCard';
-                    dynamicCard.className = 'report-preview-card dynamic-reports-highlight';
-                    dynamicCard.style.border = '1px solid var(--accent-amber)';
-                    dynamicCard.style.boxShadow = '0 8px 30px rgba(245, 158, 11, 0.15)';
-                    reportsGrid.prepend(dynamicCard);
-                }
-                dynamicCard.innerHTML = `
-                    <div class="report-preview-icon">✨</div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
-                        <h3 style="margin:0;">Live Published Reports &amp; Circulars</h3>
-                        <span class="status-badge" style="background:var(--accent-amber); color:#000; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:99px;">COORDINATOR UPLOADS</span>
+                        <div class="winner-prize-pool"><span>${comp.prizePool}</span></div>
                     </div>
-                    <p>Official records, retrospectives, and circular documentation recently uploaded via the SICO Coordinator Studio.</p>
-                    <div class="report-links-list" style="margin-top:14px;">
-                        ${customReports.map(rep => `
-                            <div class="dynamic-report-item" style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px dashed rgba(255,255,255,0.1); gap:12px; flex-wrap:wrap;">
-                                <div style="flex:1; min-width:200px;">
-                                    <a href="${rep.pdfUrl}" target="_blank" download="${rep.pdfName || 'report.pdf'}" class="report-download-link" style="margin:0; font-weight:600; color:var(--text-primary);">
-                                        📄 ${rep.title} (${rep.academicYear || 'AY 2026–2027'}) [PDF] ↗
-                                    </a>
-                                    <div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">${rep.summary || ''}</div>
-                                </div>
-                                <a href="${rep.pdfUrl}" target="_blank" download="${rep.pdfName || 'report.pdf'}" class="btn-card-circular" style="font-size:0.75rem; padding:6px 12px; white-space:nowrap;">
-                                    <span>📥 Download PDF</span>
-                                </a>
-                            </div>
-                        `).join('')}
+                    ${comp.summary ? `<p class="winner-event-summary">${comp.summary}</p>` : ''}
+                    <div class="winner-table-wrap">
+                        <table class="winner-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank / Honor</th>
+                                    <th>Winner Student</th>
+                                    <th>Regd. No</th>
+                                    <th>Dept</th>
+                                    <th>Cash Prize Won</th>
+                                    <th>Performance / Project</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${(comp.winners || []).map(w => {
+                                    let rankBadge = `<span class="rank-badge-3">${w.rank}</span>`;
+                                    if (w.rank === '1st') rankBadge = `<span class="rank-badge-1">1st Prize</span>`;
+                                    else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">2nd Prize</span>`;
+                                    else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">3rd Prize</span>`;
+                                    return `
+                                        <tr>
+                                            <td>${rankBadge}</td>
+                                            <td><strong style="color:var(--text-primary); font-weight:700;">${w.name}</strong></td>
+                                            <td><span class="winner-regd-pill">${w.regd}</span></td>
+                                            <td><span style="font-weight:600; font-size:0.8rem; color:var(--text-secondary);">${w.branch || '--'}</span></td>
+                                            <td><span class="winner-cash-text">${w.prize}</span></td>
+                                            <td style="font-size:0.82rem; color:var(--text-muted);">${w.project || 'Merit Performance'}</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                            </tbody>
+                        </table>
                     </div>
-                `;
-            }
-        } catch (err) { console.error('Error syncing dynamic reports:', err); }
+                    <div class="winner-card-actions">
+                        <button type="button" class="btn-winner-details" data-winner-id="${comp.id}">
+                            <span>Flip &amp; View Merit Card</span><span aria-hidden="true">↻</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
 
-        try {
-            const customGallery = JSON.parse(localStorage.getItem('sico_custom_gallery') || '[]');
-            const galleryGrid = document.getElementById('galleryGrid');
-            if (galleryGrid && customGallery.length > 0) {
-                galleryGrid.querySelectorAll('.dynamic-gallery-item').forEach(el => el.remove());
-                [...customGallery].reverse().forEach(item => {
-                    const gItem = document.createElement('div');
-                    gItem.className = 'gallery-item dynamic-gallery-item';
-                    gItem.setAttribute('data-category', item.category || 'cultural');
-                    gItem.setAttribute('data-caption', item.caption || item.title);
-                    gItem.innerHTML = `
-                        <div class="gallery-image"><img src="${item.imageUrl}" alt="${item.title}" loading="lazy"></div>
-                        <div class="gallery-overlay">
-                            <span class="gallery-caption">${item.caption || item.title}</span>
-                            <span style="position:absolute; top:12px; right:12px; font-size:0.68rem; background:rgba(245,158,11,0.92); color:#000; padding:2px 8px; border-radius:99px; font-weight:700;">✨ NEW</span>
-                        </div>
-                    `;
-                    galleryGrid.prepend(gItem);
-                });
-            }
-        } catch (err) { console.error('Error syncing dynamic gallery:', err); }
+            const winnersSearchInput = document.getElementById('winnersSearchInput');
+            const winnersResultsCount = document.getElementById('winnersResultsCount');
+            const winnersSearchClear = document.getElementById('winnersSearchClear');
 
-        try {
-            if (!localStorage.getItem('sico_completed_events')) {
-                const defaultCompleted = [
-                    {
-                        id: 'comp_seed_1',
-                        title: 'Clean Energy Poster Presentation',
-                        club: 'Renewable Energy Club',
-                        date: '01st August 2026',
-                        venue: 'SJB Seminar Hall',
-                        prizePool: '₹6,000 Cash Prizes Awarded',
-                        summary: 'Over 45 teams presented innovative solar microgrids, biomass gasifiers, and renewable charging stations. Judged by senior electrical engineering faculty.',
-                        pdfUrl: '', pdfName: 'Clean_Energy_Poster_Winners.pdf',
-                        winners: [
-                            { rank: '1st', name: 'K. Vamsi Krishna', regd: 'Y23EE042', branch: 'EEE', prize: '₹3,000 Cash', project: 'Hybrid Solar-Wind Microgrid' },
-                            { rank: '2nd', name: 'P. Sneha Reddy', regd: 'Y23ME018', branch: 'MECH', prize: '₹2,000 Cash', project: 'Biomass Campus Generator' },
-                            { rank: '3rd', name: 'T. Rahul', regd: 'Y24CS105', branch: 'CSE', prize: '₹1,000 Cash', project: 'AI Solar Tracking Panel' }
-                        ]
-                    },
-                    {
-                        id: 'comp_seed_2',
-                        title: 'Youth Leadership & Oratory Conclave',
-                        club: 'Club Inspiraze',
-                        date: '25th July 2026',
-                        venue: 'Open Air Theatre (OAT)',
-                        prizePool: '₹4,000 Cash & Trophies',
-                        summary: 'Annual campus oratorical conclave on ethics in technology and social impact. Evaluated by humanities department and alumni guests.',
-                        pdfUrl: '', pdfName: 'Inspiraze_Oratory_Results.pdf',
-                        winners: [
-                            { rank: '1st', name: 'G. Ananya', regd: 'Y23CS089', branch: 'CSE', prize: '₹2,500 Cash & Trophy', project: 'Vision 2030 Leadership' },
-                            { rank: '2nd', name: 'Ch. Karthik', regd: 'Y23IT012', branch: 'IT', prize: '₹1,500 Cash & Trophy', project: 'Ethics in Automation' }
-                        ]
-                    },
-                    {
-                        id: 'comp_seed_3',
-                        title: 'International Yoga Day Asana Championship',
-                        club: 'Wellness & Sports Club',
-                        date: '21st June 2026',
-                        venue: 'Open Air Theatre (OAT)',
-                        prizePool: '₹2,500 Cash & Medals',
-                        summary: 'Campus-wide yoga competition celebrating International Yoga Day with over 300 student and faculty participants.',
-                        pdfUrl: '', pdfName: 'Yoga_Day_Official_Results.pdf',
-                        winners: [
-                            { rank: '1st', name: 'M. Divya', regd: 'Y23IT033', branch: 'IT', prize: '₹1,500 Cash & Gold Medal', project: 'Advanced Hatha Asanas' },
-                            { rank: '2nd', name: 'B. Sai Kumar', regd: 'Y24EC064', branch: 'ECE', prize: '₹1,000 Cash & Silver Medal', project: 'Surya Namaskar Endurance' }
-                        ]
+            const updateWinnersDirectory = () => {
+                const cards = [...winnersGrid.querySelectorAll('.winner-event-card')];
+                const query = (winnersSearchInput?.value || '').trim().toLowerCase();
+                let visibleEvents = 0;
+                let visibleAwardees = 0;
+                cards.forEach(card => {
+                    const matches = !query || card.textContent.toLowerCase().includes(query);
+                    card.hidden = !matches;
+                    if (matches) {
+                        visibleEvents++;
+                        visibleAwardees += card.querySelectorAll('.winner-table tbody tr').length;
                     }
-                ];
-                localStorage.setItem('sico_completed_events', JSON.stringify(defaultCompleted));
-            }
-
-            const completedEvents = JSON.parse(localStorage.getItem('sico_completed_events') || '[]');
-            const winnersGrid = document.getElementById('winnersHallGrid');
-
-            if (winnersGrid) {
-                if (completedEvents.length === 0) {
-                    winnersGrid.innerHTML = `
-                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px dashed var(--border-card);">
-                            <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">No completed events published yet. Visit the <a href="admin.html" style="color: var(--accent-amber); font-weight: 700;">Coordinator Studio</a> to publish event merit lists and winners.</p>
-                        </div>
-                    `;
-                } else {
-                    winnersGrid.innerHTML = completedEvents.map(comp => {
-                        const totalCash = comp.prizePool || 'Cash Prizes Awarded';
-                        let downloadPdfBtn = '';
-                        if (comp.pdfUrl) {
-                            downloadPdfBtn = `
-                                <a href="${comp.pdfUrl}" target="_blank" download="${comp.pdfName || 'winners_circular.pdf'}" class="btn-card-circular" title="Download Official Circular PDF" style="font-size:0.75rem; padding:5px 12px; text-decoration:none;">
-                                    <span>📥 Result Sheet (PDF)</span>
-                                </a>
-                            `;
-                        }
-                        return `
-                            <div class="winner-event-card">
-                                <div class="winner-card-header">
-                                    <div>
-                                        <span class="winner-club-badge">${comp.club || 'Campus Club'}</span>
-                                        <h3 class="winner-event-title">${comp.title}</h3>
-                                        <div class="winner-event-meta">
-                                            <span>📅 Concluded: ${comp.date}</span>
-                                            <span>📍 ${comp.venue || 'Campus Venue'}</span>
-                                        </div>
-                                    </div>
-                                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
-                                        <div class="winner-prize-pool"><span>💰 ${totalCash}</span></div>
-                                        ${downloadPdfBtn}
-                                    </div>
-                                </div>
-                                ${comp.summary ? `<p class="winner-event-summary">${comp.summary}</p>` : ''}
-                                <div class="winner-table-wrap">
-                                    <table class="winner-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Rank / Honor</th>
-                                                <th>Winner Student</th>
-                                                <th>Regd. No</th>
-                                                <th>Dept</th>
-                                                <th>Cash Prize Won</th>
-                                                <th>Performance / Project</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${(comp.winners || []).map(w => {
-                                                let rankBadge = `<span class="rank-badge-3">${w.rank}</span>`;
-                                                if (w.rank === '1st') rankBadge = `<span class="rank-badge-1">🥇 1st Prize</span>`;
-                                                else if (w.rank === '2nd') rankBadge = `<span class="rank-badge-2">🥈 2nd Prize</span>`;
-                                                else if (w.rank === '3rd') rankBadge = `<span class="rank-badge-3">🥉 3rd Prize</span>`;
-                                                else if (w.rank === 'Special') rankBadge = `<span class="rank-badge-3">🎖️ Special</span>`;
-                                                return `
-                                                    <tr>
-                                                        <td>${rankBadge}</td>
-                                                        <td><strong style="color:var(--text-primary); font-weight:700;">${w.name}</strong></td>
-                                                        <td><span class="winner-regd-pill">${w.regd}</span></td>
-                                                        <td><span style="font-weight:600; font-size:0.8rem; color:var(--text-secondary);">${w.branch || '--'}</span></td>
-                                                        <td><span class="winner-cash-text">${w.prize}</span></td>
-                                                        <td style="font-size:0.82rem; color:var(--text-muted);">${w.project || 'Merit Performance'}</td>
-                                                    </tr>
-                                                `;
-                                            }).join('')}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="winner-card-actions">
-                                    <button type="button" class="btn-winner-details" data-winner-id="${comp.id}">
-                                        <span>View full merit list</span><span aria-hidden="true">↗</span>
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
+                });
+                if (winnersResultsCount) {
+                    winnersResultsCount.textContent = query
+                        ? `${visibleEvents} of ${cards.length} merit lists match`
+                        : `${cards.length} completed events · ${visibleAwardees} awardees`;
                 }
+                if (winnersSearchClear) winnersSearchClear.hidden = !query;
+                let emptyMessage = winnersGrid.querySelector('.winners-no-results');
+                if (query && visibleEvents === 0) {
+                    if (!emptyMessage) {
+                        emptyMessage = document.createElement('p');
+                        emptyMessage.className = 'winners-no-results';
+                        emptyMessage.textContent = 'No merit lists match that search.';
+                        winnersGrid.appendChild(emptyMessage);
+                    }
+                } else emptyMessage?.remove();
+            };
 
-                const winnersSearchInput = document.getElementById('winnersSearchInput');
-                const winnersResultsCount = document.getElementById('winnersResultsCount');
-                const winnersSearchClear = document.getElementById('winnersSearchClear');
-                const updateWinnersDirectory = () => {
-                    const cards = [...winnersGrid.querySelectorAll('.winner-event-card')];
-                    const query = (winnersSearchInput?.value || '').trim().toLowerCase();
-                    let visibleEvents = 0;
-                    let visibleAwardees = 0;
-                    cards.forEach(card => {
-                        const matches = !query || card.textContent.toLowerCase().includes(query);
-                        card.hidden = !matches;
-                        if (matches) {
-                            visibleEvents++;
-                            visibleAwardees += card.querySelectorAll('.winner-table tbody tr').length;
+            if (winnersSearchInput) winnersSearchInput.oninput = updateWinnersDirectory;
+            if (winnersSearchClear) {
+                winnersSearchClear.onclick = () => {
+                    if (!winnersSearchInput) return;
+                    winnersSearchInput.value = '';
+                    updateWinnersDirectory();
+                    winnersSearchInput.focus();
+                };
+            }
+            winnersGrid.onclick = event => {
+                const button = event.target.closest('.btn-winner-details');
+                if (!button) return;
+                if (typeof window.openFlipMeritCard === 'function') {
+                    window.openFlipMeritCard(button.dataset.winnerId);
+                }
+            };
+            updateWinnersDirectory();
+        }
+
+        // Attach "Merit List" 3D Flip buttons to matching completed rows in Master Calendar
+        const calTbody = document.querySelector('#calendarTable tbody');
+        if (calTbody) {
+            const completedRows = calTbody.querySelectorAll('tr[data-status="completed"]');
+            completedRows.forEach(row => {
+                if (row.querySelector('.btn-cal-winners')) return;
+                const rowText = row.textContent.toLowerCase();
+                const matchedComp = completedEventsData.find(c =>
+                    c.matchKey && rowText.includes(c.matchKey.toLowerCase())
+                );
+                if (!matchedComp) return;
+                const actionCell = row.querySelector('td:last-child');
+                if (actionCell) {
+                    const winnerBtn = document.createElement('button');
+                    winnerBtn.type = 'button';
+                    winnerBtn.className = 'btn-cal-winners';
+                    winnerBtn.textContent = 'Merit List ↻';
+                    winnerBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (typeof window.openFlipMeritCard === 'function') {
+                            window.openFlipMeritCard(matchedComp.id);
                         }
                     });
-                    if (winnersResultsCount) {
-                        winnersResultsCount.textContent = query
-                            ? `${visibleEvents} of ${cards.length} merit lists match`
-                            : `${cards.length} completed events · ${visibleAwardees} awardees`;
-                    }
-                    if (winnersSearchClear) winnersSearchClear.hidden = !query;
-                    let emptyMessage = winnersGrid.querySelector('.winners-no-results');
-                    if (query && visibleEvents === 0) {
-                        if (!emptyMessage) {
-                            emptyMessage = document.createElement('p');
-                            emptyMessage.className = 'winners-no-results';
-                            emptyMessage.textContent = 'No merit lists match that search. Try a name, registration number, or event.';
-                            winnersGrid.appendChild(emptyMessage);
-                        }
-                    } else emptyMessage?.remove();
-                };
-                if (winnersSearchInput) winnersSearchInput.oninput = updateWinnersDirectory;
-                if (winnersSearchClear) {
-                    winnersSearchClear.onclick = () => {
-                        if (!winnersSearchInput) return;
-                        winnersSearchInput.value = '';
-                        updateWinnersDirectory();
-                        winnersSearchInput.focus();
-                    };
+                    actionCell.appendChild(winnerBtn);
                 }
-                winnersGrid.onclick = event => {
-                    const button = event.target.closest('.btn-winner-details');
-                    if (!button || !window.viewCompletedWinnersModal) return;
-                    const selectedEvent = completedEvents.find(item => String(item.id) === button.dataset.winnerId);
-                    if (selectedEvent) window.viewCompletedWinnersModal(selectedEvent.id);
-                };
-                updateWinnersDirectory();
-            }
-
-            const calTable = document.getElementById('calendarTable');
-            if (calTable && completedEvents.length > 0) {
-                const completedRows = calTable.querySelectorAll('tr[data-status="completed"]');
-                completedRows.forEach(row => {
-                    if (row.querySelector('.btn-cal-winners')) return;
-                    const clubNameEl = row.querySelector('.cal-club-name');
-                    const clubName = clubNameEl ? clubNameEl.textContent.trim().toLowerCase() : '';
-                    const matchedComp = completedEvents.find(c =>
-                        (c.club && clubName.includes(c.club.toLowerCase())) ||
-                        (c.title && row.textContent.toLowerCase().includes(c.title.toLowerCase().slice(0, 15)))
-                    );
-                    const actionCell = row.querySelector('td:last-child');
-                    if (actionCell) {
-                        const winnerBtn = document.createElement('a');
-                        winnerBtn.className = 'btn-cal-winners';
-                        winnerBtn.href = '#winnersHallOfFame';
-                        winnerBtn.style.marginTop = '6px';
-                        winnerBtn.style.textDecoration = 'none';
-                        winnerBtn.innerHTML = '🏆 Merit List';
-                        if (matchedComp) {
-                            winnerBtn.addEventListener('click', (e) => {
-                                if (window.viewCompletedWinnersModal) {
-                                    e.preventDefault();
-                                    window.viewCompletedWinnersModal(matchedComp.id);
-                                }
-                            });
-                        }
-                        actionCell.appendChild(winnerBtn);
-                    }
-                });
-            }
-        } catch (err) { console.error('Error syncing dynamic completed events & winners:', err); }
-    }
-
-    syncLiveAdminData();
-
-    // -------------------------------------------------------------
-    // 28. DYNAMIC CAMPUS BULLETIN & TICKER SYNCHRONIZATION
-    // -------------------------------------------------------------
-    function syncCampusAnnouncement() {
-        try {
-            const raw = localStorage.getItem('sico_site_announcement');
-            if (!raw) return;
-            const ann = JSON.parse(raw);
-            if (!ann || !ann.enabled || !ann.message) return;
-            const bars = document.querySelectorAll('.campus-announcement-bar');
-            bars.forEach(bar => {
-                bar.innerHTML = `
-                    <div class="campus-announcement-left" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                        <span class="campus-pill-badge" style="background:${ann.badgeColor || 'linear-gradient(135deg, #e11d48, #ea580c)'}; color:#fff; font-weight:700; padding:4px 12px; border-radius:99px; font-size:0.76rem; display:inline-flex; align-items:center; gap:6px;">
-                            <span class="campus-live-dot" style="background:#fff; width:6px; height:6px; border-radius:50%; box-shadow:0 0 8px #fff;"></span>
-                            <strong>${ann.badgeText || 'CAMPUS BULLETIN'}</strong>
-                        </span>
-                        <span class="campus-tag" style="font-weight:600; color:var(--text-primary); font-size:0.85rem;">
-                            ${ann.message}
-                        </span>
-                    </div>
-                    <div class="campus-announcement-right" style="display:flex; align-items:center; gap:8px;">
-                        ${ann.actionLink ? `
-                        <a href="${ann.actionLink}" ${ann.actionLink.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="campus-tag" style="background:var(--accent-amber); color:#000; font-weight:700; text-decoration:none; padding:3px 12px; border-radius:99px; transition:var(--transition); font-size:0.78rem;">
-                            ${ann.actionText || 'Explore Details ↗'}
-                        </a>` : ''}
-                        <span class="campus-tag" style="cursor: pointer;" onclick="document.getElementById('hudCmdTrigger') ? document.getElementById('hudCmdTrigger').click() : null">🔍 Search <kbd class="hud-kbd-key">Ctrl + K</kbd></span>
-                    </div>
-                `;
             });
-        } catch (err) { console.error('Error syncing campus bulletin:', err); }
+        }
     }
-    syncCampusAnnouncement();
+    renderWinnersHallOfFame();
 
     // -------------------------------------------------------------
-    // 29. DYNAMIC STUDENT VOICES
+    // 15. STUDENT VOICES
     // -------------------------------------------------------------
-    function syncStudentVoices() {
-        try {
-            const defaultVoices = [
-                {
-                    id: 'voice_1',
-                    quote: "Colorido was the first time I stood before three thousand students singing with my band. EC & CCAC didn't just give us a stage; they gave us a family and memories that define our college years.",
-                    name: 'M. Kalyan',
-                    role: 'Music Club Lead',
-                    branch: 'B.Tech ECE',
-                    initials: 'MK'
-                },
-                {
-                    id: 'voice_2',
-                    quote: "From choreographing 40-member crews for Club Waltz to managing stage cues at midnight, you learn real leadership, empathy, and grace under pressure here.",
-                    name: 'S. Priya',
-                    role: 'Dance Club Coordinator',
-                    branch: 'B.Tech CSE',
-                    initials: 'SP'
-                },
-                {
-                    id: 'voice_3',
-                    quote: "SICO initiatives showed me how engineers can directly touch lives — teaching basic digital skills at blind schools and organizing campus blood donation camps.",
-                    name: 'R. Tarun',
-                    role: 'Helping Hands Volunteer',
-                    branch: 'B.Tech Mechanical',
-                    initials: 'RT'
-                }
-            ];
-            if (!localStorage.getItem('sico_student_voices')) {
-                localStorage.setItem('sico_student_voices', JSON.stringify(defaultVoices));
+    function renderStudentVoices() {
+        const voices = [
+            {
+                quote: "Colorido was the first time I stood before three thousand students singing with my band. EC & CCAC didn't just give us a stage; they gave us a family and memories that define our college years.",
+                name: 'M. Kalyan',
+                role: 'Music Club Lead',
+                branch: 'B.Tech ECE',
+                initials: 'MK'
+            },
+            {
+                quote: "From choreographing 40-member crews for Club Waltz to managing stage cues at midnight, you learn real leadership, empathy, and grace under pressure here.",
+                name: 'S. Priya',
+                role: 'Dance Club Coordinator',
+                branch: 'B.Tech CSE',
+                initials: 'SP'
+            },
+            {
+                quote: "SICO initiatives showed me how engineers can directly touch lives — teaching basic digital skills at blind schools and organizing campus blood donation camps.",
+                name: 'R. Tarun',
+                role: 'Helping Hands Volunteer',
+                branch: 'B.Tech Mechanical',
+                initials: 'RT'
             }
-            const voices = JSON.parse(localStorage.getItem('sico_student_voices') || '[]');
-            const grid = document.getElementById('studentVoicesGrid') || document.querySelector('.voices-grid');
-            if (grid && voices.length > 0) {
-                grid.innerHTML = voices.map(v => {
-                    const initials = v.initials || (v.name ? v.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase() : 'ST');
-                    return `
-                        <div class="voice-card">
-                            <div class="voice-quote-mark">&ldquo;</div>
-                            <p class="voice-quote-text">${v.quote}</p>
-                            <div class="voice-author">
-                                <div class="voice-author-initials">${initials}</div>
-                                <div>
-                                    <div class="voice-author-name">${v.name}</div>
-                                    <div class="voice-author-role">${v.role} &bull; ${v.branch}</div>
-                                </div>
-                            </div>
+        ];
+        const grid = document.getElementById('studentVoicesGrid') || document.querySelector('.voices-grid');
+        if (grid) {
+            grid.innerHTML = voices.map(v => `
+                <div class="voice-card">
+                    <div class="voice-quote-mark">&ldquo;</div>
+                    <p class="voice-quote-text">${v.quote}</p>
+                    <div class="voice-author">
+                        <div class="voice-author-initials">${v.initials}</div>
+                        <div>
+                            <div class="voice-author-name">${v.name}</div>
+                            <div class="voice-author-role">${v.role} &bull; ${v.branch}</div>
                         </div>
-                    `;
-                }).join('');
-            }
-        } catch (err) { console.error('Error syncing student voices:', err); }
+                    </div>
+                </div>
+            `).join('');
+        }
     }
-    syncStudentVoices();
+    renderStudentVoices();
 
     // -------------------------------------------------------------
-    // 30. INTERACTIVE "FIND YOUR TRIBE" CLUB MATCHER
+    // 16. INTERACTIVE "FIND YOUR TRIBE" CLUB MATCHER
     // -------------------------------------------------------------
     function initTribeMatcher() {
         const tribeGrid = document.getElementById('tribeMatcherGrid');
         const matchResult = document.getElementById('tribeMatchResult');
         if (!tribeGrid || !matchResult) return;
         const clubsData = {
-            dance: { name: 'Dance Club', category: 'Performing Arts & Choreography', tagline: 'Feel the rhythm, own the stage, ignite the campus!', desc: 'Whether you are into hip-hop battles, classical fusion, contemporary duels, or mass cinematic crew performances, Dance Club is RVR&JC’s biggest high-voltage stage. No prior audition required for semester beginner bootcamps!', lead: 'S. Priya & M. Leeladhar (Dance Leads)', flagship: 'Club Waltz (Mega Dance Gala) & Colorido Crew Showdowns', accentColor: 'linear-gradient(135deg, #e11d48, #ea580c)' },
-            music: { name: 'Music & Acoustic Band Club', category: 'Vocals, Acoustic & Instrumental', tagline: 'Where campus melodies turn into rock anthems.', desc: 'Home to the official RVR&JC collegiate acoustic rock band, classical carnatic vocalists, solo guitarists, and beatboxers. Practice sessions at the SAC music room with full audio gear.', lead: 'M. Kalyan & Band Leads', flagship: 'Acoustic Unplugged Night & Colorido Symphony Stage', accentColor: 'linear-gradient(135deg, #8b5cf6, #3b82f6)' },
-            tech: { name: 'Digital Club', category: 'Web Dev, Hackathons & Anime Creation', tagline: 'Code the future, edit cinematic duel films, and build websites.', desc: 'For software hackers, UI/UX designers, and video editors. Organizes Web Dev Hackathons, Anime & Manga Video Duels, and technical symposium media production.', lead: 'R. Joel Livingstone & Digital Team', flagship: 'Web Dev Duel, Anime Film Fest & Cyber Hackathons', accentColor: 'linear-gradient(135deg, #0ea5e9, #059669)' },
-            art: { name: 'Pixel Craft & Fine Arts Club', category: 'Visual Arts, Sketching & Digital Design', tagline: 'Translating imaginations onto canvases and digital screens.', desc: 'From pencil sketching and oil painting to Figma UI design, brand identities, and campus mural artwork. Perfect for creative visual thinkers wanting to design institutional publications.', lead: 'Art Coordinators & Design Leads', flagship: 'Art & Design Expo, Live Sketch Duel & Poster Championships', accentColor: 'linear-gradient(135deg, #f59e0b, #e11d48)' },
-            photo: { name: 'Photography & Cinematography Club', category: 'Lenses, Shutter Speed & Visual Stories', tagline: 'Framing every golden campus memory through the lens.', desc: 'Captures every cultural fest, flagship celebration, guest lecture, and campus portrait. Organizes photowalks, DSLR cinematography masterclasses, and mobile editing workshops.', lead: 'Media Team & Photo Leads', flagship: 'Campus Photowalk, Short Film Screenings & Colorido Photo Wall', accentColor: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
-            social: { name: 'Helping Hands Club & SICO', category: 'Community Outreach & Social Leadership', tagline: 'Empathy in action: Transforming communities with heart.', desc: 'Leading social initiatives across Guntur and AP: teaching digital literacy at schools for visually impaired children, organizing mega blood donation camps, environmental cleanups, and rural aid.', lead: 'R. Tarun & SICO Outreach Team', flagship: 'SICO Community Mission, Blood Donation & Green Campus Drives', accentColor: 'linear-gradient(135deg, #10b981, #059669)' },
-            literary: { name: 'Literary & Debate Club (Inspiraze)', category: 'Oratory, Parliamentary Debate & Creative Writing', tagline: 'Words that inspire, arguments that convince, stories that resonate.', desc: 'Sharpen your stage confidence, impromptu speech, creative writing, poetry slams, and parliamentary debate skills. Regular mock conclaves with constructive faculty mentorship.', lead: 'G. Ananya & Debate Leads', flagship: 'Youth Leadership Conclave & Inter-Collegiate Oratory Duel', accentColor: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-            sports: { name: 'Sports & Fitness Club', category: 'Athletics, Yoga & Physical Wellness', tagline: 'Endurance, sportsmanship, and high-energy competition.', desc: 'Promotes wellness, yoga asana championships, campus badminton leagues, athletics, and annual sports days in collaboration with the physical education department.', lead: 'Sports Secretary & Fitness Leads', flagship: 'International Yoga Day Championship & Inter-Dept Sports Meet', accentColor: 'linear-gradient(135deg, #ec4899, #8b5cf6)' }
+            dance: { name: 'Dance Club', tagline: 'Feel the rhythm, own the stage, ignite the campus!', desc: 'Whether you are into hip-hop battles, classical fusion, contemporary duels, or mass cinematic crew performances, Dance Club is RVR&JC’s biggest high-voltage stage. No prior audition required for semester beginner bootcamps!', lead: 'S. Priya (Dance Club Lead)', flagship: 'Club Waltz & Colorido Crew Showdowns', accentColor: 'linear-gradient(135deg, #e11d48, #ea580c)' },
+            music: { name: 'Music & Acoustic Band Club', tagline: 'Where campus melodies turn into rock anthems.', desc: 'Home to the official RVR&JC collegiate acoustic rock band, classical carnatic vocalists, solo guitarists, and beatboxers. Practice sessions at the SAC music room with full audio gear.', lead: 'M. Kalyan & Band Leads', flagship: 'Acoustic Unplugged Night & Colorido Symphony Stage', accentColor: 'linear-gradient(135deg, #8b5cf6, #3b82f6)' },
+            tech: { name: 'Digital Club', tagline: 'Code the future, edit cinematic duel films, and build websites.', desc: 'For software hackers, UI/UX designers, and video editors. Organizes Web Dev Hackathons, Anime & Manga Video Duels, and technical symposium media production.', lead: 'R. Joel Livingstone & Digital Team', flagship: 'Web Dev Duel, Anime Film Fest & Cyber Hackathons', accentColor: 'linear-gradient(135deg, #0ea5e9, #059669)' },
+            art: { name: 'Pixel Craft & Fine Arts Club', tagline: 'Translating imaginations onto canvases and digital screens.', desc: 'From pencil sketching and oil painting to Figma UI design, brand identities, and campus mural artwork. Perfect for creative visual thinkers wanting to design institutional publications.', lead: 'Art Coordinators & Design Leads', flagship: 'Art & Design Expo, Live Sketch Duel & Poster Championships', accentColor: 'linear-gradient(135deg, #f59e0b, #e11d48)' },
+            photo: { name: 'Photography & Cinematography Club', tagline: 'Framing every golden campus memory through the lens.', desc: 'Captures every cultural fest, celebration, guest lecture, and campus portrait. Organizes photowalks, DSLR cinematography masterclasses, and mobile editing workshops.', lead: 'Media Team & Photo Leads', flagship: 'Campus Photowalk, Short Film Screenings & Colorido Photo Wall', accentColor: 'linear-gradient(135deg, #06b6d4, #3b82f6)' },
+            social: { name: 'Helping Hands Club & SICO', tagline: 'Empathy in action: Transforming communities with heart.', desc: 'Leading social initiatives across Guntur and AP: teaching digital literacy at schools for visually impaired children, organizing mega blood donation camps, environmental cleanups, and rural aid.', lead: 'R. Tarun & SICO Outreach Team', flagship: 'SICO Community Mission, Blood Donation & Green Campus Drives', accentColor: 'linear-gradient(135deg, #10b981, #059669)' },
+            literary: { name: 'Literary & Debate Club (Inspiraze)', tagline: 'Words that inspire, arguments that convince, stories that resonate.', desc: 'Sharpen your stage confidence, impromptu speech, creative writing, poetry slams, and parliamentary debate skills. Regular mock conclaves with constructive faculty mentorship.', lead: 'G. Ananya & Debate Leads', flagship: 'Youth Leadership Conclave & Inter-Collegiate Oratory Duel', accentColor: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+            sports: { name: 'Sports & Fitness Club', tagline: 'Endurance, sportsmanship, and high-energy competition.', desc: 'Promotes wellness, yoga asana championships, campus badminton leagues, athletics, and annual sports days in collaboration with the physical education department.', lead: 'Sports Secretary & Fitness Leads', flagship: 'International Yoga Day Championship & Inter-Dept Sports Meet', accentColor: 'linear-gradient(135deg, #ec4899, #8b5cf6)' }
         };
         const buttons = tribeGrid.querySelectorAll('.tribe-vibe-btn');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
                 buttons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const vibeKey = btn.getAttribute('data-vibe');
-                const club = clubsData[vibeKey];
+                const club = clubsData[btn.getAttribute('data-vibe')];
                 if (!club) return;
                 matchResult.style.display = 'block';
                 matchResult.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
                         <div>
                             <span class="status-badge" style="background:${club.accentColor}; color:#fff; font-size:0.75rem; font-weight:800; padding:4px 12px; border-radius:99px; letter-spacing:0.5px;">
-                                ✨ YOUR PERFECT MATCH FOUND
+                                YOUR MATCH FOUND
                             </span>
                             <h3 style="font-size:1.8rem; font-family:var(--font-heading); margin:10px 0 4px; color:var(--text-primary); font-weight:800;">
                                 ${club.name}
@@ -2013,11 +1264,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             <strong style="color:var(--text-primary); font-size:0.9rem;">${club.lead}</strong>
                         </div>
                         <div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Flagship Festival Showcase</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Signature Showcase</div>
                             <strong style="color:var(--accent-amber); font-size:0.9rem;">${club.flagship}</strong>
                         </div>
                         <div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Membership Eligibility</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Eligibility</div>
                             <strong style="color:#10b981; font-size:0.9rem;">Open to All Branches &amp; Years</strong>
                         </div>
                     </div>
@@ -2028,199 +1279,647 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initTribeMatcher();
 
-    // Global Admin Shortcut: Ctrl + Shift + A
-    window.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-            e.preventDefault();
-            window.location.href = 'admin.html';
-        }
-    });
-
 });
 
 
 /* ============================================================
-   SICO — ULTIMATE INTERACTION ENGINE
+   SICO 3D FLIP & ZOOM ENGINE (EVENTS + MERIT LISTS), SORTING & WOBBLE
    ============================================================ */
 (function () {
     "use strict";
 
-    const header = document.querySelector(".header");
+    const REGISTER_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&ouid=102886629071385519420';
 
-    function updateHeader() {
-        if (!header) return;
-        header.classList.toggle("scrolled", window.scrollY > 35);
+    function showToast(message) {
+        let stack = document.getElementById('ultraToastStack');
+        if (!stack) {
+            stack = document.createElement('div');
+            stack.id = 'ultraToastStack';
+            stack.className = 'ultra-toast-stack';
+            document.body.appendChild(stack);
+        }
+        const toast = document.createElement('div');
+        toast.className = 'ultra-toast';
+        toast.textContent = message;
+        stack.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px) scale(0.95)';
+            toast.style.transition = 'all 0.25s ease';
+            setTimeout(() => toast.remove(), 260);
+        }, 2600);
     }
-    window.addEventListener("scroll", updateHeader, { passive: true });
-    updateHeader();
 
-    const revealSelectors = [
-        ".section-header", ".event-card", ".team-card", ".faculty-card", ".member-card",
-        ".gallery-item", ".feature-card", ".report-card", ".project-card",
-        ".contact-info", ".contact-form", ".stat-item"
-    ];
-    const revealElements = [];
-    revealSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(element => {
-            if (!element.classList.contains("sico-reveal")) element.classList.add("sico-reveal");
-            revealElements.push(element);
+    // 1. Universal 3D Flip & Zoom Stage (Handles BOTH Event Cards & Merit Lists)
+    let flipBackdrop = null;
+    let flipCloseTimer = null;
+
+    function ensureFlipStage() {
+        if (flipBackdrop) return flipBackdrop;
+        flipBackdrop = document.createElement('div');
+        flipBackdrop.className = 'sico-flip-backdrop';
+        flipBackdrop.setAttribute('role', 'dialog');
+        flipBackdrop.setAttribute('aria-modal', 'true');
+        flipBackdrop.setAttribute('aria-label', 'Event Details');
+        flipBackdrop.innerHTML = `
+            <div class="sico-flip-card" id="sicoFlipCard">
+                <div class="sico-flip-face sico-flip-front">
+                    <span class="flip-back-kicker" id="flipFrontKicker"></span>
+                    <h3 class="flip-back-title" id="flipFrontTitle"></h3>
+                </div>
+                <div class="sico-flip-face sico-flip-back">
+                    <div class="flip-back-header">
+                        <div>
+                            <div class="flip-back-kicker" id="flipKicker"></div>
+                            <h3 class="flip-back-title" id="flipTitle"></h3>
+                        </div>
+                        <button type="button" class="flip-close-btn" id="flipCloseBtn" aria-label="Close">&times;</button>
+                    </div>
+                    <div class="flip-meta-strip">
+                        <div class="flip-meta-item">
+                            <span>Date &amp; Time</span>
+                            <strong id="flipDate">--</strong>
+                        </div>
+                        <div class="flip-meta-item">
+                            <span>Venue</span>
+                            <strong id="flipVenue">--</strong>
+                        </div>
+                        <div class="flip-meta-item is-prize">
+                            <span>Awards / Cash Prizes</span>
+                            <strong id="flipPrize">--</strong>
+                        </div>
+                    </div>
+                    <div class="flip-back-body" id="flipBackBody"></div>
+                    <div class="flip-back-footer">
+                        <button type="button" class="flip-btn-secondary" id="flipShareBtn">Share</button>
+                        <a href="${REGISTER_URL}" target="_blank" rel="noopener noreferrer" class="flip-btn-primary" id="flipRegisterBtn">
+                            <span>Register Now</span>
+                            <i>↗</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(flipBackdrop);
+
+        flipBackdrop.addEventListener('click', (e) => {
+            if (e.target === flipBackdrop) closeFlipCard();
         });
+        flipBackdrop.querySelector('#flipCloseBtn').addEventListener('click', closeFlipCard);
+
+        flipBackdrop.querySelector('#flipShareBtn').addEventListener('click', async () => {
+            const title = document.getElementById('flipTitle')?.textContent || 'Campus Event';
+            const date = document.getElementById('flipDate')?.textContent || '';
+            const venue = document.getElementById('flipVenue')?.textContent || '';
+            const text = `${title} — ${date} at ${venue} (EC & CCAC · RVR&JCCE)`;
+            try {
+                if (navigator.share) {
+                    await navigator.share({ title, text, url: window.location.href });
+                } else if (navigator.clipboard) {
+                    await navigator.clipboard.writeText(`${text}\n${window.location.href}`);
+                }
+                showToast('Link copied to clipboard');
+            } catch (err) {}
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && flipBackdrop.classList.contains('active')) {
+                closeFlipCard();
+            }
+        });
+
+        return flipBackdrop;
+    }
+
+    function launchFlipAnimation(stage) {
+        stage.classList.remove('flipped');
+        stage.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                stage.classList.add('flipped');
+            });
+        });
+    }
+
+    function openFlipCard(card) {
+        const stage = ensureFlipStage();
+        if (flipCloseTimer) clearTimeout(flipCloseTimer);
+
+        const flipCardEl = document.getElementById('sicoFlipCard');
+        if (flipCardEl) flipCardEl.classList.remove('is-merit-card');
+
+        const title = card.getAttribute('data-title') || card.querySelector('.event-card-title')?.textContent || 'Campus Event';
+        const cat = card.getAttribute('data-catname') || card.getAttribute('data-category') || 'Campus Event';
+        const status = card.getAttribute('data-status') || 'upcoming';
+        const date = card.getAttribute('data-date') || 'TBA';
+        const time = card.getAttribute('data-time') || '';
+        const venue = card.getAttribute('data-venue') || 'Campus Venue';
+        const prize = card.getAttribute('data-prize') || '--';
+        const desc = card.getAttribute('data-desc') || card.querySelector('.event-card-snippet')?.textContent || '';
+        const highlights = card.getAttribute('data-highlights') || 'Competitions and student showcases.';
+        const rules = card.getAttribute('data-rules') || 'College ID card mandatory for entry.';
+        const leads = card.getAttribute('data-coordinators') || 'EC & CCAC Student Leads';
+
+        const statusLabel = status === 'completed' ? 'COMPLETED' : 'UPCOMING';
+        document.getElementById('flipFrontKicker').textContent = `${statusLabel} · ${cat}`;
+        document.getElementById('flipFrontTitle').textContent = title;
+        document.getElementById('flipKicker').textContent = `${statusLabel} · ${cat}`;
+        document.getElementById('flipTitle').textContent = title;
+        document.getElementById('flipDate').textContent = time ? `${date} · ${time}` : date;
+        document.getElementById('flipVenue').textContent = venue;
+        document.getElementById('flipPrize').textContent = prize;
+
+        document.getElementById('flipBackBody').innerHTML = `
+            <div class="flip-detail-block">
+                <h4>About the Event</h4>
+                <p>${desc}</p>
+            </div>
+            <div class="flip-detail-block">
+                <h4>Highlights</h4>
+                <p>${highlights}</p>
+            </div>
+            <div class="flip-detail-block">
+                <h4>Guidelines</h4>
+                <p>${rules}</p>
+            </div>
+            <div class="flip-detail-block">
+                <h4>Student Leads</h4>
+                <p>${leads}</p>
+            </div>
+        `;
+
+        const regBtn = document.getElementById('flipRegisterBtn');
+        if (regBtn) regBtn.style.display = status === 'completed' ? 'none' : 'inline-flex';
+
+        launchFlipAnimation(stage);
+    }
+
+    // 3D Flip & Zoom Merit List Card (Replaces old clipped modal completely)
+    window.openFlipMeritCard = function (id) {
+        const list = window.SICO_COMPLETED_EVENTS || [];
+        const ev = list.find(c => c.id === id);
+        if (!ev) return;
+
+        const stage = ensureFlipStage();
+        if (flipCloseTimer) clearTimeout(flipCloseTimer);
+
+        const flipCardEl = document.getElementById('sicoFlipCard');
+        if (flipCardEl) flipCardEl.classList.add('is-merit-card');
+
+        document.getElementById('flipFrontKicker').textContent = `MERIT LIST · ${ev.club}`;
+        document.getElementById('flipFrontTitle').textContent = ev.title;
+        document.getElementById('flipKicker').textContent = `COMPLETED · OFFICIAL MERIT LIST · ${ev.club}`;
+        document.getElementById('flipTitle').textContent = ev.title;
+        document.getElementById('flipDate').textContent = `Concluded ${ev.date}`;
+        document.getElementById('flipVenue').textContent = ev.venue || 'Campus Venue';
+        document.getElementById('flipPrize').textContent = ev.prizePool || 'Cash Prizes Awarded';
+
+        const winnersHtml = (ev.winners || []).map(w => {
+            let badgeClass = 'rank-badge-3';
+            let badgeLabel = `${w.rank} Prize`;
+            if (w.rank === '1st') badgeClass = 'rank-badge-1';
+            else if (w.rank === '2nd') badgeClass = 'rank-badge-2';
+            return `
+                <div class="flip-winner-row">
+                    <div class="flip-winner-left">
+                        <span class="${badgeClass}">${badgeLabel}</span>
+                        <div class="flip-winner-info">
+                            <span class="flip-winner-name">${w.name}</span>
+                            <div class="flip-winner-meta">
+                                <span class="winner-regd-pill">${w.regd}</span>
+                                <span>${w.branch || '--'}</span>
+                                <span>&middot;</span>
+                                <span class="flip-winner-project">${w.project || 'Merit Award'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="flip-winner-prize">${w.prize}</span>
+                </div>
+            `;
+        }).join('');
+
+        document.getElementById('flipBackBody').innerHTML = `
+            <div class="flip-detail-block">
+                <h4>Event Summary</h4>
+                <p>${ev.summary || 'Official verified competition results.'}</p>
+            </div>
+            <div class="flip-detail-block">
+                <h4>Awarded Winners &amp; Cash Prizes</h4>
+                <div class="flip-winners-list">${winnersHtml}</div>
+            </div>
+            <div class="flip-detail-block">
+                <h4>Verification</h4>
+                <p>All cash awards, certificates, and merit standings have been verified and disbursed under the aegis of EC &amp; CCAC, R.V.R. &amp; J.C. College of Engineering.</p>
+            </div>
+        `;
+
+        const regBtn = document.getElementById('flipRegisterBtn');
+        if (regBtn) regBtn.style.display = 'none';
+
+        launchFlipAnimation(stage);
+    };
+
+    // Route any legacy calls straight to the 3D Flip Merit Card
+    window.viewCompletedWinnersModal = window.openFlipMeritCard;
+
+    function closeFlipCard() {
+        if (!flipBackdrop) return;
+        flipBackdrop.classList.remove('flipped');
+        flipCloseTimer = setTimeout(() => {
+            flipBackdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }, 320);
+    }
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('a.btn-card-register')) return;
+        const card = e.target.closest('#eventsGridModern .event-card-modern');
+        if (!card) return;
+        e.preventDefault();
+        openFlipCard(card);
     });
 
-    if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver(entries => {
+    // 2. Sync Event Dates, Sort UPCOMING on Top & COMPLETED Below, and Filter (All / Upcoming / Completed only)
+    function initEventsEngine() {
+        const grid = document.getElementById('eventsGridModern');
+        const filterBar = document.getElementById('eventsFilterBar');
+        const liveSearch = document.getElementById('eventsLiveSearch');
+        const visibleCountEl = document.getElementById('eventsVisibleCount');
+        const now = Date.now();
+        const monthMap = {
+            jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+            jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11
+        };
+
+        function parseCardTimestamp(card) {
+            if (card.dataset.start) {
+                const parsed = Date.parse(card.dataset.start);
+                if (Number.isFinite(parsed)) return parsed;
+            }
+            const raw = (card.getAttribute('data-date') || '').toLowerCase();
+            const m = raw.match(/(\d{1,2})\w*\s+(?:&\s+\d{1,2}\w*\s+)?([a-z]{3})[a-z]*\s+(\d{4})/);
+            if (m && monthMap[m[2]] !== undefined) {
+                return new Date(Number(m[3]), monthMap[m[2]], Number(m[1]), 13, 0, 0).getTime();
+            }
+            return NaN;
+        }
+
+        if (filterBar) {
+            filterBar.innerHTML = `
+                <button class="filter-pill active" data-filter="all" type="button">All</button>
+                <button class="filter-pill" data-filter="upcoming" type="button">Upcoming</button>
+                <button class="filter-pill" data-filter="completed" type="button">Completed</button>
+            `;
+        }
+
+        if (grid) {
+            const cards = Array.from(grid.querySelectorAll('.event-card-modern'));
+
+            cards.forEach(card => {
+                const ts = parseCardTimestamp(card);
+                const isCompleted = Number.isFinite(ts)
+                    ? ts < now
+                    : card.getAttribute('data-status') === 'completed';
+
+                card.setAttribute('data-status', isCompleted ? 'completed' : 'upcoming');
+                card.dataset.sortTs = Number.isFinite(ts) ? String(ts) : '0';
+                card.classList.toggle('is-completed', isCompleted);
+
+                const statusPill = card.querySelector('.event-status-pill');
+                if (statusPill) {
+                    statusPill.className = `event-status-pill ${isCompleted ? 'status-completed' : 'status-upcoming'}`;
+                    statusPill.removeAttribute('style');
+                    statusPill.textContent = isCompleted ? 'Completed' : 'Upcoming';
+                }
+
+                const detailsBtn = card.querySelector('.btn-event-details span');
+                if (detailsBtn) {
+                    detailsBtn.textContent = isCompleted ? 'Flip for Summary' : 'Flip for Details';
+                }
+                const regLink = card.querySelector('.btn-card-register');
+                if (isCompleted && regLink) {
+                    const closedTag = document.createElement('span');
+                    closedTag.className = 'btn-card-closed';
+                    closedTag.textContent = 'Concluded';
+                    regLink.replaceWith(closedTag);
+                }
+            });
+
+            cards.sort((a, b) => {
+                const aComp = a.getAttribute('data-status') === 'completed' ? 1 : 0;
+                const bComp = b.getAttribute('data-status') === 'completed' ? 1 : 0;
+                if (aComp !== bComp) return aComp - bComp;
+                const tsA = Number(a.dataset.sortTs || 0);
+                const tsB = Number(b.dataset.sortTs || 0);
+                return aComp === 0 ? tsA - tsB : tsB - tsA;
+            });
+            cards.forEach(card => grid.appendChild(card));
+
+            function applyFilter() {
+                const activeBtn = filterBar ? filterBar.querySelector('.filter-pill.active') : null;
+                const mode = activeBtn ? activeBtn.getAttribute('data-filter') : 'all';
+                const query = (liveSearch ? liveSearch.value : '').trim().toLowerCase();
+
+                let visible = 0;
+                cards.forEach(card => {
+                    const status = card.getAttribute('data-status');
+                    const matchesStatus = mode === 'all' || status === mode;
+                    const matchesSearch = !query || card.textContent.toLowerCase().includes(query);
+                    if (matchesStatus && matchesSearch) {
+                        card.classList.remove('hidden');
+                        visible++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                if (visibleCountEl) {
+                    visibleCountEl.textContent = `${visible} event${visible === 1 ? '' : 's'}`;
+                }
+            }
+
+            if (filterBar) {
+                filterBar.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-pill');
+                    if (!btn) return;
+                    filterBar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyFilter();
+                });
+            }
+            if (liveSearch) liveSearch.addEventListener('input', applyFilter);
+            applyFilter();
+        }
+
+        // Sync & Sort Master Calendar (#calendarTable) so Upcoming rows stay on top
+        const calTbody = document.querySelector('#calendarTable tbody');
+        if (calTbody) {
+            const rows = Array.from(calTbody.querySelectorAll('tr'));
+            let upcomingCount = 0;
+            let completedCount = 0;
+
+            rows.forEach(row => {
+                const dateText = (row.querySelector('.cal-date-day')?.textContent || '').toLowerCase();
+                const m = dateText.match(/(\d{1,2})\s*-\s*([a-z]{3})\s*-\s*(\d{2})/);
+                let ts = NaN;
+                if (m && monthMap[m[2]] !== undefined) {
+                    ts = new Date(2000 + Number(m[3]), monthMap[m[2]], Number(m[1]), 23, 59, 59).getTime();
+                } else {
+                    const mMonthOnly = dateText.match(/([a-z]{3})\s*-\s*(\d{2})/);
+                    if (mMonthOnly && monthMap[mMonthOnly[1]] !== undefined) {
+                        ts = new Date(2000 + Number(mMonthOnly[2]), monthMap[mMonthOnly[1]], 15, 23, 59, 59).getTime();
+                    }
+                }
+                row.dataset.sortTs = Number.isFinite(ts) ? String(ts) : '0';
+
+                const isCompleted = Number.isFinite(ts)
+                    ? ts < now
+                    : row.getAttribute('data-status') === 'completed';
+
+                const tag = row.querySelector('.status-tag');
+                if (isCompleted) {
+                    completedCount++;
+                    row.setAttribute('data-status', 'completed');
+                    row.classList.remove('row-upcoming', 'row-imminent');
+                    row.classList.add('row-completed');
+                    if (tag) {
+                        tag.className = 'status-tag completed';
+                        tag.removeAttribute('style');
+                        tag.textContent = 'Completed';
+                    }
+                } else {
+                    upcomingCount++;
+                    row.setAttribute('data-status', 'upcoming');
+                    row.classList.remove('row-completed');
+                    row.classList.add('row-upcoming');
+                    if (tag) {
+                        tag.className = 'status-tag upcoming';
+                        tag.removeAttribute('style');
+                        tag.textContent = 'Upcoming';
+                    }
+                }
+            });
+
+            rows.sort((a, b) => {
+                const aComp = a.getAttribute('data-status') === 'completed' ? 1 : 0;
+                const bComp = b.getAttribute('data-status') === 'completed' ? 1 : 0;
+                if (aComp !== bComp) return aComp - bComp;
+                const tsA = Number(a.dataset.sortTs || 0);
+                const tsB = Number(b.dataset.sortTs || 0);
+                return aComp === 0 ? tsA - tsB : tsB - tsA;
+            });
+            rows.forEach(row => calTbody.appendChild(row));
+
+            const allBtn = document.querySelector('#calStatusFilters [data-status="all"]');
+            const upBtn = document.querySelector('#calStatusFilters [data-status="upcoming"]');
+            const compBtn = document.querySelector('#calStatusFilters [data-status="completed"]');
+            if (allBtn) allBtn.textContent = `All (${rows.length})`;
+            if (upBtn) upBtn.textContent = `Upcoming (${upcomingCount})`;
+            if (compBtn) compBtn.textContent = `Completed (${completedCount})`;
+
+            const heroUp = document.getElementById('heroUpcomingStat');
+            const heroComp = document.getElementById('heroCompletedStat');
+            if (heroUp) heroUp.textContent = String(upcomingCount);
+            if (heroComp) heroComp.textContent = String(completedCount);
+        }
+    }
+
+    // 3. Elastic 3D Tilt + Spring Wobble + Specular Glare
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const wobbleSelector = '.event-card-modern, .portal-card, .voice-card, .holo-pass, .tribe-vibe-btn';
+
+        document.addEventListener('pointermove', (e) => {
+            const card = e.target.closest(wobbleSelector);
+            if (!card) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const px = x / rect.width;
+            const py = y / rect.height;
+
+            card.style.setProperty('--mx', `${x}px`);
+            card.style.setProperty('--my', `${y}px`);
+            if (card.classList.contains('holo-pass')) {
+                card.style.setProperty('--holo-x', `${px * 100}%`);
+                card.style.setProperty('--holo-y', `${py * 100}%`);
+            }
+
+            const intensity = card.classList.contains('holo-pass') ? 12 : 8;
+            const rotY = (px - 0.5) * intensity;
+            const rotX = (0.5 - py) * intensity;
+            card.style.transition = 'transform 0.08s ease-out, box-shadow 0.3s ease, border-color 0.3s ease';
+            card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-6px) scale(1.015)`;
+        }, { passive: true });
+
+        document.addEventListener('pointerout', (e) => {
+            const card = e.target.closest(wobbleSelector);
+            if (!card || card.contains(e.relatedTarget)) return;
+            card.style.transition = 'transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.3s ease';
+            card.style.transform = '';
+        });
+
+        document.querySelectorAll('.btn-primary, .btn-nav-cta, .btn-card-register').forEach(btn => {
+            btn.addEventListener('pointermove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = (e.clientX - rect.left - rect.width / 2) * 0.16;
+                const dy = (e.clientY - rect.top - rect.height / 2) * 0.16;
+                btn.style.transition = 'transform 0.08s ease-out';
+                btn.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(1.03)`;
+            });
+            btn.addEventListener('pointerleave', () => {
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                btn.style.transform = '';
+            });
+        });
+    }
+
+    // 4. Button Ripple Feedback & Tribe Confetti Burst
+    function spawnConfettiBurst(x, y) {
+        const colors = ['#ff5e3a', '#ff2a6d', '#ffb347', '#06b6d4', '#8b5cf6', '#10b981'];
+        for (let i = 0; i < 16; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'sico-confetti-dot';
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+            dot.style.background = colors[i % colors.length];
+            document.body.appendChild(dot);
+
+            const angle = (Math.PI * 2 * i) / 16 + (Math.random() - 0.5) * 0.4;
+            const velocity = 42 + Math.random() * 58;
+            const tx = Math.cos(angle) * velocity;
+            const ty = Math.sin(angle) * velocity - 18;
+            const rot = (Math.random() - 0.5) * 360;
+
+            dot.animate([
+                { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: `translate(${tx}px, ${ty}px) scale(0.2) rotate(${rot}deg)`, opacity: 0 }
+            ], {
+                duration: 580 + Math.random() * 220,
+                easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                fill: 'forwards'
+            }).onfinish = () => dot.remove();
+        }
+    }
+
+    document.addEventListener('click', (e) => {
+        const button = e.target.closest('.btn, .btn-nav-cta, .btn-card-primary, .filter-pill');
+        if (button) {
+            const rect = button.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position:absolute; left:${e.clientX - rect.left}px; top:${e.clientY - rect.top}px;
+                width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.42);
+                transform:translate(-50%,-50%); pointer-events:none; z-index:10;
+                animation:sicoButtonRipple 0.65s ease-out forwards;
+            `;
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            button.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 700);
+        }
+        if (e.target.closest('.tribe-vibe-btn')) {
+            spawnConfettiBurst(e.clientX, e.clientY);
+        }
+    });
+
+    // 5. Staggered Blur-to-Sharp Scroll Choreography
+    function initScrollChoreography() {
+        const targets = document.querySelectorAll(
+            '#events .event-card-modern, .portal-card, .voice-card, .tribe-vibe-btn, .team-card, .winner-event-card, #galleryGrid .gallery-item'
+        );
+        if (!targets.length || !('IntersectionObserver' in window)) return;
+
+        targets.forEach((el, idx) => {
+            el.classList.add('fx-reveal');
+            el.style.setProperty('--fx-delay', `${(idx % 3) * 70}ms`);
+        });
+
+        const io = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add("sico-visible");
-                    observer.unobserve(entry.target);
+                    entry.target.classList.add('fx-visible');
+                    io.unobserve(entry.target);
                 }
             });
-        }, { threshold: .12, rootMargin: "0px 0px -50px 0px" });
-        revealElements.forEach(element => observer.observe(element));
+        }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+        targets.forEach(el => io.observe(el));
+    }
+
+    // 6. Hero Counter Animation (Instant on page switches, 5.1s on first visit)
+    const counterDelay = document.documentElement.classList.contains('skip-sico-loader') ? 150 : 5100;
+    document.querySelectorAll('.ultra-stat-chip [data-count]').forEach(el => {
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1400;
+        function runCounter() {
+            const start = performance.now();
+            function step(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = `${Math.floor(target * eased).toLocaleString()}${suffix}`;
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+        setTimeout(runCounter, counterDelay);
+    });
+
+    // 7. Missing Photo Initials Fallback, Clickable Ctrl+K, Lazy Images & Active Nav
+    function initUtilities() {
+        document.querySelectorAll('.team-photo-img').forEach(img => {
+            const replaceWithInitials = () => {
+                const name = img.getAttribute('alt') || 'SC';
+                const parts = name.replace(/\./g, ' ').trim().split(/\s+/).filter(Boolean);
+                const initials = parts.length >= 2
+                    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+                    : name.slice(0, 2).toUpperCase();
+                if (img.parentElement) {
+                    img.parentElement.innerHTML = `<div class="team-avatar-initials avatar-grad-coord">${initials}</div>`;
+                }
+            };
+            img.addEventListener('error', replaceWithInitials, { once: true });
+            if (img.complete && img.naturalWidth === 0) replaceWithInitials();
+        });
+
+        document.querySelectorAll('.campus-announcement-bar .hud-tag').forEach(tag => {
+            if (tag.textContent.toUpperCase().includes('CTRL + K')) {
+                tag.style.cursor = 'pointer';
+                tag.addEventListener('click', () => {
+                    const trigger = document.getElementById('hudCmdTrigger');
+                    if (trigger) trigger.click();
+                });
+            }
+        });
+
+        document.querySelectorAll('img').forEach((img, idx) => {
+            if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+            if (idx > 4 && !img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+        });
+
+        const currentFile = window.location.pathname.split("/").pop().toLowerCase();
+        document.querySelectorAll(".nav-link").forEach(link => {
+            const href = link.getAttribute("href");
+            if (!href) return;
+            const linkFile = href.split("/").pop().split("?")[0].toLowerCase();
+            if (linkFile === currentFile) {
+                document.querySelectorAll(".nav-link.active").forEach(old => old.classList.remove("active"));
+                link.classList.add("active");
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initEventsEngine();
+            initScrollChoreography();
+            initUtilities();
+        });
     } else {
-        revealElements.forEach(element => element.classList.add("sico-visible"));
+        initEventsEngine();
+        initScrollChoreography();
+        initUtilities();
     }
-
-    const interactiveCards = document.querySelectorAll(
-        [".event-card", ".team-card", ".faculty-card", ".member-card", ".gallery-item",
-         ".feature-card", ".report-card", ".project-card"].join(",")
-    );
-    interactiveCards.forEach(card => {
-        card.classList.add("sico-interactive");
-        card.addEventListener("pointermove", event => {
-            const rect = card.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            card.style.setProperty("--mx", `${x}px`);
-            card.style.setProperty("--my", `${y}px`);
-        });
-        card.addEventListener("pointerleave", () => {
-            card.style.setProperty("--mx", "50%");
-            card.style.setProperty("--my", "50%");
-        });
-    });
-
-    const tiltCards = document.querySelectorAll(".event-card, .feature-card, .project-card");
-    tiltCards.forEach(card => {
-        card.addEventListener("pointermove", event => {
-            if (window.innerWidth < 800) return;
-            const rect = card.getBoundingClientRect();
-            const px = (event.clientX - rect.left) / rect.width;
-            const py = (event.clientY - rect.top) / rect.height;
-            const rotateY = (px - .5) * 5;
-            const rotateX = (.5 - py) * 5;
-            card.style.transform = `translateY(-8px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        card.addEventListener("pointerleave", () => card.style.transform = "");
-    });
-
-    const magneticButtons = document.querySelectorAll(".btn-primary, .btn-secondary, .btn-nav-cta, .sico-hero-button");
-    magneticButtons.forEach(button => {
-        button.addEventListener("pointermove", event => {
-            if (window.innerWidth < 800) return;
-            const rect = button.getBoundingClientRect();
-            const x = event.clientX - rect.left - rect.width / 2;
-            const y = event.clientY - rect.top - rect.height / 2;
-            button.style.transform = `translate(${x * .10}px, ${y * .10}px)`;
-        });
-        button.addEventListener("pointerleave", () => button.style.transform = "");
-    });
-
-    const currentFile = window.location.pathname.split("/").pop().toLowerCase();
-    document.querySelectorAll(".nav-link").forEach(link => {
-        const href = link.getAttribute("href");
-        if (!href) return;
-        const linkFile = href.split("/").pop().split("?")[0].toLowerCase();
-        if (linkFile === currentFile) {
-            document.querySelectorAll(".nav-link.active").forEach(old => old.classList.remove("active"));
-            link.classList.add("active");
-        }
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", event => {
-            const id = anchor.getAttribute("href");
-            if (!id || id === "#") return;
-            const target = document.querySelector(id);
-            if (!target) return;
-            event.preventDefault();
-            const offset = header ? header.offsetHeight + 20 : 20;
-            const top = target.getBoundingClientRect().top + window.scrollY - offset;
-            window.scrollTo({ top, behavior: "smooth" });
-        });
-    });
-
-    const counters = document.querySelectorAll("[data-count]");
-    if (counters.length && "IntersectionObserver" in window) {
-        const counterObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                const element = entry.target;
-                const target = parseFloat(element.dataset.count);
-                if (Number.isNaN(target)) return;
-                const duration = 1300;
-                const start = performance.now();
-                function animateCounter(now) {
-                    const progress = Math.min((now - start) / duration, 1);
-                    const eased = 1 - Math.pow(1 - progress, 3);
-                    const value = target * eased;
-                    element.textContent = Number.isInteger(target) ? Math.round(value) : value.toFixed(1);
-                    if (progress < 1) requestAnimationFrame(animateCounter);
-                }
-                requestAnimationFrame(animateCounter);
-                counterObserver.unobserve(element);
-            });
-        }, { threshold: .7 });
-        counters.forEach(counter => counterObserver.observe(counter));
-    }
-
-    document.querySelectorAll(".btn, .btn-nav-cta, .sico-hero-button").forEach(button => {
-        button.addEventListener("click", event => {
-            const ripple = document.createElement("span");
-            const rect = button.getBoundingClientRect();
-            ripple.style.position = "absolute";
-            ripple.style.left = (event.clientX - rect.left) + "px";
-            ripple.style.top = (event.clientY - rect.top) + "px";
-            ripple.style.width = "10px";
-            ripple.style.height = "10px";
-            ripple.style.borderRadius = "50%";
-            ripple.style.background = "rgba(255,255,255,.4)";
-            ripple.style.transform = "translate(-50%,-50%)";
-            ripple.style.pointerEvents = "none";
-            ripple.style.zIndex = "10";
-            ripple.style.animation = "sicoButtonRipple .7s ease-out forwards";
-            button.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 750);
-        });
-    });
-
-    const cursor = document.getElementById("cursorGlow");
-    if (cursor && window.matchMedia("(pointer:fine)").matches) {
-        let mouseX = 0, mouseY = 0, currentX = 0, currentY = 0;
-        document.addEventListener("pointermove", event => {
-            mouseX = event.clientX;
-            mouseY = event.clientY;
-        }, { passive: true });
-        function animateCursor() {
-            currentX += (mouseX - currentX) * .12;
-            currentY += (mouseY - currentY) * .12;
-            cursor.style.transform = `translate(${currentX - 90}px, ${currentY - 90}px)`;
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-    }
-
-    document.querySelectorAll("img").forEach((img, index) => {
-        if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
-        if (index > 4 && !img.hasAttribute("loading")) img.setAttribute("loading", "lazy");
-    });
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            document.querySelectorAll(".lightbox.active, .search-modal.active, .modal.active").forEach(modal => modal.classList.remove("active"));
-        }
-    });
-
 })();
 
 (function () {
@@ -2240,19 +1939,19 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('pageshow', () => {
     if (document.body.style.overflow === 'hidden') {
         const anyModalOpen = document.querySelector(
-            '.event-modal-backdrop.active, .lightbox.active, ' +
-            '.cmd-palette-overlay.active, .admin-auth-overlay:not(.hidden)'
+            '.sico-flip-backdrop.active, .event-modal-backdrop.active, .lightbox.active, .cmd-palette-overlay.active'
         );
         if (!anyModalOpen) document.body.style.overflow = '';
     }
 });
 
-// 2. Force loader to auto-dismiss after 5.5s max as a fallback
+// Force loader to auto-dismiss after 5.5s max as a fallback
 (function () {
     const loader = document.getElementById('pageLoader');
     if (!loader) return;
     setTimeout(() => {
         if (!loader.classList.contains('loader-hidden')) {
+            try { sessionStorage.setItem('sico_loader_shown', 'true'); } catch (e) {}
             loader.classList.add('loader-hidden');
             document.body.classList.add('page-ready');
             setTimeout(() => loader.remove(), 1000);

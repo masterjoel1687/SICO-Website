@@ -1,22 +1,27 @@
 /* ============================================================
-   EC & CCAC — PRE-PAINT THEME INITIALIZER
-   Load this BEFORE styles.css in every page's <head>.
-   Prevents the "dark → light" flash on page load.
+   SICO — PRE-PAINT THEME & FIRST-VISIT LOADER INITIALIZER
+   Runs synchronously in <head> to prevent theme & loader flash
    ============================================================ */
-
 (function () {
     try {
-        var theme = localStorage.getItem('sico_theme') ||
-                    localStorage.getItem('sico_editorial_theme') ||
-                    'dark';
+        // 1. Apply saved Light/Dark theme before first paint
+        const storedTheme =
+            localStorage.getItem('sico_theme') ||
+            localStorage.getItem('sico_editorial_theme') ||
+            localStorage.getItem('sico_cyber_theme') ||
+            'dark';
 
-        if (theme === 'light' || theme === 'champagne') {
+        if (storedTheme === 'light' || storedTheme === 'champagne') {
             document.documentElement.setAttribute('data-theme', 'light');
-            document.documentElement.style.backgroundColor = '#fbf9f4';
         } else {
-            document.documentElement.style.backgroundColor = '#0c0f17';
+            document.documentElement.removeAttribute('data-theme');
         }
-    } catch (e) {
-        /* storage blocked — default to dark */
-    }
+    } catch (e) {}
+
+    try {
+        // 2. Skip 5-second loader on subsequent page switches in this session
+        if (sessionStorage.getItem('sico_loader_shown') === 'true') {
+            document.documentElement.classList.add('skip-sico-loader');
+        }
+    } catch (e) {}
 })();

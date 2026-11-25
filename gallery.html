@@ -4,115 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery &amp; Visual Stories | EC &amp; CCAC - RVR&amp;JCCE</title>
-    <meta name="description" content="Explore photographic moments and visual stories from cultural fests, dance galas, art expos, music festivals, and sports at RVR &amp; JC College of Engineering.">
-    
-    <!-- Pre-paint theme init — prevents dark/light flash -->
+    <meta name="description" content="Explore photographic moments and visual stories from cultural fests, dance galas, art expos, music festivals, and sports at R.V.R. &amp; J.C. College of Engineering.">
+
+    <!-- Pre-paint theme & first-visit loader init -->
     <script src="theme-init.js"></script>
-    
-    <!-- Preconnect & Google Fonts -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="loader-5s.css">
+    <link rel="stylesheet" href="sico-ultra.css">
 </head>
 <body>
     <!-- =========================================================
-     SICO — CINEMATIC 5 SECOND LOADER
+     SICO — CINEMATIC 5 SECOND LOADER (FIRST VISIT ONLY)
      ========================================================= -->
-
-<div class="sico-loader" id="pageLoader">
-
-    <div class="sico-grid"></div>
-    <div class="sico-noise"></div>
-
-    <!-- Energy particles -->
-    <div class="sico-particles">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
+    <div class="sico-loader" id="pageLoader">
+        <div class="sico-grid"></div>
+        <div class="sico-noise"></div>
+        <div class="sico-particles">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="sico-shockwave shock-1"></div>
+        <div class="sico-shockwave shock-2"></div>
+        <div class="sico-shockwave shock-3"></div>
+        <div class="sico-loader-content">
+            <div class="sico-eyebrow"><span></span> STUDENT INTEGRATED COMMITTEE <span></span></div>
+            <div class="sico-word" id="sicoWord">
+                <span class="sico-letter letter-s">S</span>
+                <span class="sico-letter letter-i">I</span>
+                <span class="sico-letter letter-c">C</span>
+                <span class="sico-letter letter-o">O</span>
+            </div>
+            <div class="sico-line"></div>
+            <div class="sico-subtitle"><span>R.V.R. &amp; J.C.</span> <b>COLLEGE OF ENGINEERING</b></div>
+            <div class="sico-loading">
+                <div class="sico-loading-top"><span id="loaderStatus">INITIALIZING</span><span id="loaderPercentage">0%</span></div>
+                <div class="sico-progress"><div class="sico-progress-fill" id="loaderProgressBar"></div><div class="sico-progress-glow"></div></div>
+            </div>
+            <div class="sico-message" id="loaderMessage">Preparing your experience...</div>
+            <div class="sico-footer"><span>EC &amp; CCAC</span><i></i><span>2026 — 2027</span></div>
+        </div>
     </div>
 
-    <!-- Expanding shockwaves -->
-    <div class="sico-shockwave shock-1"></div>
-    <div class="sico-shockwave shock-2"></div>
-    <div class="sico-shockwave shock-3"></div>
-
-    <div class="sico-loader-content">
-
-        <div class="sico-eyebrow">
-            <span></span>
-            STUDENT INTEGRATED COMMITTEE
-            <span></span>
-        </div>
-
-        <!-- MAIN SICO -->
-        <div class="sico-word" id="sicoWord">
-
-            <span class="sico-letter letter-s">S</span>
-            <span class="sico-letter letter-i">I</span>
-            <span class="sico-letter letter-c">C</span>
-            <span class="sico-letter letter-o">O</span>
-
-        </div>
-
-        <div class="sico-line"></div>
-
-        <div class="sico-subtitle">
-            <span>R.V.R. &amp; J.C.</span>
-            <b>COLLEGE OF ENGINEERING</b>
-        </div>
-
-        <!-- Loading -->
-        <div class="sico-loading">
-
-            <div class="sico-loading-top">
-                <span id="loaderStatus">INITIALIZING</span>
-                <span id="loaderPercentage">0%</span>
-            </div>
-
-            <div class="sico-progress">
-                <div class="sico-progress-fill"
-                     id="loaderProgressBar"></div>
-
-                <div class="sico-progress-glow"></div>
-            </div>
-
-        </div>
-
-        <div class="sico-message" id="loaderMessage">
-            Preparing your experience...
-        </div>
-
-        <div class="sico-footer">
-            <span>EC &amp; CCAC</span>
-            <i></i>
-            <span>2026 — 2027</span>
-        </div>
-
-    </div>
-
-</div>
-    <!-- Dignified Collegiate Announcement Bar -->
+    <!-- Collegiate Announcement Bar -->
     <div class="campus-announcement-bar">
         <div class="announcement-left">
-            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> · Student Integrated Committee</span>
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> &middot; Student Integrated Committee</span>
         </div>
         <div class="announcement-center">
-            <span class="hud-tag"><span class="hud-dot-cyan"></span> ✨ <strong>COLORIDO 2026:</strong> Cultural Fest Registrations Open</span>
+            <span class="hud-tag"><strong>COLORIDO 2026:</strong> 28 &amp; 29 December &middot; Registrations Open</span>
         </div>
         <div class="announcement-right">
-            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
-            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
+            <span class="hud-tag"><strong>AY:</strong> 2026–2027</span>
+            <span class="hud-tag">SEARCH <kbd class="hud-kbd-key">CTRL + K</kbd></span>
         </div>
     </div>
 
-    <!-- Reading Progress Bar -->
     <div class="reading-progress-bar" id="readingProgressBar"></div>
 
-    <!-- Ambient Floating Glows -->
     <div class="ambient-glow-wrapper">
         <div class="ambient-orb orb-1"></div>
         <div class="ambient-orb orb-2"></div>
@@ -120,7 +75,6 @@
         <div class="ambient-orb orb-4"></div>
     </div>
 
-    <!-- Interactive Cursor Glow Follower -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
     <!-- Floating Pill Header -->
@@ -150,9 +104,7 @@
                     <i>↗</i>
                 </a>
                 <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" type="button">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
@@ -164,91 +116,105 @@
             <div class="page-banner-content">
                 <div class="kicker-pill"><span class="dot"></span> 06 / VISUAL STORIES &amp; MEMORIES</div>
                 <h1 class="page-banner-title">Moments &amp; <span class="editorial-italic">Memories</span></h1>
-                <p class="page-banner-subtitle">A photographic journey celebrating culture, art, music, dance, sports, and vibrant campus life at R.V.R. &amp; J.C. College of Engineering.</p>
+                <p class="page-banner-subtitle">A curated photographic showcase celebrating culture, art, music, dance, literature, and athletics across campus.</p>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section with Category Filter -->
-    <section class="gallery" id="gallery-grid-section" style="padding-top: 2rem;">
+    <section class="gallery" id="gallery-grid-section" style="padding: 2.5rem 0 5rem;">
         <div class="container">
-            <div class="section-header" style="margin-bottom: 2.5rem;">
-                <!-- Gallery Filter Tabs -->
+            <div class="section-header" style="margin-bottom: 2.5rem; text-align: center;">
                 <div class="filter-tabs-wrapper">
                     <div class="filter-tabs" id="galleryFilters">
-                        <button class="filter-btn active" data-filter="all">All Photos</button>
-                        <button class="filter-btn" data-filter="cultural">Cultural</button>
-                        <button class="filter-btn" data-filter="dance">Dance</button>
-                        <button class="filter-btn" data-filter="art">Art &amp; Design</button>
-                        <button class="filter-btn" data-filter="music">Music</button>
-                        <button class="filter-btn" data-filter="literature">Literature</button>
-                        <button class="filter-btn" data-filter="sports">Sports</button>
+                        <button class="filter-btn active" data-filter="all" type="button">All Photos</button>
+                        <button class="filter-btn" data-filter="cultural" type="button">Cultural</button>
+                        <button class="filter-btn" data-filter="dance" type="button">Dance</button>
+                        <button class="filter-btn" data-filter="art" type="button">Art &amp; Design</button>
+                        <button class="filter-btn" data-filter="music" type="button">Music</button>
+                        <button class="filter-btn" data-filter="literature" type="button">Literature</button>
+                        <button class="filter-btn" data-filter="sports" type="button">Sports</button>
                     </div>
                 </div>
             </div>
-            
+
             <div class="gallery-grid" id="galleryGrid">
                 <div class="gallery-item" data-category="art" data-caption="Art &amp; Design Expo">
                     <div class="gallery-image">
                         <img src="gallery/Art Expo/DSC_0697.JPG" alt="Art &amp; Design Expo photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Art &amp; Design</span>
                         <span class="gallery-caption">Art &amp; Design Expo</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="dance" data-caption="Club Waltz Night">
                     <div class="gallery-image">
                         <img src="gallery/Club Waltz/WhatsApp Image 2025-12-01 at 20.49.47_e7db48e5.jpg" alt="Club Waltz photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Dance</span>
                         <span class="gallery-caption">Club Waltz Night</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="cultural" data-caption="Cultural Fest">
                     <div class="gallery-image">
                         <img src="gallery/Cultural Fest/Screenshot 2025-11-27 130859.png" alt="Cultural Fest photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Cultural</span>
                         <span class="gallery-caption">Cultural Fest</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="cultural" data-caption="Film Screening Night">
                     <div class="gallery-image">
                         <img src="gallery/Film Night/Screenshot 2025-12-01 095657.png" alt="Film Night photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Cinema</span>
                         <span class="gallery-caption">Film Screening Night</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="music" data-caption="Live Music Festival">
                     <div class="gallery-image">
                         <img src="gallery/Music Festival/IMG_0846.JPG" alt="Music Festival photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Music</span>
                         <span class="gallery-caption">Live Music Festival</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="literature" data-caption="Literary Fest">
                     <div class="gallery-image">
                         <img src="gallery/Literary Fest/Screenshot 2025-12-04 141405.png" alt="Literary Fest photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Literature</span>
                         <span class="gallery-caption">Literary Fest</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="sports" data-caption="Inter-College Sports">
                     <div class="gallery-image">
                         <img src="gallery/Sports/sports-1.jpg" alt="Sports photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Sports</span>
                         <span class="gallery-caption">Inter-College Sports</span>
                     </div>
                 </div>
+
                 <div class="gallery-item" data-category="sports" data-caption="Athletic Champions">
                     <div class="gallery-image">
                         <img src="gallery/Sports/sports.jpg" alt="Athletic Champions photo" loading="lazy">
                     </div>
                     <div class="gallery-overlay">
+                        <span class="gallery-tag">Sports</span>
                         <span class="gallery-caption">Athletic Champions</span>
                     </div>
                 </div>
@@ -256,11 +222,11 @@
         </div>
     </section>
 
-    <!-- Lightbox Modal with Next/Previous Controls -->
+    <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose" aria-label="Close Lightbox">&times;</span>
-        <button class="lightbox-nav-btn prev" id="lightboxPrev" aria-label="Previous Image">‹</button>
-        <button class="lightbox-nav-btn next" id="lightboxNext" aria-label="Next Image">›</button>
+        <button class="lightbox-nav-btn prev" id="lightboxPrev" aria-label="Previous Image" type="button">‹</button>
+        <button class="lightbox-nav-btn next" id="lightboxNext" aria-label="Next Image" type="button">›</button>
         <div class="lightbox-content">
             <div class="lightbox-image" id="lightboxImage"></div>
             <div class="lightbox-footer">
@@ -270,7 +236,7 @@
         </div>
     </div>
 
-    <!-- Floating Back to Top Button with SVG Progress Ring -->
+    <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to Top">
         <svg class="progress-ring" width="48" height="48">
             <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
@@ -299,12 +265,12 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="events.html">Flagship Events</a></li>
-                        <li><a href="sico.html">SICO Initiatives</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="sico.html">SICO Portal</a></li>
                         <li><a href="reports.html">Reports &amp; Archives</a></li>
-                        <li><a href="team.html">Student Coordinators</a></li>
+                        <li><a href="team.html">Our Team</a></li>
                         <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -333,23 +299,17 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved. <span class="footer-admin-sep">·</span> <a href="admin.html" class="footer-admin-link" title="Authorized Coordinator Studio">🔒 Coordinator Studio</a></p>
+                <p>&copy; 2026 EC &amp; CCAC &middot; R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Campus Quick Controls (Theme Selector + Search Spotlight) -->
+    <!-- Floating Controls -->
     <div class="hud-floating-controls">
         <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
             <span class="roller-slider"></span>
-            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
-                <span class="roller-icon">🌙</span>
-                <span class="roller-text">Dark</span>
-            </span>
-            <span class="roller-opt roller-opt-light" data-theme-val="light">
-                <span class="roller-icon">☀️</span>
-                <span class="roller-text">Light</span>
-            </span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark"><span class="roller-icon">🌙</span><span class="roller-text">Dark</span></span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light"><span class="roller-icon">☀️</span><span class="roller-text">Light</span></span>
         </div>
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
             <span>🔍 SEARCH SPOTLIGHT</span>
@@ -357,7 +317,7 @@
         </button>
     </div>
 
-    <!-- Campus Spotlight Modal -->
+    <!-- Spotlight Modal -->
     <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
         <div class="cmd-palette">
             <div class="cmd-search-box">
@@ -365,17 +325,16 @@
                 <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
                 <kbd class="hud-kbd-key">ESC</kbd>
             </div>
-            <div class="cmd-results" id="cmdResults">
-                <!-- Results rendered dynamically by script.js -->
-            </div>
+            <div class="cmd-results" id="cmdResults"></div>
             <div class="cmd-footer">
                 <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
                 <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
-                <span>EC &amp; CCAC · SICO Portal</span>
+                <span>EC &amp; CCAC &middot; SICO Portal</span>
             </div>
         </div>
     </div>
 
+    <div class="ultra-toast-stack" id="ultraToastStack" aria-live="polite"></div>
     <script src="script.js"></script>
 </body>
 </html>

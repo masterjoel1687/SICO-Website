@@ -3,111 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Our Team | Student Coordinators - EC &amp; CCAC</title>
-    
-    <!-- Pre-paint theme init — prevents dark/light flash -->
-    <script src="theme-init.js"></script>
-    
-    <meta name="description"
-          content="Meet the dynamic student coordinators leading the Extracurricular &amp; Co-Curricular Activities Committee at RVR &amp; JC College of Engineering.">
+    <meta name="description" content="Meet the faculty conveners and student coordinators leading the Extracurricular &amp; Co-Curricular Activities Committee at R.V.R. &amp; J.C. College of Engineering.">
 
-    
+    <!-- Pre-paint theme & first-visit loader init -->
+    <script src="theme-init.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="loader-5s.css">
+    <link rel="stylesheet" href="sico-ultra.css">
 </head>
-
 <body>
     <!-- =========================================================
-         SICO LOADER
-         ========================================================= -->
+     SICO — CINEMATIC 5 SECOND LOADER (FIRST VISIT ONLY)
+     ========================================================= -->
     <div class="sico-loader" id="pageLoader">
         <div class="sico-grid"></div>
         <div class="sico-noise"></div>
-
         <div class="sico-particles">
             <span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span>
         </div>
-
         <div class="sico-shockwave shock-1"></div>
         <div class="sico-shockwave shock-2"></div>
         <div class="sico-shockwave shock-3"></div>
-
         <div class="sico-loader-content">
-            <div class="sico-eyebrow">
-                <span></span>
-                STUDENT INTEGRATED COMMITTEE
-                <span></span>
-            </div>
-
+            <div class="sico-eyebrow"><span></span> STUDENT INTEGRATED COMMITTEE <span></span></div>
             <div class="sico-word" id="sicoWord">
                 <span class="sico-letter letter-s">S</span>
                 <span class="sico-letter letter-i">I</span>
                 <span class="sico-letter letter-c">C</span>
                 <span class="sico-letter letter-o">O</span>
             </div>
-
             <div class="sico-line"></div>
-
-            <div class="sico-subtitle">
-                <span>R.V.R. &amp; J.C.</span>
-                <b>COLLEGE OF ENGINEERING</b>
-            </div>
-
+            <div class="sico-subtitle"><span>R.V.R. &amp; J.C.</span> <b>COLLEGE OF ENGINEERING</b></div>
             <div class="sico-loading">
-                <div class="sico-loading-top">
-                    <span id="loaderStatus">INITIALIZING</span>
-                    <span id="loaderPercentage">0%</span>
-                </div>
-                <div class="sico-progress">
-                    <div class="sico-progress-fill" id="loaderProgressBar"></div>
-                    <div class="sico-progress-glow"></div>
-                </div>
+                <div class="sico-loading-top"><span id="loaderStatus">INITIALIZING</span><span id="loaderPercentage">0%</span></div>
+                <div class="sico-progress"><div class="sico-progress-fill" id="loaderProgressBar"></div><div class="sico-progress-glow"></div></div>
             </div>
-
-            <div class="sico-message" id="loaderMessage">
-                Preparing your experience...
-            </div>
-
-            <div class="sico-footer">
-                <span>EC &amp; CCAC</span>
-                <i></i>
-                <span>2026 — 2027</span>
-            </div>
+            <div class="sico-message" id="loaderMessage">Preparing your experience...</div>
+            <div class="sico-footer"><span>EC &amp; CCAC</span><i></i><span>2026 — 2027</span></div>
         </div>
     </div>
 
-    <!-- =========================================================
-         ANNOUNCEMENT BAR
-         ========================================================= -->
+    <!-- Collegiate Announcement Bar -->
     <div class="campus-announcement-bar">
         <div class="announcement-left">
-            <span class="hud-tag">
-                <span class="hud-dot-live"></span>
-                <strong>R.V.R. &amp; J.C. College of Engineering</strong>
-                · Student Integrated Committee
-            </span>
+            <span class="hud-tag"><span class="hud-dot-live"></span> <strong>R.V.R. &amp; J.C. College of Engineering</strong> &middot; Student Integrated Committee</span>
         </div>
         <div class="announcement-center">
-            <span class="hud-tag">
-                <span class="hud-dot-cyan"></span>
-                ✨ <strong>COLORIDO 2026:</strong>
-                Cultural Fest Registrations Open
-            </span>
+            <span class="hud-tag"><strong>COLORIDO 2026:</strong> 28 &amp; 29 December &middot; Registrations Open</span>
         </div>
         <div class="announcement-right">
-            <span class="hud-tag"><strong>ACADEMIC YEAR:</strong> 2026–2027</span>
-            <span class="hud-tag">PRESS <kbd class="hud-kbd-key">CTRL + K</kbd> TO SEARCH</span>
+            <span class="hud-tag"><strong>AY:</strong> 2026–2027</span>
+            <span class="hud-tag">SEARCH <kbd class="hud-kbd-key">CTRL + K</kbd></span>
         </div>
     </div>
 
@@ -122,9 +77,7 @@
 
     <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- =========================================================
-         HEADER
-         ========================================================= -->
+    <!-- Floating Pill Header -->
     <header class="header" id="header">
         <div class="header-pill">
             <div class="logo-section">
@@ -132,7 +85,6 @@
                     <img src="assets/logo.png" alt="EC &amp; CCAC logo" class="header-logo" loading="lazy">
                 </a>
             </div>
-
             <nav class="nav-menu" id="navMenu" role="navigation" aria-label="Primary">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="about.html" class="nav-link">About</a>
@@ -143,7 +95,6 @@
                 <a href="gallery.html" class="nav-link">Gallery</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </nav>
-
             <div class="header-actions">
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScUBqRMzhequ2W4xq_7PvW-Q0wlDcyWUhtyPTxr5v0KCWprlA/viewform?usp=sharing&amp;ouid=102886629071385519420"
                    class="btn-nav-cta"
@@ -159,64 +110,43 @@
         </div>
     </header>
 
-    <!-- =========================================================
-         PAGE BANNER
-         ========================================================= -->
+    <!-- Page Banner -->
     <section class="page-banner">
         <div class="container">
             <div class="page-banner-content">
-                <div class="kicker-pill"><span class="dot"></span> 05 / MEET THE TEAM</div>
-
-                <h1 class="page-banner-title">
-                    Faculty &amp; Student <span class="editorial-italic">Leadership</span>
-                </h1>
-
-                <p class="page-banner-subtitle">
-                    The distinguished faculty conveners and dedicated student coordinators
-                    orchestrating every campus celebration and creative initiative.
-                </p>
-
+                <div class="kicker-pill"><span class="dot"></span> 05 / LEADERSHIP DIRECTORY</div>
+                <h1 class="page-banner-title">Faculty &amp; Student <span class="editorial-italic">Leadership</span></h1>
+                <p class="page-banner-subtitle">The faculty conveners and student coordinators guiding campus culture, operations, and student initiatives at R.V.R. &amp; J.C. College of Engineering.</p>
                 <div class="team-quick-nav">
                     <a href="#faculty-section" class="team-nav-chip">
-                        <span>🏛️ Faculty Conveners &amp; Mentors</span>
+                        <span>Faculty Conveners</span>
                         <span class="chip-count">4 Mentors</span>
                     </a>
                     <a href="#fourth-year-section" class="team-nav-chip">
-                        <span>🎓 4th Year Core Leadership</span>
+                        <span>4th Year Core Leadership</span>
                         <span class="chip-count">12 Leads</span>
                     </a>
                     <a href="#third-year-section" class="team-nav-chip">
-                        <span>⚡ 3rd Year Committee</span>
-                        <span class="chip-count">In Progress</span>
+                        <span>3rd Year Committee</span>
+                        <span class="chip-count">Upcoming</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         FACULTY
-         ========================================================= -->
+    <!-- Faculty Section -->
     <section class="team-directory faculty-directory" id="faculty-section">
         <div class="container">
             <div class="section-header">
-                <div class="kicker-pill">
-                    <span class="dot" style="background:#f8ca4d; box-shadow:0 0 10px #f8ca4d;"></span>
-                    Faculty Conveners &amp; Institutional Mentors
-                </div>
-
-                <h2 class="section-title">
-                    Faculty <span class="gradient-text">Convenors</span>
-                </h2>
-
+                <div class="kicker-pill"><span class="dot"></span> INSTITUTIONAL MENTORS</div>
+                <h2 class="section-title">Faculty <span class="ultra-gradient-text">Convenors</span></h2>
                 <div class="title-underline"></div>
             </div>
 
             <div class="faculty-principal-row">
                 <div class="team-card faculty-card faculty-principal-card">
-                    <span class="team-year-badge badge-faculty-principal">
-                        🎖️ PRINCIPAL &amp; PATRON
-                    </span>
+                    <span class="team-year-badge badge-faculty-principal">PRINCIPAL &amp; PATRON</span>
                     <div class="team-photo">
                         <div class="team-avatar-initials avatar-grad-principal">KS</div>
                     </div>
@@ -228,259 +158,183 @@
 
             <div class="faculty-members-row">
                 <div class="team-card faculty-card">
-                    <span class="team-year-badge badge-faculty-principal">📋 Incharge</span>
+                    <span class="team-year-badge badge-faculty-principal">INCHARGE</span>
                     <div class="team-photo">
                         <div class="team-avatar-initials avatar-grad-faculty">RRC</div>
                     </div>
                     <h3 class="team-name">Mr. J. Ranga Raya Chowdary</h3>
                     <p class="team-role">Faculty Committee Member</p>
-                    <span class="team-branch-pill">Assistant Professor, Dept. of ME</span>
+                    <span class="team-branch-pill">Asst. Professor, Dept. of ME</span>
                 </div>
 
                 <div class="team-card faculty-card">
-                    <span class="team-year-badge badge-faculty-member">📚 FACULTY COORDINATOR</span>
+                    <span class="team-year-badge badge-faculty-member">FACULTY COORDINATOR</span>
                     <div class="team-photo">
                         <div class="team-avatar-initials avatar-grad-faculty">SC</div>
                     </div>
                     <h3 class="team-name">Dr. P. Samatha Chowdary</h3>
                     <p class="team-role">Faculty Committee Member</p>
-                    <span class="team-branch-pill">Associate Professor, Dept. of CE</span>
+                    <span class="team-branch-pill">Assoc. Professor, Dept. of CE</span>
                 </div>
 
                 <div class="team-card faculty-card">
-                    <span class="team-year-badge badge-faculty-member">📚 FACULTY COORDINATOR</span>
+                    <span class="team-year-badge badge-faculty-member">FACULTY COORDINATOR</span>
                     <div class="team-photo">
                         <div class="team-avatar-initials avatar-grad-faculty">SP</div>
                     </div>
                     <h3 class="team-name">Mr. K. Siva Prasada Rao</h3>
                     <p class="team-role">Faculty Committee Member</p>
-                    <span class="team-branch-pill">Assistant Professor, Dept. of ChE</span>
+                    <span class="team-branch-pill">Asst. Professor, Dept. of ChE</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         4TH YEAR
-         ========================================================= -->
+    <!-- 4th Year Core Leadership -->
     <section class="team-directory" id="fourth-year-section" style="padding: 3.5rem 0 4rem;">
         <div class="container">
             <div class="section-header">
-                <div class="kicker-pill" style="margin-bottom: 0.8rem;">
-                    <span class="dot" style="background:#f8ca4d; box-shadow:0 0 10px #f8ca4d;"></span>
-                    FINAL YEAR CORE LEADERSHIP
-                </div>
-
-                <h2 class="section-title">
-                    4th Year <span class="gradient-text">Student Coordinators</span>
-                </h2>
-
+                <div class="kicker-pill"><span class="dot"></span> FINAL YEAR CORE LEADERSHIP</div>
+                <h2 class="section-title">4th Year <span class="ultra-gradient-text">Student Coordinators</span></h2>
                 <div class="title-underline"></div>
-
-                <p class="section-description">
-                    Chief student coordinators spearheading institutional events,
-                    club logistics, inter-collegiate relations, and cultural flagship fests.
-                </p>
+                <p class="section-description">Chief student coordinators spearheading institutional events, club logistics, inter-collegiate relations, and cultural festivals.</p>
             </div>
 
             <div class="team-grid-4th">
-
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Joel.jpg" alt="R. Joel Livingstone" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Joel.jpg" alt="R. Joel Livingstone" class="team-photo-img"></div>
                     <h3 class="team-name">R. Joel Livingstone</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Madhu.jpeg" alt="K. Madhulika" class="team-photo-img"></div>
                     <h3 class="team-name">K. Madhulika</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech IT</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/SRC.jpeg" alt="K. Sri Rama Chandra" class="team-photo-img"></div>
                     <h3 class="team-name">K. Sri Rama Chandra</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech ECE</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Reshma.jpeg" alt="V. Reshma Chowdary" class="team-photo-img"></div>
                     <h3 class="team-name">V. Reshma Chowdary</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Rupesh.jpeg" alt="V. Rupesh Chowdary" class="team-photo-img"></div>
                     <h3 class="team-name">V. Rupesh Chowdary</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech IT</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Divya.jpeg" alt="E. Divya Sree" class="team-photo-img"></div>
                     <h3 class="team-name">E. Divya Sree</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSE</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Bhanu.jpeg" alt="Ch. Bhanusri" class="team-photo-img"></div>
                     <h3 class="team-name">Ch. Bhanusri</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech IT</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Hema.jpeg" alt="G. Hemasri Chowdary" class="team-photo-img"></div>
                     <h3 class="team-name">G. Hemasri Chowdary</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSE</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Devesh.jpeg" alt="Y. Devesh" class="team-photo-img"></div>
                     <h3 class="team-name">Y. Devesh</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech IT</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><img src="images/Durga.jpeg" alt="G. Durga Bhavani" class="team-photo-img"></div>
                     <h3 class="team-name">G. Durga Bhavani</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech IT</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/aravind.png" alt="G.A.Prabhav Reddy" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">PR</div></div>
                     <h3 class="team-name">G.A.Prabhav Reddy</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSE(AI&amp;ML)</span>
                 </div>
 
                 <div class="team-card">
-                    <span class="team-year-badge badge-4th-year">🎓 4TH YEAR LEAD</span>
-                    <div class="team-photo">
-                        <img src="images/shannu.png" alt="Sk.M.Basha" class="team-photo-img">
-                    </div>
+                    <span class="team-year-badge badge-4th-year">4TH YEAR LEAD</span>
+                    <div class="team-photo"><div class="team-avatar-initials avatar-grad-coord">MB</div></div>
                     <h3 class="team-name">Sk.M.Basha</h3>
                     <p class="team-role">Student Coordinator</p>
                     <span class="team-branch-pill">B.Tech CSD</span>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         3RD YEAR
-         ========================================================= -->
+    <!-- 3rd Year Section -->
     <section class="team-directory junior-directory" id="third-year-section">
         <div class="container">
             <div class="section-header" style="text-align: center;">
-                <div class="kicker-pill" style="margin-bottom: 0.8rem;">
-                    <span class="dot" style="background:#f59e0b; box-shadow:0 0 10px #f59e0b;"></span>
-                    SELECTION &amp; NOMINATIONS IN PROGRESS
-                </div>
-
-                <h2 class="section-title">
-                    3rd Year &amp; Junior <span class="gradient-text">Student Coordinators</span>
-                </h2>
-
+                <div class="kicker-pill"><span class="dot"></span> NOMINATIONS IN PROGRESS</div>
+                <h2 class="section-title">3rd Year &amp; Junior <span class="ultra-gradient-text">Coordinators</span></h2>
                 <div class="title-underline" style="margin: 0 auto 16px;"></div>
-
-                <p class="section-description" style="max-width: 680px; margin: 0 auto;">
-                    Class of 2027 Executive Committee &bull; R.V.R. &amp; J.C. College of Engineering
-                </p>
+                <p class="section-description" style="max-width: 680px; margin: 0 auto;">Class of 2027 Executive Committee &middot; R.V.R. &amp; J.C. College of Engineering</p>
             </div>
 
             <div class="junior-coordinators-status-card">
                 <div class="junior-status-icon">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 </div>
-
                 <div class="editorial-stamp" style="margin-bottom: 1rem;">
-                    <span>✦ CLASS OF 2027 &bull; AY 2026–2027 ✦</span>
+                    <span>CLASS OF 2027 &middot; AY 2026–2027</span>
                 </div>
-
-                <h3 class="junior-status-title">
-                    Junior Student Coordinators &mdash;
-                    <span class="hero-serif-highlight">To Be Updated Soon</span>
-                </h3>
-
-                <p class="junior-status-desc">
-                    The department auditions, peer nominations, and faculty selections for
-                    our 3rd Year &amp; Junior Student Coordinators across Technical Operations,
-                    Pixel Craft Design, Logistics &amp; Stage Production, and Anchoring are
-                    currently underway under the guidance of our faculty conveners.
-                </p>
-
+                <h3 class="junior-status-title">Junior Student Coordinators &mdash; <span class="hero-serif-highlight">To Be Announced Soon</span></h3>
+                <p class="junior-status-desc">Department auditions, peer nominations, and faculty selections for 3rd Year &amp; Junior Student Coordinators across Technical Operations, Design &amp; Media, Event Logistics, and Anchoring are currently underway.</p>
                 <div class="junior-status-pills">
                     <span class="status-badge"><span class="campus-live-dot"></span> Nominations Under Review</span>
-                    <span class="status-badge">💻 Technical Ops</span>
-                    <span class="status-badge">🎨 Design &amp; Media</span>
-                    <span class="status-badge">📋 Event Logistics</span>
-                    <span class="status-badge">🎙️ Anchors &amp; Emcees</span>
+                    <span class="status-badge">Technical Ops</span>
+                    <span class="status-badge">Design &amp; Media</span>
+                    <span class="status-badge">Event Logistics</span>
+                    <span class="status-badge">Anchors &amp; Emcees</span>
                 </div>
-
-                <p class="junior-status-footnote">
-                    ✦ Official roll of junior coordinators will be announced here soon. Stay tuned! ✦
-                </p>
             </div>
         </div>
     </section>
 
-    <!-- =========================================================
-         BACK TO TOP
-         ========================================================= -->
+    <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to Top">
         <svg class="progress-ring" width="48" height="48">
-            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)"
-                    stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
-            <circle class="progress-ring-circle" id="progressCircle"
-                    stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round"
-                    fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.1)" stroke-width="3" fill="transparent" r="21" cx="24" cy="24"/>
+            <circle class="progress-ring-circle" id="progressCircle" stroke="url(#circleGradient)" stroke-width="3" stroke-linecap="round" fill="transparent" r="21" cx="24" cy="24"/>
             <defs>
                 <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#00f2fe"/>
@@ -492,9 +346,7 @@
         <span class="arrow-up">↑</span>
     </button>
 
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -502,13 +354,12 @@
                     <h3>EC &amp; CCAC</h3>
                     <p>Extracurricular &amp; Co-Curricular Activities Committee<br>R.V.R. &amp; J.C. College of Engineering</p>
                 </div>
-
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="events.html">Flagship Events</a></li>
+                        <li><a href="events.html">Events</a></li>
                         <li><a href="sico.html">SICO Portal</a></li>
                         <li><a href="reports.html">Reports &amp; Archives</a></li>
                         <li><a href="team.html">Our Team</a></li>
@@ -516,7 +367,6 @@
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-section">
                     <h4>Connect</h4>
                     <div class="footer-social">
@@ -532,69 +382,53 @@
                         <a href="https://www.linkedin.com/school/r.v.r.-&amp;-j.c.-college-of-engineering/" class="footer-social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                         </a>
+                        <a href="https://www.youtube.com/c/RVRJCCollegeofEngineering" class="footer-social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        </a>
                     </div>
                 </div>
-
                 <div class="footer-section">
                     <h4>Campus Address</h4>
                     <p>Student Integrated Committee<br>R.V.R. &amp; J.C. College of Engineering<br>Chandramoulipuram, Chowdavaram<br>Guntur, Andhra Pradesh 522019</p>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2026 EC &amp; CCAC · R.V.R. &amp; J.C. College of Engineering. All rights reserved.
-                   <span class="footer-admin-sep">·</span>
-                   <a href="admin.html" class="footer-admin-link" title="Authorized Coordinator Studio">🔒 Coordinator Studio</a>
-                </p>
+                <p>&copy; 2026 EC &amp; CCAC &middot; R.V.R. &amp; J.C. College of Engineering. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- =========================================================
-         FLOATING CONTROLS
-         ========================================================= -->
+    <!-- Floating Controls -->
     <div class="hud-floating-controls">
-        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false"
-             aria-label="Toggle Light and Dark Mode" tabindex="0">
+        <div class="theme-roller-btn" id="themeRoller" role="switch" aria-checked="false" aria-label="Toggle Light and Dark Mode" tabindex="0">
             <span class="roller-slider"></span>
-            <span class="roller-opt roller-opt-dark active" data-theme-val="dark">
-                <span class="roller-icon">🌙</span>
-                <span class="roller-text">Dark</span>
-            </span>
-            <span class="roller-opt roller-opt-light" data-theme-val="light">
-                <span class="roller-icon">☀️</span>
-                <span class="roller-text">Light</span>
-            </span>
+            <span class="roller-opt roller-opt-dark active" data-theme-val="dark"><span class="roller-icon">🌙</span><span class="roller-text">Dark</span></span>
+            <span class="roller-opt roller-opt-light" data-theme-val="light"><span class="roller-icon">☀️</span><span class="roller-text">Light</span></span>
         </div>
-
         <button class="hud-ctrl-btn" id="hudCmdTrigger" aria-label="Open Campus Spotlight Search">
             <span>🔍 SEARCH SPOTLIGHT</span>
             <kbd class="hud-kbd-key">Ctrl + K</kbd>
         </button>
     </div>
 
-    <!-- =========================================================
-         SPOTLIGHT MODAL
-         ========================================================= -->
-    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true"
-         aria-label="Campus Spotlight Search">
+    <!-- Spotlight Modal -->
+    <div class="cmd-palette-overlay" id="cmdPaletteOverlay" role="dialog" aria-modal="true" aria-label="Campus Spotlight Search">
         <div class="cmd-palette">
             <div class="cmd-search-box">
                 <span class="cmd-search-icon">🔍</span>
-                <input type="text" class="cmd-input" id="cmdInput"
-                       placeholder="Search campus events, clubs, teams, quick actions..."
-                       autocomplete="off" spellcheck="false">
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Search campus events, clubs, teams, quick actions..." autocomplete="off" spellcheck="false">
                 <kbd class="hud-kbd-key">ESC</kbd>
             </div>
             <div class="cmd-results" id="cmdResults"></div>
             <div class="cmd-footer">
                 <span>Navigate: <kbd class="hud-kbd-key">↑</kbd> <kbd class="hud-kbd-key">↓</kbd></span>
                 <span>Select: <kbd class="hud-kbd-key">ENTER</kbd></span>
-                <span>EC &amp; CCAC · SICO Portal</span>
+                <span>EC &amp; CCAC &middot; SICO Portal</span>
             </div>
         </div>
     </div>
 
+    <div class="ultra-toast-stack" id="ultraToastStack" aria-live="polite"></div>
     <script src="script.js"></script>
 </body>
 </html>
