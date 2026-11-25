@@ -1909,6 +1909,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // -------------------------------------------------------------
+    // 9. QUICK CONTACT FORM → GOOGLE SHEET + EMAIL NOTIFICATION
+    // -------------------------------------------------------------
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZ5nROibF8yCeNuP2_RUcPkoVtF5au7TIHdWvxBNs55Qn552eNbozZyUEBhDrbsd0r/exec';
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn ? submitBtn.innerHTML : 'Send Message';
+            const name = (document.getElementById('name')?.value || '').trim();
+            const email = (document.getElementById('email')?.value || '').trim();
+            const phone = (document.getElementById('phone')?.value || '').trim();
+            const message = (document.getElementById('message')?.value || '').trim();
+            if (!name || !email || !phone || !message) return;
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Sending...</span>';
+            }
+
+            let noteEl = contactForm.querySelector('.contact-feedback-note');
+            if (!noteEl) {
+                noteEl = document.createElement('div');
+                noteEl.className = 'contact-feedback-note';
+                contactForm.appendChild(noteEl);
+            }
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone, message })
+                });
+
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<span>Message Sent! ✓</span>';
+                    submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                }
+                noteEl.style.cssText = 'margin-top:14px; padding:12px 14px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); border-radius:10px; color:#10b981; font-size:0.88rem; line-height:1.4;';
+                noteEl.innerHTML = `<strong>Thanks ${name}!</strong> Your inquiry has been logged and sent to our coordinators. We will reply to <em>${email}</em> and <em>${phone}</em>  soon.`;
+                contactForm.reset();
+            } catch (err) {
+                noteEl.style.cssText = 'margin-top:14px; padding:12px 14px; background:rgba(244,63,94,0.12); border:1px solid rgba(244,63,94,0.3); border-radius:10px; color:#f43f5e; font-size:0.88rem; line-height:1.4;';
+                noteEl.innerHTML = `Could not send right now. Please email us directly at <strong>ec.ccac@rvrjc.ac.in</strong>.`;
+            } finally {
+                setTimeout(() => {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '';
+                    }
+                }, 4000);
+            }
+        });
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initEventsEngine();
@@ -1931,6 +1990,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
+})();
+
+/* ============================================================
+   CINEMATIC COLORIDO 2026 INVITATION LETTER EXPERIENCE
+   ============================================================ */
+(function () {
+    "use strict";
+
+    const COLORIDO_URL = 'https://rvrjcce.ac.in/colorido2026/';
+    let overlay = null;
+
+    function buildColoridoLetter() {
+        if (overlay) return overlay;
+        overlay = document.createElement('div');
+        overlay.className = 'colorido-cinema-backdrop';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'COLORIDO 2026 Official Invitation');
+        overlay.innerHTML = `
+            <div class="colorido-stage">
+                <div class="colorido-envelope">
+                    <div class="colorido-flap"></div>
+                    <div class="colorido-wax-seal">C26</div>
+                    <div class="colorido-letter-card">
+                        <span class="colorido-letter-kicker">OFFICIAL INVITATION &middot; RVR&amp;JCCE</span>
+                        <h2 class="colorido-letter-title">COLORIDO 2026</h2>
+                        <p class="colorido-letter-sub">
+                            You are warmly invited to the premier national-level cultural, technical, and sports celebration of R.V.R. &amp; J.C. College of Engineering.
+                        </p>
+                        <div class="colorido-letter-date">28 &amp; 29 DECEMBER 2026 &middot; CHOWDAVARAM, GUNTUR</div>
+                        <div class="colorido-letter-actions">
+                            <a href="${COLORIDO_URL}" target="_blank" rel="noopener noreferrer" class="colorido-enter-btn" id="coloridoProceedBtn">
+                                <span>Enter COLORIDO 2026 Website</span>
+                                <i>↗</i>
+                            </a>
+                            <button type="button" class="colorido-close-btn" id="coloridoCloseBtn">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        const close = () => {
+            overlay.classList.remove('opened', 'active');
+            document.body.style.overflow = '';
+        };
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) close();
+        });
+        overlay.querySelector('#coloridoCloseBtn').addEventListener('click', close);
+        overlay.querySelector('#coloridoProceedBtn').addEventListener('click', () => {
+            setTimeout(close, 250);
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) close();
+        });
+
+        return overlay;
+    }
+
+    function openColoridoLetter(e) {
+        if (e) e.preventDefault();
+        const el = buildColoridoLetter();
+        el.classList.remove('opened');
+        el.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                el.classList.add('opened');
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const trigger = document.getElementById('coloridoExploreTrigger');
+        if (trigger) {
+            trigger.addEventListener('click', openColoridoLetter);
+        }
+    });
 })();
 
 /* ============================================================

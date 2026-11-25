@@ -661,6 +661,10 @@ html[data-theme="light"] #events .event-card-modern {
     ) !important;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
     -webkit-mask-composite: xor !important;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+    -webkit-mask-composite: xor !important;
+    mask-composite: exclude !important;
     mask-composite: exclude !important;
     opacity: 0 !important;
     pointer-events: none !important;
@@ -2100,9 +2104,11 @@ html[data-theme="light"] .team-directory .team-card {
     height: 104px !important;
     margin: 12px auto 16px !important;
     border-radius: 50% !important;
-    padding: 3px !important;
-    background: var(--u-grad) !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 1px solid var(--u-border) !important;
     overflow: hidden !important;
+    box-shadow: none !important;
 }
 
 .team-directory .team-photo-img,
@@ -2111,7 +2117,7 @@ html[data-theme="light"] .team-directory .team-card {
     height: 100% !important;
     border-radius: 50% !important;
     object-fit: cover !important;
-    border: 3px solid var(--u-bg-elevated) !important;
+    border: none !important;
 }
 
 .team-branch-pill {
@@ -2467,4 +2473,299 @@ html[data-theme="light"] .report-file-row {
     align-items: flex-start !important;
     justify-content: flex-start !important;
     gap: 5px !important;
+}
+
+/* ==========================================================================
+   11. CINEMATIC COLORIDO 2026 INVITATION LETTER OVERLAY (60FPS GPU)
+   ========================================================================== */
+.colorido-cinema-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9950;
+    background: radial-gradient(circle at center, rgba(24, 16, 32, 0.92) 0%, rgba(5, 6, 11, 0.98) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    perspective: 1600px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.colorido-cinema-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.colorido-stage {
+    position: relative;
+    width: min(520px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+/* 3D Envelope Shell */
+.colorido-envelope {
+    position: relative;
+    width: 100%;
+    min-height: 350px;
+    border-radius: 22px;
+    background: linear-gradient(155deg, #1b1724 0%, #0e0c14 100%);
+    border: 1px solid rgba(245, 158, 11, 0.38);
+    box-shadow: 0 36px 90px -20px rgba(0, 0, 0, 0.85), 0 0 60px rgba(245, 158, 11, 0.16);
+    transform: translateY(70px) scale(0.75) rotateX(24deg);
+    opacity: 0;
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.55s ease;
+    overflow: hidden;
+}
+
+.colorido-cinema-backdrop.active .colorido-envelope {
+    transform: translateY(0) scale(1) rotateX(0deg);
+    opacity: 1;
+}
+
+/* Top Envelope Flap that opens in 3D */
+.colorido-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, #272034 0%, #171320 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.45s, opacity 0.4s ease 0.95s;
+    z-index: 4;
+    border-top: 1px solid rgba(245, 158, 11, 0.45);
+}
+
+.colorido-cinema-backdrop.opened .colorido-flap {
+    transform: rotateX(-165deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Golden Wax Seal */
+.colorido-wax-seal {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fbbf24, #d97706 60%, #92400e 100%);
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 900;
+    font-size: 1.15rem;
+    color: #1c1104;
+    z-index: 5;
+    transition: transform 0.45s ease 0.35s, opacity 0.35s ease 0.4s;
+}
+
+.colorido-cinema-backdrop.opened .colorido-wax-seal {
+    transform: translateX(-50%) scale(1.45);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Rising Invitation Letter Card */
+.colorido-letter-card {
+    position: relative;
+    z-index: 2;
+    padding: 36px 32px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transform: translateY(42px);
+    opacity: 0;
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.65s, opacity 0.6s ease 0.65s;
+}
+
+.colorido-cinema-backdrop.opened .colorido-letter-card {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.colorido-letter-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fbbf24;
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.colorido-letter-title {
+    margin: 4px 0 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fffbeb 0%, #fbbf24 55%, #ff5e3a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.08;
+}
+
+.colorido-letter-sub {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    max-width: 400px;
+}
+
+.colorido-letter-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: #94a3b8;
+    letter-spacing: 0.06em;
+}
+
+.colorido-letter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.colorido-enter-btn {
+    padding: 13px 26px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f59e0b 0%, #f43f5e 60%, #8b5cf6 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 12px 30px -6px rgba(244, 63, 94, 0.55);
+    transition: transform 0.3s var(--u-spring), box-shadow 0.25s ease;
+}
+
+.colorido-enter-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 16px 36px -6px rgba(244, 63, 94, 0.72);
+}
+
+.colorido-close-btn {
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #cbd5e1;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.colorido-close-btn:hover {
+    border-color: #fbbf24;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   12. CONTACT FORM PADDING, GRID & THEME FIX
+   ========================================================================== */
+#contactForm,
+.contact-form {
+    padding: 28px !important;
+    border-radius: 22px !important;
+    background: var(--u-card-bg) !important;
+    border: 1px solid var(--u-border) !important;
+    box-shadow: inset 0 1px 0 var(--u-border-top), var(--u-shadow) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+#contactForm .form-row-two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+#contactForm .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+#contactForm label {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.86rem !important;
+    font-weight: 600 !important;
+    color: var(--u-text-sec) !important;
+    margin: 0 !important;
+}
+
+#contactForm input,
+#contactForm textarea {
+    width: 100% !important;
+    padding: 13px 16px !important;
+    border-radius: 13px !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid var(--u-border) !important;
+    color: var(--u-text) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 0.94rem !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+html[data-theme="light"] #contactForm input,
+html[data-theme="light"] #contactForm textarea {
+    background: rgba(15, 23, 42, 0.035) !important;
+    color: #0b0f19 !important;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+    border-color: var(--u-accent) !important;
+    box-shadow: 0 0 0 4px rgba(255, 94, 58, 0.14) !important;
+}
+
+#contactForm .contact-submit-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px 24px !important;
+    border-radius: 14px !important;
+    margin-top: 4px !important;
+}
+
+@media (max-width: 640px) {
+    #contactForm,
+    .contact-form {
+        padding: 20px !important;
+    }
+    #contactForm .form-row-two {
+        grid-template-columns: 1fr;
+    }
 }
